@@ -1,0 +1,543 @@
+﻿@page "/items"
+@using SatisfactoryProductionator.DataParser
+@using SatisfactoryProductionator.DataModels.Models
+@using SatisfactoryProductionator.DataModels.Enums
+@using System.Data
+@using System.Diagnostics
+@using SatisfactoryProductionator.DataManager
+@inject HttpClient Http
+
+<link rel="stylesheet" type="text/css" href="css/augmented-ui/augmented-ui.min.css" />
+
+<PageTitle>Items</PageTitle>
+
+<style type="text/css">
+
+    .info-page-bar {
+        width: 200px;
+        height: 30px;
+        display: flex;
+        justify-content: right;
+        position: absolute;
+        bottom: 10px;
+        right: 25px;
+    }
+
+    .info-page-bar-pages {
+        width: 150px;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+    }
+
+    .info-page-bar-nav {
+        width: 60px;
+        display: flex;
+        float: right;
+    }
+
+    .info-page-light{
+        height: 15px;
+        width: 15px;
+        margin: 2px;
+    }
+
+    .info-page-light-on {
+        background: var(--myblue);
+        transform: scale(1.15);
+    }
+    
+    .info-page-light-off {
+        background: var(--myblue50);
+    }
+
+    .info-page-button {
+        height: 30px;
+        width: 20px;
+        background: unset;
+    }
+
+    .page-oi {
+        color: var(--myblue50);
+        position: relative;
+        top: -10px;
+        font-family: Icons;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 30px;
+    }
+
+    .page-oi:hover {
+        color: var(--myblue75);
+    }
+
+    .page-oi:active {
+        color: var(--myblue);
+    }
+
+</style>
+
+@if (DataAggregator.Items.Count == 0)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div data-augmented-ui-reset class="aug-quicknav">
+        <div data-augmented-ui="tl-clip br-clip bl-clip border" class="aug-quicknav-inner">
+            <div data-augmented-ui-reset>
+                <div data-augmented-ui="tl-clip br-clip border" class="aug-quicknav-title">
+                    <div class="aug-quicknav-titleQ">Q</div>
+                    <div class="aug-quicknav-titleNav">Nav</div>
+                </div>
+                <ul class="aug-quicknav-list">
+                    @foreach (var group in GroupItems())
+                    {
+                        <li class="aug-quicknav-listitem">
+                            <button type="button" class="aug-quicknav-button" onclick="document.getElementById('@group.Key').scrollIntoView({behavior:'smooth'})">
+                                <div class="aug-quicknav-button-text">@FormatName(group.Key.ToString()!)</div>
+                            </button>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div data-augmented-ui-reset class="augpanel-content">
+        @foreach (var group in GroupItems())
+        {
+            <div data-augmented-ui="tl-clip tr-2-clip-x br-clip bl-clip border" class="aug-category-main">
+                <div id=@group.Key class="aug-category-header">@FormatName(group.Key.ToString()!)</div>
+
+                <table class="table aug-table">
+                    <tbody>
+
+                        @foreach (var item in @group)
+                        {
+                            <tr style="flex-wrap: wrap; display: inline-flex">
+                                <td style="border-style: hidden">
+                                    <button class="item-button" type="button" @onclick="@(()=>AddItemRecipe(@item.DisplayName!))">
+                                        <div data-augmented-ui="tl-clip tr-2-clip-y br-clip bl-2-clip-x border" class="aug-item">
+                                            <img src=@GetIconLocation(item.DisplayName!) alt=@item.DisplayName />
+                                            <div class="aug-item-name">@FormatDisplayName(item.DisplayName!)</div>
+
+                                        </div>
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+        }
+    </div>
+
+    <div data-augmented-ui-reset class=@CssIsInfoPanelActive()>
+        <div data-augmented-ui="tl-2-clip-y tr-2-clip-x br-2-clip-y bl-2-clip-x border" class="aug-info-panel">
+            <div data-augmented-ui>
+                @if (_currentItem == null)
+                {
+                    <p style="padding-left:110px; padding-top:50px; font-size:3rem;"> No Items Selected</p>
+                }
+                else
+                {
+                    <div data-augmented-ui="tl-2-clip-y tr-2-clip-x br-clip b-clip-x bl-clip border" class="item-info-top">
+
+                        <div data-augmented-ui-reset class="item-info-header">
+                            <div class="info-item-name">@FormatDisplayName(_currentItem.DisplayName!)</div>
+
+                            <div class="item-button-group">
+                                <button type="button" class="trash-button">
+                                    <div data-augmented-ui="all-hex border" class="item-nav-button" @onclick=@ClearItemInfo>
+                                        <span class="aug-oi-close oi-trash" aria-hidden="true"></span>
+                                    </div>
+                                </button>
+
+                                <button type="button" disabled=@IsBackInactive class="clear-button">
+                                    <div data-augmented-ui="all-hexangle-left border" class="item-nav-button" @onclick=@DisplayBackItem></div>
+                                </button>
+
+                                <button type="button" disabled=@IsFrontInactive class="clear-button">
+                                    <div data-augmented-ui="all-hexangle-right border" class="item-nav-button" @onclick=@DisplayFrontItem></div>
+                                </button>
+
+                                <button type="button" class="close-button">
+                                    <div data-augmented-ui="all-hex border" class="item-nav-button" @onclick=@CloseItemInfo>
+                                        <span class="aug-oi-close oi-x" aria-hidden="true"></span>
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="item-info-data">
+                            <img class="item-info-image" src=@GetIconLocation(_currentItem.DisplayName!) alt=@_currentItem.DisplayName />
+                            <div class="info-item-info">
+                                <p>@_currentItem.Description</p>
+                                @if (_currentItem.FormType == FormType.Solid)
+                                {
+                                    <p>Stack.Size :: @_currentItem.StackSize</p>
+                                }
+                                @if (@_currentItem.EnergyValue > 0)
+                                {
+                                    <p>MJ.Rating :: @_currentItem.EnergyValue</p>
+                                }
+                                @if (@_currentItem.ResourceSinkPoints > 0)
+                                {
+                                    <p>Resource.Sink.Points :: @_currentItem.ResourceSinkPoints</p>
+                                }
+                                else
+                                {
+                                    <p>Caution :: Cannot Sink!</p>
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                    <div data-augmented-ui-reset class="item-info-bottom">
+                        <div data-augmented-ui="tl-clip tr-clip br-clip bl-2-clip-x border" class="item-info-recipe">
+                            @if (_currentRecipePage == null)
+                            {
+                                <p class="no-recipe-message">No Recipes </p>
+                            }
+                            else
+                            {
+                                <table class="item-info-recipe-table">
+                                    @for (var i = 0; i < GetPageLoops(); i++)
+                                    {
+                                        @if (i == 1)
+                                        {
+                                            AdjustMainPage(1);
+                                        }
+                                        <tr>
+                                            <td colspan="4" class="item-info-recipe-header">@_currentRecipePage!.PageType</td>
+                                        </tr>
+                                        @foreach (var recipe in _currentRecipePage.Recipes!)
+                                        {
+                                            <tr>
+                                                <td class="item-info-recipe-name">@FormatDisplayName(recipe.DisplayName!)</td>
+                                                <td>
+                                                    <table>
+                                                        <tr>
+                                                            @foreach (var item in recipe.Inputs!)
+                                                            {
+                                                                <td>
+                                                                    <button class="item-button item-info-item-button" type="button" @onclick="@(() => AddItemRecipe(@item.Key!))">
+                                                                        <img class="item-info-recipe-img" src=@GetIconLocation(item.Key) alt=@item.Key />
+                                                                        <div class="item-info-recipe-quantity">@Math.Round(item.Value[1], 2)/min</div>
+                                                                    </button>
+                                                                </td>
+                                                            }
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                                <td> >>> </td>
+                                                <td>
+                                                    <table>
+                                                        <tr>
+                                                            @foreach (var item in recipe.Outputs!)
+                                                            {
+                                                                <td>
+                                                                    <button class="item-button item-info-item-button" type="button" @onclick="@(() => AddItemRecipe(@item.Key!))">
+                                                                        <img class="item-info-recipe-img" src=@GetIconLocation(item.Key) alt=@item.Key />
+                                                                        <div class="item-info-recipe-quantity">@Math.Round(item.Value[1], 2)/min</div>
+                                                                    </button>
+                                                                </td>
+                                                            }
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        }
+                                        @if (i == 1)
+                                        {
+                                            AdjustMainPage(-1);
+                                        }
+                                    }
+                                </table>
+                                <div data-augmented-ui-reset class="info-page-bar">
+                                    <div class="info-page-bar-pages">
+                                        @for (var i = 0; i < GetPageCount(); i++)
+                                        {
+                                            <div class=@ParseCssPageLight(i)></div>
+                                        }
+                                    </div>
+                                    <div class="info-page-bar-nav">
+                                        <button type="button" class="info-page-button" @onclick=@InfoPageLeft>
+                                            <span class="page-oi oi-caret-left" aria-hidden="true"></span>
+                                        </button>
+                                        <button type="button" class="info-page-button" @onclick=@InfoPageRight>
+                                            <span class="page-oi oi-caret-right" aria-hidden="true"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+
+                        <div data-augmented-ui="tl-clip tr-clip br-2-clip-y bl-clip border" class="item-info-options">
+                            <div style="padding:20px; margin:10px;font-size:1.2rem;color: red;">
+                                <p> UNDER CONSTRUCTION</p>
+                                <p>Needs Grapher, Permutator, and Recipe Pages completed</p>
+                                <p>Grapher - Options to set amount of current item and navigate to Grapher</p>
+                                <p>Grapher - Options to set amount and add to desired outputs to Grapher (No navigating to page - sort of like a shopping cart)</p>
+                                <p>Permutator - Set amount and generate all permutations on permutator page</p>
+                                <p>Recipes - Link to current item on Recipe page if more details are needed (Current item display has minimal information)</p>
+
+                            </div>
+                        </div>
+
+                    </div>
+                }
+            </div>
+
+        </div>
+    </div>
+
+
+}
+
+@code {
+    private static Item? _currentItem;
+    private static ItemRecipes? _currentRecipes;
+    private static RecipePage? _currentRecipePage;
+
+    private static Stack<Item>? _backStack;
+    private static Stack<Item>? _frontStack;
+
+    private static Dictionary<string, ItemRecipes>? _recipes;
+
+    private static bool IsInfoPanelActive;
+
+    private static bool IsBackInactive => _backStack?.Count == 0;
+    private static bool IsFrontInactive => _frontStack?.Count == 0;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (!DataAggregator.IsInitialized)
+        {
+            var docModel = await Http.GetFromJsonAsync<List<DocModel>>(Constants.JSON_FILEPATH);
+
+            DataAggregator.InitializeModels(docModel!);
+        }
+        _backStack ??= new Stack<Item>();
+        _frontStack ??= new Stack<Item>();
+        _recipes ??= new Dictionary<string, ItemRecipes>();
+
+    }
+
+    private static void AddItemRecipe(string name)
+    {
+        if (_currentItem != null && _currentItem.DisplayName == name)
+        {
+            IsInfoPanelActive = true;
+            return;
+        }
+
+        if (_currentItem != null)
+        {
+            _backStack?.Push(_currentItem);
+        }
+
+        _frontStack?.Clear();
+
+        if (_recipes == null || !_recipes!.ContainsKey(name))
+            _recipes![name] = ItemRecipesGenerator.GetItemRecipes(name)!;
+
+        _currentRecipes = _recipes[name];
+        _currentRecipePage = (_currentRecipes.Pages!.Count > 0)?_currentRecipes.Pages?[_currentRecipes.PageIndex]:null;
+
+        _currentItem = DataAggregator.Items.Find(x => x.DisplayName == name)!;
+        IsInfoPanelActive = true;
+    }
+
+    private static void DisplayBackItem()
+    {
+        if (IsBackInactive) return;
+
+        _frontStack?.Push(_currentItem!);
+        _currentItem = _backStack?.Pop();
+        _currentRecipes = _recipes?[_currentItem!.DisplayName!];
+        SetRecipePage(_currentRecipes!.PageIndex);
+    }
+
+    private static void DisplayFrontItem()
+    {
+        if (IsFrontInactive) return;
+
+        _backStack?.Push(_currentItem!);
+        _currentItem = _frontStack?.Pop();
+        _currentRecipes = _recipes?[_currentItem!.DisplayName!];
+        SetRecipePage(_currentRecipes!.PageIndex);
+    }
+
+    private static void CloseItemInfo() => IsInfoPanelActive = false;
+
+    private static void ClearItemInfo()
+    {
+        IsInfoPanelActive = false;
+        _currentItem = null;
+        _currentRecipes = null;
+        _recipes?.Clear();
+        _backStack = new Stack<Item>();
+        _frontStack = new Stack<Item>();
+
+    }
+
+    private static bool IsMainPage() => _currentRecipePage!.PageType is PageType.Basics or PageType.Alternates;
+
+    private static int GetPageLoops()
+    {
+        if (!IsMainPage()) return 1;
+
+        return _currentRecipes!.HasDoubleMainPage ? 2 : 1;
+    }
+
+    private static void AdjustMainPage(int bump)
+    {
+        _currentRecipes!.PageIndex += bump;
+        _currentRecipePage = _currentRecipes.Pages?[_currentRecipes.PageIndex];
+
+    }
+
+
+    private static string CssIsInfoPanelActive() => IsInfoPanelActive ? "item-info-panel" : "item-info-panel-off";
+
+    private static IEnumerable<IGrouping<ItemType?, Item>> GroupItems() => DataAggregator.Items.OrderBy(x => x.Category).ThenBy(x => x.DisplayName).GroupBy(x => x.Category);
+
+    private static string GetIconLocation(string name) => $"icons/{name.Replace(" ", "").Replace("-", "").Replace(".", "")}_256.png";
+
+    private static string FormatName(string name)
+    {
+        for (int i = name.Length - 1; i > 0; i--)
+        {
+            if (char.IsUpper(name[i]))
+            {
+                name = name.Insert(i, ".");
+            }
+        }
+        return name;
+    }
+
+    private static string FormatDisplayName(string name)
+    {
+        name = name.Replace(Constants.ALTERNATE_PREFIX, "");
+        return name.Replace(" - ", "-").Replace(" ", ".");
+    }
+
+    private static int GetPageCount()
+    {
+        var count = _currentRecipes!.Pages!.Count;
+
+        return _currentRecipes.HasDoubleMainPage ? --count : count;
+    }
+
+    private static string ParseCssPageLight(int i) => _currentRecipes!.PageIndex == i ? "info-page-light info-page-light-on" : "info-page-light info-page-light-off";
+
+    private static void InfoPageLeft()
+    {
+        var pageCount = GetPageCount();
+        var index = _currentRecipes!.PageIndex;
+        index--;
+
+        if (index < 0) 
+            index = pageCount - 1;
+
+        Debug.WriteLine($"PageCount - {pageCount}");
+        SetRecipePage(index);
+    }
+
+    private static void InfoPageRight()
+    {
+        var pageCount = GetPageCount();
+        var index = _currentRecipes!.PageIndex;
+        index++;
+
+        if (index > pageCount - 1) 
+            index = 0;
+
+        Debug.WriteLine($"PageCount - {pageCount}");
+        SetRecipePage(index);
+    }
+
+    private static void SetRecipePage(int index)
+    {
+        Debug.WriteLine($"index - {index}");
+        if(index == 0)
+            _currentRecipePage = _currentRecipes!.Pages?[0];
+        else if(_currentRecipes!.HasDoubleMainPage)
+            _currentRecipePage = _currentRecipes!.Pages?[index + 1];
+        else
+            _currentRecipePage = _currentRecipes!.Pages?[index];
+
+        _currentRecipes!.PageIndex = index;
+    }
+
+    //private static string FormatAlternateName(string name) => FormatDisplayName(name.Replace(Constants.ALTERNATE_PREFIX, ""));
+
+    //private static void DisplayItem(string name)
+    //{
+    //    if (_selectedItem != null && _selectedItem.DisplayName == name)
+    //    {
+    //        IsInfoPanelActive = true;
+    //        return;
+    //    }
+
+    //    if (_selectedItem != null)
+    //    {
+    //        _backStack.Push(_selectedItem);
+    //    }
+
+    //    if (_frontStack != null)
+    //    {
+    //        _frontStack.Clear();
+    //    }
+
+    //    _selectedItem = DataAggregator.Items.Find(x => x.DisplayName == name)!;
+    //    SetRecipe();
+    //    IsInfoPanelActive = true;
+    //}
+
+    //private static void DisplayBackItem()
+    //{
+    //    if (IsBackInactive) return;
+
+    //    _frontStack.Push(_selectedItem!);
+    //    _selectedItem = _backStack.Pop();
+    //    SetRecipe();
+    //}
+
+    //private static void DisplayFrontItem()
+    //{
+    //    if (IsFrontInactive) return;
+
+    //    _backStack.Push(_selectedItem!);
+    //    _selectedItem = _frontStack.Pop();
+    //    SetRecipe();
+    //}
+
+    //private static void CloseItemInfo() => IsInfoPanelActive = false;
+
+    //private static void ClearItemInfo()
+    //{
+    //    IsInfoPanelActive = false;
+    //    _selectedItem = null;
+    //    _backStack = new Stack<Item>();
+    //    _frontStack = new Stack<Item>();
+    //}
+
+    //private static void SetRecipe() => _recipes = DataAggregator.Recipes.Where(x => x.Outputs?.First().Key.ToString() == _selectedItem?.DisplayName).ToList();
+
+    
+    //private static bool HasBasicRecipes() => HasMainPage() && _currentRecipes!.Pages[0].Recipes.Any(x => !x.DisplayName.StartsWith(Constants.ALTERNATE_PREFIX));
+    //private static bool HasBasicRecipes() =>
+
+    //private static bool HasAlternateRecipes() => HasMainPage() && _currentRecipes!.Pages[0].Recipes.Any(x => x.DisplayName.StartsWith(Constants.ALTERNATE_PREFIX));
+
+    // private static List<Recipe> GetBasicRecipes() => _currentRecipes!.Pages[0].Recipes.Where(x => !x.DisplayName.StartsWith(Constants.ALTERNATE_PREFIX)).ToList();
+
+    //private static List<Recipe> GetAlternateRecipes() => _currentRecipes!.Pages[0].Recipes.Where(x => x.DisplayName.StartsWith(Constants.ALTERNATE_PREFIX)).ToList();
+
+
+    
+}

@@ -1,0 +1,183 @@
+.aug-navbar-column {
+    display: flex;
+    flex-direction: column;
+    padding-left: 20px;
+}
+
+/*.navbar-toggler {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.top-row {
+    height: 3.5rem;
+    background-color: rgba(0,0,0,0.4);
+}*/
+
+/*.navbar-brand {
+    font-size: 1.1rem;
+}*/
+
+.aug-navbar-brand {
+    font-size: 1.3rem;
+    /* margin: 0px; */
+    /* padding: 3px; */
+    display: flex;
+    justify-content: center;
+    /* border: 2px solid blue; */
+    position: relative;
+    top: -10px;
+    font-family: Tomorrow;
+    text-transform: capitalize;
+    font-variant: small-caps;
+    color: var(--myblue);
+    margin-left: -5px;
+}
+}
+
+.oi {
+    width: 2rem;
+    font-size: 1.1rem;
+    vertical-align: text-top;
+    top: -2px;
+}
+
+.aug-navlink {
+    display: block;
+    padding: 0.5rem 1rem;
+    color: #0d6efd;
+    text-decoration: none;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out;
+}
+
+.aug-oi {
+    position: relative;
+    top: -2px;
+   /* display: inline-block;
+    speak: none;*/
+    font-family: Icons;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    color: var(--myblue);
+    /*scale: 1.5;*/
+    vertical-align: text-top;
+    font-size: 1.6rem;
+    width: 2.5rem;
+}
+
+.aug-navbar-item {
+    padding-left: 1rem !important;
+    font-size: 0.9rem;
+    padding-bottom: 0px;
+    --aug-tr: 18px;
+    --aug-tl: 10px;
+    --aug-bl: 6px;
+    /*--aug-br: 10px;*/
+    --aug-border-all: 1px;
+    --aug-border-bg: var(--myblue);
+    margin-bottom: 5px;
+    text-decoration:none;
+}
+
+    .aug-navbar-item ::deep a {
+        /*color: var(--myblue);*/
+        border-radius: 4px;
+        height: 3rem;
+        display: flex;
+        align-items: center;
+        line-height: 3rem;
+        padding-left: 8px;
+        position: relative;
+        left: -15px;
+        text-decoration-line: none;
+        font-size: 1.25rem;
+
+    }
+
+        .aug-navbar-item ::deep a.active {
+            background-color: var(--myhighlightblue);
+            color: var(--myhoverblue);
+            --aug-border-all: 3px;
+        }
+
+    .aug-navbar-item:hover {
+       /* background-color: rgba(255,255,255,0.1);
+        color: white;*/
+        --aug-border-all:2px;
+        transition:.25s;
+
+    }
+
+    .aug-navbar-item:active {
+        --aug-border-all:3px;
+        transition: .25s;
+    }
+
+    .aug-navbar-item ::deep a:hover {
+        background-color: rgba(255,255,255,0.1);
+        color: var(--myhoverblue);
+        
+    }
+
+.nav-item {
+    font-size: 0.9rem;
+    padding-bottom: 0.5rem;
+}
+
+    /*.nav-item:first-of-type {
+        padding-top: 1rem;
+    }
+
+    .nav-item:last-of-type {
+        padding-bottom: 1rem;
+    }*/
+
+    .nav-item ::deep a {
+        color: #d7d7d7;
+        border-radius: 4px;
+        height: 3rem;
+        display: flex;
+        align-items: center;
+        line-height: 3rem;
+    }
+
+.nav-item ::deep a.active {
+    background-color: rgba(255,255,255,0.25);
+    color: white;
+}
+
+.nav-item ::deep a:hover {
+    background-color: rgba(255,255,255,0.1);
+    color: white;
+}
+
+/*@media (min-width: 641px) {
+    .navbar-toggler {
+        display: none;
+    }
+
+    .collapse {*/
+        /* Never collapse the sidebar for wide screens */
+        /*display: block;
+    }
+}*/
+
+div.aug-navbar {
+    margin-left: 20px;
+    position: relative;
+    font-family: Tomorrow;
+    text-transform: capitalize;
+    font-variant: small-caps;
+    color: var(--myblue);
+    --aug-tr: 25px;
+    --aug-tl: 10px;
+    --aug-border-bg: linear-gradient(225deg, #969696 0%, #626262 7%, #ababab 10%, #ababab 20%, #626262 25%, #626262 29%, #ababab 32%, #626262 34%, #ababab 40%, #626262 44%, #626262 50%, #969696 55%, #969696 65%, #626262 70%, #626262 70%, #626262 75%, #969696 80%, #969696 90%, #626262 95%, #626262 95%);
+    --aug-border-all: 10px;
+    --aug-inlay-all: 0px;
+    --aug-inlay-opacity: 100;
+    --aug-inlay-bg: black;
+    margin-top: 18px;
+    padding-bottom: 138px;
+}
+

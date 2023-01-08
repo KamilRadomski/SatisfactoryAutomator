@@ -1,0 +1,130 @@
+﻿@page "/"
+@using SatisfactoryProductionator.DataModels.Models
+@using SatisfactoryProductionator.DataParser
+@inject HttpClient Http
+<PageTitle>Index</PageTitle>
+
+<style type="text/css">
+    .index-format{
+        padding-left:15px;
+        padding-top:10px;
+    }
+
+    .done{
+        text-decoration:line-through
+    }
+</style>
+
+<div class="augpanel-content">
+    <div class="index-format">
+        <h2>MVP Items Left</h2>
+        <ul>
+            <li>Cytoscape.js implemented for graph</li>
+            <li>Item Page converted to Codex that houses items, recipes, buildings</li>
+            <li>graph library built that handles needs for Grapher and Permutator page</li>
+            <li>permutations for comparison for choosing graph paths (Single recipe routes only, all permutations with multiple Recipes for same item seems needless)</li>
+            <li>Settings page that will hold preferred Recipes to use in Grapher</li>
+        </ul>
+
+        <h2>Wishlist</h2>
+        <ul>
+            <li>Cookies to store preferred Recipes</li>
+            <li>option to save/export production lines</li>
+            <li>Predefined production lines if saving production lines gets implemented</li>
+            <li><ul>
+                <li>Starter factory setups (will be small versions to give someone new an idea of how to lay productions lines out)</li>
+                <li>Starter base that lays out lines for things needed for all lower tiers</li>
+                <li>Oil setup </li>
+                <li>Aluminum setup</li>
+                <li>Nuclear</li>
+                <li>Other types of setups that can be generated and updated to the default setups in page easily</li>
+                <li>All predefined will not be able to be overwritten but user can save an altered production line if a template gets tweaked to meet needs</li>
+            </ul></li>
+            <li>Save scroll position between page navigations</li>
+            <li>KILL THE SCOPE CREEP FAIRY!!!!!</li>
+        </ul>
+        
+        <h2>Next Up</h2>
+        <ul>
+            <li>Break apart Item Page into components</li>
+            <li><ul>
+                <li>Quick Nav (Component Parameter) - can reuse for Recipe and Building Page</li>
+                <li>Info Panel (Component Parameter) - can reuse for any modal</li>
+                <li>Info Panel Header (Cascading Parameter) - can reuse in Recipe Page</li>
+            </ul></li>
+            <li>Make Info Panel more statically sized</li>
+            <li><ul>
+                <li class="done">Resize to desired look</li>
+                <li>Control responsiveness through media queries</li>
+                <li>??When screen too small either make info panel set in static spot with full screen scroll bars enabled or shrink with message to tell user to up size</li>
+            </ul></li>
+        </ul>
+
+        <h2>General</h2>
+        <ul>
+            <li>Fix initialization issue when refreshing page not on home</li>
+            <li>Handle resizing issues</li>
+            <li>
+                <ul><li>Lock popups to minimum size and add scroll bars</li>
+                    <li>Swap some CSS to more responsiveness to resizing</li>
+                    <li>Once a certain minimum size is met that makes site unusable - display off with message saying to make bigger??</li>
+                </ul></li>
+            <li>Move QuickNav from Items Page into reusable component - will be used in Recipes and Buildings page</li>
+        </ul>
+
+        <h2>To Answer</h2>
+        <ul>
+            <li>Should I add subCategories to Items for sorting (Ammos => Rebar, Ammo, Nobelisk -- Currently all thrown in alpha-sorted)</li>
+            <li>Should Items have multiple categories (Fuels that are liquid belong in Fuels and Liquids -- Nuclear Fuels belong in Nuclear and Fuels)</li>
+            <li>Should I remove oil.products category and move the 4 items into different category (Polyresin and petro coke to minerals, plastic and rubber to standard parts)</li>
+        </ul>
+
+        <h2>Components to Build</h2>
+        <ul>
+            <li class="done">Data Parser to consume docs.json file</li>
+            <li class="done">Items Page</li>
+            <li>Quick Nav(Items, Recipes, Buildings)</li>
+            <li>Item Info Panel</li>
+            <li>Settings Page</li>
+            <li>Settings library</li>
+            <li>Grapher Page</li>
+            <li>Permutator Page</li>
+            <li>Graphing Library(Grapher, Permutator) Maybe split into two libraries??</li>
+            <li>Data Formatter(Formatting Display Names, etc.)</li>
+            <li>State Containers</li>
+            <li><ul>
+                <li>Settings</li>
+                <li>Graphing</li>
+                <li>Permutating</li>
+            </ul></li>
+        </ul>
+
+        <h2>Todo</h2>
+        <h4>Items Page</h4>
+        <ul>
+            <li>Make Q Nav title bar less janky (maybe add info panel button in there)</li>
+            <li>Add button to bring up item info panel if you do not want to add another item</li>
+            <li>condense CSS classes</li>
+            <li>Move reusable methods into DataFormater Class that handle formatting names</li>
+            <li>Move items augmented ui css classes out of items page css isolation for use in other pages</li>
+            <li>Fix nav buttons being jittery during enabling/disabling</li>
+            <li>Fix resizing jankiness on item info panel</li>
+            <li>Verify that all basic and alt Recipes are coming through on items page</li>
+            <li>Preferred recipe option from item info panel</li>
+        </ul>
+    </div>
+</div>
+
+@code
+{
+    protected override async Task OnInitializedAsync()
+    {
+        //TODO Move this into DataParser - Had issues with it in there - this is a temp workaround
+        if (!DataAggregator.IsInitialized)
+        {
+            var docModel = await Http.GetFromJsonAsync<List<DocModel>>(Constants.JSON_FILEPATH);
+
+            DataAggregator.InitializeModels(docModel!);
+        }
+    }
+}
