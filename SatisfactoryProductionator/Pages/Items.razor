@@ -216,18 +216,13 @@ else
                                 <p>Grapher - Options to set amount and add to desired outputs to Grapher (No navigating to page - sort of like a shopping cart)</p>
                                 <p>Permutator - Set amount and generate all permutations on permutator page</p>
                                 <p>Recipes - Link to current item on Recipe page if more details are needed (Current item display has minimal information)</p>
-
                             </div>
                         </div>
-
                     </div>
                 }
             </div>
-
         </div>
     </div>
-
-
 }
 
 @code {
@@ -405,72 +400,4 @@ else
 
         _currentRecipes!.PageIndex = index;
     }
-
-    //private static string FormatAlternateName(string name) => FormatDisplayName(name.Replace(Constants.ALTERNATE_PREFIX, ""));
-
-    //private static void DisplayItem(string name)
-    //{
-    //    if (_selectedItem != null && _selectedItem.DisplayName == name)
-    //    {
-    //        IsInfoPanelActive = true;
-    //        return;
-    //    }
-
-    //    if (_selectedItem != null)
-    //    {
-    //        _backStack.Push(_selectedItem);
-    //    }
-
-    //    if (_frontStack != null)
-    //    {
-    //        _frontStack.Clear();
-    //    }
-
-    //    _selectedItem = DataAggregator.Items.Find(x => x.DisplayName == name)!;
-    //    SetRecipe();
-    //    IsInfoPanelActive = true;
-    //}
-
-    //private static void DisplayBackItem()
-    //{
-    //    if (IsBackInactive) return;
-
-    //    _frontStack.Push(_selectedItem!);
-    //    _selectedItem = _backStack.Pop();
-    //    SetRecipe();
-    //}
-
-    //private static void DisplayFrontItem()
-    //{
-    //    if (IsFrontInactive) return;
-
-    //    _backStack.Push(_selectedItem!);
-    //    _selectedItem = _frontStack.Pop();
-    //    SetRecipe();
-    //}
-
-    //private static void CloseItemInfo() => IsInfoPanelActive = false;
-
-    //private static void ClearItemInfo()
-    //{
-    //    IsInfoPanelActive = false;
-    //    _selectedItem = null;
-    //    _backStack = new Stack<Item>();
-    //    _frontStack = new Stack<Item>();
-    //}
-
-    //private static void SetRecipe() => _recipes = DataAggregator.Recipes.Where(x => x.Outputs?.First().Key.ToString() == _selectedItem?.DisplayName).ToList();
-
-    
-    //private static bool HasBasicRecipes() => HasMainPage() && _currentRecipes!.Pages[0].Recipes.Any(x => !x.DisplayName.StartsWith(Constants.ALTERNATE_PREFIX));
-    //private static bool HasBasicRecipes() =>
-
-    //private static bool HasAlternateRecipes() => HasMainPage() && _currentRecipes!.Pages[0].Recipes.Any(x => x.DisplayName.StartsWith(Constants.ALTERNATE_PREFIX));
-
-    // private static List<Recipe> GetBasicRecipes() => _currentRecipes!.Pages[0].Recipes.Where(x => !x.DisplayName.StartsWith(Constants.ALTERNATE_PREFIX)).ToList();
-
-    //private static List<Recipe> GetAlternateRecipes() => _currentRecipes!.Pages[0].Recipes.Where(x => x.DisplayName.StartsWith(Constants.ALTERNATE_PREFIX)).ToList();
-
-
-    
 }
