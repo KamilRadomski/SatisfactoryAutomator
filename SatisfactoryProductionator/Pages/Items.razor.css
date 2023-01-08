@@ -496,3 +496,64 @@ div.item-info-options {
 	top: 27px;
 }
 
+.info-page-bar {
+	width: 200px;
+	height: 30px;
+	display: flex;
+	justify-content: right;
+	position: absolute;
+	bottom: 10px;
+	right: 25px;
+}
+
+.info-page-bar-pages {
+	width: 150px;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+}
+
+.info-page-bar-nav {
+	width: 60px;
+	display: flex;
+	float: right;
+}
+
+.info-page-light {
+	height: 15px;
+	width: 15px;
+	margin: 2px;
+}
+
+.info-page-light-on {
+	background: var(--myblue);
+	transform: scale(1.15);
+}
+
+.info-page-light-off {
+	background: var(--myblue50);
+}
+
+.info-page-button {
+	height: 30px;
+	width: 20px;
+	background: unset;
+}
+
+.page-oi {
+	color: var(--myblue50);
+	position: relative;
+	top: -10px;
+	font-family: Icons;
+	font-style: normal;
+	font-weight: 400;
+	font-size: 30px;
+}
+
+.page-oi:hover {
+	color: var(--myblue75);
+}
+
+.page-oi:active {
+	color: var(--myblue);
+}
