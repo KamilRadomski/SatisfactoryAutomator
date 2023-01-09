@@ -1,17 +1,8 @@
 ﻿<link rel="stylesheet" type="text/css" href="../wwwroot/css/augmented-ui/augmented-ui.min.css" />
 
 <div data-augmented-ui="tl-clip tr-clip both" class="aug-navbar">>
-    @*<div class="top-row ps-3 navbar navbar-dark">*@
-        @*<div class="container-fluid">*@
-            <a class="aug-navbar-brand" href="">Satisfactory Automator</a>
-           @* <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
-                <span class="navbar-toggler-icon"></span>
-            </button>*@
-        @*</div>*@
-    @*</div>*@
-
-    @*<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">*@
-        <nav data-augmented-ui-reset class="aug-navbar-column">
+    <a class="aug-navbar-brand" href="">Satisfactory Automator</a>
+    <nav data-augmented-ui-reset class="aug-navbar-column">
             <div data-augmented-ui="tl-clip tr-2-clip-x br-clip bl-2-clip-x border" class="aug-navbar-item">
                 <NavLink class="aug-navlink" href="" Match="NavLinkMatch.All">
                     <span class="aug-oi oi-home" aria-hidden="true"></span> Home
@@ -28,16 +19,11 @@
                 </NavLink>
             </div>
             <div data-augmented-ui="tl-clip tr-2-clip-x br-clip bl-2-clip-x border" class="aug-navbar-item">
-                <NavLink class="aug-navlink" href="items">
-                    <span class="aug-oi oi-italic" aria-hidden="true"></span> Items
+                <NavLink class="aug-navlink" href="codex">
+                    <span class="aug-oi oi-aperture" aria-hidden="true"></span> Codex
                 </NavLink>
             </div>
-            <div data-augmented-ui="tl-clip tr-2-clip-x br-clip bl-2-clip-x border" class="aug-navbar-item">
-                <NavLink class="aug-navlink" href="Recipes">
-                    <span class="aug-oi oi-beaker" aria-hidden="true"></span> Recipes
-                </NavLink>
-            </div>
-            <div data-augmented-ui="tl-clip tr-2-clip-x br-clip bl-2-clip-x border" class="aug-navbar-item">
+        <div data-augmented-ui="tl-clip tr-2-clip-x br-clip bl-2-clip-x border" class="aug-navbar-item">
                 <NavLink class="aug-navlink" href="buildings">
                     <span class="aug-oi oi-calendar" aria-hidden="true"></span> Buildings
                 </NavLink>
@@ -49,14 +35,3 @@
             </div>
         </nav>
     </div>
-@*</div>*@
-@code {
-    private bool collapseNavMenu = true;
-
-    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
-
-    private void ToggleNavMenu()
-    {
-        collapseNavMenu = !collapseNavMenu;
-    }
-}

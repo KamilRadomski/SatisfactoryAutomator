@@ -508,3 +508,49 @@ div.info-panel-options {
 	top: 27px;
 }
 /*#endregion */
+
+/*#region Toggle Info Panel */
+.info-toggle-button {
+	position: absolute;
+	height: 1px;
+	width: 1px;
+	top: 0px;
+	right: -5px;
+	background: unset;
+	border: unset;
+}
+
+.info-toggle:hover, .info-toggle:hover > .info-toggle-icon {
+	--aug-border-bg: var(--myblue);
+	color: var(--myblue);
+}
+
+.info-toggle:active > .info-toggle-icon {
+	color: var(--myhoverblue);
+}
+
+div.info-toggle {
+	position: relative;
+	height: 80px;
+	width: 80px;
+	left: -80px;
+	padding: 2px;
+	--aug-bl: 20px;
+	--aug-tl: 40px;
+	--aug-br: 40px;
+	--aug-border-all: 2px;
+	--aug-border-bg: var(--myblue);
+	background: black;
+}
+
+.info-toggle-icon {
+	color: var(--myblue50);
+	position: relative;
+	top: 28px;
+	left: -13px;
+	font-family: Icons;
+	font-style: normal;
+	font-weight: 400;
+	font-size: 35px;
+}
+/*#endregion */

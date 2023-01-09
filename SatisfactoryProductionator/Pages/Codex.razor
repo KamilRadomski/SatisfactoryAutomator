@@ -1,4 +1,4 @@
-﻿@page "/items"
+﻿@page "/codex"
 @using SatisfactoryProductionator.DataParser
 @using SatisfactoryProductionator.DataModels.Models
 @using SatisfactoryProductionator.DataModels.Enums
@@ -6,6 +6,11 @@
 @inject HttpClient Http
 
 <link rel="stylesheet" type="text/css" href="css/augmented-ui/augmented-ui.min.css" />
+
+<style type="text/css">
+   
+
+</style>
 
 <PageTitle>Items</PageTitle>
 
@@ -59,6 +64,13 @@ else
             </div>
         }
     </div>
+
+    /*Info Panel Toggle*/
+    <button type="button" class="info-toggle-button" @onclick=TogglePanel>
+        <div data-augmented-ui="bl-clip tl-clip br-clip border" class="info-toggle">
+            <span class="info-toggle-icon oi-eye"></span>
+        </div>
+    </button>
 
     /*Info Panel*/
     <div data-augmented-ui-reset class=@CssIsInfoPanelActive()>
@@ -402,4 +414,6 @@ else
     }
 
     #endregion
+
+    private static void TogglePanel() => _isInfoPanelActive = !_isInfoPanelActive;
 }
