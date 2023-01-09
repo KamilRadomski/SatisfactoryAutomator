@@ -81,7 +81,7 @@ a, .btn-link {
     }
 
 
-.augpanel-content {
+.main-panel {
     margin-left: 264px;
     position: relative;
     top: 14px;
@@ -103,11 +103,11 @@ a, .btn-link {
 ::-webkit-scrollbar-track {
     background: var(--myhoverblueclear);
     border-radius: 100vh;
-    margin-block: 3em;
+    margin-block: 5em;
 }
 
 ::-webkit-scrollbar-thumb {
-    border: 3px solid rgb(255 255 255 / 15%);
+    border: 3px solid rgba(255, 255, 255, .15);
     border-radius: 100vh;
     background: var(--myblueclear);
 }
