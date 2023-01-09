@@ -7,6 +7,11 @@
 
 <link rel="stylesheet" type="text/css" href="css/augmented-ui/augmented-ui.min.css" />
 
+<style type="text/css">
+   
+
+</style>
+
 <PageTitle>Items</PageTitle>
 
 @if (DataAggregator.Items.Count == 0)
@@ -37,6 +42,9 @@ else
         </div>
     </div>
 
+
+
+
     /*Main Panel*/
     <div data-augmented-ui-reset class="main-panel">
         @foreach (var group in GroupItems())
@@ -60,6 +68,14 @@ else
         }
     </div>
 
+    /*Info Panel Toggle*/
+
+        <button type="button" class="info-toggle-button" @onclick=TogglePanel>
+            <div data-augmented-ui="bl-clip tl-clip br-clip border" class="info-toggle">
+                <span class="info-toggle-icon oi-eye"></span>
+            </div>
+        </button>
+    
     /*Info Panel*/
     <div data-augmented-ui-reset class=@CssIsInfoPanelActive()>
         <div data-augmented-ui="tl-2-clip-y tr-2-clip-x br-2-clip-y bl-2-clip-x border" class="info-panel">
@@ -402,4 +418,6 @@ else
     }
 
     #endregion
+
+    private static void TogglePanel() => _isInfoPanelActive = !_isInfoPanelActive;
 }
