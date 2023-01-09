@@ -17,6 +17,7 @@ else
 {
     <div data-augmented-ui-reset></div>
 
+    /*Quick Nav*/
     <div data-augmented-ui="tl-clip br-clip bl-clip border" class="quick-nav">
         <div data-augmented-ui-reset>
             <div data-augmented-ui="tl-clip br-clip border" class="quick-nav-title">
@@ -36,6 +37,7 @@ else
         </div>
     </div>
 
+    /*Main Panel*/
     <div data-augmented-ui-reset class="main-panel">
         @foreach (var group in GroupItems())
         {
@@ -58,6 +60,7 @@ else
         }
     </div>
 
+    /*Info Panel*/
     <div data-augmented-ui-reset class=@CssIsInfoPanelActive()>
         <div data-augmented-ui="tl-2-clip-y tr-2-clip-x br-2-clip-y bl-2-clip-x border" class="info-panel">
             <div data-augmented-ui-reset></div>
@@ -208,9 +211,7 @@ else
                         <p>Recipes - Link to current item on Recipe page if more details are needed (Current item display has minimal information)</p>
                     </div>
                 </div>
-                @*</div>*@
             }
-            @*</div>*@
         </div>
     </div>
 }

@@ -303,11 +303,15 @@ div.info-panel-top {
 
 .info-panel-top-header-buttons-nav {
 	background: unset;
+	padding: 3px;
 }
 
 	.info-panel-top-header-buttons-nav:disabled {
 		opacity: 50%;
 		border: unset;
+		margin-left: 0;
+		margin-right: 0;
+		padding: 5px;
 	}
 
 	.info-panel-top-header-buttons-nav:not(:disabled):hover > div {
