@@ -1,4 +1,5 @@
 # SatisfactoryAutomator
 Blazor Web Assembly SPA to make magic happen
 
-Will move items from index page here
+## Known Issues
+- Refresh not done on Home causes issue in Parser
