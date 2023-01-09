@@ -15,211 +15,202 @@
 }
 else
 {
-    <div data-augmented-ui-reset class="aug-quicknav">
-        <div data-augmented-ui="tl-clip br-clip bl-clip border" class="aug-quicknav-inner">
-            <div data-augmented-ui-reset>
-                <div data-augmented-ui="tl-clip br-clip border" class="aug-quicknav-title">
-                    <div class="aug-quicknav-titleQ">Q</div>
-                    <div class="aug-quicknav-titleNav">Nav</div>
-                </div>
-                <ul class="aug-quicknav-list">
-                    @foreach (var group in GroupItems())
-                    {
-                        <li class="aug-quicknav-listitem">
-                            <button type="button" class="aug-quicknav-button" onclick="document.getElementById('@group.Key').scrollIntoView({behavior:'smooth'})">
-                                <div class="aug-quicknav-button-text">@FormatCategoryName(group.Key.ToString()!)</div>
-                            </button>
-                        </li>
-                    }
-                </ul>
+    <div data-augmented-ui-reset></div>
+
+    <div data-augmented-ui="tl-clip br-clip bl-clip border" class="quick-nav">
+        <div data-augmented-ui-reset>
+            <div data-augmented-ui="tl-clip br-clip border" class="quick-nav-title">
+                <div class="quick-nav-title-q">Q</div>
+                <div class="quick-nav-title-nav">Nav</div>
             </div>
+            <ul class="quick-nav-list">
+                @foreach (var group in GroupItems())
+                {
+                    <li class="quick-nav-list-item">
+                        <button type="button" class="quick-nav-list-item-button" onclick="document.getElementById('@group.Key').scrollIntoView({behavior:'smooth'})">
+                            <div class="quick-nav-list-item-button-text">@FormatCategoryName(group.Key.ToString()!)</div>
+                        </button>
+                    </li>
+                }
+            </ul>
         </div>
     </div>
 
-    <div data-augmented-ui-reset class="augpanel-content">
+    <div data-augmented-ui-reset class="main-panel">
         @foreach (var group in GroupItems())
         {
-            <div data-augmented-ui="tl-clip tr-2-clip-x br-clip bl-clip border" class="aug-category-main">
-                <div id=@group.Key class="aug-category-header">@FormatCategoryName(group.Key.ToString()!)</div>
-
-                <table class="table aug-table">
-                    <tbody>
-
-                        @foreach (var item in @group)
-                        {
-                            <tr style="flex-wrap: wrap; display: inline-flex">
-                                <td style="border-style: hidden">
-                                    <button class="item-button" type="button" @onclick="@(()=>AddItemRecipe(@item.DisplayName!))">
-                                        <div data-augmented-ui="tl-clip tr-2-clip-y br-clip bl-2-clip-x border" class="aug-item">
-                                            <img src=@GetIconLocation(item.DisplayName!) alt=@item.DisplayName />
-                                            <div class="aug-item-name">@FormatDisplayName(item.DisplayName!)</div>
-
-                                        </div>
-                                    </button>
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-
+            <div data-augmented-ui="tl-clip tr-2-clip-x br-clip bl-clip border" class="main-panel-category">
+                <div id=@group.Key class="main-panel-category-header">
+                    @FormatCategoryName(group.Key.ToString()!)
+                </div>
+                @foreach (var item in @group)
+                {
+                    <button class="main-panel-category-button" type="button" @onclick="@(() => AddItemRecipe(@item.DisplayName!))">
+                        <div data-augmented-ui="tl-clip tr-2-clip-y br-clip bl-2-clip-x border" class="main-panel-category-button-item">
+                            <img src=@GetIconLocation(item.DisplayName!) alt=@item.DisplayName />
+                            <div class="main-panel-category-button-item-name">
+                                @FormatDisplayName(item.DisplayName!)
+                            </div>
+                        </div>
+                    </button>
+                }
             </div>
         }
     </div>
 
     <div data-augmented-ui-reset class=@CssIsInfoPanelActive()>
-        <div data-augmented-ui="tl-2-clip-y tr-2-clip-x br-2-clip-y bl-2-clip-x border" class="aug-info-panel">
-            <div data-augmented-ui>
-                @if (_currentItem == null)
-                {
-                    <p style="padding-left:110px; padding-top:50px; font-size:3rem;"> No Items Selected</p>
-                }
-                else
-                {
-                    <div data-augmented-ui="tl-2-clip-y tr-2-clip-x br-clip b-clip-x bl-clip border" class="item-info-top">
+        <div data-augmented-ui="tl-2-clip-y tr-2-clip-x br-2-clip-y bl-2-clip-x border" class="info-panel">
+            <div data-augmented-ui-reset></div>
+            @if (_currentItem == null)
+            {
+                <p class="info-panel-no-item"> No Items Selected</p>
+            }
+            else
+            {
+                <div data-augmented-ui="tl-2-clip-y tr-2-clip-x br-clip b-clip-x bl-clip border" class="info-panel-top">
 
-                        <div data-augmented-ui-reset class="item-info-header">
-                            <div class="info-item-name">@FormatDisplayName(_currentItem.DisplayName!)</div>
+                    <div data-augmented-ui-reset class="info-panel-top-header">
+                        <div class="info-panel-top-header-name">@FormatDisplayName(_currentItem.DisplayName!)</div>
+                        <div class="info-panel-top-header-buttons">
+                            <button type="button" class="info-panel-top-header-buttons-clear">
+                                <div data-augmented-ui="all-hex border" class="info-panel-top-header-buttons-button" @onclick=@ClearInfoPanel>
+                                    <span class="info-panel-top-header-buttons-icon oi-trash" aria-hidden="true"></span>
+                                </div>
+                            </button>
 
-                            <div class="item-button-group">
-                                <button type="button" class="trash-button">
-                                    <div data-augmented-ui="all-hex border" class="item-nav-button" @onclick=@ClearInfoPanel>
-                                        <span class="aug-oi-close oi-trash" aria-hidden="true"></span>
-                                    </div>
-                                </button>
+                            <button type="button" disabled=@IsDisplayPreviousInactive class="info-panel-top-header-buttons-nav">
+                                <div data-augmented-ui="all-hexangle-left border" class="info-panel-top-header-buttons-button" @onclick=@DisplayPrevious></div>
+                            </button>
 
-                                <button type="button" disabled=@IsDisplayPreviousInactive class="clear-button">
-                                    <div data-augmented-ui="all-hexangle-left border" class="item-nav-button" @onclick=@DisplayPrevious></div>
-                                </button>
+                            <button type="button" disabled=@IsDisplayNextInactive class="info-panel-top-header-buttons-nav">
+                                <div data-augmented-ui="all-hexangle-right border" class="info-panel-top-header-buttons-button" @onclick=@DisplayNext></div>
+                            </button>
 
-                                <button type="button" disabled=@IsDisplayNextInactive class="clear-button">
-                                    <div data-augmented-ui="all-hexangle-right border" class="item-nav-button" @onclick=@DisplayNext></div>
-                                </button>
-
-                                <button type="button" class="close-button">
-                                    <div data-augmented-ui="all-hex border" class="item-nav-button" @onclick=@CloseInfoPanel>
-                                        <span class="aug-oi-close oi-x" aria-hidden="true"></span>
-                                    </div>
-                                </button>
-                            </div>
-                        </div>
-
-                        <div class="item-info-data">
-                            <img class="item-info-image" src=@GetIconLocation(_currentItem.DisplayName!) alt=@_currentItem.DisplayName />
-                            <div class="info-item-info">
-                                <p>@_currentItem.Description</p>
-                                @if (_currentItem.FormType == FormType.Solid)
-                                {
-                                    <p>Stack.Size :: @_currentItem.StackSize</p>
-                                }
-                                @if (@_currentItem.EnergyValue > 0)
-                                {
-                                    <p>MJ.Rating :: @_currentItem.EnergyValue</p>
-                                }
-                                @if (@_currentItem.ResourceSinkPoints > 0)
-                                {
-                                    <p>Resource.Sink.Points :: @_currentItem.ResourceSinkPoints</p>
-                                }
-                                else
-                                {
-                                    <p>Caution :: Cannot Sink!</p>
-                                }
-                            </div>
+                            <button type="button" class="info-panel-top-header-buttons-close">
+                                <div data-augmented-ui="all-hex border" class="info-panel-top-header-buttons-button" @onclick=@CloseInfoPanel>
+                                    <span class="info-panel-top-header-buttons-icon oi-x" aria-hidden="true"></span>
+                                </div>
+                            </button>
                         </div>
                     </div>
 
-                    <div data-augmented-ui-reset class="item-info-bottom">
-                        <div data-augmented-ui="tl-clip tr-clip br-clip bl-2-clip-x border" class="item-info-recipe">
-                            @if (_currentRecipePage == null)
+                    <div class="info-panel-top-data">
+                        <img class="info-panel-top-data-image" src=@GetIconLocation(_currentItem.DisplayName!) alt=@_currentItem.DisplayName />
+                        <div class="info-panel-top-data-description">
+                            <p>@_currentItem.Description</p>
+                            @if (_currentItem.FormType == FormType.Solid)
                             {
-                                <p class="no-recipe-message">No Recipes </p>
+                                <p>Stack.Size :: @_currentItem.StackSize</p>
+                            }
+                            @if (@_currentItem.EnergyValue > 0)
+                            {
+                                <p>MJ.Rating :: @_currentItem.EnergyValue</p>
+                            }
+                            @if (@_currentItem.ResourceSinkPoints > 0)
+                            {
+                                <p>Resource.Sink.Points :: @_currentItem.ResourceSinkPoints</p>
                             }
                             else
                             {
-                                <table class="item-info-recipe-table">
-                                    @for (var i = 0; i < GetPageLoops(); i++)
-                                    {
-                                        @if (i == 1)
-                                        {
-                                            AdjustMainPage(1);
-                                        }
-                                        <tr>
-                                            <td colspan="4" class="item-info-recipe-header">@_currentRecipePage!.PageType</td>
-                                        </tr>
-                                        @foreach (var recipe in _currentRecipePage.Recipes!)
-                                        {
-                                            <tr>
-                                                <td class="item-info-recipe-name">@FormatDisplayName(recipe.DisplayName!)</td>
-                                                <td>
-                                                    <table>
-                                                        <tr>
-                                                            @foreach (var item in recipe.Inputs!)
-                                                            {
-                                                                <td>
-                                                                    <button class="item-button item-info-item-button" type="button" @onclick="@(() => AddItemRecipe(@item.Key!))">
-                                                                        <img class="item-info-recipe-img" src=@GetIconLocation(item.Key) alt=@item.Key />
-                                                                        <div class="item-info-recipe-quantity">@Math.Round(item.Value[1], 2)/min</div>
-                                                                    </button>
-                                                                </td>
-                                                            }
-                                                        </tr>
-                                                    </table>
-                                                </td>
-                                                <td> >>> </td>
-                                                <td>
-                                                    <table>
-                                                        <tr>
-                                                            @foreach (var item in recipe.Outputs!)
-                                                            {
-                                                                <td>
-                                                                    <button class="item-button item-info-item-button" type="button" @onclick="@(() => AddItemRecipe(@item.Key!))">
-                                                                        <img class="item-info-recipe-img" src=@GetIconLocation(item.Key) alt=@item.Key />
-                                                                        <div class="item-info-recipe-quantity">@Math.Round(item.Value[1], 2)/min</div>
-                                                                    </button>
-                                                                </td>
-                                                            }
-                                                        </tr>
-                                                    </table>
-                                                </td>
-                                            </tr>
-                                        }
-                                        @if (i == 1)
-                                        {
-                                            AdjustMainPage(-1);
-                                        }
-                                    }
-                                </table>
-                                <div data-augmented-ui-reset class="info-page-bar">
-                                    <div class="info-page-bar-pages">
-                                        @for (var i = 0; i < GetPageCount(); i++)
-                                        {
-                                            <div class=@ParseCssPageLight(i)></div>
-                                        }
-                                    </div>
-                                    <div class="info-page-bar-nav">
-                                        <button type="button" class="info-page-button" @onclick=@InfoPageLeft>
-                                            <span class="page-oi oi-caret-left" aria-hidden="true"></span>
-                                        </button>
-                                        <button type="button" class="info-page-button" @onclick=@InfoPageRight>
-                                            <span class="page-oi oi-caret-right" aria-hidden="true"></span>
-                                        </button>
-                                    </div>
-                                </div>
+                                <p>Caution :: Cannot Sink!</p>
                             }
                         </div>
+                    </div>
+                </div>
 
-                        <div data-augmented-ui="tl-clip tr-clip br-2-clip-y bl-clip border" class="item-info-options">
-                            <div style="padding:20px; margin:10px;font-size:1.2rem;color: red;">
-                                <p> UNDER CONSTRUCTION</p>
-                                <p>Needs Grapher, Permutator, and Recipe Pages completed</p>
-                                <p>Grapher - Options to set amount of current item and navigate to Grapher</p>
-                                <p>Grapher - Options to set amount and add to desired outputs to Grapher (No navigating to page - sort of like a shopping cart)</p>
-                                <p>Permutator - Set amount and generate all permutations on permutator page</p>
-                                <p>Recipes - Link to current item on Recipe page if more details are needed (Current item display has minimal information)</p>
+                <div data-augmented-ui-reset></div>
+                <div data-augmented-ui="tl-clip tr-clip br-clip bl-2-clip-x border" class="info-panel-recipe">
+                    @if (_currentRecipePage == null)
+                    {
+                        <p class="info-panel-no-recipe-message">No Recipes </p>
+                    }
+                    else
+                    {
+                        <table class="info-panel-recipe-table">
+                            @for (var i = 0; i < GetPageLoops(); i++)
+                            {
+                                @if (i == 1)
+                                {
+                                    AdjustMainPage(1);
+                                }
+                                <tr>
+                                    <td colspan="4" class="info-panel-recipe-header">@_currentRecipePage!.PageType</td>
+                                </tr>
+                                @foreach (var recipe in _currentRecipePage.Recipes!)
+                                {
+                                    <tr>
+                                        <td class="info-panel-recipe-name">@FormatDisplayName(recipe.DisplayName!)</td>
+                                        <td>
+                                            <table>
+                                                <tr>
+                                                    @foreach (var item in recipe.Inputs!)
+                                                    {
+                                                        <td>
+                                                            <button class="main-panel-category-button info-panel-recipe-button" type="button" @onclick="@(() => AddItemRecipe(@item.Key!))">
+                                                                <img class="info-panel-recipe-image" src=@GetIconLocation(item.Key) alt=@item.Key />
+                                                                <div class="info-panel-recipe-quantity">@Math.Round(item.Value[1], 2)/min</div>
+                                                            </button>
+                                                        </td>
+                                                    }
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <td> >>> </td>
+                                        <td>
+                                            <table>
+                                                <tr>
+                                                    @foreach (var item in recipe.Outputs!)
+                                                    {
+                                                        <td>
+                                                            <button class="main-panel-category-button info-panel-recipe-button" type="button" @onclick="@(() => AddItemRecipe(@item.Key!))">
+                                                                <img class="info-panel-recipe-image" src=@GetIconLocation(item.Key) alt=@item.Key />
+                                                                <div class="info-panel-recipe-quantity">@Math.Round(item.Value[1], 2)/min</div>
+                                                            </button>
+                                                        </td>
+                                                    }
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                }
+                                @if (i == 1)
+                                {
+                                    AdjustMainPage(-1);
+                                }
+                            }
+                        </table>
+                        <div data-augmented-ui-reset class="info-panel-recipe-paging">
+                            <div class="info-panel-recipe-paging-pages">
+                                @for (var i = 0; i < GetPageCount(); i++)
+                                {
+                                    <div class=@ParseCssPageLight(i)></div>
+                                }
+                            </div>
+                            <div class="info-panel-recipe-paging-nav">
+                                <button type="button" class="info-panel-recipe-paging-nav-button" @onclick=@InfoPageLeft>
+                                    <span class="info-panel-paging-nav-icon oi-caret-left" aria-hidden="true"></span>
+                                </button>
+                                <button type="button" class="info-panel-recipe-paging-nav-button" @onclick=@InfoPageRight>
+                                    <span class="info-panel-paging-nav-icon oi-caret-right" aria-hidden="true"></span>
+                                </button>
                             </div>
                         </div>
+                    }
+                </div>
+
+                <div data-augmented-ui="tl-clip tr-clip br-2-clip-y bl-clip border" class="info-panel-options">
+                    <div style="padding:20px; margin:10px;font-size:1.2rem;color: red;">
+                        <p> UNDER CONSTRUCTION</p>
+                        <p>Needs Grapher, Permutator, and Recipe Pages completed</p>
+                        <p>Grapher - Options to set amount of current item and navigate to Grapher</p>
+                        <p>Grapher - Options to set amount and add to desired outputs to Grapher (No navigating to page - sort of like a shopping cart)</p>
+                        <p>Permutator - Set amount and generate all permutations on permutator page</p>
+                        <p>Recipes - Link to current item on Recipe page if more details are needed (Current item display has minimal information)</p>
                     </div>
-                }
-            </div>
+                </div>
+                @*</div>*@
+            }
+            @*</div>*@
         </div>
     </div>
 }
@@ -266,7 +257,7 @@ else
             _itemRecipeCache![name] = ItemRecipesGenerator.GetItemRecipes(name)!;
 
         _currentItemRecipes = _itemRecipeCache[name];
-        _currentRecipePage = (_currentItemRecipes.Pages!.Count > 0)?_currentItemRecipes.Pages?[_currentItemRecipes.PageIndex]:null;
+        _currentRecipePage = (_currentItemRecipes.Pages!.Count > 0) ? _currentItemRecipes.Pages?[_currentItemRecipes.PageIndex] : null;
 
         _currentItem = DataAggregator.Items.Find(x => x.DisplayName == name)!;
         _isInfoPanelActive = true;
@@ -276,9 +267,9 @@ else
 
     private static void SetRecipePage(int index)
     {
-        if(index == 0)
+        if (index == 0)
             _currentRecipePage = _currentItemRecipes!.Pages?[0];
-        else if(_currentItemRecipes!.HasDoubleMainPage)
+        else if (_currentItemRecipes!.HasDoubleMainPage)
             _currentRecipePage = _currentItemRecipes!.Pages?[index + 1];
         else
             _currentRecipePage = _currentItemRecipes!.Pages?[index];
@@ -357,7 +348,7 @@ else
         var index = _currentItemRecipes!.PageIndex;
         index--;
 
-        if (index < 0) 
+        if (index < 0)
             index = pageCount - 1;
 
         SetRecipePage(index);
@@ -369,7 +360,7 @@ else
         var index = _currentItemRecipes!.PageIndex;
         index++;
 
-        if (index > pageCount - 1) 
+        if (index > pageCount - 1)
             index = 0;
 
         SetRecipePage(index);
@@ -380,9 +371,9 @@ else
     /*CSS Methods*/
     #region
 
-    private static string ParseCssPageLight(int i) => _currentItemRecipes!.PageIndex == i ? "info-page-light info-page-light-on" : "info-page-light info-page-light-off";
+    private static string ParseCssPageLight(int i) => _currentItemRecipes!.PageIndex == i ? "info-panel-recipe-paging-pages-light info-panel-recipe-paging-pages-light-on" : "info-panel-recipe-paging-pages-light info-panel-recipe-paging-pages-light-off";
 
-    private static string CssIsInfoPanelActive() => _isInfoPanelActive ? "item-info-panel" : "item-info-panel-off";
+    private static string CssIsInfoPanelActive() => _isInfoPanelActive ? "info-panel-on" : "info-panel-off";
 
     #endregion
 
