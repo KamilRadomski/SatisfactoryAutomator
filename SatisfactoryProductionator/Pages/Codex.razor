@@ -8,7 +8,7 @@
 <link rel="stylesheet" type="text/css" href="css/augmented-ui/augmented-ui.min.css" />
 
 <style type="text/css">
-   
+
 
 </style>
 
@@ -194,22 +194,25 @@ else
                                 }
                             }
                         </table>
-                        <div data-augmented-ui-reset class="info-panel-recipe-paging">
-                            <div class="info-panel-recipe-paging-pages">
-                                @for (var i = 0; i < GetPageCount(); i++)
-                                {
-                                    <div class=@ParseCssPageLight(i)></div>
-                                }
+                        @if (GetPageCount() > 1)
+                        {
+                            <div data-augmented-ui-reset class="info-panel-recipe-paging">
+                                <div class="info-panel-recipe-paging-pages">
+                                    @for (var i = 0; i < GetPageCount(); i++)
+                                    {
+                                        <div class=@ParseCssPageLight(i)></div>
+                                    }
+                                </div>
+                                <div class="info-panel-recipe-paging-nav">
+                                    <button type="button" class="info-panel-recipe-paging-nav-button" @onclick=@InfoPageLeft>
+                                        <span class="info-panel-paging-nav-icon oi-caret-left" aria-hidden="true"></span>
+                                    </button>
+                                    <button type="button" class="info-panel-recipe-paging-nav-button" @onclick=@InfoPageRight>
+                                        <span class="info-panel-paging-nav-icon oi-caret-right" aria-hidden="true"></span>
+                                    </button>
+                                </div>
                             </div>
-                            <div class="info-panel-recipe-paging-nav">
-                                <button type="button" class="info-panel-recipe-paging-nav-button" @onclick=@InfoPageLeft>
-                                    <span class="info-panel-paging-nav-icon oi-caret-left" aria-hidden="true"></span>
-                                </button>
-                                <button type="button" class="info-panel-recipe-paging-nav-button" @onclick=@InfoPageRight>
-                                    <span class="info-panel-paging-nav-icon oi-caret-right" aria-hidden="true"></span>
-                                </button>
-                            </div>
-                        </div>
+                        }
                     }
                 </div>
 
