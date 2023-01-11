@@ -26,25 +26,27 @@ namespace SatisfactoryProductionator.DataManager
 			return itemRecipes;
 		}
 
-		private static List<RecipePage> GetBasicPages(string name)
+		private static IEnumerable<RecipePage> GetBasicPages(string name)
 		{
 			var mainRecipes = DataAggregator.Recipes.Where(x => x.Outputs?.First().Key == name).ToList();
 			var basicRecipes = mainRecipes.Where(x => !x.DisplayName!.StartsWith(Constants.ALTERNATE_PREFIX)).
-				OrderByDescending(x => x.Outputs!.Count).ThenBy(x => x.DisplayName).ToList();
+				OrderByDescending(x => x.Inputs!.Count).
+				ThenByDescending(x => x.Outputs!.Count).ThenBy(x => x.DisplayName).ToList();
 
 			return CreatePages(basicRecipes, PageType.Basics);
 		}
 
-		private static List<RecipePage> GetAlternatePages(string name)
+		private static IEnumerable<RecipePage> GetAlternatePages(string name)
 		{
 			var mainRecipes = DataAggregator.Recipes.Where(x => x.Outputs?.First().Key == name).ToList();
 			var alternateRecipes = mainRecipes.Where(x => x.DisplayName!.StartsWith(Constants.ALTERNATE_PREFIX)).
-				OrderByDescending(x => x.Outputs!.Count).ThenBy(x => x.DisplayName).ToList();
+				OrderByDescending(x => x.Inputs!.Count).
+				ThenByDescending(x => x.Outputs!.Count).ThenBy(x => x.DisplayName).ToList();
 
 			return CreatePages(alternateRecipes, PageType.Alternates);
 		}
 
-		private static List<RecipePage> GetByProductPages(string name)
+		private static IEnumerable<RecipePage> GetByProductPages(string name)
 		{
 			var byProductRecipes = DataAggregator.Recipes.Where(x => x.Outputs?.Count > 1)
 				.Where(x => x.Outputs?.Last().Key == name).OrderByDescending(x => x.Outputs!.Count).ThenBy(x => x.DisplayName).ToList();
@@ -52,7 +54,7 @@ namespace SatisfactoryProductionator.DataManager
 			return CreatePages(byProductRecipes, PageType.ByProducts);
 		}
 
-		private static List<RecipePage> GetByInputPages(string name)
+		private static IEnumerable<RecipePage> GetByInputPages(string name)
 		{
 			var inputRecipes = DataAggregator.Recipes.Where(x => x.Inputs!.ContainsKey(name)).OrderByDescending(x => x.Inputs!.Count)
 				.ThenBy(x => x.DisplayName!.Replace(Constants.ALTERNATE_PREFIX, "")).ToList();
@@ -60,7 +62,7 @@ namespace SatisfactoryProductionator.DataManager
 			return CreatePages(inputRecipes, PageType.Inputs);
 		}
 
-		private static List<RecipePage> CreatePages(List<Recipe> recipes, PageType pageType)
+		private static IEnumerable<RecipePage> CreatePages(List<Recipe> recipes, PageType pageType)
 		{
 			List<RecipePage> pages = new();
 

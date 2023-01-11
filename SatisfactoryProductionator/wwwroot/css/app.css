@@ -12,6 +12,7 @@
     --myhoverblue50: rgba(153, 199, 229, .5);
     --myhoverblueclear: rgba(153, 199, 229, 0.5);
     --myhoverblueclear2: rgba(153, 199, 229, 0.6);
+	--mydarkblue: rgb(6, 55, 86);
 }
 
 html, body {
@@ -104,6 +105,7 @@ a, .btn-link {
     background: var(--myhoverblueclear);
     border-radius: 100vh;
     margin-block: 5em;
+	margin-block-start: 7em;
 }
 
 ::-webkit-scrollbar-thumb {
