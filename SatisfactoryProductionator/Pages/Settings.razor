@@ -1,6 +1,27 @@
 ﻿@page "/settings"
+@using SatisfactoryProductionator.Shared.States
+@using SatisfactoryProductionator.Shared.States.Models
+@inject SettingsState SettingsState
+@implements IDisposable
+
+<p style="position: relative;top: 50px; left: 300px">test</p>
+
 
 
 @code {
+
+    private static AppSettings _settings = new AppSettings();
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        SettingsState.OnStateChange += StateHasChanged;
+        _settings = SettingsState.Value;
+    }
+
+    public void Dispose()
+    {
+        SettingsState.OnStateChange -= StateHasChanged;
+    }
 
 }
