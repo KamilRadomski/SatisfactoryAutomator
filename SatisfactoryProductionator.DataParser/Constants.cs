@@ -5,8 +5,10 @@ namespace SatisfactoryProductionator.DataParser
 	public static class Constants
 	{
 		public static readonly string JSON_FILEPATH = @"data/docs.json";
-		public static readonly string RAW_RESOURCES =  "Resources/RawResources";
+		public static readonly string RAW_RESOURCES = "Resources/RawResources";
+		public static readonly string RAW_RESOURCES2 = "Resource/RawResources";
 		public static readonly string PARTS = "Resource/Parts";
+		public static readonly string AMMO = "Ammo";
 		public static readonly string XMAS = "Christmas";
 		public static readonly string BUILDING_ONE_INDEX = "Factory/";
 		public static readonly string BUILDING_TWO_INDEX = "/";
@@ -31,6 +33,12 @@ namespace SatisfactoryProductionator.DataParser
 			"Class'/Script/FactoryGame.FGEquipmentDescriptor'",
 		};
 
+		public static readonly List<string> RECIPE_CLASSES = new()
+		{
+			"Class'/Script/FactoryGame.FGRecipe'",
+			//"Class'/Script/FactoryGame.FGCustomizationRecipe'",
+		};
+
 		public static readonly List<(string className, BuildingType buildingType)> BUILDING_CLASSES = new()
 		{
 			("Class'/Script/FactoryGame.FGBuildableResourceExtractor'", BuildingType.Extractor),
@@ -42,7 +50,6 @@ namespace SatisfactoryProductionator.DataParser
 			("Class'/Script/FactoryGame.FGBuildableGeneratorGeoThermal'", BuildingType.Generator),
 			("Class'/Script/FactoryGame.FGBuildableGeneratorFuel'", BuildingType.Generator),
 			("Class'/Script/FactoryGame.FGBuildableGeneratorNuclear'", BuildingType.Generator),
-
 		};
 
 		public static readonly List<string> ITEM_FILTER = new()
@@ -84,7 +91,7 @@ namespace SatisfactoryProductionator.DataParser
 
 		public static readonly Dictionary<string, ItemType> CATEGORY_MAP = new()
 		{
-			{ "Portable Miner", ItemType.Special},
+			{ "Portable Miner", ItemType.Special },
 			{ "Blue Power Slug", ItemType.Special },
 			{ "Yellow Power Slug", ItemType.Special },
 			{ "Purple Power Slug", ItemType.Special },
@@ -161,14 +168,14 @@ namespace SatisfactoryProductionator.DataParser
 			{ "Mycelia", ItemType.Fuels },
 			{ "Nitric Acid", ItemType.Liquids },
 			{ "Nitrogen Gas", ItemType.Gas },
-			{ "Nobelisk",ItemType.Ammos },
+			{ "Nobelisk", ItemType.Ammos },
 			{ "Non-fissile Uranium", ItemType.Nuclear },
 			{ "Nuclear Pasta", ItemType.Nuclear },
 			{ "Nuke Nobelisk", ItemType.Ammos },
 			{ "Packaged Alumina Solution", ItemType.Containers },
 			{ "Packaged Fuel", ItemType.Fuels },
 			{ "Packaged Heavy Oil Residue", ItemType.Fuels },
-			{ "Packaged Liquid Biofuel",ItemType.Fuels },
+			{ "Packaged Liquid Biofuel", ItemType.Fuels },
 			{ "Packaged Nitric Acid", ItemType.Containers },
 			{ "Packaged Nitrogen Gas", ItemType.Containers },
 			{ "Packaged Oil", ItemType.Fuels },
@@ -217,10 +224,9 @@ namespace SatisfactoryProductionator.DataParser
 			{ "Uranium Waste", ItemType.Nuclear },
 			{ "Uranium", ItemType.Ores },
 			{ "Versatile Framework", ItemType.SpaceParts },
-			{ "Water",ItemType.Liquids },
+			{ "Water", ItemType.Liquids },
 			{ "Wire", ItemType.Electronics },
 			{ "Wood", ItemType.Fuels },
-
 		};
 
 		public static readonly Dictionary<string, string> BUILDING_MAP = new()
@@ -244,7 +250,7 @@ namespace SatisfactoryProductionator.DataParser
 			{ "Oil Extractor", "Oil Extractor" },
 			{ "Resource Well Pressurizer", "Resource Well Pressurizer" },
 			{ "Water Extractor", "Water Extractor" },
-
+			{ "Converter", "Converter" },
 		};
 
 		public static readonly List<string> EXTRACTABLE_RESOURCES = new()

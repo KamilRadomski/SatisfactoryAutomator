@@ -523,6 +523,7 @@ div.info-panel-options {
 .info-toggle:hover, .info-toggle:hover > .info-toggle-icon {
 	--aug-border-bg: var(--myblue);
 	color: var(--myblue);
+	background: var(--mydarkblue);
 }
 
 .info-toggle:active > .info-toggle-icon {
@@ -531,13 +532,12 @@ div.info-panel-options {
 
 div.info-toggle {
 	position: relative;
-	height: 80px;
-	width: 80px;
-	left: -80px;
+	height: 100px;
+	width: 100px;
+	top: 11px;
+	left: -110px;
 	padding: 2px;
-	--aug-bl: 20px;
-	--aug-tl: 40px;
-	--aug-br: 40px;
+	--aug-bl: 72px;
 	--aug-border-all: 2px;
 	--aug-border-bg: var(--myblue);
 	background: black;
@@ -546,8 +546,8 @@ div.info-toggle {
 .info-toggle-icon {
 	color: var(--myblue50);
 	position: relative;
-	top: 28px;
-	left: -13px;
+	top: 21px;
+	left: 5px;
 	font-family: Icons;
 	font-style: normal;
 	font-weight: 400;

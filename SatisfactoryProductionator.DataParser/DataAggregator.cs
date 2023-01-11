@@ -6,7 +6,7 @@ namespace SatisfactoryProductionator.DataParser
 	public static class DataAggregator
 	{
 		private static List<DocModel> _docModels = null!;
-		private static DocModel _recipeModel = null!;
+		private static List<CategoryClasses> _recipeModel = null!;
 		private static readonly Lazy<List<Item>> _items = new(ParseItems);
 		private static readonly Lazy<List<Recipe>> _recipes = new(ParseRecipes);
 		private static readonly Lazy<List<Building>> _buildings = new(ParseBuildings);
@@ -21,8 +21,14 @@ namespace SatisfactoryProductionator.DataParser
 			if (IsInitialized) return;
 
 			_docModels = docModel;
-			_recipeModel = _docModels.Find(x => x.NativeClass == "Class'/Script/FactoryGame.FGRecipe'")!;
+			//_recipeModel = _docModels.Find(x => x.NativeClass == "Class'/Script/FactoryGame.FGRecipe'")!;
+			_recipeModel = SetRecipeModel();
 			IsInitialized = true;
+		}
+
+		private static List<CategoryClasses> SetRecipeModel()
+		{
+			return _docModels.Where(x => Constants.RECIPE_CLASSES.Contains(x.NativeClass)).ToList<DocModel>().SelectMany(y => y.Classes).ToList();
 		}
 
 		#region Parsers
@@ -53,8 +59,8 @@ namespace SatisfactoryProductionator.DataParser
 
 		private static List<Recipe> ParseRecipes()
 		{
-			var recipeClasses = _recipeModel.Classes.Where(x =>
-				((x.mProduct.Contains(Constants.PARTS) || x.mProduct.Contains(Constants.RAW_RESOURCES)) 
+			var recipeClasses = _recipeModel.Where(x =>
+				((x.mProduct.Contains(Constants.PARTS) || x.mProduct.Contains(Constants.RAW_RESOURCES) || x.mProduct.Contains(Constants.RAW_RESOURCES2) || x.mProduct.Contains(Constants.AMMO)) 
 				 && !x.mRelevantEvents.Contains(Constants.XMAS))).ToList();
 
 			List<Recipe> recipes = new();
@@ -213,7 +219,7 @@ namespace SatisfactoryProductionator.DataParser
 
 		private static Dictionary<string, double> GetBuildingCost(string displayName)
 		{
-			var recipe = _recipeModel.Classes.First(x => x.mDisplayName == displayName);
+			var recipe = _recipeModel.First(x => x.mDisplayName == displayName);
 
 			Dictionary<string, double> buildingCost = StringParser.ParseItemsAndQuantity(recipe.mIngredients);
 
