@@ -24,6 +24,27 @@
         --aug-border-bg: var(--myblue);
     }
 
+    .info-panel-recipe-name-button {
+        font-family: Tomorrow;
+        font-variant: small-caps;
+        border: 1px inset var(--myblue);
+        height: 30px;
+        background: unset;
+        color: var(--myblue);
+        border-radius: 10px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .info-panel-recipe-name-button:hover {
+        background: var(--myhighlightblue);
+        color: var(--myhoverblue);
+    }
+
+    .info-panel-recipe-name-button:active {
+        background: var(--myhoverblue);
+        color: var(--myblue);
+    }
 </style>
 
 <PageTitle>Items</PageTitle>
@@ -168,7 +189,13 @@ else
                                 @foreach (var recipe in _currentRecipePage.Recipes!)
                                 {
                                     <tr>
-                                        <td class="info-panel-recipe-name">@FormatDisplayName(recipe.DisplayName!)</td>
+                                        <td>
+                                            <button type="button" class="info-panel-recipe-name-button">
+                                                @*<div class="info-panel-recipe-name">*@
+                                                @FormatDisplayName(recipe.DisplayName!)
+                                                @*</div>*@
+                                            </button>
+                                        </td>
                                         <td>
                                             <table>
                                                 <tr>
@@ -208,22 +235,25 @@ else
                                 }
                             }
                         </table>
-                        <div data-augmented-ui-reset class="info-panel-recipe-paging">
-                            <div class="info-panel-recipe-paging-pages">
-                                @for (var i = 0; i < GetPageCount(); i++)
-                                {
-                                    <div class=@ParseCssPageLight(i)></div>
-                                }
+                        @if (GetPageCount() > 1)
+                        {
+                            <div data-augmented-ui-reset class="info-panel-recipe-paging">
+                                <div class="info-panel-recipe-paging-pages">
+                                    @for (var i = 0; i < GetPageCount(); i++)
+                                    {
+                                        <div class=@ParseCssPageLight(i)></div>
+                                    }
+                                </div>
+                                <div class="info-panel-recipe-paging-nav">
+                                    <button type="button" class="info-panel-recipe-paging-nav-button" @onclick=@InfoPageLeft>
+                                        <span class="info-panel-paging-nav-icon oi-caret-left" aria-hidden="true"></span>
+                                    </button>
+                                    <button type="button" class="info-panel-recipe-paging-nav-button" @onclick=@InfoPageRight>
+                                        <span class="info-panel-paging-nav-icon oi-caret-right" aria-hidden="true"></span>
+                                    </button>
+                                </div>
                             </div>
-                            <div class="info-panel-recipe-paging-nav">
-                                <button type="button" class="info-panel-recipe-paging-nav-button" @onclick=@InfoPageLeft>
-                                    <span class="info-panel-paging-nav-icon oi-caret-left" aria-hidden="true"></span>
-                                </button>
-                                <button type="button" class="info-panel-recipe-paging-nav-button" @onclick=@InfoPageRight>
-                                    <span class="info-panel-paging-nav-icon oi-caret-right" aria-hidden="true"></span>
-                                </button>
-                            </div>
-                        </div>
+                        }
                     }
                 </div>
 
