@@ -497,16 +497,19 @@ div.info-panel-options {
 	position: relative;
 	margin-right: 18px;
 	float: right;
-	height: 31rem;
+	height: 214px;
 	width: 43%;
-	--aug-tl: 10px;
-	--aug-tr: 30px;
+	--aug-tl: 15px;
+	--aug-tr: 15px;
 	--aug-br: 30px;
 	--aug-bl: 20px;
 	--aug-border-all: 3px;
 	--aug-border-bg: var(--myblue);
 	top: 27px;
 }
+
+
+
 /*#endregion */
 
 /*#region Toggle Info Panel */

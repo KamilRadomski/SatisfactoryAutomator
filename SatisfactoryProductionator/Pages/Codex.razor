@@ -8,7 +8,21 @@
 <link rel="stylesheet" type="text/css" href="css/augmented-ui/augmented-ui.min.css" />
 
 <style type="text/css">
-   
+    div.info-panel-details {
+        position: relative;
+        float: right;
+        width: 43%;
+        height: 30%;
+        top: 27px;
+        margin-right: 18px;
+        margin-bottom: 10px;
+        --aug-tl: 10px;
+        --aug-tr: 30px;
+        --aug-bl: 15px;
+        --aug-br: 15px;
+        --aug-border-all: 3px;
+        --aug-border-bg: var(--myblue);
+    }
 
 </style>
 
@@ -212,6 +226,8 @@ else
                         </div>
                     }
                 </div>
+
+                <div data-augmented-ui="tl-clip tr-clip br-clip bl-clip border" class="info-panel-details"></div>
 
                 <div data-augmented-ui="tl-clip tr-clip br-2-clip-y bl-clip border" class="info-panel-options">
                     <div style="padding:20px; margin:10px;font-size:1.2rem;color: red;">
