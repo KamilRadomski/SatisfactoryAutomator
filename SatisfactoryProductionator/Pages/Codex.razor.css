@@ -409,8 +409,6 @@ div.info-panel-recipe {
 }*/
 
 .info-panel-recipe-button {
-	padding-right: 7px;
-	padding-left: 7px;
 	margin-top: 2px;
 	margin-bottom: 2px;
 }
@@ -555,5 +553,107 @@ div.info-toggle {
 	font-style: normal;
 	font-weight: 400;
 	font-size: 35px;
+}
+
+div.info-panel-details {
+	position: relative;
+	float: right;
+	width: 43%;
+	height: 30%;
+	top: 27px;
+	margin-right: 18px;
+	margin-bottom: 10px;
+	--aug-tl: 10px;
+	--aug-tr: 30px;
+	--aug-bl: 15px;
+	--aug-br: 15px;
+	--aug-border-all: 3px;
+	--aug-border-bg: var(--myblue);
+}
+
+.info-panel-recipe-name-button {
+	font-family: Tomorrow;
+	font-variant: small-caps;
+	border: 1px inset var(--myblue);
+	height: 38px;
+	background: unset;
+	color: var(--myblue);
+	border-radius: 10px;
+	padding-left: 6px;
+	padding-right: 6px;
+	font-size: 15px;
+	white-space: nowrap;
+}
+
+	.info-panel-recipe-name-button:hover, .info-panel-details-default:hover {
+		background: var(--myhighlightblue);
+		color: var(--myhoverblue);
+	}
+
+	.info-panel-recipe-name-button:active, .info-panel-details-default:active {
+		background: var(--myhoverblue);
+		color: var(--myblue);
+	}
+
+.info-panel-details-title {
+	position: relative;
+	font-size: 1.6rem;
+	margin-left: 15px;
+}
+
+.info-panel-details-building {
+	position: relative;
+	height: 148px;
+	width: 148px;
+	margin-top: 12px;
+}
+
+.info-panel-details-building-name {
+	font-size: 1.2rem;
+	margin-top: 1px;
+	text-align: center;
+}
+
+.info-panel-details-building-mw {
+	font-size: .8rem;
+}
+
+.info-panel-details-table {
+	position: relative;
+}
+
+.info-panel-details-left {
+	position: relative;
+	float: left;
+	height: 100%;
+	width: 55%;
+	margin-left: 2%;
+}
+
+.info-panel-details-right {
+	position: relative;
+	height: 100%;
+	width: 40%;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+}
+
+.info-panel-details-row-category {
+	padding-left: 15px;
+	font-size: 1rem;
+}
+
+.info-panel-details-default {
+	font-family: Tomorrow;
+	font-variant: small-caps;
+	border: 1px inset var(--myblue);
+	height: 35px;
+	background: unset;
+	color: var(--myblue);
+	border-radius: 10px;
+	padding-left: 9px;
+	padding-right: 9px;
+	font-size: 20px;
 }
 /*#endregion */
