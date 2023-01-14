@@ -152,7 +152,7 @@ namespace SatisfactoryProductionator.DataParser
 				{
 					DisplayName = item.mDisplayName,
 					Description = item.mDescription,
-					BuildingType = BuildingType.Manufacturer,
+					BuildingType = BuildingType.VariableManufacturer,
 					VariablePowerUsed = new[] { double.Parse(item.mEstimatedMininumPowerConsumption), double.Parse(item.mEstimatedMaximumPowerConsumption) },
 					BuildingCost = GetBuildingCost(item.mDisplayName)
 				});
