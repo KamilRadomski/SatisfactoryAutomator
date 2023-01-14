@@ -238,6 +238,7 @@ namespace SatisfactoryProductionator.DataParser
 			{ "FoundryMk1", "Foundry" },
 			{ "Foundry", "Foundry" },
 			{ "HadronCollider", "Particle Accelerator" },
+			{ "Particle Accelerator", "Particle Accelerator" },
 			{ "ManufacturerMk1", "Manufacturer" },
 			{ "OilRefinery", "Refinery" },
 			{ "Refinery", "Refinery" },
