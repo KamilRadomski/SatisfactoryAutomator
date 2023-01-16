@@ -13,37 +13,24 @@ namespace SatisfactoryProductionator.DataManager
 				PageIndex = 0,
 				Pages = new List<RecipePage>()
 			};
-
-			itemRecipes.Pages = itemRecipes.Pages.Concat(GetBasicPages(name)).ToList();
-			itemRecipes.Pages = itemRecipes.Pages.Concat(GetAlternatePages(name)).ToList();
-
+			
+			itemRecipes.Pages = itemRecipes.Pages.Concat(GetMainPage(name)).ToList();
 			itemRecipes.Pages = itemRecipes.Pages.Concat(GetByProductPages(name)).ToList();
 			itemRecipes.Pages = itemRecipes.Pages.Concat(GetByInputPages(name)).ToList();
-
-			itemRecipes.HasDoubleMainPage = itemRecipes.Pages.Any(x => x.PageType == PageType.Basics) &&
-			                                itemRecipes.Pages.Any(x => x.PageType == PageType.Alternates);
 
 			return itemRecipes;
 		}
 
-		private static IEnumerable<RecipePage> GetBasicPages(string name)
+		private static IEnumerable<RecipePage> GetMainPage(string name)
 		{
-			var mainRecipes = DataAggregator.Recipes.Where(x => x.Outputs?.First().Key == name).ToList();
-			var basicRecipes = mainRecipes.Where(x => !x.DisplayName!.StartsWith(Constants.ALTERNATE_PREFIX)).
-				OrderByDescending(x => x.Inputs!.Count).
-				ThenByDescending(x => x.Outputs!.Count).ThenBy(x => x.DisplayName).ToList();
+			var mainRecipes = DataAggregator.Recipes.Where(x => x.Outputs?.First().Key == name)
+				.OrderBy(x => x.RecipeType)
+				.ThenByDescending(x => x.Inputs!.Count)
+				.ThenByDescending(x => x.Outputs!.Count)
+				.ThenBy(x => x.DisplayName)
+				.ToList();
 
-			return CreatePages(basicRecipes, PageType.Basics);
-		}
-
-		private static IEnumerable<RecipePage> GetAlternatePages(string name)
-		{
-			var mainRecipes = DataAggregator.Recipes.Where(x => x.Outputs?.First().Key == name).ToList();
-			var alternateRecipes = mainRecipes.Where(x => x.DisplayName!.StartsWith(Constants.ALTERNATE_PREFIX)).
-				OrderByDescending(x => x.Inputs!.Count).
-				ThenByDescending(x => x.Outputs!.Count).ThenBy(x => x.DisplayName).ToList();
-
-			return CreatePages(alternateRecipes, PageType.Alternates);
+			return CreatePages(mainRecipes, PageType.Main);
 		}
 
 		private static IEnumerable<RecipePage> GetByProductPages(string name)

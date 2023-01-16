@@ -202,15 +202,15 @@ div.main-panel-category-button-item:hover {
 }
 /*#endregion */
 
-/*#region Info Panel */
+/*#region Info Panel - Main */
 
 .info-panel-on {
-	width: 1500px;
-	height: 911px;
+	width: 1381px;
+	height: 849px;
 	position: absolute;
 	z-index: 20;
-	top: 10%;
-	left: 20%;
+	top: 5%;
+	left: 15%;
 	transition: .6s;
 }
 
@@ -235,7 +235,7 @@ div.info-panel {
 	--aug-tr: 30px;
 	--aug-br: 30px;
 	--aug-bl: 30px;
-	--aug-border-all: 5px;
+	--aug-border-all: 7px;
 	--aug-border-bg: var(--myblue);
 	background: black;
 }
@@ -245,22 +245,24 @@ div.info-panel {
 	padding-top:50px;
 	font-size:3rem;
 }
+/*#endregion */
 
+/*#region Info Panel - Top */
 div.info-panel-top {
 	position: relative;
-	height: 41%;
-	width: 98%;
+	height: 375px;
+	width: 99.7%;
 	--aug-tl: 30px;
 	--aug-tr: 30px;
 	--aug-br: 30px;
 	--aug-b: 15px;
 	--aug-bl: 30px;
-	--aug-b-center: 55%;
-	--aug-b-extend1: 15px;
+	--aug-b-center: 800px;
+	--aug-b-extend1: 8px;
 	--aug-border-all: 3px;
 	--aug-border-bg: var(--myblue);
-	top: 15px;
-	left: 15px;
+	top: 2px;
+	left: 2px;
 }
 
 .info-panel-top-header {
@@ -369,20 +371,24 @@ div.info-panel-top-header-buttons-button {
 	.info-panel-top-data-description > p {
 		margin-bottom: .5rem;
 	}
+/*#endregion */
 
+/*#region Info Panel - Recipes */
 div.info-panel-recipe {
 	position: relative;
 	float: left;
-	height: 31rem;
-	width: 53%;
+	height: 460px;
+	width: 793px;
 	--aug-tl: 30px;
 	--aug-tr: 10px;
 	--aug-br: 20px;
 	--aug-bl: 30px;
+	--aug-r: 12px;
+	--aug-r-center: 278px;
 	--aug-border-all: 3px;
 	--aug-border-bg: var(--myblue);
-	top: 27px;
-	left: 15px;
+	top: 10px;
+	left: 3px;
 }
 
 .info-panel-no-recipe-message {
@@ -393,7 +399,7 @@ div.info-panel-recipe {
 }
 
 .info-panel-recipe-table {
-	padding-left: 2rem;
+	padding-left: 19px;
 	padding-top: 0.75rem;
 	border-collapse: separate;
 }
@@ -404,9 +410,49 @@ div.info-panel-recipe {
 	padding-top: 0px;
 }
 
-/*.info-panel-recipe-name {
-	padding-right: 20px;
-}*/
+.info-panel-recipe-name-button {
+	font-family: Tomorrow;
+	font-variant: small-caps;
+	background: unset;
+	color: var(--myblue);
+	border: unset;
+	width: 210px;
+	height: 40px;
+	white-space: nowrap;
+}
+
+.info-panel-recipe-name-button:hover {
+	background: var(--myhighlightblue);
+	color: var(--myhoverblue);
+}
+
+.info-panel-recipe-name-button:active {
+	background: var(--myhoverblue);
+	color: var(--myblue);
+}
+
+div.info-panel-recipe-name-basic {
+	width: 210px;
+	height: 40px;
+	--aug-tl: 20px;
+	--aug-tr: 7px;
+	--aug-bl: 7px;
+	--aug-br: 20px;
+	--aug-border-all: 1px;
+	--aug-border-bg: var(--myblue);
+}
+
+div.info-panel-recipe-name-alternate {
+	width: 210px;
+	height: 40px;
+	--aug-tl: 4px;
+	--aug-tr: 4px;
+	--aug-bl: 6px;
+	--aug-br: 6px;
+	--aug-b: 5px;
+	--aug-border-all: 1px;
+	--aug-border-bg: var(--myblue);
+}
 
 .info-panel-recipe-button {
 	margin-top: 2px;
@@ -460,7 +506,6 @@ div.info-panel-recipe {
 	background: var(--myblue50);
 }
 
-
 .info-panel-recipe-paging-nav {
 	width: 60px;
 	display: flex;
@@ -490,24 +535,115 @@ div.info-panel-recipe {
 	.info-panel-paging-nav-icon:active {
 		color: var(--myblue);
 	}
+/*#endregion */
 
+/*#region Info Panel - Recipe Details */
+div.info-panel-details {
+	position: relative;
+	display: flex;
+	float: right;
+	width: 572px;
+	height: 270px;
+	top: 10px;
+	margin-right: 2px;
+	margin-bottom: 10px;
+	--aug-tl: 10px;
+	--aug-tr: 30px;
+	--aug-bl: 15px;
+	--aug-br: 15px;
+	--aug-border-all: 3px;
+	--aug-border-bg: var(--myblue);
+}
+
+.info-panel-details-default:hover {
+	background: var(--myhighlightblue);
+	color: var(--myhoverblue);
+}
+
+.info-panel-details-default:active {
+	background: var(--myhoverblue);
+	color: var(--myblue);
+}
+
+.info-panel-details-title {
+	position: relative;
+	font-size: 1.6rem;
+	margin-left: 15px;
+}
+
+.info-panel-details-building {
+	position: relative;
+	height: 148px;
+	width: 148px;
+	margin-top: 12px;
+}
+
+.info-panel-details-building-name {
+	font-size: 1.2rem;
+	margin-top: 1px;
+	text-align: center;
+}
+
+.info-panel-details-building-mw {
+	font-size: .8rem;
+}
+
+.info-panel-details-table {
+	position: relative;
+	margin-left: 8px;
+}
+
+.info-panel-details-left {
+	position: relative;
+	float: left;
+	height: 100%;
+	width: 350px;
+	margin-left: 0%;
+}
+
+.info-panel-details-right {
+	position: relative;
+	height: 100%;
+	width: 190px;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+}
+
+.info-panel-details-row-category {
+	padding-left: 15px;
+	font-size: 1rem;
+}
+
+.info-panel-details-default {
+	font-family: Tomorrow;
+	font-variant: small-caps;
+	border: 1px inset var(--myblue);
+	height: 35px;
+	background: unset;
+	color: var(--myblue);
+	border-radius: 10px;
+	padding-left: 9px;
+	padding-right: 9px;
+	font-size: 20px;
+}
+/*#endregion */
+
+/*#region Info Panel - Options */
 div.info-panel-options {
 	position: relative;
-	margin-right: 18px;
+	margin-right: 3px;
 	float: right;
-	height: 214px;
-	width: 43%;
+	height: 181px;
+	width: 572px;
 	--aug-tl: 15px;
 	--aug-tr: 15px;
 	--aug-br: 30px;
-	--aug-bl: 20px;
+	--aug-bl: 22px;
 	--aug-border-all: 3px;
 	--aug-border-bg: var(--myblue);
-	top: 27px;
+	top: 10px;
 }
-
-
-
 /*#endregion */
 
 /*#region Toggle Info Panel */
@@ -553,107 +689,5 @@ div.info-toggle {
 	font-style: normal;
 	font-weight: 400;
 	font-size: 35px;
-}
-
-div.info-panel-details {
-	position: relative;
-	float: right;
-	width: 43%;
-	height: 30%;
-	top: 27px;
-	margin-right: 18px;
-	margin-bottom: 10px;
-	--aug-tl: 10px;
-	--aug-tr: 30px;
-	--aug-bl: 15px;
-	--aug-br: 15px;
-	--aug-border-all: 3px;
-	--aug-border-bg: var(--myblue);
-}
-
-.info-panel-recipe-name-button {
-	font-family: Tomorrow;
-	font-variant: small-caps;
-	border: 1px inset var(--myblue);
-	height: 38px;
-	background: unset;
-	color: var(--myblue);
-	border-radius: 10px;
-	padding-left: 6px;
-	padding-right: 6px;
-	font-size: 15px;
-	white-space: nowrap;
-}
-
-	.info-panel-recipe-name-button:hover, .info-panel-details-default:hover {
-		background: var(--myhighlightblue);
-		color: var(--myhoverblue);
-	}
-
-	.info-panel-recipe-name-button:active, .info-panel-details-default:active {
-		background: var(--myhoverblue);
-		color: var(--myblue);
-	}
-
-.info-panel-details-title {
-	position: relative;
-	font-size: 1.6rem;
-	margin-left: 15px;
-}
-
-.info-panel-details-building {
-	position: relative;
-	height: 148px;
-	width: 148px;
-	margin-top: 12px;
-}
-
-.info-panel-details-building-name {
-	font-size: 1.2rem;
-	margin-top: 1px;
-	text-align: center;
-}
-
-.info-panel-details-building-mw {
-	font-size: .8rem;
-}
-
-.info-panel-details-table {
-	position: relative;
-}
-
-.info-panel-details-left {
-	position: relative;
-	float: left;
-	height: 100%;
-	width: 55%;
-	margin-left: 2%;
-}
-
-.info-panel-details-right {
-	position: relative;
-	height: 100%;
-	width: 40%;
-	display: flex;
-	align-items: center;
-	flex-direction: column;
-}
-
-.info-panel-details-row-category {
-	padding-left: 15px;
-	font-size: 1rem;
-}
-
-.info-panel-details-default {
-	font-family: Tomorrow;
-	font-variant: small-caps;
-	border: 1px inset var(--myblue);
-	height: 35px;
-	background: unset;
-	color: var(--myblue);
-	border-radius: 10px;
-	padding-left: 9px;
-	padding-right: 9px;
-	font-size: 20px;
 }
 /*#endregion */

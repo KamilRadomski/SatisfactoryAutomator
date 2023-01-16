@@ -1,10 +1,10 @@
 ﻿namespace SatisfactoryProductionator.DataModels.Enums
 {
-	public enum PageType
+	public enum RecipeType
 	{
 		Default = 0,
-		Main = 1,
-		ByProducts = 2,
-		Inputs = 3,
+		Basic = 1,
+		Alternate = 2,
+		Extraction = 3,
 	}
 }

@@ -3,14 +3,9 @@
 @using SatisfactoryProductionator.DataModels.Models
 @using SatisfactoryProductionator.DataModels.Enums
 @using SatisfactoryProductionator.DataManager
-@using System.Reflection.Metadata.Ecma335
 @inject HttpClient Http
 
 <link rel="stylesheet" type="text/css" href="css/augmented-ui/augmented-ui.min.css" />
-
-<style type="text/css">
-    
-</style>
 
 <PageTitle>Items</PageTitle>
 
@@ -134,7 +129,7 @@ else
                 </div>
 
                 <div data-augmented-ui-reset></div>
-                <div data-augmented-ui="tl-clip tr-clip br-clip bl-2-clip-x border" class="info-panel-recipe">
+                <div data-augmented-ui="tl-clip tr-clip br-clip bl-2-clip-x r-clip-y border" class="info-panel-recipe">
                     @if (_currentRecipePage == null)
                     {
                         <p class="info-panel-no-recipe-message">No Recipes </p>
@@ -142,60 +137,70 @@ else
                     else
                     {
                         <table class="info-panel-recipe-table">
-                            @for (var i = 0; i < GetPageLoops(); i++)
+                            @{
+                                _currentRecipeType = null;
+                            }
+                            @foreach (var recipe in _currentRecipePage.Recipes!)
                             {
-                                @if (i == 1)
+                                if (_currentRecipeType == null || (_currentRecipePage.PageType == PageType.Main && _currentRecipeType == RecipeType.Basic && recipe.RecipeType == RecipeType.Alternate))
                                 {
-                                    AdjustMainPage(1);
-                                }
-                                <tr>
-                                    <td colspan="4" class="info-panel-recipe-header">@FormatCategoryName(_currentRecipePage!.PageType.ToString())</td>
-                                </tr>
-                                @foreach (var recipe in _currentRecipePage.Recipes!)
-                                {
+                                    _currentRecipeType = recipe.RecipeType;
                                     <tr>
-                                        <td>
-                                            <button type="button" class="info-panel-recipe-name-button" @onclick="@(() => SetRecipeDetails(recipe.DisplayName))">
-                                                @FormatDisplayName(recipe.DisplayName!)
-                                            </button>
-                                        </td>
-                                        <td>
-                                            <table>
-                                                <tr>
-                                                    @foreach (var item in recipe.Inputs!)
-                                                    {
-                                                        <td>
-                                                            <button class="main-panel-category-button info-panel-recipe-button" type="button" @onclick="@(() => AddItemRecipe(@item.Key!))">
-                                                                <img class="info-panel-recipe-image" src=@GetIconLocation(item.Key) alt=@item.Key />
-                                                                <div class="info-panel-recipe-quantity">@Math.Round(item.Value[1], 2)/min</div>
-                                                            </button>
-                                                        </td>
-                                                    }
-                                                </tr>
-                                            </table>
-                                        </td>
-                                        <td> >>> </td>
-                                        <td>
-                                            <table>
-                                                <tr>
-                                                    @foreach (var item in recipe.Outputs!)
-                                                    {
-                                                        <td>
-                                                            <button class="main-panel-category-button info-panel-recipe-button" type="button" @onclick="@(() => AddItemRecipe(@item.Key!))">
-                                                                <img class="info-panel-recipe-image" src=@GetIconLocation(item.Key) alt=@item.Key />
-                                                                <div class="info-panel-recipe-quantity">@Math.Round(item.Value[1], 2)/min</div>
-                                                            </button>
-                                                        </td>
-                                                    }
-                                                </tr>
-                                            </table>
-                                        </td>
+                                        <td colspan="4" class="info-panel-recipe-header">@FormatCategoryName(GetRecipePageHeader(_currentRecipePage.PageType, recipe.RecipeType))</td>
                                     </tr>
                                 }
-                                @if (i == 1)
-                                {
-                                    AdjustMainPage(-1);
-                                }
+                                <tr>
+                                    <td>
+                                        @if (recipe.RecipeType is RecipeType.Basic)
+                                        {
+                                            <div data-augmented-ui="tl-clip tr-clip br-clip bl-clip border" class="info-panel-recipe-name-basic">
+                                                <button type="button" class="info-panel-recipe-name-button" @onclick="@(() => SetRecipeDetails(recipe.DisplayName))">
+                                                    @FormatDisplayName(recipe.DisplayName!)
+                                                </button>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div data-augmented-ui="tl-2-clip-x tr-2-clip-x br-2-clip-x b-clip-x bl-2-clip-x border" class="info-panel-recipe-name-alternate">
+                                                <button type="button" class="info-panel-recipe-name-button" @onclick="@(() => SetRecipeDetails(recipe.DisplayName))">
+                                                    @FormatDisplayName(recipe.DisplayName!)
+                                                </button>
+                                            </div>
+                                        }
+
+                                    </td>
+                                    <td>
+                                        <table>
+                                            <tr>
+                                                @foreach (var item in recipe.Inputs!)
+                                                {
+                                                    <td>
+                                                        <button class="main-panel-category-button info-panel-recipe-button" type="button" @onclick="@(() => AddItemRecipe(item.Key!))">
+                                                            <img class="info-panel-recipe-image" src=@GetIconLocation(item.Key) alt=@item.Key />
+                                                            <div class="info-panel-recipe-quantity">@Math.Round(item.Value[1], 2)/min</div>
+                                                        </button>
+                                                    </td>
+                                                }
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <td> >>> </td>
+                                    <td>
+                                        <table>
+                                            <tr>
+                                                @foreach (var item in recipe.Outputs!)
+                                                {
+                                                    <td>
+                                                        <button class="main-panel-category-button info-panel-recipe-button" type="button" @onclick="@(() => AddItemRecipe(@item.Key!))">
+                                                            <img class="info-panel-recipe-image" src=@GetIconLocation(item.Key) alt=@item.Key />
+                                                            <div class="info-panel-recipe-quantity">@Math.Round(item.Value[1], 2)/min</div>
+                                                        </button>
+                                                    </td>
+                                                }
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
                             }
                         </table>
                         @if (GetPageCount() > 1)
@@ -247,15 +252,17 @@ else
                                 <tr>
                                     <td class="info-panel-details-row-category">Outputs</td>
                                 </tr>
-                                @foreach (var item in _recipeDetails.Outputs!)
-                                {
-                                    <td>
-                                        <button class="main-panel-category-button info-panel-recipe-button" type="button" @onclick="@(() => AddItemRecipe(item.Key))">
-                                            <img class="info-panel-recipe-image" src=@GetIconLocation(item.Key) alt=@item.Key />
-                                            <div class="info-panel-recipe-quantity">X @item.Value[0]</div>
-                                        </button>
-                                    </td>
-                                }
+                                <tr>
+                                    @foreach (var item in _recipeDetails.Outputs!)
+                                    {
+                                        <td>
+                                            <button class="main-panel-category-button info-panel-recipe-button" type="button" @onclick="@(() => AddItemRecipe(item.Key))">
+                                                <img class="info-panel-recipe-image" src=@GetIconLocation(item.Key) alt=@item.Key />
+                                                <div class="info-panel-recipe-quantity">X @item.Value[0]</div>
+                                            </button>
+                                        </td>
+                                    }
+                                </tr>
                             </table>
                         </div>
                         <div class="info-panel-details-right">
@@ -287,11 +294,11 @@ else
     private static Stack<Item>? _previousStack;
     private static Stack<Item>? _nextStack;
     private static Dictionary<string, ItemRecipes>? _itemRecipeCache;
+    private static RecipeType? _currentRecipeType;
 
     private static bool _isInfoPanelActive;
     private static bool IsDisplayPreviousInactive => _previousStack?.Count == 0;
     private static bool IsDisplayNextInactive => _nextStack?.Count == 0;
-    private static bool IsMainPage => _currentRecipePage!.PageType is PageType.Basics or PageType.Alternates;
 
     protected override async Task OnInitializedAsync()
     {
@@ -332,12 +339,7 @@ else
 
     private static void SetRecipePage(int index)
     {
-        if (index == 0)
-            _currentRecipePage = _currentItemRecipes!.Pages?[0];
-        else if (_currentItemRecipes!.HasDoubleMainPage)
-            _currentRecipePage = _currentItemRecipes!.Pages?[index + 1];
-        else
-            _currentRecipePage = _currentItemRecipes!.Pages?[index];
+        _currentRecipePage = _currentItemRecipes!.Pages![index];
 
         _currentItemRecipes!.PageIndex = index;
     }
@@ -347,20 +349,6 @@ else
         var count = _currentItemRecipes!.Pages!.Count;
 
         return _currentItemRecipes.HasDoubleMainPage ? --count : count;
-    }
-
-    private static int GetPageLoops()
-    {
-        if (!IsMainPage) return 1;
-
-        return _currentItemRecipes!.HasDoubleMainPage ? 2 : 1;
-    }
-
-    private static void AdjustMainPage(int bump)
-    {
-        _currentItemRecipes!.PageIndex += bump;
-        _currentRecipePage = _currentItemRecipes.Pages?[_currentItemRecipes.PageIndex];
-
     }
 
     /*Info Panel Main Buttons*/
@@ -459,11 +447,7 @@ else
         return name;
     }
 
-    private static string FormatDisplayName(string name)
-    {
-        name = name.Replace(Constants.ALTERNATE_PREFIX, "");
-        return name.Replace(" - ", "-").Replace(" ", ".");
-    }
+    private static string FormatDisplayName(string name) => name.Replace(" - ", "-").Replace(" ", ".");
 
     #endregion
 
@@ -473,4 +457,5 @@ else
 
     private static string GetPower(string? name) => PowerCalculator.GetPower(name);
 
+    private static string GetRecipePageHeader(PageType pageType, RecipeType recipeType) => pageType != PageType.Main ? pageType.ToString() : recipeType.ToString();
 }
