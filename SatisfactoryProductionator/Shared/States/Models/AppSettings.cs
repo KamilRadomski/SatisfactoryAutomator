@@ -1,6 +1,6 @@
-﻿namespace SatisfactoryProductionator.DataModels.Models
+﻿namespace SatisfactoryProductionator.Shared.States.Models
 {
-	public class Settings
+	public class AppSettings
 	{
 		public Dictionary<string, string>? PreferredRecipe { get; set; }
 		public int MaxRecycledLoop { get; set; }

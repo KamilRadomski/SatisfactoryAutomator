@@ -69,9 +69,14 @@ namespace SatisfactoryProductionator.DataParser
 			{
 				var buildTime = double.Parse(recipe.mManufactoringDuration);
 
+				var displayName = ParseDisplayName(recipe.mDisplayName);
+
+				var recipeType = GetRecipeType(recipe);
+
 				recipes.Add(new Recipe()
 				{
-					DisplayName = recipe.mDisplayName,
+					DisplayName = displayName,
+					RecipeType = recipeType,
 					BuildTime = buildTime,
 					Building = GetBuilding(recipe.mProducedIn),
 					Inputs = StringParser.ParseItemsAndQuantityPerMinute(recipe.mIngredients, buildTime),
@@ -80,6 +85,18 @@ namespace SatisfactoryProductionator.DataParser
 			}
 
 			return recipes;
+		}
+
+		private static RecipeType GetRecipeType(CategoryClasses recipe)
+		{
+			if(recipe.mDisplayName.StartsWith(Constants.ALTERNATE_PREFIX)) 
+				return RecipeType.Alternate;
+			return GetBuilding(recipe.mProducedIn) != "Converter" ? RecipeType.Basic : RecipeType.Extraction;
+		}
+
+		private static string ParseDisplayName(string name)
+		{
+			return name.Replace(Constants.ALTERNATE_PREFIX, "");
 		}
 
 		private static List<Building> ParseBuildings()

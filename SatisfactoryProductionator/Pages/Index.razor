@@ -23,7 +23,7 @@
             <li>Item Page converted to Codex that houses items, recipes, buildings</li>
             <li>graph library built that handles needs for Grapher and Permutator page</li>
             <li>permutations for comparison for choosing graph paths (Single recipe routes only, all permutations with multiple Recipes for same item seems needless)</li>
-            <li>Settings page that will hold preferred Recipes to use in Grapher</li>
+            <li>AppSettings page that will hold preferred Recipes to use in Grapher</li>
         </ul>
 
         <h2>Wishlist</h2>
@@ -46,37 +46,12 @@
         
         <h2>Next Up</h2>
         <ul>
-            <li>Start Settings Page</li>
+            <li>Start AppSettings Page</li>
             <li><ul>
                 <li>Preferred Recipe</li>
                 <li>Recycled plastic/rubber min/max - needed to prevent recursive loop</li>
+                <li>hook up button from info panel details pane to update settings</li>
             </ul></li>
-            <li>Add more recipe details into info panel</li>
-            <li><ul>
-                <li>Will need settings to set preferred</li>
-                <li>Turn Recipe names into buttons to set current viewed recipe</li>
-                <li>Main Recipe info will highlight the current set recipe so user can easily see which Basic/Alt is set for that item</li>
-                <li>Section will include:</li>
-                <li><ul>
-                    <li>Building used</li>
-                    <li>Build time</li>
-                    <li>Recipe per item instead of per minute</li>
-                    <li>button for setting preferred</li>
-                    <li>State container built to handle updating data between pages</li>
-                </ul></li>
-            </ul></li>
-            <li>Break apart Item Page into components</li>
-            <li><ul>
-                    <li>Quick Nav (Component Parameter) - can reuse for Recipe and Building Page</li>
-                    <li>Info Panel (Component Parameter) - can reuse for any modal</li>
-                    <li>Info Panel Header (Cascading Parameter) - can reuse in Recipe Page</li>
-                </ul></li>
-            <li>Make Info Panel more statically sized</li>
-            <li><ul>
-                    <li class="done">Resize to desired look</li>
-                    <li>Control responsiveness through media queries</li>
-                    <li>??When screen too small either make info panel set in static spot with full screen scroll bars enabled or shrink with message to tell user to up size</li>
-                </ul></li>
         </ul>
 
         <h2>General</h2>
@@ -88,7 +63,6 @@
                     <li>Swap some CSS to more responsiveness to resizing</li>
                     <li>Once a certain minimum size is met that makes site unusable - display off with message saying to make bigger??</li>
                 </ul></li>
-            <li>Move QuickNav from Items Page into reusable component - will be used in Recipes and Buildings page</li>
         </ul>
 
         <h2>To Answer</h2>
@@ -101,16 +75,15 @@
         <h2>Components to Build</h2>
         <ul>
             <li>Quick Nav(Items, Recipes, Buildings)</li>
-            <li>Item Info Panel</li>
-            <li>Settings Page</li>
-            <li>Settings library</li>
+            <li>AppSettings Page</li>
+            <li>AppSettings library</li>
             <li>Grapher Page</li>
             <li>Permutator Page</li>
             <li>Graphing Library(Grapher, Permutator) Maybe split into two libraries??</li>
             <li>Data Formatter(Formatting Display Names, etc.)</li>
             <li>State Containers</li>
             <li><ul>
-                <li>Settings</li>
+                <li>AppSettings</li>
                 <li>Graphing</li>
                 <li>Permutating</li>
             </ul></li>
@@ -122,9 +95,7 @@
             <li>Make Q Nav title bar less janky (maybe add info panel button in there)</li>
             <li>Move reusable methods into DataFormater Class that handle formatting names</li>
             <li>Move items augmented ui css classes out of items page css isolation for use in other pages</li>
-            <li>Fix resizing jankiness on item info panel</li>
-            <li>Verify that all basic and alt Recipes are coming through on items page</li>
-            <li>Preferred recipe option from item info panel</li>
+            <li>Fix hover areas on nav buttons on info panel (wrap aug-d divs around buttons)</li>
         </ul>
     </div>
 </div>
