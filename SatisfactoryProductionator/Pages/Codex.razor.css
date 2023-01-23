@@ -215,12 +215,12 @@ div.main-panel-category-button-item:hover {
 }
 
 .info-panel-off {
-	width: 60%;
-	height: 70%;
+	width: 1381px;
+	height: 849px;
 	position: absolute;
 	z-index: 0;
-	top: 10%;
-	left: 20%;
+	top: 5%;
+	left: 15%;
 	z-index: -1;
 	transition: .4s;
 	opacity: 0;
