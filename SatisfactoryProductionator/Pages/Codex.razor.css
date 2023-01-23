@@ -640,17 +640,28 @@ div.info-panel-details {
 	font-size: 1rem;
 }
 
+div.info-panel-details-default-aug {
+	height: 35px;
+	width: 150px;
+	--aug-tl: 5px;
+	--aug-tr: 4px;
+	--aug-bl: 4px;
+	--aug-br: 5px;
+	--aug-border-all: 1px;
+	--aug-border-bg: var(--myblue);
+}
+
 .info-panel-details-default {
 	font-family: Tomorrow;
 	font-variant: small-caps;
-	border: 1px inset var(--myblue);
-	height: 35px;
+	height: 37px;
+	width: 152px;
 	background: unset;
 	color: var(--myblue);
-	border-radius: 10px;
-	padding-left: 9px;
-	padding-right: 9px;
-	font-size: 20px;
+	font-size: 19px;
+	padding-bottom: 3px;
+	margin-top: -1px;
+	margin-left: -1px;
 }
 /*#endregion */
 
