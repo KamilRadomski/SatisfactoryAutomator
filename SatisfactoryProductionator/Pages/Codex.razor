@@ -10,6 +10,13 @@
 
 <PageTitle>Items</PageTitle>
 
+<style type="text/css">
+    .shadow-on{
+        drop-shadow(3px 0px 1px blue)drop-shadow(-3px 0px 1px blue)drop-shadow(0px 3px 1px blue)drop-shadow(0px -3px 1px blue);
+    }
+    
+</style>
+
 @if (DataAggregator.Items.Count == 0)
 {
     <p><em>Loading...</em></p>
@@ -156,10 +163,12 @@ else
                                     <td>
                                         @if (recipe.RecipeType is RecipeType.Basic)
                                         {
+                                            <div class="shadow-on">
                                             <div data-augmented-ui="tl-clip tr-clip br-clip bl-clip border" class="info-panel-recipe-name-basic">
                                                 <button type="button" class="info-panel-recipe-name-button" @onclick="@(() => SetRecipeDetails(recipe.DisplayName))">
                                                     @FormatDisplayName(recipe.DisplayName!)
                                                 </button>
+                                            </div>
                                             </div>
                                         }
                                         else
