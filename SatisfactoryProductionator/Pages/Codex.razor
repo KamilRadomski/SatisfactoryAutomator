@@ -4,11 +4,22 @@
 @using SatisfactoryProductionator.DataModels.Enums
 @using SatisfactoryProductionator.DataManager
 @using System.Globalization
+@using SatisfactoryProductionator.Shared.States;
+@using SatisfactoryProductionator.Shared.States.Models;
+@inject SettingsState SettingsState
+@implements IDisposable
+
 @inject HttpClient Http
 
 @*<link rel="stylesheet" type="text/css" href="css/augmented-ui/augmented-ui.min.css" />*@
 
 <PageTitle>Items</PageTitle>
+
+<style type="text/css">
+    .shadow-on {
+        filter: drop-shadow(3px 0px 1px blue)drop-shadow(-3px 0px 1px blue)drop-shadow(0px 3px 1px blue)drop-shadow(0px -3px 1px blue);
+    }
+</style>
 
 @if (DataAggregator.Items.Count == 0)
 {
@@ -156,18 +167,22 @@ else
                                     <td>
                                         @if (recipe.RecipeType is RecipeType.Basic)
                                         {
-                                            <div data-augmented-ui="tl-clip tr-clip br-clip bl-clip border" class="info-panel-recipe-name-basic">
-                                                <button type="button" class="info-panel-recipe-name-button" @onclick="@(() => SetRecipeDetails(recipe.DisplayName))">
-                                                    @FormatDisplayName(recipe.DisplayName!)
-                                                </button>
+                                            <div class=@CssIsDefault(recipe)>
+                                                <div data-augmented-ui="tl-clip tr-clip br-clip bl-clip border" class="info-panel-recipe-name-basic">
+                                                    <button type="button" class="info-panel-recipe-name-button" @onclick="@(() => SetRecipeDetails(recipe.DisplayName))">
+                                                        @FormatDisplayName(recipe.DisplayName!)
+                                                    </button>
+                                                </div>
                                             </div>
                                         }
                                         else
                                         {
-                                            <div data-augmented-ui="tl-2-clip-x tr-2-clip-x br-2-clip-x b-clip-x bl-2-clip-x border" class="info-panel-recipe-name-alternate">
-                                                <button type="button" class="info-panel-recipe-name-button" @onclick="@(() => SetRecipeDetails(recipe.DisplayName))">
-                                                    @FormatDisplayName(recipe.DisplayName!)
-                                                </button>
+                                            <div class=@CssIsDefault(recipe)>
+                                                <div data-augmented-ui="tl-2-clip-x tr-2-clip-x br-2-clip-x b-clip-x bl-2-clip-x border" class="info-panel-recipe-name-alternate">
+                                                    <button type="button" class="info-panel-recipe-name-button" @onclick="@(() => SetRecipeDetails(recipe.DisplayName))">
+                                                        @FormatDisplayName(recipe.DisplayName!)
+                                                    </button>
+                                                </div>
                                             </div>
                                         }
 
@@ -273,7 +288,9 @@ else
                             <div class="info-panel-details-building-name">@_recipeDetails.Building</div>
                             <div class="info-panel-details-building-mw">@GetPower(_recipeDetails.Building)MW</div>
                             <div class="info-panel-details-building-mw">@_recipeDetails.BuildTime Seconds</div>
-                            <button type="button" class="info-panel-details-default">Set As Default</button>
+                            <div data-augmented-ui="tl-clip-x tr-clip-y br-clip-x bl-clip-y border" class="info-panel-details-default-aug">
+                                <button type="button" @onclick="@(() => SetDefaultRecipe(_recipeDetails))" class="info-panel-details-default">Set As Default</button>
+                            </div>
                         </div>
                     }
                 </div>
@@ -290,6 +307,8 @@ else
 }
 
 @code {
+    private static AppSettings _settings = new AppSettings();
+
     private static Item? _currentItem;
     private static ItemRecipes? _currentItemRecipes;
     private static RecipePage? _currentRecipePage;
@@ -303,14 +322,21 @@ else
     private static bool IsDisplayPreviousInactive => _previousStack?.Count == 0;
     private static bool IsDisplayNextInactive => _nextStack?.Count == 0;
 
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
-        await Task.Run(() =>
-        {
-            _previousStack ??= new Stack<Item>();
-            _nextStack ??= new Stack<Item>();
-            _itemRecipeCache ??= new Dictionary<string, ItemRecipes>();
-        });
+        base.OnInitialized();
+        SettingsState.OnStateChange += StateHasChanged;
+        _settings = SettingsState.Value ?? new AppSettings(){PreferredRecipe = new Dictionary<string, string>()};
+
+        _previousStack ??= new Stack<Item>();
+        _nextStack ??= new Stack<Item>();
+        _itemRecipeCache ??= new Dictionary<string, ItemRecipes>();
+
+    }
+
+    public void Dispose()
+    {
+        SettingsState.OnStateChange -= StateHasChanged;
     }
 
     private static void AddItemRecipe(string name)
@@ -431,6 +457,23 @@ else
 
     private static string CssIsInfoPanelActive() => _isInfoPanelActive ? "info-panel-on" : "info-panel-off";
 
+    private static string CssIsDefault(Recipe recipe)
+    {
+        if (_settings.PreferredRecipe.ContainsValue(recipe.DisplayName))
+        {
+            return "shadow-on";
+        }
+
+        var item = recipe.Outputs!.Keys.First();
+
+        if (recipe.RecipeType is RecipeType.Basic && !_settings.PreferredRecipe.ContainsKey(item))
+        {
+            return "shadow-on";
+        }
+
+        return string.Empty;
+    }
+
     #endregion
 
     /*String Formatters*/
@@ -470,6 +513,28 @@ else
     private string CssIsNextActive()
     {
         return IsDisplayNextInactive ? "info-panel-top-header-buttons-button-inactive" : "info-panel-top-header-buttons-button";
+    }
+
+    private void SetDefaultRecipe(Recipe recipe)
+    {
+        var item = recipe.Outputs!.Keys.First();
+
+        if (!_settings.PreferredRecipe!.ContainsKey(item) && recipe.RecipeType is RecipeType.Basic) return;
+
+        if(_settings.PreferredRecipe!.ContainsKey(item) && recipe.RecipeType is RecipeType.Alternate)
+        {
+            _settings.PreferredRecipe[item] = recipe.DisplayName!;
+        }
+        else if (_settings.PreferredRecipe!.ContainsKey(item) && recipe.RecipeType is RecipeType.Basic)
+        {
+            _settings.PreferredRecipe.Remove(item);
+        }
+        else
+        {
+            _settings.PreferredRecipe.Add(item, recipe.DisplayName!);
+        }
+
+        SettingsState.SetValue(_settings);
     }
 
 }

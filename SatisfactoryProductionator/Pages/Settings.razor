@@ -16,7 +16,7 @@
     {
         base.OnInitialized();
         SettingsState.OnStateChange += StateHasChanged;
-        _settings = SettingsState.Value;
+        _settings = SettingsState.Value ?? new AppSettings();
     }
 
     public void Dispose()
