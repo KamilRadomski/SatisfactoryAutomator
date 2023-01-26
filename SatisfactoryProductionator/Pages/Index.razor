@@ -5,13 +5,13 @@
 <PageTitle>Index</PageTitle>
 
 <style type="text/css">
-    .index-format{
-        padding-left:15px;
-        padding-top:10px;
+    .index-format {
+        padding-left: 15px;
+        padding-top: 10px;
     }
 
-    .done{
-        text-decoration:line-through
+    .done {
+        text-decoration: line-through
     }
 </style>
 
@@ -26,76 +26,119 @@
             <li>AppSettings page that will hold preferred Recipes to use in Grapher</li>
         </ul>
 
-        <h2>Wishlist</h2>
-        <ul>
-            <li>Cookies to store preferred Recipes</li>
-            <li>option to save/export production lines</li>
-            <li>Predefined production lines if saving production lines gets implemented</li>
-            <li><ul>
-                <li>Starter factory setups (will be small versions to give someone new an idea of how to lay productions lines out)</li>
-                <li>Starter base that lays out lines for things needed for all lower tiers</li>
-                <li>Oil setup </li>
-                <li>Aluminum setup</li>
-                <li>Nuclear</li>
-                <li>Other types of setups that can be generated and updated to the default setups in page easily</li>
-                <li>All predefined will not be able to be overwritten but user can save an altered production line if a template gets tweaked to meet needs</li>
-            </ul></li>
-            <li>Save scroll position between page navigations</li>
-            <li>KILL THE SCOPE CREEP FAIRY!!!!!</li>
-        </ul>
-        
         <h2>Next Up</h2>
         <ul>
             <li>Start AppSettings Page</li>
-            <li><ul>
-                <li>Preferred Recipe</li>
-                <li>Recycled plastic/rubber min/max - needed to prevent recursive loop</li>
-                <li>hook up button from info panel details pane to update settings</li>
-            </ul></li>
+            <li>
+                <ul>
+                    <li>Preferred Recipe</li>
+                    <li>Recycled plastic/rubber min/max - needed to prevent recursive loop</li>
+                    <li>hook up button from info panel details pane to update settings</li>
+                </ul>
+            </li>
+            <li>Fix crashing due to clicking a recipe that is produced in 'converter' - special case that has no power due to building not existing</li>
         </ul>
 
-        <h2>General</h2>
+        <h2>Backlog</h2>
         <ul>
-            <li>Fix initialization issue when refreshing page not on home</li>
-            <li>Handle resizing issues</li>
-            <li>
-                <ul><li>Lock popups to minimum size and add scroll bars</li>
+            <li>General</li>
+            <li><ul>
+                <li>Fix initialization issue when refreshing page not on home</li>
+                <li>Break Codex into components</li>
+            </ul></li>
+
+            <li>Codex</li>
+            <li><ul>
+                <li>Handle resizing issues for info panel/quicknav</li>
+                <li><ul>
+                    <li>Lock popups to minimum size and add scroll bars</li>
                     <li>Swap some CSS to more responsiveness to resizing</li>
                     <li>Once a certain minimum size is met that makes site unusable - display off with message saying to make bigger??</li>
                 </ul></li>
+                <li>Make Q Nav title bar less janky</li>
+                <li>Move reusable methods into DataFormater Class that handle formatting names</li>
+                <li>Fix converter type recipe crashing</li>
+                <li>Change Preferred recipe in settings to use full default list</li>
+                <li><ul>
+                    <li>Currently basics are omitted from list and checking is done based on if it's present with an alt recipe</li>
+                    <li>Will cause issues for liquids that don't have basic recipe but do have an unpackage recipe</li>
+                    <li>Can't default unpackage recipe since it will create an infinite loop during permutation/graphing</li>
+                </ul></li>
+                <li>Add buildings to Codex</li>
+                <li>Add equipment/vehicles to codex</li>
+                <li>Make qnav title into selector for main categories for Codex(items, buildings, equipemnt)</li>
+            </ul></li>
+
+            <li>Settings Page</li>
+            <li><ul>
+                <li>Rebuild recycled plastic/rubber input setting (30-9999)</li>
+                <li>Updated settings state container to bounds check input setting</li>
+                <li>Add secondary plastic/rubber recipe choices for when recycled recipe falls under minimum</li>
+                <li>Design layout for default recipes</li>
+                <li><ul>
+                    <li>Categorize same way codex is with general settings as first category(recycled, etc.)</li>
+                    <li>Each item will have all its recipes listed next to it with defaulted highlighted (basics, alts, ?byproducts?)</li>
+                    <li>Clicking a button or entering in value where appropriate will update settings state immediately, no need for a save button</li>
+                    <li>Add reset to defaults button which will set min recycle to 30 and set all recipes back to basic</li>
+                </ul></li>
+            </ul></li>
+
+            <li>Permutator Page</li>
+            <li><ul>
+                <li>Permutator library(may be combined with grapher library or split with a shared utility library)</li>
+                <li>Permutator state container that other pages can work with</li>
+                <li>Ability to select permutation to stick on top to compare while scrolling - collapsible</li>
+                <li>Filtering on top - collapsible</li>
+                <li>QNav area will house sorting</li>
+                <li>Option to set all recipes in a permutation as defaults</li>
+            </ul></li>
+
+            <li>Grapher Page</li>
+            <li><ul>
+                <li>Grapher Library</li>
+                <li>Grapher state container</li>
+                <li>Implement Cytoscape.js for graphing</li>
+                <li>qnav area will hold meta data on what is getting graphed</li>
+                <li><ul>
+                    <li>Total power</li>
+                    <li>Total infra cost</li>
+                    <li>Total materials needed/inputs from storage</li>
+                </ul></li>
+            </ul></li>
+          
+            <li>Home Page</li>
+            <li><ul>
+                <li>Overview</li>
+                <li>documentation</li>
+                <li>contact info for bugs/feature requests</li>
+            </ul></li>
         </ul>
 
-        <h2>To Answer</h2>
+        <h2>Spikes</h2>
         <ul>
             <li>Should I add subCategories to Items for sorting (Ammos => Rebar, Ammo, Nobelisk -- Currently all thrown in alpha-sorted)</li>
             <li>Should Items have multiple categories (Fuels that are liquid belong in Fuels and Liquids -- Nuclear Fuels belong in Nuclear and Fuels)</li>
             <li>Should I remove oil.products category and move the 4 items into different category (Polyresin and petro coke to minerals, plastic and rubber to standard parts)</li>
         </ul>
 
-        <h2>Components to Build</h2>
+        <h2>Wishlist</h2>
         <ul>
-            <li>Quick Nav(Items, Recipes, Buildings)</li>
-            <li>AppSettings Page</li>
-            <li>AppSettings library</li>
-            <li>Grapher Page</li>
-            <li>Permutator Page</li>
-            <li>Graphing Library(Grapher, Permutator) Maybe split into two libraries??</li>
-            <li>Data Formatter(Formatting Display Names, etc.)</li>
-            <li>State Containers</li>
-            <li><ul>
-                <li>AppSettings</li>
-                <li>Graphing</li>
-                <li>Permutating</li>
-            </ul></li>
-        </ul>
-
-        <h2>Todo</h2>
-        <h4>Items Page</h4>
-        <ul>
-            <li>Make Q Nav title bar less janky (maybe add info panel button in there)</li>
-            <li>Move reusable methods into DataFormater Class that handle formatting names</li>
-            <li>Move items augmented ui css classes out of items page css isolation for use in other pages</li>
-            <li>Fix hover areas on nav buttons on info panel (wrap aug-d divs around buttons)</li>
+            <li>Cookies to store preferred Recipes</li>
+            <li>option to save/export production lines</li>
+            <li>Predefined production lines if saving production lines gets implemented</li>
+            <li>
+                <ul>
+                    <li>Starter factory setups (will be small versions to give someone new an idea of how to lay productions lines out)</li>
+                    <li>Starter base that lays out lines for things needed for all lower tiers</li>
+                    <li>Oil setup </li>
+                    <li>Aluminum setup</li>
+                    <li>Nuclear</li>
+                    <li>Other types of setups that can be generated and updated to the default setups in page easily</li>
+                    <li>All predefined will not be able to be overwritten but user can save an altered production line if a template gets tweaked to meet needs</li>
+                </ul>
+            </li>
+            <li>Save scroll position between page navigations</li>
+            <li>KILL THE SCOPE CREEP FAIRY!!!!!</li>
         </ul>
     </div>
 </div>
