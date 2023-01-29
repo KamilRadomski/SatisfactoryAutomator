@@ -18,4 +18,9 @@
     <ProjectReference Include="..\SatisfactoryProductionator.DataParser\SatisfactoryProductionator.DataParser.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\images" />
+    <Folder Include="wwwroot\images\icons" />
+  </ItemGroup>
+
 </Project>
