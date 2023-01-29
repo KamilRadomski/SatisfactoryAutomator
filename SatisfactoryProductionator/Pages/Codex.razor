@@ -479,7 +479,13 @@ else
     /*String Formatters*/
     #region
 
-    private static string GetIconLocation(string name) => $"icons/{name.Replace(" ", "").Replace("-", "").Replace(".", "")}_256.png";
+    private static string GetIconLocation(string name)
+    {
+      
+
+        return $"../images/icons/{name.Replace(" ", "").Replace("-", "").Replace(".", "")}_256.png";
+    }
+
 
     private static string FormatCategoryName(string name)
     {
