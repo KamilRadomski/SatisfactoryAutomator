@@ -9,7 +9,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SatisfactoryProductionator.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SatisfactoryProductionator.DataParser", "SatisfactoryProductionator.DataParser\SatisfactoryProductionator.DataParser.csproj", "{FBAEBB16-204B-4337-B31E-C76F175962B5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SatisfactoryProductionator.DataManager", "SatisfactoryProductionator.DataManager\SatisfactoryProductionator.DataManager.csproj", "{4E8DF58F-9937-4BE9-8993-214C74E6815B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SatisfactoryProductionator.DataManager", "SatisfactoryProductionator.DataManager\SatisfactoryProductionator.DataManager.csproj", "{4E8DF58F-9937-4BE9-8993-214C74E6815B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SatisfactoryAutomator.Server", "SatisfactoryAutomator.Server\SatisfactoryAutomator.Server.csproj", "{9EA67A1D-A4EF-4269-9C07-F25771BE1DE6}"
+	ProjectSection(ProjectDependencies) = postProject
+		{981C1590-9E29-4ADA-B9A0-9FCB2BBB5E41} = {981C1590-9E29-4ADA-B9A0-9FCB2BBB5E41}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +38,10 @@ Global
 		{4E8DF58F-9937-4BE9-8993-214C74E6815B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4E8DF58F-9937-4BE9-8993-214C74E6815B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4E8DF58F-9937-4BE9-8993-214C74E6815B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9EA67A1D-A4EF-4269-9C07-F25771BE1DE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9EA67A1D-A4EF-4269-9C07-F25771BE1DE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9EA67A1D-A4EF-4269-9C07-F25771BE1DE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9EA67A1D-A4EF-4269-9C07-F25771BE1DE6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
