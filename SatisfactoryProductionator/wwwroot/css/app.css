@@ -2,6 +2,10 @@
 @import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 @import url("https://fonts.googleapis.com/css?family=Barlow|Tomorrow:400,700&display=swap");
 
+
+
+
+
 :root {
     --myblue: rgb(33, 147, 227);
     --myblue75: rgba(33, 147, 227, 0.75);
@@ -13,6 +17,8 @@
     --myhoverblueclear: rgba(153, 199, 229, 0.5);
     --myhoverblueclear2: rgba(153, 199, 229, 0.6);
 	--mydarkblue: rgb(6, 55, 86);
+
+    --icon1: url('../images/icons/adaptivecontrolunit_256.png');
 }
 
 html, body {
