@@ -26,7 +26,6 @@ html, body {
     /*background: black;*/
     background-size: cover;
     background-image: url('../images/background.png');
-    background-image: url('../images/icons/adaptivecontrolunit_256.png');
 }
 
 h1:focus {
