@@ -24,8 +24,9 @@
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     /*background: black;*/
-	background-size: cover;
-	background-image: url('../images/background.png');
+    background-size: cover;
+    background-image: url('../images/background.png');
+    background-image: url('../images/icons/adaptivecontrolunit_256.png');
 }
 
 h1:focus {
