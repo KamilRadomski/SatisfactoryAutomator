@@ -2,8 +2,8 @@
 Blazor Web Assembly SPA to make magic happen
 
 ## Recent Updates
-- 2/5 Fixed hosting issue not seeing icons properly
-      - Was not casing path correctly (IIS was fine but hosting in CloudFlare or Github Codespaces would not find icons)
+- 2/5 Fixed hosting issue not seeing icons properly  
+      Was not casing path correctly (IIS was fine but hosting in CloudFlare or Github Codespaces would not find icons)
 
 ## Known Issues
 - Refresh not done on Home causes issue in Parser
