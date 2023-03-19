@@ -183,11 +183,12 @@ div.main-panel-category-button-item {
 	background: black;
 }
 
-div.main-panel-category-button-item:hover {
-	--aug-border-all: 4px;
-	background: rgba(255,255,255,.1);
-	transition: .2s;
-}
+	div.main-panel-category-button-item:hover {
+		--aug-border-all: 4px;
+		background: var(--myblue50);
+		transform:scale(1.05);
+		transition: .2s;
+	}
 
 .main-panel-category-button-item-name {
 	position: relative;
@@ -541,6 +542,7 @@ div.info-panel-recipe-name-alternate {
 	height: 30px;
 	width: 20px;
 	background: unset;
+	border: unset;
 }
 
 .info-panel-paging-nav-icon {

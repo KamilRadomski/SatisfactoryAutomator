@@ -9,6 +9,9 @@ namespace SatisfactoryProductionator.Shared.States
 
 		public void SetValue(AppSettings value)
 		{
+			var minInput = value.MinRecycleInput;
+			value.MinRecycleInput = minInput < 30 ? 30 : minInput > 9999 ? 9999 : minInput;
+			
 			this.Value = value;
 			NotifyStateChanged();
 		}
