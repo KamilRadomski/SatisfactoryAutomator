@@ -1,12 +1,13 @@
 ﻿@inherits LayoutComponentBase
 
 <div class="page no-flow">
-    <div class="augsidebar">
-        <NavMenu />
-    </div>
+   
 
     <main>
-        <div data-augmented-ui="tl-2-clip-y tr-clip br-clip bl-clip both" class="augpanel">
+        <div data-augmented-ui="tl-clip tr-clip br-clip bl-clip border" class="outer-panel">
+            <div class="augsidebar">
+                <NavMenu />
+            </div>
             @Body
         </div>
     </main>
