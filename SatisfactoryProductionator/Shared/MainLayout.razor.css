@@ -23,13 +23,7 @@ div.outer-panel {
 }
 
 
-.augsidebar {
-    background: none;
-	width: 280px;
-	height: 50vh;
-	position: absolute;
-	top: 0;
-}
+
 
 .sidebar {
     background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);

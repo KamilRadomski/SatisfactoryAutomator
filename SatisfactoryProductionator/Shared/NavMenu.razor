@@ -1,37 +1,43 @@
-﻿<link rel="stylesheet" type="text/css" href="../wwwroot/css/augmented-ui/augmented-ui.min.css" />
+﻿@* <link rel="stylesheet" type="text/css" href="../wwwroot/css/augmented-ui/augmented-ui.min.css" /> *@
 
-<div data-augmented-ui="tl-clip tr-clip both" class="aug-navbar">>
-    <a class="aug-navbar-brand" href="">Satisfactory Automator</a>
+<div data-augmented-ui=" tl-clip tr-clip br-clip bl-clip border" class="nav-panel">
+    @* <a class="aug-navbar-brand" href="">Satisfactory Automator</a> *@
     <nav data-augmented-ui-reset class="aug-navbar-column">
-            <div data-augmented-ui="tl-clip tr-2-clip-x br-clip bl-2-clip-x border" class="aug-navbar-item">
-                <NavLink class="aug-navlink" href="" Match="NavLinkMatch.All">
-                    <span class="aug-oi oi-home" aria-hidden="true"></span> Home
-                </NavLink>
-            </div>
-            <div data-augmented-ui="tl-clip tr-2-clip-x br-clip bl-2-clip-x border" class="aug-navbar-item">
-                <NavLink class="aug-navlink" href="grapher" Match="NavLinkMatch.All">
-                    <span class="aug-oi oi-fork" aria-hidden="true"></span> Grapher
-                </NavLink>
-            </div>
-            <div data-augmented-ui="tl-clip tr-2-clip-x br-clip bl-2-clip-x border" class="aug-navbar-item">
-                <NavLink class="aug-navlink" href="permutator" Match="NavLinkMatch.All">
-                    <span class="aug-oi oi-spreadsheet" aria-hidden="true"></span> Permutator
-                </NavLink>
-            </div>
-            <div data-augmented-ui="tl-clip tr-2-clip-x br-clip bl-2-clip-x border" class="aug-navbar-item">
-                <NavLink class="aug-navlink" href="codex">
-                    <span class="aug-oi oi-aperture" aria-hidden="true"></span> Codex
-                </NavLink>
-            </div>
-        <div data-augmented-ui="tl-clip tr-2-clip-x br-clip bl-2-clip-x border" class="aug-navbar-item">
-                <NavLink class="aug-navlink" href="buildings">
-                    <span class="aug-oi oi-calendar" aria-hidden="true"></span> Buildings
-                </NavLink>
-            </div>
-            <div data-augmented-ui="tl-clip tr-2-clip-x br-clip bl-2-clip-x border" class="aug-navbar-item">
-                <NavLink class="aug-navlink" href="settings">
-                    <span class="aug-oi oi-cog" aria-hidden="true"></span> Settings
-                </NavLink>
-            </div>
-        </nav>
-    </div>
+
+        <div data-augmented-ui="tl-clip tr-clip br-clip-inset bl-clip border" class="nav-item nav-item-ul">
+            <NavLink class="aug-navlink" href="" Match="NavLinkMatch.All">
+                @* <span class="aug-oi oi-home" aria-hidden="true"></span> *@
+            </NavLink>
+        </div>
+
+        <div data-augmented-ui="tl-clip tr-clip br-clip bl-clip-inset border" class="nav-item nav-item-ur">
+            <NavLink class="aug-navlink" href="grapher" Match="NavLinkMatch.All">
+                @* <span class="aug-oi oi-fork" aria-hidden="true"></span> *@
+            </NavLink>
+        </div>
+
+        <div data-augmented-ui="tl-clip tr-clip br-clip bl-clip border" class="nav-item nav-item-center">
+            <NavLink class="aug-navlink" href="permutator" Match="NavLinkMatch.All">
+                @* <span class="aug-oi oi-spreadsheet" aria-hidden="true"></span> *@
+            </NavLink>
+        </div>
+
+        <div data-augmented-ui="tl-clip tr-clip-inset br-clip bl-clip border" class="nav-item nav-item-bl">
+            <NavLink class="aug-navlink" href="codex">
+                @* <span class="aug-oi oi-aperture" aria-hidden="true"></span> *@
+            </NavLink>
+        </div>
+
+        <div data-augmented-ui="tl-clip-inset tr-clip br-clip bl-clip border" class="nav-item nav-item-br">
+            <NavLink class="aug-navlink" href="settings">
+                @* <span class="aug-oi oi-cog" aria-hidden="true"></span> *@
+            </NavLink>
+        </div>
+
+    </nav>
+</div>
+
+
+<div data-augmented-ui="
+  tl-clip tr-clip br-clip-inset bl-clip border
+" class="styleme"></div>
