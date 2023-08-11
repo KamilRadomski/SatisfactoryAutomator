@@ -1,0 +1,40 @@
+﻿@using SatisfactoryProductionator.DataModels.Enums;
+@using SatisfactoryProductionator.DataModels.Models;
+@using SatisfactoryProductionator.DataParser;
+<div data-augmented-ui-reset></div>
+
+ /*Quick Nav*/
+<div data-augmented-ui="tl-clip br-clip bl-clip border" class="quick-nav">
+    <div data-augmented-ui-reset>
+        <div data-augmented-ui="tl-clip br-clip border" class="quick-nav-title">
+            <div class="quick-nav-title-q">Q</div>
+            <div class="quick-nav-title-nav">Nav</div>
+        </div>
+        <ul class="quick-nav-list">
+            @foreach (var group in GroupItems())
+            {
+                <li class="quick-nav-list-item">
+                    <button type="button" class="quick-nav-list-item-button" onclick="document.getElementById('@group.Key').scrollIntoView({behavior:'smooth'})">
+                        <div class="quick-nav-list-item-button-text">@FormatCategoryName(group.Key.ToString()!)</div>
+                    </button>
+                </li>
+            }
+        </ul>
+    </div>
+</div>
+
+@code {
+    private static IEnumerable<IGrouping<ItemType?, Item>> GroupItems() => DataAggregator.Items.OrderBy(x => x.Category).ThenBy(x => x.DisplayName).GroupBy(x => x.Category);
+
+    private static string FormatCategoryName(string name)
+    {
+        for (int i = name.Length - 1; i > 0; i--)
+        {
+            if (char.IsUpper(name[i]))
+            {
+                name = name.Insert(i, ".");
+            }
+        }
+        return name;
+    }
+}

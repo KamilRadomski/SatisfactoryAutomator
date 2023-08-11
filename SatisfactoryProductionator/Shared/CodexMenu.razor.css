@@ -1,0 +1,112 @@
+﻿/*#region Quick Nav */
+div.quick-nav {
+    float: left;
+    position: absolute;
+    top: 290px;
+    left: 30px;
+    width: 230px;
+    height: 74%;
+    margin-top: 25px;
+    padding-top: 25px;
+    padding-bottom: 5px;
+    --aug-border-all: 2px;
+    --aug-border-bg: var(--myblue);
+    --aug-tl: 216px;
+    --aug-br: 15px;
+    --aug-bl: 25px;
+}
+
+.quick-nav:hover {
+    background: rgba(255,255,255,.1);
+    transition: .3s;
+    --aug-border-all: 3px;
+}
+
+    .quick-nav:hover ::deep .quick-nav-title {
+        --aug-border-all: 4px;
+        transition: .3s;
+    }
+
+.quick-nav-title {
+    --aug-border-all: 2px;
+    --aug-border-bg: var(--myblue);
+    --aug-tl: 200px;
+    --aug-br: 30px;
+    height: 185px;
+    margin-left: 15px;
+    width: 200px;
+    background: black;
+}
+
+.quick-nav-title-q {
+    top: 40px;
+    position: relative;
+    left: 146px;
+    font-size: 4rem;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+    height: 80px;
+}
+
+.quick-nav-title-nav {
+    top: 35px;
+    position: relative;
+    left: 82px;
+    font-size: 3rem;
+}
+
+.quick-nav-list {
+    margin-top: 0px;
+    margin-bottom: 0;
+    padding-left: 0;
+    display: block;
+    list-style-type: none;
+    margin-block-start: 7px;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 15px;
+    padding-top: 0px;
+}
+
+.quick-nav-list-item {
+    display: grid;
+    text-align: -webkit-match-parent;
+    width: 200px;
+}
+
+.quick-nav-list-item-button {
+    font-family: Tomorrow;
+    font-variant: small-caps;
+    -webkit-appearance: button;
+    font-size: 1.3rem;
+    border-radius: 5px;
+    background: black;
+    color: var(--myblue);
+    border: 2px solid;
+    height: 87%;
+    margin-bottom: 3px;
+    padding-bottom: 1px;
+}
+
+    .quick-nav-list-item-button:hover {
+        border: 3px solid;
+        margin-bottom: 0px;
+        padding-bottom: 0px;
+        background: rgba(255,255,255,.1);
+    }
+
+    .quick-nav-list-item-button:active {
+        background: var(--myhighlightblue);
+    }
+
+    .quick-nav-list-item-button:hover ::deep .quick-nav-list-item-button-text {
+        top: -4px;
+        color: var(--myhoverblue);
+    }
+
+.quick-nav-list-item-button-text {
+    top: -3px;
+    position: relative;
+}
+/*#endregion */
