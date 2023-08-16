@@ -1,33 +1,23 @@
 ﻿/*#region Quick Nav */
-div.quick-nav {
-    float: left;
+div.codex-menu {
     position: absolute;
-    top: 290px;
-    left: 30px;
-    width: 230px;
-    height: 74%;
-    margin-top: 25px;
+    top: 225px;
+    bottom: 15px;
+    left: 15px;
+    width: 250px;
     padding-top: 25px;
     padding-bottom: 5px;
-    --aug-border-all: 2px;
-    --aug-border-bg: var(--myblue);
-    --aug-tl: 216px;
-    --aug-br: 15px;
-    --aug-bl: 25px;
-}
-
-.quick-nav:hover {
-    background: rgba(255,255,255,.1);
-    transition: .3s;
     --aug-border-all: 3px;
+    --aug-border-bg: var(--sfBlue);
+    --aug-tl: 15px;
+    --aug-tr: 12px;
+    --aug-br: 15px;
+    --aug-bl: 30px;
+    --aug-l: 10px;
+    --aug-r: 10px;
 }
 
-    .quick-nav:hover ::deep .quick-nav-title {
-        --aug-border-all: 4px;
-        transition: .3s;
-    }
-
-.quick-nav-title {
+.codex-sub-menu {
     --aug-border-all: 2px;
     --aug-border-bg: var(--myblue);
     --aug-tl: 200px;
@@ -36,23 +26,6 @@ div.quick-nav {
     margin-left: 15px;
     width: 200px;
     background: black;
-}
-
-.quick-nav-title-q {
-    top: 40px;
-    position: relative;
-    left: 146px;
-    font-size: 4rem;
-    padding-bottom: 0px;
-    margin-bottom: 0px;
-    height: 80px;
-}
-
-.quick-nav-title-nav {
-    top: 35px;
-    position: relative;
-    left: 82px;
-    font-size: 3rem;
 }
 
 .quick-nav-list {
@@ -109,4 +82,3 @@ div.quick-nav {
     top: -3px;
     position: relative;
 }
-/*#endregion */
