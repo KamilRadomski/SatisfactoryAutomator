@@ -22,17 +22,48 @@ div.nav-panel {
     --aug-border-all: 1px;
     --aug-border-bg: var(--sfBlue);
     text-decoration:none;
+    transition:.1s;
+    transition-delay:.1s;
 }
 
-.nav-item-center {
-    width: 100px;
-    height: 72px;
-    top: 64px;
-    left: 75px;
-    --aug-tl: 12px;
-    --aug-tr: 12px;
-    --aug-bl: 12px;
-    --aug-br: 12px;
+    .nav-item ::deep a {
+        height: 100%;
+        display: flex;
+        text-decoration-line: none;
+        color: #0d6efd;
+    }
+
+        .nav-item ::deep a.active {
+            background-color: var(--sfBlue40);
+        }
+
+
+    .nav-item:active {
+        --aug-border-all: 3px;
+    }
+
+    .nav-item ::deep a:hover {
+        background-color: var(--sfBlue20);
+    }
+
+.nav-item-hover {
+    transform: scale(1.08);
+    transition: .1s;
+    transition-delay: .1s;
+}
+
+.nav-item-shrink {
+    transform: scale(.9);
+    transition: .1s;
+    transition-delay: .1s;
+}
+
+.nav-oi {
+    font-family: Icons;
+    color: var(--myblue);
+    font-size: 40px;
+    z-index: -1;
+    transition: .1s;
 }
 
 .nav-item-ul {
@@ -48,6 +79,34 @@ div.nav-panel {
     --aug-br-inset2: 12px;
 }
 
+    .nav-item-ul:hover .nav-oi-ul {
+        font-size: 30px;
+        transition: .2s;
+        top:25px;
+        left:15px;
+    }
+
+    .nav-item-ul:hover .nav-text-ul {
+        transition:.2s;
+        font-size:20px;
+    }
+
+.nav-oi-ul {
+    position: absolute;
+    top: 0px;
+    left: 20px;
+}
+
+.nav-text-ul {
+    position: absolute;
+    color: var(--sfBlue);
+    font-size: 0px;
+    top: 8px;
+    left: 50px;
+    transition: .2s;
+    z-index:-1;
+}
+
 .nav-item-ur {
     width: 100px;
     height: 95px;
@@ -60,6 +119,75 @@ div.nav-panel {
     --aug-bl-inset2: 26px;
     --aug-bl-inset1: 32px;
 }
+
+    .nav-item-ur:hover .nav-oi-ur {
+        font-size: 30px;
+        transition: .2s;
+        top: 45px;
+        left: 60px;
+    }
+
+    .nav-item-ur:hover .nav-text-ur {
+        transition: .1s;
+        font-size: 20px;
+    }
+
+.nav-oi-ur {
+    position: absolute;
+    top: 8px;
+    left: 45px;
+    transition:.1s;
+}
+
+.nav-text-ur {
+    position: absolute;
+    color: var(--sfBlue);
+    font-size: 0px;
+    top: 8px;
+    left: 13px;
+    transition: .1s;
+    z-index:-1;
+}
+
+.nav-item-center {
+    width: 100px;
+    height: 72px;
+    top: 64px;
+    left: 75px;
+    --aug-tl: 12px;
+    --aug-tr: 12px;
+    --aug-bl: 12px;
+    --aug-br: 12px;
+}
+
+    .nav-item-center:hover .nav-oi-center {
+        font-size: 30px;
+        transition: .2s;
+        top: 11px;
+        left: 7px;
+    }
+
+    .nav-item-center:hover .nav-text-center {
+        transition: .1s;
+        font-size: 20px;
+    }
+
+.nav-oi-center {
+    position: absolute;
+    top: 2px;
+    left: 29px;
+}
+
+.nav-text-center {
+    position: absolute;
+    color: var(--sfBlue);
+    font-size: 0px;
+    top: 20px;
+    left: 42px;
+    transition: .1s;
+    z-index: -1;
+}
+
 
 .nav-item-bl {
     width: 100px;
@@ -74,6 +202,35 @@ div.nav-panel {
     --aug-tr-inset1: 33px;
 }
 
+    .nav-item-bl:hover .nav-oi-bl {
+        font-size: 30px;
+        transition: .2s;
+        top: 2px;
+        left: 16px;
+    }
+
+    .nav-item-bl:hover .nav-text-bl {
+        transition: .1s;
+        font-size: 18px;
+    }
+
+.nav-oi-bl {
+    position: absolute;
+    top: 30px;
+    left: 19px;
+}
+
+.nav-text-bl {
+    position: absolute;
+    color: var(--sfBlue);
+    font-size: 0px;
+    top: 50px;
+    left: 6px;
+    transition: .1s;
+    z-index: -1;
+}
+
+
 .nav-item-br {
     width: 120px;
     height: 75px;
@@ -87,64 +244,30 @@ div.nav-panel {
     --aug-tl-inset2: 13px;
 }
 
-.nav-item ::deep a {
-    height: 100%;
-    display: flex;
-    text-decoration-line: none;
-    color: #0d6efd;
-    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out;
-}
+    .nav-item-br:hover .nav-oi-br {
+        font-size: 30px;
+        transition: .2s;
+        top: 5px;
+        left: 73px;
+    }
 
-.nav-item ::deep a.active {
-    background-color: var(--sfBlue40);
-}
-
-.nav-item:hover {
-    --aug-border-all: 2px;
-    transform: scale(1.1);
-}
-
-.nav-item:active {
-    --aug-border-all:3px;
-}
-
-.nav-item ::deep a:hover {
-    background-color: var(--sfBlue20);
-    
-}
-
-.nav-oi {
-    font-family: Icons;
-    color: var(--myblue);
-    font-size: 45px;
-}
-
-.nav-oi-center {
-    position: absolute;
-    top: 0px;
-    left: 27px;
-}
-
-.nav-oi-ul {
-    position: absolute;
-    top: 0px;
-    left: 13px;
-}
-
-.nav-oi-ur {
-    position: absolute;
-    top: 18px;
-    left: 50px;
-}
-
-.nav-oi-bl {
-    position: absolute;
-    top: 6px;
-    left: 7px;
-}
+    .nav-item-br:hover .nav-text-br {
+        transition: .1s;
+        font-size: 20px;
+    }
 
 .nav-oi-br {
     position: absolute;
-    top: 2px;
-    left: 63px;
+    top: 13px;
+    left: 59px;
+}
+
+.nav-text-br {
+    position: absolute;
+    color: var(--sfBlue);
+    font-size: 0px;
+    top: 37px;
+    left: 13px;
+    transition: .1s;
+    z-index: -1;
 }
