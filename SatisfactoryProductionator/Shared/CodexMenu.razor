@@ -5,8 +5,34 @@
 
 <div data-augmented-ui="tl-clip tr-2-clip-y r-clip br-clip bl-clip l-clip border" class="codex-menu">
     <div data-augmented-ui-reset>
-        <div data-augmented-ui="tl-clip br-clip border" class="codex-sub-menu">
-           
+        <div data-augmented-ui="tl-clip tr-2-clip-y br-clip bl-2-clip-x border" class="codex-sub-menu">
+            <div data-augmented-ui-reset>
+                <div data-augmented-ui="tl-clip tr-clip br-clip bl-clip border" class="codex-sub-button codex-sub-u">
+                    <button type="button" class="codex-sub-btn">
+                        <div class="codex-sub-text codex-sub-text-u">Items</div>
+                    </button>
+                </div>
+                <div data-augmented-ui="tl-clip tr-clip br-clip bl-clip r-clip border" class="codex-sub-button codex-sub-l">
+                    <button type="button" class="codex-sub-btn">
+                        <div class="codex-sub-text codex-sub-text-l">Gear</div>
+                    </button>
+                </div>
+                <div data-augmented-ui="tl-clip tr-clip br-clip bl-clip border" class="codex-sub-button codex-sub-c">
+                    <button type="button" class="codex-sub-btn">
+                        <div class="codex-sub-text codex-sub-text-c">Buildings</div>
+                    </button>
+                </div>
+                <div data-augmented-ui="tl-clip tr-clip-y br-clip bl-clip l-clip border" class="codex-sub-button codex-sub-r">
+                    <button type="button" class="codex-sub-btn">
+                        <div class="codex-sub-text codex-sub-text-r">Tiers</div>
+                    </button>
+                </div>
+                <div data-augmented-ui="tl-clip tr-clip br-clip bl-clip-x border" class="codex-sub-button codex-sub-d">
+                    <button type="button" class="codex-sub-btn">
+                        <div class="codex-sub-text codex-sub-text-d">Infrastructure</div>
+                    </button>
+                </div>
+            </div>
         </div>
         <ul class="quick-nav-list">
             @foreach (var group in GroupItems())

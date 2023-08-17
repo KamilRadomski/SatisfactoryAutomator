@@ -5,7 +5,9 @@ div.codex-menu {
     bottom: 15px;
     left: 15px;
     width: 250px;
-    padding-top: 25px;
+    font-family: Tomorrow;
+    text-transform: capitalize;
+    font-variant: small-caps;
     padding-bottom: 5px;
     --aug-border-all: 3px;
     --aug-border-bg: var(--sfBlue);
@@ -15,18 +17,151 @@ div.codex-menu {
     --aug-bl: 30px;
     --aug-l: 10px;
     --aug-r: 10px;
+    --aug-l-offset: -340px;
+    --aug-r-offset: -340px;
 }
 
 .codex-sub-menu {
-    --aug-border-all: 2px;
-    --aug-border-bg: var(--myblue);
-    --aug-tl: 200px;
-    --aug-br: 30px;
     height: 185px;
+    width: 220px;
     margin-left: 15px;
-    width: 200px;
+    margin-top: 15px;
     background: black;
+    --aug-border-all: 2px;
+    --aug-border-bg: var(--sfBlue);
+    --aug-tl: 10px;
+    --aug-tr: 10px;
+    --aug-bl: 10px;
+    --aug-br: 30px;
 }
+
+.codex-sub-button {
+    position: absolute;
+    --aug-border-all: 1px;
+    --aug-border-bg: var(--sfBlue);
+}
+
+    .codex-sub-button:hover {
+        --aug-border-all: 2px;
+        background-color: var(--sfBlue20);
+    }
+
+        .codex-sub-button:hover .codex-sub-text {
+            transform:scale(1.1);
+        }
+
+.codex-sub-btn {
+    border: 1px solid red;
+    width:100%;
+    height:100%;
+    padding:0px;
+    background:unset;
+}
+
+div.codex-sub-u {
+    height: 58px;
+    width: 196px;
+    top: 7px;
+    left: 7px;
+    --aug-tl: 6px;
+    --aug-tr: 6px;
+    --aug-bl: 52px;
+    --aug-br: 43px;
+}
+
+div.codex-sub-l {
+    height: 148px;
+    width: 50px;
+    top: 19px;
+    left: 7px;
+    --aug-tl: 0px;
+    --aug-tr: 49px;
+    --aug-bl: 4px;
+    --aug-br: 47px;
+    --aug-r: 24px;
+}
+
+div.codex-sub-c {
+    height: 47px;
+    width: 144px;
+    top: 70px;
+    left: 38px;
+    --aug-tl: 23px;
+    --aug-tr: 23px;
+    --aug-bl: 23px;
+    --aug-br: 23px;
+}
+
+div.codex-sub-r {
+    height: 136px;
+    width: 50px;
+    top: 26px;
+    left: 162px;
+    --aug-tl: 43px;
+    --aug-tr: 7px;
+    --aug-bl: 42px;
+    --aug-br: 9px;
+    --aug-l: 26px;
+    --aug-tr-inset1: 8px;
+}
+
+div.codex-sub-d {
+    height: 56px;
+    width: 184px;
+    top: 122px;
+    left: 15px;
+    --aug-tl: 46px;
+    --aug-tr: 41px;
+    --aug-bl: 9px;
+    --aug-br: 12px;
+}
+
+.codex-sub-text {
+    position: absolute;
+    color: var(--sfBlue);
+    font-family: Tomorrow;
+    text-transform: capitalize;
+    font-variant: small-caps;
+}
+
+.codex-sub-text-u {
+    top: 10px;
+    left: 72px;
+    font-size: 24px;
+}
+
+.codex-sub-text-l {
+    top: 31px;
+    left: 0px;
+    font-size: 22px;
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+}
+
+.codex-sub-text-c {
+    top: 6px;
+    left: 28px;
+    font-size: 22px;
+}
+
+.codex-sub-text-r {
+    top: 24px;
+    left: 24px;
+    font-size: 18px;
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+}
+
+.codex-sub-text-d {
+    top: 18px;
+    left: 37px;
+    font-size: 18px;
+}
+
+
+
+
+
 
 .quick-nav-list {
     margin-top: 0px;
