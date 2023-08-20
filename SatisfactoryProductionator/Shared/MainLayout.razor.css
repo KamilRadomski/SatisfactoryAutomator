@@ -8,13 +8,22 @@ main {
     flex: 1;
 }
 
-.augsidebar {
-    background: none;
-	width: 280px;
-	height: 50vh;
-	position: absolute;
-	top: 0;
+div.outer-panel {
+    font-family: Tomorrow;
+    text-transform: capitalize;
+    font-variant: small-caps;
+    position: relative;
+    height: 100vh;
+    color: var(--sfBlue);
+    --aug-tr: 40px;
+    --aug-br: 40px;
+    --aug-tl: 40px;
+    --aug-bl: 40px;
+    --aug-border-all: 7px;
 }
+
+
+
 
 .sidebar {
     background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);
@@ -88,27 +97,4 @@ main {
     }
 }
 
-div.augpanel {
-    font-family: Tomorrow;
-    text-transform: capitalize;
-    font-variant: small-caps;
-    position: relative;
-    width: 99.2%;
-    margin-top: 10px;
-    height: 98vh;
-    margin-left: 10px;
-    color:var(--myblue);
-    --aug-tr: 60px;
-    --aug-br: 60px;
-    --aug-tl: 268px;
-    --aug-bl: 40px;
-    --aug-border-bg: linear-gradient(165deg, #969696 0%,#626262 7%,#ababab 10%,#ababab 20%,#626262 25%,#626262 29%,#ababab 32%,#626262 34%,#ababab 40%,#626262 44%,#626262 50%,#969696 55%,#969696 65%,#626262 70%,#626262 70%,#626262 75%,#969696 80%,#969696 90%,#626262 95%,#626262 95%);
-    --aug-border-all: 15px;
-    --aug-inlay-all: 0px;
-    --aug-inlay-opacity: 100;
-    --aug-inlay-bg: black;
-    --aug-tl2: 40px;
-    --aug-tl1: 250px;
-    --aug-tl-extend1: 225px;
-    --aug-tl-inset2: 0px;
-}
+
