@@ -1,12 +1,21 @@
 ﻿@page "/settings"
+@using SatisfactoryProductionator.Services;
 @using SatisfactoryProductionator.Shared.States
 @using SatisfactoryProductionator.Shared.States.Models
 @inject SettingsState SettingsState
+@inject CodexState CodexState
 @implements IDisposable
 
 <div style="position: relative;top: 50px; left: 300px">
 
-    
+    @if(CodexState.Codex == null)
+    {
+        <div>Loading.....</div>
+    }
+    else
+    {
+        <div>Loaded</div>
+    }
 
 </div>
 
@@ -16,16 +25,24 @@
 
     private static AppSettings _settings = new AppSettings();
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
         base.OnInitialized();
-        SettingsState.OnStateChange += StateHasChanged;
-        _settings = SettingsState.Value ?? new AppSettings();
+        // SettingsState.OnStateChange += StateHasChanged;
+        CodexState.OnStateChange += StateHasChanged;
+
+        // _settings = SettingsState.Value ?? new AppSettings();
+
+        if (CodexState.Codex == null)
+        {
+            await CodexState.InitializeCodexAsync();
+        }
     }
 
     public void Dispose()
     {
-        SettingsState.OnStateChange -= StateHasChanged;
+        // SettingsState.OnStateChange -= StateHasChanged;
+        CodexState.OnStateChange -= StateHasChanged;
     }
 
 }

@@ -11,6 +11,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SatisfactoryProductionator.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SatisfactoryProductionator.DataManager", "SatisfactoryProductionator.DataManager\SatisfactoryProductionator.DataManager.csproj", "{4E8DF58F-9937-4BE9-8993-214C74E6815B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SatisfactoryProductionator.Services", "SatisfactoryProductionator.Services\SatisfactoryProductionator.Services.csproj", "{D48B483C-E493-442D-85C8-92CBAE8247D1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SatisfactoryProductionator.DataService", "SatisfactoryProductionator.DataService\SatisfactoryProductionator.DataService.csproj", "{CE183DDD-5AE6-43C7-9A76-3AFAD97BEC0A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{4E8DF58F-9937-4BE9-8993-214C74E6815B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4E8DF58F-9937-4BE9-8993-214C74E6815B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4E8DF58F-9937-4BE9-8993-214C74E6815B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D48B483C-E493-442D-85C8-92CBAE8247D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D48B483C-E493-442D-85C8-92CBAE8247D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D48B483C-E493-442D-85C8-92CBAE8247D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D48B483C-E493-442D-85C8-92CBAE8247D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE183DDD-5AE6-43C7-9A76-3AFAD97BEC0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE183DDD-5AE6-43C7-9A76-3AFAD97BEC0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE183DDD-5AE6-43C7-9A76-3AFAD97BEC0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE183DDD-5AE6-43C7-9A76-3AFAD97BEC0A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
