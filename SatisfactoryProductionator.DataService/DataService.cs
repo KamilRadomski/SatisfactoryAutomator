@@ -1,5 +1,9 @@
 ﻿using Microsoft.VisualBasic;
+using SatisfactoryProductionator.DataModels.Enums;
 using SatisfactoryProductionator.DataModels.Models;
+using SatisfactoryProductionator.DataModels.Models.Codex;
+using SatisfactoryProductionator.DataModels.Models.Old;
+using SatisfactoryProductionator.DataService.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,12 +23,12 @@ namespace SatisfactoryProductionator.DataService
             _httpClient = httpClient;
         }
 
-        //private List<DocModel> docModels = new List<DocModel>();
         public async Task<Codex> GenerateCodex()
         {
             Codex codex = new();
             await ParseJsonFile();
-            codex.Recipes = GenerateRecipes(); 
+            codex.Recipes = RecipeGenerator.GenerateRecipes(_docModels);
+            codex.CodexItems = ItemGenerator.GenerateCodexItems(_docModels, codex.Recipes);
 
             return codex;
         }
@@ -34,17 +38,5 @@ namespace SatisfactoryProductionator.DataService
             var content = await _httpClient.GetStringAsync(Constants.JSON_FILEPATH);
             _docModels = JsonSerializer.Deserialize<List<DocModel>>(content)!;
         }
-
-        private List<Recipe> GenerateRecipes()
-        {
-            List<Recipe> recipes = new();
-
-            var recipeClasses = _docModels.Where(x => Constants.RECIPE_CLASSES.Contains(x.NativeClass)).ToList<DocModel>().SelectMany(y => y.Classes).ToList().Where(x =>
-                ((x.mProduct.Contains(Constants.PARTS) || x.mProduct.Contains(Constants.RAW_RESOURCES) || x.mProduct.Contains(Constants.RAW_RESOURCES2) || x.mProduct.Contains(Constants.AMMO))
-                 && !x.mRelevantEvents.Contains(Constants.XMAS))).ToList();
-
-            return recipes;
-        }
-
     }
 }

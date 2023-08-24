@@ -1,17 +1,18 @@
 ﻿using SatisfactoryProductionator.DataModels.Enums;
 using SatisfactoryProductionator.DataModels.Models;
+using SatisfactoryProductionator.DataModels.Models.Old;
 
 namespace SatisfactoryProductionator.DataParser
 {
-	public static class DataAggregator
+    public static class DataAggregator
 	{
 		private static List<DocModel> _docModels = null!;
 		private static List<CategoryClasses> _recipeModel = null!;
-		private static readonly Lazy<List<Item>> _items = new(ParseItems);
+		private static readonly Lazy<List<ItemOld>> _items = new(ParseItems);
 		private static readonly Lazy<List<Recipe>> _recipes = new(ParseRecipes);
 		private static readonly Lazy<List<Building>> _buildings = new(ParseBuildings);
 
-		public static List<Item> Items => _items.Value;
+		public static List<ItemOld> Items => _items.Value;
 		public static List<Recipe> Recipes => _recipes.Value;
 		public static List<Building> Buildings => _buildings.Value;
 		public static bool IsInitialized { get; set; }
@@ -33,16 +34,16 @@ namespace SatisfactoryProductionator.DataParser
 
 		#region Parsers
 
-		private static List<Item> ParseItems()
+		private static List<ItemOld> ParseItems()
 		{
-			List<Item>? items = new();
+			List<ItemOld>? items = new();
 			var itemClasses = _docModels.Where(x => Constants.ITEM_CLASSES.Contains(x.NativeClass)).ToList<DocModel>().SelectMany(y => y.Classes).ToList();
 
 			foreach (var item in itemClasses)
 			{
 				if (Constants.ITEM_FILTER.Contains(item.mDisplayName)) continue;
 
-				items.Add(new Item()
+				items.Add(new ItemOld()
 				{
 					Description = item.mDescription,
 					DisplayName = item.mDisplayName,

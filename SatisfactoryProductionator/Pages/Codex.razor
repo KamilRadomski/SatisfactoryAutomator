@@ -1,4 +1,6 @@
 ﻿@page "/codex"
+@using SatisfactoryProductionator.DataModels.Models.CodexPages;
+@using SatisfactoryProductionator.DataModels.Models.Old;
 @using SatisfactoryProductionator.DataParser
 @using SatisfactoryProductionator.DataModels.Models
 @using SatisfactoryProductionator.DataModels.Enums
@@ -19,7 +21,7 @@
     }
 </style>
 
-@if (DataAggregator.Items.Count == 0)
+@* @if (DataAggregator.Items.Count == 0)
 {
     <p><em>Loading...</em></p>
 }
@@ -284,16 +286,16 @@ else
         </div>
     </div>
 }
-
+ *@
 @code {
     private static AppSettings _settings = new AppSettings();
 
-    private static Item? _currentItem;
+    private static ItemOld? _currentItem;
     private static ItemRecipes? _currentItemRecipes;
-    private static RecipePage? _currentRecipePage;
+    private static CodexPage? _currentRecipePage;
     private static Recipe? _recipeDetails;
-    private static Stack<Item>? _previousStack;
-    private static Stack<Item>? _nextStack;
+    private static Stack<ItemOld>? _previousStack;
+    private static Stack<ItemOld>? _nextStack;
     private static Dictionary<string, ItemRecipes>? _itemRecipeCache;
     private static RecipeType? _currentRecipeType;
 
@@ -307,8 +309,8 @@ else
         SettingsState.OnStateChange += StateHasChanged;
         _settings = SettingsState.Value ?? new AppSettings(){PreferredRecipe = new Dictionary<string, string>()};
 
-        _previousStack ??= new Stack<Item>();
-        _nextStack ??= new Stack<Item>();
+        _previousStack ??= new Stack<ItemOld>();
+        _nextStack ??= new Stack<ItemOld>();
         _itemRecipeCache ??= new Dictionary<string, ItemRecipes>();
 
     }
@@ -343,7 +345,7 @@ else
         _isInfoPanelActive = true;
     }
 
-    private static IEnumerable<IGrouping<ItemType?, Item>> GroupItems() => DataAggregator.Items.OrderBy(x => x.Category).ThenBy(x => x.DisplayName).GroupBy(x => x.Category);
+    private static IEnumerable<IGrouping<ItemType?, ItemOld>> GroupItems() => DataAggregator.Items.OrderBy(x => x.Category).ThenBy(x => x.DisplayName).GroupBy(x => x.Category);
 
     private static void SetRecipePage(int index)
     {
@@ -393,8 +395,8 @@ else
         _currentItem = null;
         _currentItemRecipes = null;
         _itemRecipeCache?.Clear();
-        _previousStack = new Stack<Item>();
-        _nextStack = new Stack<Item>();
+        _previousStack = new Stack<ItemOld>();
+        _nextStack = new Stack<ItemOld>();
 
     }
 
@@ -484,7 +486,7 @@ else
 
     private static void TogglePanel() => _isInfoPanelActive = !_isInfoPanelActive;
 
-    private static void SetRecipeDetails(string? name) => _recipeDetails = _currentItemRecipes!.Pages!.SelectMany(x => x.Recipes!).First(x => x.DisplayName == name);
+    // private static void SetRecipeDetails(string? name) => _recipeDetails = _currentItemRecipes!.Pages!.SelectMany(x => x.Recipes!).First(x => x.DisplayName == name);
 
     private static string GetPower(string? name) => PowerCalculator.GetPower(name);
 

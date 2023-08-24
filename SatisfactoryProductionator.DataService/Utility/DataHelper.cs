@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SatisfactoryProductionator.DataModels.Models
+namespace SatisfactoryProductionator.DataService.Utility
 {
-    public class CodexItem
+    public static class DataHelper
     {
     }
 }

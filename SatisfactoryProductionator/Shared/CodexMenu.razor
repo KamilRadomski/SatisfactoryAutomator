@@ -1,5 +1,5 @@
 ﻿@using SatisfactoryProductionator.DataModels.Enums;
-@using SatisfactoryProductionator.DataModels.Models;
+@using SatisfactoryProductionator.DataModels.Models.Old;
 @using SatisfactoryProductionator.DataParser;
 <div data-augmented-ui-reset></div>
 
@@ -48,7 +48,7 @@
 </div>
 
 @code {
-    private static IEnumerable<IGrouping<ItemType?, Item>> GroupItems() => DataAggregator.Items.OrderBy(x => x.Category).ThenBy(x => x.DisplayName).GroupBy(x => x.Category);
+    private static IEnumerable<IGrouping<ItemType?, ItemOld>> GroupItems() => DataAggregator.Items.OrderBy(x => x.Category).ThenBy(x => x.DisplayName).GroupBy(x => x.Category);
 
     private static string FormatCategoryName(string name)
     {

@@ -1,4 +1,4 @@
-﻿using SatisfactoryProductionator.DataModels.Models;
+﻿using SatisfactoryProductionator.DataModels.Models.Codex;
 
 namespace SatisfactoryProductionator.DataService
 {

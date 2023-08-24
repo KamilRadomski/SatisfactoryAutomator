@@ -1,17 +1,18 @@
 ﻿using SatisfactoryProductionator.DataModels.Enums;
 using SatisfactoryProductionator.DataModels.Models;
+using SatisfactoryProductionator.DataModels.Models.CodexPages;
 using SatisfactoryProductionator.DataParser;
 
 namespace SatisfactoryProductionator.DataManager
 {
-	public static class ItemRecipesGenerator
+    public static class ItemRecipesGenerator
 	{
 		public static ItemRecipes? GetItemRecipes(string name)
 		{
 			ItemRecipes? itemRecipes = new()
 			{
 				PageIndex = 0,
-				Pages = new List<RecipePage>()
+				Pages = new List<CodexPage>()
 			};
 			
 			itemRecipes.Pages = itemRecipes.Pages.Concat(GetMainPage(name)).ToList();
@@ -80,7 +81,7 @@ namespace SatisfactoryProductionator.DataManager
 		{
 			return new RecipePage()
 			{
-				PageType = pageType,
+				//PageType = pageType,
 				Recipes = currentPage
 			};
 		}

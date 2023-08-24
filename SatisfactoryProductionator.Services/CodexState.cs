@@ -1,5 +1,4 @@
-﻿using SatisfactoryProductionator.DataModels.Models;
-using SatisfactoryProductionator.DataParser;
+﻿using SatisfactoryProductionator.DataParser;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net.Http;
 using SatisfactoryProductionator.DataService;
+using SatisfactoryProductionator.DataModels.Models.Codex;
 
 namespace SatisfactoryProductionator.Services
 {

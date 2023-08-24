@@ -1,10 +1,11 @@
 ﻿using SatisfactoryProductionator.DataModels.Models;
+using SatisfactoryProductionator.DataModels.Models.Old;
 
 namespace SatisfactoryProductionator.DataParser
 {
-	public interface IDataAggregator
+    public interface IDataAggregator
 	{
-		List<Item> ParseItems();
+		List<ItemOld> ParseItems();
 		List<Recipe> ParseRecipes();
 		List<Building> ParseBuildings();
 		void SetDataModel(List<DocModel> docModel);
