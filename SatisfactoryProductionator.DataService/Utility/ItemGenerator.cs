@@ -138,7 +138,9 @@ namespace SatisfactoryProductionator.DataService.Utility
         {
             // Input:  Texture2D /Game/FactoryGame/Resource/Parts/NuclearWaste/UI/IconDesc_NuclearWaste_256.IconDesc_NuclearWaste_256
             // Output: IconDesc_NuclearWaste_256.png
-            return iconValue.Split('.').Last() + ".png";
+            var iconName = iconValue.Split('.').Last() + ".png";
+
+            return "images/icons/" + iconName;
         }
 
         private static List<string> ExtractCompatibleItems(string compatibleItems)
