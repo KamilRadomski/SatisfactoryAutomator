@@ -10,11 +10,11 @@ namespace SatisfactoryProductionator.DataParser
 		private static List<CategoryClasses> _recipeModel = null!;
 		private static readonly Lazy<List<ItemOld>> _items = new(ParseItems);
 		private static readonly Lazy<List<Recipe>> _recipes = new(ParseRecipes);
-		private static readonly Lazy<List<Building>> _buildings = new(ParseBuildings);
+		private static readonly Lazy<List<Building_legacy>> _buildings = new(ParseBuildings);
 
 		public static List<ItemOld> Items => _items.Value;
 		public static List<Recipe> Recipes => _recipes.Value;
-		public static List<Building> Buildings => _buildings.Value;
+		public static List<Building_legacy> Buildings => _buildings.Value;
 		public static bool IsInitialized { get; set; }
 
 		public static void InitializeModels(List<DocModel> docModel)
@@ -100,9 +100,9 @@ namespace SatisfactoryProductionator.DataParser
 			return name.Replace(Constants.ALTERNATE_PREFIX, "");
 		}
 
-		private static List<Building> ParseBuildings()
+		private static List<Building_legacy> ParseBuildings()
 		{
-			List<Building> buildings = new();
+			List<Building_legacy> buildings = new();
 
 			foreach (var (className, buildingType) in Constants.BUILDING_CLASSES)
 			{
@@ -121,13 +121,13 @@ namespace SatisfactoryProductionator.DataParser
 			return buildings;
 		}
 
-		private static List<Extractor> ParseExtractors(List<CategoryClasses> buildingList)
+		private static List<Extractor_legacy> ParseExtractors(List<CategoryClasses> buildingList)
 		{
-			List<Extractor> buildings = new();
+			List<Extractor_legacy> buildings = new();
 
 			foreach (var item in buildingList)
 			{
-				buildings.Add(new Extractor()
+				buildings.Add(new Extractor_legacy()
 				{
 					DisplayName = item.mDisplayName,
 					Description = item.mDescription,
@@ -141,13 +141,13 @@ namespace SatisfactoryProductionator.DataParser
 			return buildings;
 		}
 
-		private static List<Manufacturer> ParseManufacturers(List<CategoryClasses> buildingList)
+		private static List<Manufacturer_legacy> ParseManufacturers(List<CategoryClasses> buildingList)
 		{
-			List<Manufacturer> buildings = new();
+			List<Manufacturer_legacy> buildings = new();
 
 			foreach (var item in buildingList)
 			{
-				buildings.Add(new Manufacturer()
+				buildings.Add(new Manufacturer_legacy()
 				{
 					DisplayName = item.mDisplayName,
 					Description = item.mDescription,
@@ -160,13 +160,13 @@ namespace SatisfactoryProductionator.DataParser
 			return buildings;
 		}
 
-		private static IEnumerable<VariableManufacturer> ParseVariableManufacturers(List<CategoryClasses> buildingList)
+		private static IEnumerable<VariableManufacturer_legacy> ParseVariableManufacturers(List<CategoryClasses> buildingList)
 		{
-			List<VariableManufacturer> buildings = new();
+			List<VariableManufacturer_legacy> buildings = new();
 
 			foreach (var item in buildingList)
 			{
-				buildings.Add(new VariableManufacturer()
+				buildings.Add(new VariableManufacturer_legacy()
 				{
 					DisplayName = item.mDisplayName,
 					Description = item.mDescription,
@@ -179,15 +179,15 @@ namespace SatisfactoryProductionator.DataParser
 			return buildings;
 		}
 
-		private static IEnumerable<Generator> ParseGenerators(List<CategoryClasses> buildingList)
+		private static IEnumerable<Generator_legacy> ParseGenerators(List<CategoryClasses> buildingList)
 		{
-			List<Generator> buildings = new();
+			List<Generator_legacy> buildings = new();
 
 			foreach (var item in buildingList)
 			{
 				var fuels = GetFuels(item.mFuel);
 
-				buildings.Add(new Generator()
+				buildings.Add(new Generator_legacy()
 				{
 					DisplayName = item.mDisplayName,
 					Description = item.mDescription,

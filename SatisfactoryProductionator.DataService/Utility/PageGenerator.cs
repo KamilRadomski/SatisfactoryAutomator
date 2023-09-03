@@ -11,7 +11,7 @@ namespace SatisfactoryProductionator.DataService.Utility
 {
     public static class PageGenerator
     {
-        private static List<Recipe> _recipes = new List<Recipe>();
+        private static List<Recipe> _recipes = new();
 
         public static List<CodexPage> GeneratePages(string itemName, List<Recipe> recipes)
         {

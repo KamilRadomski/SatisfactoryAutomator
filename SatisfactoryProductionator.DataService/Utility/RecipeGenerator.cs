@@ -56,7 +56,8 @@ namespace SatisfactoryProductionator.DataService.Utility
         {
             string buildingName = ParseBuildingName(building);
 
-            return Constants.BUILDING_MAP[buildingName];
+            //return Constants.BUILDING_MAP[buildingName];
+            return null;
         }
 
         public static Dictionary<string, double[]> ParseItemsAndQuantityPerMinute(string rawItems, double buildTime)
@@ -75,7 +76,7 @@ namespace SatisfactoryProductionator.DataService.Utility
 
                 var buildPerMinute = buildFactor * buildPerRecipe;
 
-                items.Add(Constants.ITEM_NAMES[name], new[] { buildPerRecipe, buildPerMinute });
+                //items.Add(Constants.ITEM_NAMES[name], new[] { buildPerRecipe, buildPerMinute });
 
             }
 

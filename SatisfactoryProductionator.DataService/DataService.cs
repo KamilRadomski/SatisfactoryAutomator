@@ -27,8 +27,11 @@ namespace SatisfactoryProductionator.DataService
         {
             Codex codex = new();
             await ParseJsonFile();
-            codex.Recipes = RecipeGenerator.GenerateRecipes(_docModels);
-            codex.CodexItems = ItemGenerator.GenerateCodexItems(_docModels, codex.Recipes);
+
+            codex.CodexItems = ItemGenerator.GenerateCodexItems(_docModels);
+
+            //codex.Recipes = RecipeGenerator.GenerateRecipes(_docModels);
+            
 
             return codex;
         }

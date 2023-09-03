@@ -7,7 +7,7 @@ namespace SatisfactoryProductionator.DataParser
 	{
 		List<ItemOld> ParseItems();
 		List<Recipe> ParseRecipes();
-		List<Building> ParseBuildings();
+		List<Building_legacy> ParseBuildings();
 		void SetDataModel(List<DocModel> docModel);
 		void InitializeModels(List<DocModel> docModel);
 	}

@@ -10,8 +10,4 @@
     <ProjectReference Include="..\SatisfactoryProductionator.DataModels\SatisfactoryProductionator.DataModels.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Maps\" />
-  </ItemGroup>
-
 </Project>

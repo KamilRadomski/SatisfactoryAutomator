@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace SatisfactoryProductionator.DataModels.Models.Codex
 {
-    public class Item : CodexItem
+    public class Building : CodexItem
     {
-        public int ResourceSinkPoints { get; set; }
-        public string StackSize { get; set; }
-        public double EnergyValue { get; set; }
-        public FormType FormType { get; set; }
+        public double? PowerUsed { get; set; }
+        public double[]? VariablePowerUsed { get; set; }
+        public double PowerGenerated { get; set; }
+        public (double, double)? Size { get; set; }
     }
 }

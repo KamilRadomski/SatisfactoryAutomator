@@ -1,10 +1,11 @@
 ﻿using SatisfactoryProductionator.DataModels.Enums;
 using SatisfactoryProductionator.DataModels.Models;
+using SatisfactoryProductionator.DataModels.Models.Old;
 using SatisfactoryProductionator.DataParser;
 
 namespace SatisfactoryProductionator.DataManager
 {
-	public static class PowerCalculator
+    public static class PowerCalculator
 	{
 		public static string GetPower(string? buildingName)
 		{
@@ -22,29 +23,29 @@ namespace SatisfactoryProductionator.DataManager
 			return powerPerMinute;
 		}
 
-		private static string GetExtractorPower(Building building)
+		private static string GetExtractorPower(Building_legacy building)
 		{
-			var extractor = (Extractor)building;
+			var extractor = (Extractor_legacy)building;
 			return extractor.PowerUsed.ToString()!;
 		}
 
-		private static string GetManufacturerPower(Building building)
+		private static string GetManufacturerPower(Building_legacy building)
 		{
-			var manufacturer = (Manufacturer)building;
+			var manufacturer = (Manufacturer_legacy)building;
 			return manufacturer.PowerUsed.ToString()!;
 		}
 
-		private static string GetVariableManufacturerPower(Building building)
+		private static string GetVariableManufacturerPower(Building_legacy building)
 		{
-			var manufacturer = (VariableManufacturer)building;
+			var manufacturer = (VariableManufacturer_legacy)building;
 			var powerUsed = $"{manufacturer.VariablePowerUsed![0]} - {manufacturer.VariablePowerUsed[1]}";
 
 			return powerUsed;
 		}
 
-		private static string GetGeneratorPowerPower(Building building)
+		private static string GetGeneratorPowerPower(Building_legacy building)
 		{
-			var generator = (Generator)building;
+			var generator = (Generator_legacy)building;
 
 			return generator.PowerGenerated.ToString()!;
 		}

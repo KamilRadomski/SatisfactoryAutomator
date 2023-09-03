@@ -21,7 +21,7 @@
     }
 </style>
 
-@* @if (DataAggregator.Items.Count == 0)
+@if (DataAggregator.Items.Count == 0)
 {
     <p><em>Loading...</em></p>
 }
@@ -148,23 +148,23 @@ else
                                     <td>
                                         @if (recipe.RecipeType is RecipeType.Basic)
                                         {
-                                            <div class=@CssIsDefault(recipe)>
+                                           @*  <div class=@CssIsDefault(recipe)>
                                                 <div data-augmented-ui="tl-clip tr-clip br-clip bl-clip border" class="info-panel-recipe-name-basic">
                                                     <button type="button" class="info-panel-recipe-name-button" @onclick="@(() => SetRecipeDetails(recipe.DisplayName))">
                                                         @FormatDisplayName(recipe.DisplayName!)
                                                     </button>
                                                 </div>
-                                            </div>
+                                            </div> *@
                                         }
                                         else
                                         {
-                                            <div class=@CssIsDefault(recipe)>
+                                           @*  <div class=@CssIsDefault(recipe)>
                                                 <div data-augmented-ui="tl-2-clip-x tr-2-clip-x br-2-clip-x b-clip-x bl-2-clip-x border" class="info-panel-recipe-name-alternate">
                                                     <button type="button" class="info-panel-recipe-name-button" @onclick="@(() => SetRecipeDetails(recipe.DisplayName))">
                                                         @FormatDisplayName(recipe.DisplayName!)
                                                     </button>
                                                 </div>
-                                            </div>
+                                            </div> *@
                                         }
 
                                     </td>
@@ -286,13 +286,13 @@ else
         </div>
     </div>
 }
- *@
+
 @code {
     private static AppSettings _settings = new AppSettings();
 
     private static ItemOld? _currentItem;
     private static ItemRecipes? _currentItemRecipes;
-    private static CodexPage? _currentRecipePage;
+    private static RecipePage? _currentRecipePage;
     private static Recipe? _recipeDetails;
     private static Stack<ItemOld>? _previousStack;
     private static Stack<ItemOld>? _nextStack;
@@ -322,36 +322,36 @@ else
 
     private static void AddItemRecipe(string name)
     {
-        if (_currentItem != null && _currentItem.DisplayName == name)
-        {
-            _isInfoPanelActive = true;
-            return;
-        }
+    //     if (_currentItem != null && _currentItem.DisplayName == name)
+    //     {
+    //         _isInfoPanelActive = true;
+    //         return;
+    //     }
 
-        if (_currentItem != null)
-        {
-            _previousStack?.Push(_currentItem);
-        }
+    //     if (_currentItem != null)
+    //     {
+    //         _previousStack?.Push(_currentItem);
+    //     }
 
-        _nextStack?.Clear();
+    //     _nextStack?.Clear();
 
-        if (_itemRecipeCache == null || !_itemRecipeCache!.ContainsKey(name))
-            _itemRecipeCache![name] = ItemRecipesGenerator.GetItemRecipes(name)!;
+    //     if (_itemRecipeCache == null || !_itemRecipeCache!.ContainsKey(name))
+    //         _itemRecipeCache![name] = ItemRecipesGenerator.GetItemRecipes(name)!;
 
-        _currentItemRecipes = _itemRecipeCache[name];
-        _currentRecipePage = (_currentItemRecipes.Pages!.Count > 0) ? _currentItemRecipes.Pages?[_currentItemRecipes.PageIndex] : null;
+    //     _currentItemRecipes = _itemRecipeCache[name];
+    //     _currentRecipePage = (_currentItemRecipes.Pages!.Count > 0) ? _currentItemRecipes.Pages?[_currentItemRecipes.PageIndex] : null;
 
-        _currentItem = DataAggregator.Items.Find(x => x.DisplayName == name)!;
-        _isInfoPanelActive = true;
+    //     _currentItem = DataAggregator.Items.Find(x => x.DisplayName == name)!;
+    //     _isInfoPanelActive = true;
     }
 
-    private static IEnumerable<IGrouping<ItemType?, ItemOld>> GroupItems() => DataAggregator.Items.OrderBy(x => x.Category).ThenBy(x => x.DisplayName).GroupBy(x => x.Category);
+    private static IEnumerable<IGrouping<CodexItemType?, ItemOld>> GroupItems() => DataAggregator.Items.OrderBy(x => x.Category).ThenBy(x => x.DisplayName).GroupBy(x => x.Category);
 
     private static void SetRecipePage(int index)
     {
-        _currentRecipePage = _currentItemRecipes!.Pages![index];
+        // _currentRecipePage = _currentItemRecipes!.Pages![index];
 
-        _currentItemRecipes!.PageIndex = index;
+        // _currentItemRecipes!.PageIndex = index;
     }
 
     private static int GetPageCount()

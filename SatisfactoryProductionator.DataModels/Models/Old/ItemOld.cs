@@ -9,7 +9,7 @@ namespace SatisfactoryProductionator.DataModels.Models.Old
         public int ResourceSinkPoints { get; set; }
         public string? StackSize { get; set; }
         public double EnergyValue { get; set; }
-        public ItemType? Category { get; set; }
+        public CodexItemType? Category { get; set; }
         public FormType FormType { get; set; }
     }
 }

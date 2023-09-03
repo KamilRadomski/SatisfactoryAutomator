@@ -1,6 +1,7 @@
 ﻿@page "/buildings"
-@using SatisfactoryProductionator.DataModels.Models
-@using SatisfactoryProductionator.DataParser
+@using SatisfactoryProductionator.DataModels.Models.Old;
+@using SatisfactoryProductionator.DataParser;
+
 <h3>Buildings</h3>
 
 @if (_buildings == null)
@@ -31,7 +32,7 @@ else
 }
 
 @code {
-    private static List<Building>? _buildings;
+    private static List<Building_legacy>? _buildings;
 
     protected override async Task OnInitializedAsync()
     {

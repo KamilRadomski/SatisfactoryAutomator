@@ -6,8 +6,30 @@
 @inject CodexState CodexState
 @implements IDisposable
 
-<div style="position: relative;top: 50px; left: 300px">
+<style type="text/css">
 
+.codex-main-panel{
+    position: absolute;
+    top: 14px;
+    left: 275px;
+    right: 14px;
+    bottom: 14px;
+    --aug-border-all: 3px;
+    --aug-border-bg: var(--sfBlue);
+    --aug-tl: 15px;
+    --aug-tr: 33px;
+    --aug-br: 33px;
+    --aug-bl: 20px;
+}    
+
+</style>
+
+<div data-augmented-ui-reset></div>
+<CodexMenu />
+
+<div data-augmented-ui="tl-2-clip-x tr-clip br-clip bl-2-clip-y border" class="codex-main-panel">
+    
+    
     @if(CodexState.Codex == null)
     {
         <div>Loading.....</div>
