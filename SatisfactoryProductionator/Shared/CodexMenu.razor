@@ -5,7 +5,7 @@
 
 @inject CodexState CodexState
 @inject CodexMenuState CodexMenuState
-
+@* @onclick="@(() => AddItemRecipe(@item.DisplayName!))"> *@
 <div data-augmented-ui-reset></div>
 
 <div data-augmented-ui="tl-clip tr-2-clip-y br-clip bl-clip border" class="codex-menu">
@@ -13,17 +13,17 @@
         <div data-augmented-ui="tl-clip tr-2-clip-y br-clip bl-2-clip-x border" class="codex-sub-menu">
             <div data-augmented-ui-reset>
                 <div data-augmented-ui="tl-clip tr-clip br-clip bl-clip border" class="codex-sub-button codex-sub-u">
-                    <button type="button" class="codex-sub-btn @activeU">
+                    <button type="button" class="codex-sub-btn @activeU" @onclick="@(() => SetSelectedCategory(CodexCategory.Item))">
                         <div class="codex-sub-text codex-sub-text-u">Items</div>
                     </button>
                 </div>
                 <div data-augmented-ui="tl-clip tr-clip br-clip bl-clip r-clip border" class="codex-sub-button codex-sub-l">
-                    <button type="button" class="codex-sub-btn @activeL">
+                    <button type="button" class="codex-sub-btn @activeL" @onclick="@(() => SetSelectedCategory(CodexCategory.Equipment))">
                         <div class="codex-sub-text codex-sub-text-l">Gear</div>
                     </button>
                 </div>
                 <div data-augmented-ui="tl-clip tr-clip br-clip bl-clip border" class="codex-sub-button codex-sub-c">
-                    <button type="button" class="codex-sub-btn @activeC">
+                    <button type="button" class="codex-sub-btn @activeC" @onclick="@(() => SetSelectedCategory(CodexCategory.Building))">
                         <div class="codex-sub-text codex-sub-text-c">Buildings</div>
                     </button>
                 </div>
@@ -33,22 +33,29 @@
                     </button>
                 </div>
                 <div data-augmented-ui="tl-clip tr-clip br-clip bl-clip-x border" class="codex-sub-button codex-sub-d">
-                    <button type="button" class="codex-sub-btn @activeD">
+                    <button type="button" class="codex-sub-btn @activeD" @onclick="@(() => SetSelectedCategory(CodexCategory.Infrastructure))">
                         <div class="codex-sub-text codex-sub-text-d">Infrastructure</div>
                     </button>
                 </div>
             </div>
         </div>
-        <ul class="quick-nav-list">
-            @foreach (var group in GroupItems())
-            {
-                <li class="quick-nav-list-item">
-                    <button type="button" class="quick-nav-list-item-button" onclick="document.getElementById('@group.Key').scrollIntoView({behavior:'smooth'})">
-                        <div class="quick-nav-list-item-button-text">@FormatCategoryName(group.Key.ToString()!)</div>
-                    </button>
-                </li>
-            }
-        </ul>
+        @if(CodexState.Codex == null)
+        {
+            <div>Loading....</div>
+        }
+        else
+        {
+            <ul class="quick-nav-list">
+                @foreach (var name in GetGroupNames())
+                {
+                    <li class="quick-nav-list-item">
+                        <button type="button" class="quick-nav-list-item-button" onclick="document.getElementById('@name').scrollIntoView({behavior:'smooth'})">
+                            <div class="quick-nav-list-item-button-text">@FormatCategoryName(name)</div>
+                        </button>
+                    </li>
+                }
+            </ul>
+        }
     </div>
 </div>
 
@@ -72,6 +79,8 @@
         {
             await CodexState.InitializeCodexAsync();
         }
+
+        SetSelectedCategory();
     }
 
     public void Dispose()
@@ -80,7 +89,48 @@
         CodexState.OnStateChange -= StateHasChanged;
     }
 
+    private List<string> GetGroupNames()
+    {
+        var category = CodexMenuState.SelectedCategory;
+
+        var categoryNames = CodexState.Codex.CodexItems.Where(x => x.CodexCategory == category).Select(y => y.CodexItemType.ToString()).Distinct().ToList();
+
+
+
+        return categoryNames;
+    }
+
     private static IEnumerable<IGrouping<CodexItemType?, ItemOld>> GroupItems() => DataAggregator.Items.OrderBy(x => x.Category).ThenBy(x => x.DisplayName).GroupBy(x => x.Category);
+
+    private void SetSelectedCategory(CodexCategory category = CodexCategory.Item)
+    {
+        CodexMenuState.SetValue(category);
+
+        activeU = "";
+        activeL = "";
+        activeC = "";
+        activeR = "";
+        activeD = "";
+
+        switch(category)
+        {
+            case CodexCategory.Item:
+                activeU = "codex-sub-btn-active";
+                break;
+            case CodexCategory.Equipment :
+                activeL = "codex-sub-btn-active";
+                break;
+            case CodexCategory.Building:
+                activeC = "codex-sub-btn-active";
+                break;
+            case CodexCategory.Infrastructure:
+                activeD = "codex-sub-btn-active";
+                break;
+            case CodexCategory.Unlock:
+                activeR = "codex-sub-btn-active";
+                break;
+        }
+    }
 
     private static string FormatCategoryName(string name)
     {
