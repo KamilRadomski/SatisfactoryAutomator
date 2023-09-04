@@ -46,9 +46,9 @@ div.codex-menu {
         background-color: var(--sfBlue20);
     }
 
-        .codex-sub-button:hover .codex-sub-text {
+       /* .codex-sub-button:hover .codex-sub-text {
             transform:scale(1.1);
-        }
+        }*/
 
 .codex-sub-btn {
     border: 1px solid red;
@@ -56,6 +56,10 @@ div.codex-menu {
     height:100%;
     padding:0px;
     background:unset;
+}
+
+.codex-sub-btn-active {
+    background-color: var(--sfBlue20);
 }
 
 div.codex-sub-u {

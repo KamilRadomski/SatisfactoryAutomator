@@ -34,19 +34,19 @@ namespace SatisfactoryProductionator.DataService
 		public static readonly List<string> DESCRIPTOR_CLASSES = new()
 		{
 			"Class'/Script/FactoryGame.FGItemDescriptor'",
-			//"Class'/Script/FactoryGame.FGItemDescriptorBiomass'",
-			//"Class'/Script/FactoryGame.FGResourceDescriptor'",
-			//"Class'/Script/FactoryGame.FGItemDescriptorNuclearFuel'",
-			//"Class'/Script/FactoryGame.FGConsumableDescriptor'",
+			"Class'/Script/FactoryGame.FGItemDescriptorBiomass'",
+			"Class'/Script/FactoryGame.FGResourceDescriptor'",
+			"Class'/Script/FactoryGame.FGItemDescriptorNuclearFuel'",
+			"Class'/Script/FactoryGame.FGConsumableDescriptor'",
 
-			//"Class'/Script/FactoryGame.FGAmmoTypeProjectile'",
-			//"Class'/Script/FactoryGame.FGAmmoTypeSpreadshot'",
-			//"Class'/Script/FactoryGame.FGAmmoTypeInstantHit'",
+			"Class'/Script/FactoryGame.FGAmmoTypeProjectile'",
+			"Class'/Script/FactoryGame.FGAmmoTypeSpreadshot'",
+			"Class'/Script/FactoryGame.FGAmmoTypeInstantHit'",
 
-			//"Class'/Script/FactoryGame.FGEquipmentDescriptor'",
-			//"Class'/Script/FactoryGame.FGVehicleDescriptor'",
-			//"Class'/Script/FactoryGame.FGPoleDescriptor'",
-			//"Class'/Script/FactoryGame.FGBuildingDescriptor'"
+			"Class'/Script/FactoryGame.FGEquipmentDescriptor'",
+			"Class'/Script/FactoryGame.FGVehicleDescriptor'",
+			"Class'/Script/FactoryGame.FGPoleDescriptor'",
+			"Class'/Script/FactoryGame.FGBuildingDescriptor'"
 		};
 
 		public static readonly Dictionary<string, string> DESCRIPTOR_BUILD_MAP = new()

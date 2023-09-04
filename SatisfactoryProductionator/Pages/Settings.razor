@@ -1,4 +1,6 @@
 ﻿@page "/settings"
+@using SatisfactoryProductionator.DataModels.Enums;
+@using SatisfactoryProductionator.DataModels.Models.Codex;
 @using SatisfactoryProductionator.Services;
 @using SatisfactoryProductionator.Shared.States
 @using SatisfactoryProductionator.Shared.States.Models
@@ -22,28 +24,50 @@
     --aug-bl: 20px;
 }    
 
+.codexTemp {
+    position: relative;
+    top: 27px;
+    left: 20px;
+    height: 100%;
+    overflow: scroll;
+}
+
 </style>
+
+
 
 <div data-augmented-ui-reset></div>
 <CodexMenu />
 
 <div data-augmented-ui="tl-2-clip-x tr-clip br-clip bl-2-clip-y border" class="codex-main-panel">
     
-    
+    <div class="codexTemp">
     @if(CodexState.Codex == null)
     {
         <div>Loading.....</div>
     }
     else
-    {
-        <div>Loaded</div>
+    { 
+       <table>
+           @foreach (var item in GetCategoryItems(CodexCategory.Building))
+                {
+                    <tr>
+                        <td>@item.ClassName</td>
+                        <td>@item.DisplayName</td>
+                        <td>@item.IconPath</td>
+                        <td>
+                            <img src="@item.IconPath" />
+                        </td>
+                    </tr>
+                }
+            </table>
 
         
             
                 
         
     }
-
+    </div>
 </div>
 
 
@@ -72,4 +96,10 @@
         CodexState.OnStateChange -= StateHasChanged;
     }
 
+    private List<CodexItem> GetCategoryItems(CodexCategory category)
+    {
+        var items = CodexState.Codex.CodexItems.Where(x => x.CodexCategory == CodexCategory.Infrastructure).ToList();
+
+        return items;
+    }
 }

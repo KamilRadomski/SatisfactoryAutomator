@@ -1,6 +1,11 @@
 ﻿@using SatisfactoryProductionator.DataModels.Enums;
 @using SatisfactoryProductionator.DataModels.Models.Old;
 @using SatisfactoryProductionator.DataParser;
+@using SatisfactoryProductionator.Services;
+
+@inject CodexState CodexState
+@inject CodexMenuState CodexMenuState
+
 <div data-augmented-ui-reset></div>
 
 <div data-augmented-ui="tl-clip tr-2-clip-y br-clip bl-clip border" class="codex-menu">
@@ -8,27 +13,27 @@
         <div data-augmented-ui="tl-clip tr-2-clip-y br-clip bl-2-clip-x border" class="codex-sub-menu">
             <div data-augmented-ui-reset>
                 <div data-augmented-ui="tl-clip tr-clip br-clip bl-clip border" class="codex-sub-button codex-sub-u">
-                    <button type="button" class="codex-sub-btn">
+                    <button type="button" class="codex-sub-btn @activeU">
                         <div class="codex-sub-text codex-sub-text-u">Items</div>
                     </button>
                 </div>
                 <div data-augmented-ui="tl-clip tr-clip br-clip bl-clip r-clip border" class="codex-sub-button codex-sub-l">
-                    <button type="button" class="codex-sub-btn">
+                    <button type="button" class="codex-sub-btn @activeL">
                         <div class="codex-sub-text codex-sub-text-l">Gear</div>
                     </button>
                 </div>
                 <div data-augmented-ui="tl-clip tr-clip br-clip bl-clip border" class="codex-sub-button codex-sub-c">
-                    <button type="button" class="codex-sub-btn">
+                    <button type="button" class="codex-sub-btn @activeC">
                         <div class="codex-sub-text codex-sub-text-c">Buildings</div>
                     </button>
                 </div>
                 <div data-augmented-ui="tl-clip tr-clip-y br-clip bl-clip l-clip border" class="codex-sub-button codex-sub-r">
-                    <button type="button" class="codex-sub-btn">
+                    <button type="button" class="codex-sub-btn @activeR">
                         <div class="codex-sub-text codex-sub-text-r">Tiers</div>
                     </button>
                 </div>
                 <div data-augmented-ui="tl-clip tr-clip br-clip bl-clip-x border" class="codex-sub-button codex-sub-d">
-                    <button type="button" class="codex-sub-btn">
+                    <button type="button" class="codex-sub-btn @activeD">
                         <div class="codex-sub-text codex-sub-text-d">Infrastructure</div>
                     </button>
                 </div>
@@ -48,6 +53,33 @@
 </div>
 
 @code {
+    private static string activeU;
+    private static string activeL;
+    private static string activeC;
+    private static string activeR;
+    private static string activeD;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        base.OnInitialized();
+        // SettingsState.OnStateChange += StateHasChanged;
+        CodexState.OnStateChange += StateHasChanged;
+
+        // _settings = SettingsState.Value ?? new AppSettings();
+
+        if (CodexState.Codex == null)
+        {
+            await CodexState.InitializeCodexAsync();
+        }
+    }
+
+    public void Dispose()
+    {
+        // SettingsState.OnStateChange -= StateHasChanged;
+        CodexState.OnStateChange -= StateHasChanged;
+    }
+
     private static IEnumerable<IGrouping<CodexItemType?, ItemOld>> GroupItems() => DataAggregator.Items.OrderBy(x => x.Category).ThenBy(x => x.DisplayName).GroupBy(x => x.Category);
 
     private static string FormatCategoryName(string name)

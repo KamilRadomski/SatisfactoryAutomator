@@ -13,10 +13,13 @@ builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
-builder.Services.AddSingleton<SettingsState>();
-builder.Services.AddSingleton<CodexState>();
+
 builder.Services.AddSingleton<IDataService, DataService>();
 builder.Services.AddTransient(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+
+builder.Services.AddSingleton<SettingsState>();
+builder.Services.AddSingleton<CodexState>();
+builder.Services.AddSingleton<CodexMenuState>();
 
 
 await builder.Build().RunAsync();
