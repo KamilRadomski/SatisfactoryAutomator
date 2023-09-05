@@ -5,7 +5,7 @@
 
 @inject CodexState CodexState
 @inject CodexMenuState CodexMenuState
-@* @onclick="@(() => AddItemRecipe(@item.DisplayName!))"> *@
+
 <div data-augmented-ui-reset></div>
 
 <div data-augmented-ui="tl-clip tr-2-clip-y br-clip bl-clip border" class="codex-menu">
@@ -41,20 +41,22 @@
         </div>
         @if(CodexState.Codex == null)
         {
-            <div>Loading....</div>
+            <div class="codex-submenu-loading">Loading....</div>
         }
         else
         {
-            <ul class="quick-nav-list">
-                @foreach (var name in GetGroupNames())
-                {
-                    <li class="quick-nav-list-item">
-                        <button type="button" class="quick-nav-list-item-button" onclick="document.getElementById('@name').scrollIntoView({behavior:'smooth'})">
-                            <div class="quick-nav-list-item-button-text">@FormatCategoryName(name)</div>
-                        </button>
-                    </li>
-                }
-            </ul>
+            <div class="quick-nav-list-container">
+                <ul class="quick-nav-list">
+                    @foreach (var name in GetGroupNames())
+                    {
+                        <li class="quick-nav-list-item">
+                            <button type="button" class="quick-nav-list-item-button" onclick="document.getElementById('@name').scrollIntoView({behavior:'smooth'})">
+                                <div class="quick-nav-list-item-button-text">@FormatCategoryName(name)</div>
+                            </button>
+                        </li>
+                    }
+                </ul>
+            </div>
         }
     </div>
 </div>

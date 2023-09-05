@@ -35,6 +35,12 @@ div.codex-menu {
     --aug-br: 30px;
 }
 
+.codex-submenu-loading {
+    position: relative;
+    top: 10px;
+    left: 20px;
+}
+
 .codex-sub-button {
     position: absolute;
     --aug-border-all: 1px;
@@ -163,7 +169,21 @@ div.codex-sub-d {
 }
 
 
-
+.quick-nav-list-container {
+    border: 1px red solid;
+    position: absolute;
+    /* bottom: 10px; */
+    /* height: 80%; */
+    /* overflow-y: scroll; */
+    /* overflow: scroll; */
+    /* overflow-x: hidden; */
+    /* overflow-y: hidden; */
+    height: 52%;
+    overflow: scroll;
+    /* overflow-y: hidden; */
+    overflow-x: hidden;
+    height: calc(100vh - 440px);
+}
 
 
 
