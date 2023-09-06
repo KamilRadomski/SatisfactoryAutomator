@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Hosting;
 using SatisfactoryProductionator;
 using SatisfactoryProductionator.DataService;
 using SatisfactoryProductionator.Services;
-using SatisfactoryProductionator.Shared.States;
 
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);

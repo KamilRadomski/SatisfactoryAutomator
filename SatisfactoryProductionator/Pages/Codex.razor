@@ -1,14 +1,16 @@
 ﻿@page "/codex"
 @using SatisfactoryProductionator.DataModels.Models.CodexPages;
 @using SatisfactoryProductionator.DataModels.Models.Old;
+@using SatisfactoryProductionator.DataModels;
 @using SatisfactoryProductionator.DataParser
 @using SatisfactoryProductionator.DataModels.Models
 @using SatisfactoryProductionator.DataModels.Enums
 @using SatisfactoryProductionator.DataManager
 @using System.Globalization
-@using SatisfactoryProductionator.Shared.States;
-@using SatisfactoryProductionator.Shared.States.Models;
+@using SatisfactoryProductionator.Services;
+
 @inject SettingsState SettingsState
+
 @implements IDisposable
 
 @inject HttpClient Http
