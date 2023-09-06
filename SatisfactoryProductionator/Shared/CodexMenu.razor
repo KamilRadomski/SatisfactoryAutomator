@@ -82,7 +82,9 @@
             await CodexState.InitializeCodexAsync();
         }
 
-        SetSelectedCategory();
+        var category = CodexMenuState.SelectedCategory;
+
+        SetSelectedCategory(category);
     }
 
     public void Dispose()
@@ -104,7 +106,7 @@
 
     private static IEnumerable<IGrouping<CodexItemType?, ItemOld>> GroupItems() => DataAggregator.Items.OrderBy(x => x.Category).ThenBy(x => x.DisplayName).GroupBy(x => x.Category);
 
-    private void SetSelectedCategory(CodexCategory category = CodexCategory.Item)
+    private void SetSelectedCategory(CodexCategory category)
     {
         CodexMenuState.SetValue(category);
 

@@ -4,14 +4,14 @@ namespace SatisfactoryProductionator.Services
 {
     public class CodexMenuState
     {
-        public CodexCategory SelectedCategory { get; set; }
+        public static CodexCategory SelectedCategory { get; set; } = CodexCategory.Item;
 
         public event Action OnStateChange;
 
-        public CodexMenuState() 
-        {
-            SelectedCategory = CodexCategory.Item;
-        }
+        //public CodexMenuState() 
+        //{
+        //    SelectedCategory = CodexCategory.Item;
+        //}
         
         public void SetValue(CodexCategory category)
         {
