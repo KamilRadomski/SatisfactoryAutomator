@@ -4,7 +4,6 @@
 @using SatisfactoryProductionator.DataModels;
 @using SatisfactoryProductionator.Services;
 
-@inject SettingsState SettingsState
 @inject CodexState CodexState
 @inject CodexMenuState CodexMenuState
 
@@ -12,27 +11,27 @@
 
 <style type="text/css">
 
-.codex-main-panel{
-    position: absolute;
-    top: 14px;
-    left: 275px;
-    right: 14px;
-    bottom: 14px;
-    --aug-border-all: 3px;
-    --aug-border-bg: var(--sfBlue);
-    --aug-tl: 15px;
-    --aug-tr: 33px;
-    --aug-br: 33px;
-    --aug-bl: 20px;
-}    
+    .codex-main-panel {
+        position: absolute;
+        top: 14px;
+        left: 275px;
+        right: 14px;
+        bottom: 14px;
+        --aug-border-all: 3px;
+        --aug-border-bg: var(--sfBlue);
+        --aug-tl: 15px;
+        --aug-tr: 33px;
+        --aug-br: 33px;
+        --aug-bl: 20px;
+    }
 
-.codexTemp {
-    position: relative;
-    top: 27px;
-    left: 20px;
-    height: 100%;
-    overflow: scroll;
-}
+    .codexTemp {
+        position: relative;
+        top: 27px;
+        left: 20px;
+        height: 100%;
+        overflow: scroll;
+    }
 
 </style>
 
@@ -42,33 +41,21 @@
 <CodexMenu />
 
 <div data-augmented-ui="tl-2-clip-x tr-clip br-clip bl-2-clip-y border" class="codex-main-panel">
-    
+
     <div class="codexTemp">
-    @if(CodexState.Codex == null)
-    {
-        <div>Loading.....</div>
-    }
-    else
-    { 
-       <table>
-           @foreach (var item in GetCategoryItems())
+        @if (CodexState.Codex == null)
+        {
+            <div>Loading.....</div>
+        }
+        else
+        {
+            <table>
+                @foreach (var group in GetCategoryItems())
                 {
-                    <tr>
-                        <td>@item.ClassName</td>
-                        <td>@item.DisplayName</td>
-                        <td>@item.IconPath</td>
-                        <td>
-                            <img src="@item.IconPath" />
-                        </td>
-                    </tr>
+                    <CodexItemGroup itemGroup="group" />
                 }
             </table>
-
-        
-            
-                
-        
-    }
+        }
     </div>
 </div>
 
@@ -81,11 +68,8 @@
     protected override async Task OnInitializedAsync()
     {
         base.OnInitialized();
-        // SettingsState.OnStateChange += StateHasChanged;
         CodexState.OnStateChange += StateHasChanged;
         CodexMenuState.OnStateChange += StateHasChanged;
-
-        // _settings = SettingsState.Value ?? new AppSettings();
 
         if (CodexState.Codex == null)
         {
@@ -95,17 +79,15 @@
 
     public void Dispose()
     {
-        // SettingsState.OnStateChange -= StateHasChanged;
         CodexState.OnStateChange -= StateHasChanged;
         CodexMenuState.OnStateChange -= StateHasChanged;
-
     }
 
-    private List<CodexItem> GetCategoryItems()
+    private List<IGrouping<CodexItemType, CodexItem>> GetCategoryItems()
     {
         var category = CodexMenuState.SelectedCategory;
 
-        var items = CodexState.Codex.CodexItems.Where(x => x.CodexCategory == category).ToList();
+        var items = CodexState.Codex.CodexItems.Where(x => x.CodexCategory == category).OrderBy(x => x.CodexItemType).GroupBy(x => x.CodexItemType).ToList();
 
         return items;
     }

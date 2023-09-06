@@ -1,0 +1,43 @@
+﻿@using SatisfactoryProductionator.DataModels.Enums;
+@using SatisfactoryProductionator.DataModels.Models.Codex;
+
+<div class="codex-item-group">
+    <div class="group-heading">@FormatCategoryName(itemGroup.Key.ToString())</div>
+    <div class="group-list">
+        <ul>
+            @foreach(var item in itemGroup)
+            {
+                <li>
+                    @item.DisplayName
+                </li>
+            }
+        </ul>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public IGrouping<CodexItemType, CodexItem> itemGroup { get; set; }
+
+    private static string FormatCategoryName(string name)
+    {
+        for (int i = name.Length - 1; i > 0; i--)
+        {
+            if (char.IsUpper(name[i]))
+            {
+                name = name.Insert(i, ".");
+            }
+        }
+        return name;
+    }
+
+}
+
+@* <tr>
+<td>@item.ClassName</td>
+<td>@item.DisplayName</td>
+<td>@item.IconPath</td>
+<td>
+<img src="@item.IconPath" />
+</td>
+</tr> *@
