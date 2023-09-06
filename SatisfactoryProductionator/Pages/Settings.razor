@@ -4,8 +4,11 @@
 @using SatisfactoryProductionator.Services;
 @using SatisfactoryProductionator.Shared.States
 @using SatisfactoryProductionator.Shared.States.Models
+
 @inject SettingsState SettingsState
 @inject CodexState CodexState
+@inject CodexMenuState CodexMenuState
+
 @implements IDisposable
 
 <style type="text/css">
@@ -49,7 +52,7 @@
     else
     { 
        <table>
-           @foreach (var item in GetCategoryItems(CodexCategory.Building))
+           @foreach (var item in GetCategoryItems())
                 {
                     <tr>
                         <td>@item.ClassName</td>
@@ -81,6 +84,7 @@
         base.OnInitialized();
         // SettingsState.OnStateChange += StateHasChanged;
         CodexState.OnStateChange += StateHasChanged;
+        CodexMenuState.OnStateChange += StateHasChanged;
 
         // _settings = SettingsState.Value ?? new AppSettings();
 
@@ -94,11 +98,15 @@
     {
         // SettingsState.OnStateChange -= StateHasChanged;
         CodexState.OnStateChange -= StateHasChanged;
+        CodexMenuState.OnStateChange -= StateHasChanged;
+
     }
 
-    private List<CodexItem> GetCategoryItems(CodexCategory category)
+    private List<CodexItem> GetCategoryItems()
     {
-        var items = CodexState.Codex.CodexItems.Where(x => x.CodexCategory == CodexCategory.Infrastructure).ToList();
+        var category = CodexMenuState.SelectedCategory;
+
+        var items = CodexState.Codex.CodexItems.Where(x => x.CodexCategory == category).ToList();
 
         return items;
     }

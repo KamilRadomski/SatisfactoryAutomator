@@ -8,11 +8,6 @@ namespace SatisfactoryProductionator.Services
 
         public event Action OnStateChange;
 
-        //public CodexMenuState() 
-        //{
-        //    SelectedCategory = CodexCategory.Item;
-        //}
-        
         public void SetValue(CodexCategory category)
         {
             SelectedCategory = category;
@@ -20,10 +15,6 @@ namespace SatisfactoryProductionator.Services
             NotifyStateChanged();
         }
 
-
         private void NotifyStateChanged() => OnStateChange?.Invoke();
-
-       
-
     }
 }
