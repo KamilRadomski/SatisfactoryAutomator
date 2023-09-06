@@ -170,17 +170,10 @@ div.codex-sub-d {
 
 
 .quick-nav-list-container {
-    border: 1px red solid;
+    left:10px;
+    width: 230px;
     position: absolute;
-    /* bottom: 10px; */
-    /* height: 80%; */
-    /* overflow-y: scroll; */
-    /* overflow: scroll; */
-    /* overflow-x: hidden; */
-    /* overflow-y: hidden; */
-    height: 52%;
-    overflow: scroll;
-    /* overflow-y: hidden; */
+    overflow: auto;
     overflow-x: hidden;
     height: calc(100vh - 440px);
 }
@@ -240,4 +233,29 @@ div.codex-sub-d {
 .quick-nav-list-item-button-text {
     top: -3px;
     position: relative;
+}
+
+.quick-nav-list-container::-webkit-scrollbar {
+    width: 3px;
+}
+
+.quick-nav-list-container::-webkit-scrollbar-track {
+    background: var(--sfBlue40);
+    border-radius: 100vh;
+    margin-block: 2em;
+    margin-block-start: 1em;
+}
+
+.quick-nav-list-container::-webkit-scrollbar-thumb {
+    border: 3px solid rgba(255, 255, 255, .15);
+    border-radius: 100vh;
+    background: var(--sfBlue40);
+}
+
+.quick-nav-list-container::-webkit-scrollbar-thumb:hover {
+    background: var(--myblue);
+}
+
+.quick-nav-list-container::-webkit-scrollbar-track:hover {
+    background: var(--myhoverblueclear2);
 }
