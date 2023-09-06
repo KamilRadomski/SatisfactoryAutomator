@@ -40,6 +40,8 @@ namespace SatisfactoryProductionator.DataService.Utility
 
             }
 
+            items = items.OrderBy(x => x.CodexCategory).ThenBy(x => x.CodexItemType).ThenBy(x => x.CodexSubItemType).ThenBy(x => x.DisplayName).ToList();
+
             return items;
         }
 
