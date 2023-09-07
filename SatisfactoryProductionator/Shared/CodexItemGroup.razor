@@ -1,7 +1,7 @@
 ﻿@using SatisfactoryProductionator.DataModels.Enums;
 @using SatisfactoryProductionator.DataModels.Models.Codex;
 
-<div class="codex-item-group">
+<div id="@itemGroup.Key.ToString()" class="codex-item-group">
     <div class="group-heading">@FormatCategoryName(itemGroup.Key.ToString())</div>
     <div class="group-list">
         <ul>
