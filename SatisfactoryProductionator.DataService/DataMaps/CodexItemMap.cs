@@ -697,7 +697,7 @@ namespace SatisfactoryProductionator.DataService.DataMaps
             { "Desc_xmassLights_C"                                      , (CodexCategory.Infrastructure, CodexItemType.Xmas      , CodexSubItemType.Default) },
             { "Desc_XmassTree_C"                                        , (CodexCategory.Infrastructure, CodexItemType.Xmas      , CodexSubItemType.Default) },
 
-            { "Desc_CandyCane_C" , (CodexCategory.Infrastructure, CodexItemType.Xmas      , CodexSubItemType.Default) },
+            { "Desc_CandyCane_C" , (CodexCategory.Item, CodexItemType.Xmas      , CodexSubItemType.Default) },
             { "Desc_XMassTree_C"  , (CodexCategory.Infrastructure, CodexItemType.Xmas      , CodexSubItemType.Default) },
             { "Desc_Wall_Window_8x4_03_Steel_C"  , (CodexCategory.Default, CodexItemType.Default      , CodexSubItemType.Default) },
 

@@ -20,6 +20,7 @@ namespace SatisfactoryProductionator.DataService.Utility
         {
             List<CodexItem> items = new();
             var descriptors = docModels.Where(x => Constants.DESCRIPTOR_CLASSES.Contains(x.NativeClass)).SelectMany(y => y.Classes).ToList();
+            var buildInfoClasses = docModels.SelectMany(x => x.Classes.Where(y => y.ClassName.StartsWith("Build_"))).ToList();
 
             foreach (var descriptor in descriptors) 
             {
@@ -27,12 +28,14 @@ namespace SatisfactoryProductionator.DataService.Utility
 
                 if (codexCategory is CodexCategory.Default) continue;
 
+                var buildInfo = GetMatchingBuildInfo(descriptor.ClassName, buildInfoClasses);
+
                 var codexItem = codexCategory switch
                 {
                     CodexCategory.Item => GenerateItem(descriptor),
                     CodexCategory.Equipment => GenerateEquipment(descriptor),
-                    CodexCategory.Building => GenerateBuilding(descriptor),
-                    CodexCategory.Infrastructure => GenerateInfrastructure(descriptor),
+                    CodexCategory.Building => GenerateBuilding(descriptor, buildInfo),
+                    CodexCategory.Infrastructure => GenerateInfrastructure(descriptor, buildInfo),
                     _ => throw new NotImplementedException()
                 };
 
@@ -45,6 +48,21 @@ namespace SatisfactoryProductionator.DataService.Utility
             return items;
         }
 
+        private static CategoryClasses GetMatchingBuildInfo(string className, List<CategoryClasses> buildInfoClasses)
+        {
+            string buildInfoClassName;
+            
+            if(Constants.DESCRIPTOR_BUILD_MAP.ContainsKey(className))
+            {
+                buildInfoClassName =  Constants.DESCRIPTOR_BUILD_MAP[className];
+            }
+            else
+            {
+                buildInfoClassName = className.Replace("Desc_", "Build_");
+            }
+
+            return buildInfoClasses.FirstOrDefault(x => x.ClassName == buildInfoClassName);
+        }
 
         private static CodexItem GenerateItem(CategoryClasses descriptor)
         {
@@ -74,7 +92,6 @@ namespace SatisfactoryProductionator.DataService.Utility
                 Description = descriptor.mDescription,
                 DisplayName = descriptor.mDisplayName,
                 IconPath = GetIconPath(descriptor.mPersistentBigIcon),
-                //ResourceSinkPoints = int.Parse(descriptor.mResourceSinkPoints),
                 StackSize = Constants.SIZE_MAP[descriptor.mStackSize],
                 CompatibleItems = ExtractCompatibleItems(descriptor.mCompatibleItemDescriptors),
                 CodexCategory = CodexItemMap.Items[descriptor.ClassName].Item1,
@@ -87,21 +104,16 @@ namespace SatisfactoryProductionator.DataService.Utility
                 equipment.ResourceSinkPoints = int.Parse(descriptor.mResourceSinkPoints);
             }
 
-            //}
-            //catch (Exception ex)
-            //{
-            //    Console.Write(ex.Message.ToString());
-
-            //}
-
             return equipment;
         }
 
-        private static CodexItem GenerateBuilding(CategoryClasses descriptor)
+        private static CodexItem GenerateBuilding(CategoryClasses descriptor, CategoryClasses buildInfo)
         {
             var building = new Building() 
             {
                 ClassName = descriptor.ClassName,
+                Description = buildInfo.mDescription,
+                DisplayName = buildInfo.mDisplayName,
                 IconPath = GetIconPath(descriptor.mSmallIcon),
                 CodexCategory = CodexItemMap.Items[descriptor.ClassName].Item1,
                 CodexItemType = CodexItemMap.Items[descriptor.ClassName].Item2,
@@ -111,11 +123,13 @@ namespace SatisfactoryProductionator.DataService.Utility
             return building;
         }
 
-        private static CodexItem GenerateInfrastructure(CategoryClasses descriptor)
+        private static CodexItem GenerateInfrastructure(CategoryClasses descriptor, CategoryClasses buildInfo)
         {
             var infrastructure = new Infrastructure() 
             {
                 ClassName = descriptor.ClassName,
+                Description = buildInfo.mDescription,
+                DisplayName = buildInfo.mDisplayName,
                 IconPath = GetIconPath(descriptor.mSmallIcon),
                 CodexCategory = CodexItemMap.Items[descriptor.ClassName].Item1,
                 CodexItemType = CodexItemMap.Items[descriptor.ClassName].Item2,
@@ -152,6 +166,8 @@ namespace SatisfactoryProductionator.DataService.Utility
 
             return matches.Select(match => match.Value).ToList();
         }
+
+       
 
         //private static void CalculatePower(Building building, CategoryClasses item)
         //{
