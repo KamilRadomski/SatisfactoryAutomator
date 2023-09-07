@@ -26,47 +26,29 @@
             <li>AppSettings page that will hold preferred Recipes to use in Grapher</li>
         </ul>
 
-        <h2>Next Up</h2>
+        <h2>Current Tasks</h2>
         <ul>
-            <li>Start AppSettings Page</li>
+            <li>New Codex page and data parser</li>
             <li>
                 <ul>
-                    <li>Preferred Recipe</li>
-                    <li>Recycled plastic/rubber min/max - needed to prevent recursive loop</li>
-                    <li>hook up button from info panel details pane to update settings</li>
+                    <li>Grouped item styling</li>
+                    <li>Single Item component</li>
+                    <li>Modal component</li>
+                    <li>Recipe, building, infra, tier pages</li>
+                    <li>Tier Codex Items</li>
                 </ul>
             </li>
-            <li>Fix crashing due to clicking a recipe that is produced in 'converter' - special case that has no power due to building not existing</li>
+            
         </ul>
 
         <h2>Backlog</h2>
         <ul>
-            <li>General</li>
-            <li><ul>
-                <li>Fix initialization issue when refreshing page not on home</li>
-                <li>Break Codex into components</li>
-            </ul></li>
-
             <li>Codex</li>
             <li><ul>
                 <li>Handle resizing issues for info panel/quicknav</li>
                 <li><ul>
-                    <li>Lock popups to minimum size and add scroll bars</li>
-                    <li>Swap some CSS to more responsiveness to resizing</li>
                     <li>Once a certain minimum size is met that makes site unusable - display off with message saying to make bigger??</li>
                 </ul></li>
-                <li>Make Q Nav title bar less janky</li>
-                <li>Move reusable methods into DataFormater Class that handle formatting names</li>
-                <li>Fix converter type recipe crashing</li>
-                <li>Change Preferred recipe in settings to use full default list</li>
-                <li><ul>
-                    <li>Currently basics are omitted from list and checking is done based on if it's present with an alt recipe</li>
-                    <li>Will cause issues for liquids that don't have basic recipe but do have an unpackage recipe</li>
-                    <li>Can't default unpackage recipe since it will create an infinite loop during permutation/graphing</li>
-                </ul></li>
-                <li>Add buildings to Codex</li>
-                <li>Add equipment/vehicles to codex</li>
-                <li>Make qnav title into selector for main categories for Codex(items, buildings, equipemnt)</li>
             </ul></li>
 
             <li>Settings Page</li>
@@ -114,14 +96,7 @@
             </ul></li>
         </ul>
 
-        <h2>Spikes</h2>
-        <ul>
-            <li>Should I add subCategories to Items for sorting (Ammos => Rebar, Ammo, Nobelisk -- Currently all thrown in alpha-sorted)</li>
-            <li>Should Items have multiple categories (Fuels that are liquid belong in Fuels and Liquids -- Nuclear Fuels belong in Nuclear and Fuels)</li>
-            <li>Should I remove oil.products category and move the 4 items into different category (Polyresin and petro coke to minerals, plastic and rubber to standard parts)</li>
-        </ul>
-
-        <h2>Wishlist</h2>
+        <h2>Stretch Goals</h2>
         <ul>
             <li>Cookies to store preferred Recipes</li>
             <li>option to save/export production lines</li>
