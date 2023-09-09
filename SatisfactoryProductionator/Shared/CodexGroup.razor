@@ -7,9 +7,10 @@
         <ul>
             @foreach(var item in itemGroup)
             {
-                <li>
-                    @item.DisplayName
-                </li>
+                <CodexGroupItem 
+                    className=@item.ClassName
+                    displayname=@item.DisplayName
+                    iconPath=@item.IconPath />
             }
         </ul>
     </div>
@@ -32,12 +33,3 @@
     }
 
 }
-
-@* <tr>
-<td>@item.ClassName</td>
-<td>@item.DisplayName</td>
-<td>@item.IconPath</td>
-<td>
-<img src="@item.IconPath" />
-</td>
-</tr> *@
