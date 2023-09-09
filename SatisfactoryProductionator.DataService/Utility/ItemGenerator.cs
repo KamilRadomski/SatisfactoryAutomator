@@ -115,12 +115,35 @@ namespace SatisfactoryProductionator.DataService.Utility
                 Description = buildInfo.mDescription,
                 DisplayName = buildInfo.mDisplayName,
                 IconPath = GetIconPath(descriptor.mSmallIcon),
+                PowerRating = GetPowerRating(buildInfo),
                 CodexCategory = CodexItemMap.Items[descriptor.ClassName].Item1,
                 CodexItemType = CodexItemMap.Items[descriptor.ClassName].Item2,
                 CodexSubItemType = CodexItemMap.Items[descriptor.ClassName].Item3,
             };
 
             return building;
+        }
+
+        private static double[] GetPowerRating(CategoryClasses buildInfo)
+        {
+            if (buildInfo.mPowerConsumption != null)
+            {
+                return new double[] {double.Parse(buildInfo.mPowerConsumption)}; 
+            }
+            else if (buildInfo.mPowerProduction != null)
+            {
+                return new double[] { double.Parse(buildInfo.mPowerProduction) };
+            }
+            else if (buildInfo.mEstimatedMininumPowerConsumption != null &&
+                     buildInfo.mEstimatedMaximumPowerConsumption != null)
+            {
+                return new double[] { double.Parse(buildInfo.mEstimatedMininumPowerConsumption),
+                                      double.Parse(buildInfo.mEstimatedMaximumPowerConsumption)};
+            }
+            else
+            {
+                return Array.Empty<double>();
+            }
         }
 
         private static CodexItem GenerateInfrastructure(CategoryClasses descriptor, CategoryClasses buildInfo)

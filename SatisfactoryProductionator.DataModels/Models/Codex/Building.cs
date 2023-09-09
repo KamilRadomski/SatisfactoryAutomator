@@ -9,9 +9,6 @@ namespace SatisfactoryProductionator.DataModels.Models.Codex
 {
     public class Building : CodexItem
     {
-        public double? PowerUsed { get; set; }
-        public double[]? VariablePowerUsed { get; set; }
-        public double PowerGenerated { get; set; }
-        public (double, double)? Size { get; set; }
+        public double[] PowerRating { get; set; }
     }
 }

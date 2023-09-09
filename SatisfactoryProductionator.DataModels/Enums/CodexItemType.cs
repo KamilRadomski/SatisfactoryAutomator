@@ -21,7 +21,7 @@
 		Alien = 16,
 		SpaceParts = 17,
 		Special = 18,
-		Xmas = 19,
+		
 
 		Hands = 100,
 		Head = 101,
@@ -59,5 +59,7 @@
         Lights = 317,
         Stairs = 318,
         Cart = 319,
+		
+		Xmas = 500,
     }
 }
