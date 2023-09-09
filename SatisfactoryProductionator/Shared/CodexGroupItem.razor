@@ -1,4 +1,15 @@
 ﻿
+<div data-augmented-ui-reset></div>
+
+<button class="codex-group-item" type="button">
+    @* <button class="main-panel-category-button" type="button" @onclick="@(() => AddItemRecipe(@item.DisplayName!))"> *@
+    <div data-augmented-ui="tl-clip tr-2-clip-y br-clip bl-2-clip-x border" class="codex-item-button">
+        <img src=@iconPath alt=@displayname />
+        <div class="codex-item-name">
+            @FormatDisplayName(displayname)
+        </div>
+    </div>
+</button>
 
 @code {
     [Parameter]
@@ -9,4 +20,6 @@
 
     [Parameter]
     public string iconPath { get; set; }
+
+    private static string FormatDisplayName(string name) => name.Replace(" - ", "-").Replace(" ", ".");
 }

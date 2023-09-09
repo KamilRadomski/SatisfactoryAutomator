@@ -104,7 +104,7 @@ a, .btn-link {
     margin-bottom: 0px;
 }
 
-
+/*
 ::-webkit-scrollbar {
     width: 1em;
 }
@@ -128,7 +128,7 @@ a, .btn-link {
 
 ::-webkit-scrollbar-track:hover {
     background: var(--myhoverblueclear2);
-}
+}*/
 
 .no-flow {
     overflow-y: hidden;

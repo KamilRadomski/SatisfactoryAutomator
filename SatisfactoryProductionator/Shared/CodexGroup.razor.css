@@ -1,1 +1,35 @@
-﻿
+﻿div.codex-group {
+    margin-top: 15px;
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    padding-right: 25px;
+    padding-left: 10px;
+    --aug-tl: 55px;
+    --aug-tr: 55px;
+    --aug-br: 70px;
+    --aug-bl: 30px;
+    --aug-border-bg: var(--myblue);
+    /*--aug-border-all: 2px;*/
+    --aug-tr-extend1: 50%;
+    transition: .5s;
+    --aug-border-x: 0px;
+    --aug-border-y: 3px;
+}
+
+.codex-group-heading {
+    font-size: 3em;
+    width: 45%;
+    text-align: center;
+    scroll-margin-top: 15px;
+}
+
+.codex-item-group {
+
+}
+
+.group-list {
+    display: flex;
+    flex-wrap: wrap;
+}

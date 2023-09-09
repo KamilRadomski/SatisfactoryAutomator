@@ -26,14 +26,32 @@
         --aug-bl: 20px;
     }
 
-    .codexTemp {
-        position: relative;
+    .codex-main-panel-inner {
+        position: absolute;
+        margin-right: 16px;
         top: 27px;
         left: 20px;
         height: 100%;
         overflow: scroll;
     }
 
+
+        .codex-main-panel-inner::-webkit-scrollbar {
+        width: 1em;
+    }
+
+        .codex-main-panel-inner::-webkit-scrollbar-track {
+            background: var(--sfBlue40);
+        border-radius: 16px;
+        margin-block: 5em;
+        margin-block-start: 5em;
+    }
+
+        .codex-main-panel-inner::-webkit-scrollbar-thumb {
+        
+        border-radius: 100vh;
+            background: var(--sfBlue40);
+    }
 </style>
 
 
@@ -43,7 +61,7 @@
 
 <div data-augmented-ui="tl-2-clip-x tr-clip br-clip bl-2-clip-y border" class="codex-main-panel">
 
-    <div class="codexTemp">
+    <div class="codex-main-panel-inner">
         @if (CodexState.Codex == null)
         {
             <div>Loading.....</div>
