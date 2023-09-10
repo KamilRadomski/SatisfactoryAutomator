@@ -27,6 +27,7 @@ div.codex-menu {
     margin-left: 15px;
     margin-top: 15px;
     background: black;
+    z-index: 10;
     --aug-border-all: 2px;
     --aug-border-bg: var(--sfBlue);
     --aug-tl: 10px;
@@ -168,6 +169,28 @@ div.codex-sub-d {
     font-size: 18px;
 }
 
+.codex-infra-sub-menu {
+    position: absolute;
+    top: 18px;
+    left: 21px;
+    height: 170px;
+    width: 210px;
+    background: black;
+    z-index: 9;
+    --aug-border-all: 2px;
+    --aug-border-bg: var(--sfBlue); 
+    --aug-tl: 10px;
+    --aug-tr: 10px;
+    --aug-bl: 15px;
+    --aug-br: 10px;
+    transition: .3s;
+}
+
+.infra-active {
+    top: 150px;
+}
+
+
 
 .quick-nav-list-container {
     left:10px;
@@ -176,6 +199,7 @@ div.codex-sub-d {
     overflow: auto;
     overflow-x: hidden;
     height: calc(100vh - 440px);
+    transition: .3s;
 }
 
 
@@ -192,6 +216,10 @@ div.codex-sub-d {
     margin-inline-end: 0px;
     padding-inline-start: 15px;
     padding-top: 0px;
+}
+
+.container-infra-active {
+    padding-top: 120px;
 }
 
 .quick-nav-list-item {

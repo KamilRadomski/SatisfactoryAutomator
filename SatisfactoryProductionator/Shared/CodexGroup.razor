@@ -5,7 +5,7 @@
 
 <div data-augmented-ui="tl-clip tr-2-clip-x br-clip bl-clip border" class="codex-group">
     <div id="@itemGroup.Key.ToString()" class="codex-item-group">
-        <div class="codex-group-heading">@FormatCategoryName(itemGroup.Key.ToString())</div>
+        <div class="codex-group-heading">@FormatCategoryName(itemGroup.Key.ToString()) - @itemGroup.Count()</div>
         
             <ul class="group-list">
                 @foreach (var item in itemGroup)

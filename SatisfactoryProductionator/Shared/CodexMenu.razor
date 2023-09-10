@@ -39,13 +39,17 @@
                 </div>
             </div>
         </div>
+        <div data-augmented-ui="tl-clip tr-2-clip-y br-2-clip-x bl-clip border" class="@GetInfraSubMenuCss()">
+
+        </div>
         @if(CodexState.Codex == null)
         {
             <div class="codex-submenu-loading">Loading....</div>
         }
         else
         {
-            <div class="quick-nav-list-container">
+            <div class=@GetNavContainerCss()>
+                @* <div class="quick-nav-list-container container-infra-active"> *@
                 <ul class="quick-nav-list">
                     @foreach (var name in GetGroupNames())
                     {
@@ -135,6 +139,33 @@
                 break;
         }
     }
+
+
+    private string GetNavContainerCss()
+    {
+        var category = CodexMenuState.SelectedCategory;
+
+        if (category is CodexCategory.Infrastructure)
+        {
+            return "quick-nav-list-container container-infra-active";
+        }
+
+        return "quick-nav-list-container";
+    }
+
+    private string GetInfraSubMenuCss()
+    {
+        var category = CodexMenuState.SelectedCategory;
+
+        if (category is CodexCategory.Infrastructure)
+        {
+            return "codex-infra-sub-menu infra-active";
+        }
+
+        return "codex-infra-sub-menu";
+    }
+
+
 
     private static string FormatCategoryName(string name)
     {
