@@ -1,7 +1,12 @@
 ﻿@page "/"
 @using SatisfactoryProductionator.DataModels.Models
 @using SatisfactoryProductionator.DataParser
+@using SatisfactoryProductionator.Services;
 @inject HttpClient Http
+@inject CodexState CodexState
+
+@implements IDisposable
+
 <PageTitle>Index</PageTitle>
 
 <style type="text/css">
@@ -125,12 +130,23 @@
 {
     protected override async Task OnInitializedAsync()
     {
+        CodexState.OnStateChange += StateHasChanged;
         //TODO Move this into DataParser - Had issues with it in there - this is a temp workaround
-        if (!DataAggregator.IsInitialized)
-        {
-            var docModel = await Http.GetFromJsonAsync<List<DocModel>>(Constants.JSON_FILEPATH);
+        // if (!DataAggregator.IsInitialized)
+        // {
+        //     var docModel = await Http.GetFromJsonAsync<List<DocModel>>(Constants.JSON_FILEPATH);
 
-            DataAggregator.InitializeModels(docModel!);
+        //     DataAggregator.InitializeModels(docModel!);
+        // }
+        if (CodexState.Codex == null)
+        {
+            await CodexState.InitializeCodexAsync();
         }
+
+    }
+
+    public void Dispose()
+    {
+        CodexState.OnStateChange -= StateHasChanged;
     }
 }
