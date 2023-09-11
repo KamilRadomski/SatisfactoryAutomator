@@ -4,14 +4,14 @@
 <div data-augmented-ui-reset></div>
 
 <div data-augmented-ui="tl-clip tr-2-clip-x br-clip bl-clip border" class="codex-group">
-    <div id="@itemGroup.Key.ToString()" class="codex-item-group">
-        <div class="codex-group-heading">@FormatCategoryName(itemGroup.Key.ToString())</div>
+    <div id="@GetGroupId()" class="codex-item-group">
+        <div class="codex-group-heading">@GetCategoryName()</div>
         
             <ul class="group-list">
-                @foreach (var item in itemGroup)
+                @foreach (var item in GetGroup())
                 {
                     <CodexGroupItem className=@item.ClassName
-                                    displayname=@item.DisplayName
+                                    displayName=@item.DisplayName
                                     iconPath=@item.IconPath />
                 }
             </ul>
@@ -23,7 +23,25 @@
     [Parameter]
     public IGrouping<CodexItemType, CodexItem> itemGroup { get; set; }
 
-    private static string FormatCategoryName(string name)
+    [Parameter]
+    public IGrouping<CodexSubItemType, CodexItem> subItemGroup { get; set; }
+
+    [Parameter]
+    public CodexCategory category { get; set; }
+
+    private string GetCategoryName()
+    {
+        if (category is CodexCategory.Infrastructure)
+        {
+            return FormatCategoryName(subItemGroup.Key.ToString());
+        }
+        else
+        {
+            return FormatCategoryName(itemGroup.Key.ToString());
+        }
+    }
+
+    private string FormatCategoryName(string name)
     {
         for (int i = name.Length - 1; i > 0; i--)
         {
@@ -33,6 +51,30 @@
             }
         }
         return name;
+    }
+
+    private string GetGroupId()
+    {
+        if(category is CodexCategory.Infrastructure)
+        {
+            return subItemGroup.Key.ToString();
+        }
+        else
+        {
+            return itemGroup.Key.ToString();
+        }
+    }
+
+    private List<CodexItem> GetGroup()
+    {
+        if(category is CodexCategory.Infrastructure)
+        {
+            return subItemGroup.ToList();
+        }
+        else
+        {
+            return itemGroup.ToList();
+        }
     }
 
 }

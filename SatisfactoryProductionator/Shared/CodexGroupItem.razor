@@ -7,7 +7,7 @@
     <button class="codex-group-item" type="button">
         <img src=@iconPath alt=@className />
         <div class="codex-item-name">
-            @FormatDisplayName(displayname)
+            @FormatDisplayName(displayName)
         </div>
     </button>
 </div>
@@ -18,7 +18,7 @@
     public string className { get; set; }
 
     [Parameter]
-    public string displayname { get; set; }
+    public string displayName { get; set; }
 
     [Parameter]
     public string iconPath { get; set; }

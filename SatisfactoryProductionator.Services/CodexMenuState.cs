@@ -6,11 +6,20 @@ namespace SatisfactoryProductionator.Services
     {
         public static CodexCategory SelectedCategory { get; set; } = CodexCategory.Item;
 
+        public static InfrastructureSubCategory SelectedInfrastructure { get; set; } = InfrastructureSubCategory.Foundations;
+
         public event Action OnStateChange;
 
-        public void SetValue(CodexCategory category)
+        public void SetCategory(CodexCategory category)
         {
             SelectedCategory = category;
+
+            NotifyStateChanged();
+        }
+
+        public void SetInfrastructure(InfrastructureSubCategory category)
+        {
+            SelectedInfrastructure = category;
 
             NotifyStateChanged();
         }

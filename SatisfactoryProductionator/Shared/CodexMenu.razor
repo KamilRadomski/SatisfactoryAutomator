@@ -80,7 +80,7 @@
     private static string activeC;
     private static string activeR;
     private static string activeD;
-
+      
 
     protected override async Task OnInitializedAsync()
     {
@@ -110,9 +110,27 @@
     {
         var category = CodexMenuState.SelectedCategory;
 
-        var categoryNames = CodexState.Codex.CodexItems.Where(x => x.CodexCategory == category).Select(y => y.CodexItemType.ToString()).Distinct().ToList();
+        if(category is not CodexCategory.Infrastructure)
+        {
+            return CodexState.Codex.CodexItems.Where(x => x.CodexCategory == category).Select(y => y.CodexItemType.ToString()).Distinct().ToList();
+        }
 
+        var infraCategory = CodexMenuState.SelectedInfrastructure;
+        var infraItems = CodexState.Codex.CodexItems.Where(x => x.CodexCategory == CodexCategory.Infrastructure).ToList();
 
+        var categoryNames = infraCategory switch
+        {
+            InfrastructureSubCategory.Foundations => infraItems.Where(x => x.CodexItemType is CodexItemType.Foundation)
+                                                               .Select(y => y.CodexSubItemType.ToString()).Distinct().ToList(),
+            InfrastructureSubCategory.WallsRoofs => infraItems.Where(x => x.CodexItemType is CodexItemType.Wall || 
+                                                                          x.CodexItemType is CodexItemType.Roof)
+                                                              .Select(y => y.CodexSubItemType.ToString()).Distinct().ToList(),
+            InfrastructureSubCategory.General => infraItems.Where(x => x.CodexItemType is not CodexItemType.Default ||
+                                                                       x.CodexItemType is not CodexItemType.Foundation ||
+                                                                       x.CodexItemType is not CodexItemType.Wall ||
+                                                                       x.CodexItemType is not CodexItemType.Roof)
+                                                              .Select(y => y.CodexSubItemType.ToString()).Distinct().ToList(),
+        };
 
         return categoryNames;
     }
@@ -121,7 +139,7 @@
 
     private void SetSelectedCategory(CodexCategory category)
     {
-        CodexMenuState.SetValue(category);
+        CodexMenuState.SetCategory(category);
 
         activeU = "";
         activeL = "";

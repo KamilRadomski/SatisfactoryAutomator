@@ -283,7 +283,7 @@ div.codex-sub-d {
 
 .quick-nav-list-item {
     display: grid;
-    text-align: -webkit-match-parent;
+    text-align: inherit;
     width: 200px;
 }
 

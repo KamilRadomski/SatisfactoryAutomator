@@ -70,9 +70,21 @@
         else
         {
             <table>
-                @foreach (var group in GetCategoryItems())
+                @if(CodexMenuState.SelectedCategory is not CodexCategory.Infrastructure)
                 {
-                    <CodexGroup itemGroup="group" />
+                    @foreach (var group in GetCategoryItems())
+                    {
+                        <CodexGroup itemGroup="group"
+                                    category=CodexCategory.Default />
+                    }
+                }
+               else
+                {
+                    @foreach (var group in GetCategorySubItems())
+                    {
+                        <CodexGroup subItemGroup="group"
+                                    category=CodexCategory.Infrastructure />
+                    }
                 }
             </table>
         }
@@ -110,5 +122,42 @@
         var items = CodexState.Codex.CodexItems.Where(x => x.CodexCategory == category).OrderBy(x => x.CodexItemType).GroupBy(x => x.CodexItemType).ToList();
 
         return items;
+    }
+
+    private List<IGrouping<CodexSubItemType, CodexItem>> GetCategorySubItems()
+    {
+        var infraCategory = CodexMenuState.SelectedInfrastructure;
+        var subCategoryList = GetSubCategories(infraCategory);
+
+        var items = CodexState.Codex.CodexItems.Where(x => x.CodexCategory is CodexCategory.Infrastructure &&
+                                                           subCategoryList.Contains(x.CodexItemType))
+                                               .OrderBy(x => x.CodexSubItemType).GroupBy(x => x.CodexSubItemType).ToList();
+
+        return items;
+    }
+
+    private List<CodexItemType> GetSubCategories(InfrastructureSubCategory infraCategory)
+    {
+        return infraCategory switch
+        {
+            InfrastructureSubCategory.Foundations => new List<CodexItemType> { CodexItemType.Foundation },
+            InfrastructureSubCategory.WallsRoofs => new List<CodexItemType> { CodexItemType.Wall, CodexItemType.Roof },
+            InfrastructureSubCategory.General => new List<CodexItemType> {CodexItemType.Train,
+                                                                          CodexItemType.Conveyor,
+                                                                          CodexItemType.Sorting,
+                                                                          CodexItemType.PowerPole,
+                                                                          CodexItemType.Pipeline,
+                                                                          CodexItemType.HyperTube,
+                                                                          CodexItemType.Beam,
+                                                                          CodexItemType.Pillar,
+                                                                          CodexItemType.Tower,
+                                                                          CodexItemType.Pad,
+                                                                          CodexItemType.Walkway,
+                                                                          CodexItemType.Sorters,
+                                                                          CodexItemType.Sign,
+                                                                          CodexItemType.Lights,
+                                                                          CodexItemType.Stairs,
+                                                                          CodexItemType.Xmas}
+        };
     }
 }
