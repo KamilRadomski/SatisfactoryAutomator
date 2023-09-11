@@ -12,12 +12,18 @@ div.codex-item-button {
     --aug-tr: 25px;
     --aug-br: 20px;
     --aug-bl: 20px;
-    --aug-border-all: 2px;
+    --aug-border-y: 3px;
+    --aug-border-x: 1px;
     --aug-border-bg: var(--myblue);
     --aug-tr-extend2: 63%;
     padding-right: 15px;
     padding-top: 10px;
     background: black;
+}
+
+.codex-item-button:hover {
+    --aug-border-y: 5px;
+    --aug-border-x: 2px;
 }
 
 .codex-item-name {
