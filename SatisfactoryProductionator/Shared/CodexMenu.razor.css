@@ -78,6 +78,7 @@ div.codex-sub-u {
     --aug-tr: 6px;
     --aug-bl: 52px;
     --aug-br: 43px;
+    --aug-border-top: 2px;
 }
 
 div.codex-sub-l {
@@ -90,6 +91,7 @@ div.codex-sub-l {
     --aug-bl: 4px;
     --aug-br: 47px;
     --aug-r: 24px;
+    --aug-border-left: 2px;
 }
 
 div.codex-sub-c {
@@ -114,6 +116,7 @@ div.codex-sub-r {
     --aug-br: 9px;
     --aug-l: 26px;
     --aug-tr-inset1: 8px;
+    --aug-border-right: 2px;
 }
 
 div.codex-sub-d {
@@ -125,6 +128,7 @@ div.codex-sub-d {
     --aug-tr: 41px;
     --aug-bl: 9px;
     --aug-br: 12px;
+    --aug-border-bottom: 2px;
 }
 
 .codex-sub-text {
