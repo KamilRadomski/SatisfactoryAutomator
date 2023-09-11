@@ -226,6 +226,61 @@ div.codex-sub-d {
     padding-top: 120px;
 }
 
+.infra {
+    --aug-border-all: 1px;
+    --aug-border-bg: var(--sfBlue);
+    position: absolute;
+}
+
+.infra-foundation {
+    top: 54px;
+    left: 6px;
+    height: 35px;
+    width: 198px;
+    --aug-tl: 7px;
+    --aug-tr: 10px;
+    --aug-bl: 10px;
+    --aug-br: 10px;
+    --aug-bl-inset2: 40px;
+    --aug-br-inset1: 25px;
+    --aug-border-x: 2px;
+    --aug-border-top: 2px;
+}
+
+.infra-wall {
+    top: 82px;
+    left: 6px;
+    height: 54px;
+    width: 198px;
+    --aug-t: 10px;
+    --aug-r: 5px;
+    --aug-l: 8px;
+    --aug-b: 10px;
+    --aug-t-extend1: 113px;
+    --aug-t-offset: 8px;
+    --aug-b-extend1: 124px;
+    --aug-b-offset: -7px;
+    --aug-l-offset: -2px;
+    --aug-r-offset: 12px;
+    --aug-border-x: 2px;
+}
+
+.infra-general {
+    top: 129px;
+    left: 6px;
+    height: 35px;
+    width: 198px;
+    --aug-tl: 10px;
+    --aug-tr: 10px;
+    --aug-bl: 10px;
+    --aug-br: 9px;
+    --aug-tl-inset1: 20px;
+    --aug-tr-inset2: 35px;
+    --aug-border-x: 2px;
+    --aug-border-bottom: 2px;
+}
+
+
 .quick-nav-list-item {
     display: grid;
     text-align: -webkit-match-parent;
