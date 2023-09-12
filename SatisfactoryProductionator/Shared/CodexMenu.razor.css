@@ -48,20 +48,16 @@ div.codex-menu {
     --aug-border-bg: var(--sfBlue);
 }
 
-    .codex-sub-button:hover {
+    .codex-sub-button:hover,
+    .infra:hover {
         --aug-border-all: 2px;
         background-color: var(--sfBlue20);
     }
 
-       /* .codex-sub-button:hover .codex-sub-text {
-            transform:scale(1.1);
-        }*/
-
 .codex-sub-btn {
-    border: 1px solid red;
     width:100%;
     height:100%;
-    padding:0px;
+    border:0px;
     background:unset;
 }
 
@@ -194,7 +190,23 @@ div.codex-sub-d {
     top: 150px;
 }
 
+.infra-text-foundation {
+    top: 2px;
+    left: 55px;
+    font-size: 20px;
+}
 
+.infra-text-walls-roofs {
+    top: 10px;
+    left: 34px;
+    font-size: 20px;
+}
+
+.infra-text-general {
+    top: 2px;
+    left: 57px;
+    font-size: 20px;
+}
 
 .quick-nav-list-container {
     left:10px;

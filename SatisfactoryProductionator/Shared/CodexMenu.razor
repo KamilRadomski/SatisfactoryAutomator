@@ -42,13 +42,19 @@
         <div data-augmented-ui="tl-clip tr-2-clip-y br-2-clip-x bl-clip border" class="@GetInfraSubMenuCss()">
             <div data-augmented-ui-reset></div>
             <div data-augmented-ui="tl-clip-x tr-clip br-clip-x bl-clip-x border" class="infra infra-foundation">
-
+                <button type="button" class="codex-sub-btn @activeFoundation" @onclick="@(() => SetSelectedInfrastructure(InfrastructureSubCategory.Foundations))">
+                    <div class="codex-sub-text infra-text-foundation">Foundations</div>
+                </button>
             </div>
             <div data-augmented-ui="t-clip-x r-clip b-clip-x l-clip  border" class="infra infra-wall">
-
+                <button type="button" class="codex-sub-btn @activeWalls" @onclick="@(() => SetSelectedInfrastructure(InfrastructureSubCategory.WallsRoofs))">
+                    <div class="codex-sub-text infra-text-walls-roofs">Walls / Roofs</div>
+                </button>
             </div>
             <div data-augmented-ui=" tl-clip-x tr-clip-x br-2-clip-x bl-clip border" class="infra infra-general">
-
+                <button type="button" class="codex-sub-btn @activeGeneral" @onclick="@(() => SetSelectedInfrastructure(InfrastructureSubCategory.General))">
+                    <div class="codex-sub-text infra-text-general">General</div>
+                </button>
             </div>
         </div>
         @if(CodexState.Codex == null)
@@ -80,7 +86,10 @@
     private static string activeC;
     private static string activeR;
     private static string activeD;
-      
+    private static string activeFoundation;
+    private static string activeWalls;
+    private static string activeGeneral;
+
 
     protected override async Task OnInitializedAsync()
     {
@@ -167,6 +176,28 @@
         }
     }
 
+    private void SetSelectedInfrastructure(InfrastructureSubCategory category)
+    {
+        CodexMenuState.SetInfrastructure(category);
+
+        activeFoundation = "";
+        activeWalls = "";
+        activeGeneral = "";
+
+        switch(category)
+        {
+            case InfrastructureSubCategory.Foundations:
+                activeFoundation = "codex-sub-btn-active";
+                break;
+            case InfrastructureSubCategory.WallsRoofs:
+                activeWalls = "codex-sub-btn-active";
+                break;
+            case InfrastructureSubCategory.General:
+                activeGeneral = "codex-sub-btn-active";
+                break;
+        }
+
+    }
 
     private string GetNavContainerCss()
     {
