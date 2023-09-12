@@ -17,10 +17,7 @@ namespace SatisfactoryProductionator.DataModels.Enums
         Door = 101,
         Angled = 102,
         
-        Belts = 200,
-        Lifts = 201,
-        Supports = 250,
-        Sorting = 252,
+       
 
         Container = 300,
         FluidContainer = 301,
@@ -28,10 +25,19 @@ namespace SatisfactoryProductionator.DataModels.Enums
 
         Frame = 399,
         Standard = 400,
-        Ramps = 401,
-        InvertedRamps = 402,
-        QuarterPipes = 403,
+        HalfFoundations = 401,
+        Ramps = 402,
+        DoubleRamps = 403,
+        Corners = 404,
+        InvertedRamps = 410,
+        InvertedCorners = 411,
+        QuarterPipes = 420,
+        Extensions = 421,
 
+        Belts = 500,
+        Lifts = 501,
+        Supports = 550,
+        Sorting = 552,
 
     }
 }

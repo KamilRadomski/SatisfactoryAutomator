@@ -32,7 +32,6 @@
 
 		Extractor = 200,
 		Manufacturer = 201,
-		VariableManufacturer = 202,
 		Generator = 203,
         WorkStation = 204,
 		Storage = 205,
