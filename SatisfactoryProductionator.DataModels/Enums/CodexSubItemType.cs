@@ -21,5 +21,11 @@ namespace SatisfactoryProductionator.DataModels.Enums
         Lifts = 201,
         Supports = 250,
         Ramps = 251,
+        Sorting = 252,
+
+        Container = 300,
+        FluidContainer = 301,
+        SmallContainer = 302,
+
     }
 }

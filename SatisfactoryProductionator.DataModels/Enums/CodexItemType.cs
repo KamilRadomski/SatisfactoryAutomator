@@ -34,12 +34,12 @@
 		Manufacturer = 201,
 		VariableManufacturer = 202,
 		Generator = 203,
-		Station = 204,
+        WorkStation = 204,
 		Storage = 205,
-		WorkStation = 206,
-		
+        Station = 206,
+        Tower = 207,
 
-		Wall = 300,
+        Wall = 300,
 		Roof = 301,
 		Train = 302,
 		Conveyor = 303,
@@ -49,7 +49,7 @@
 		HyperTube = 307,
 		Beam = 308,
         Pillar = 309,
-        Tower = 310,
+        
         Pad = 311,
         Walkway = 312,
         Foundation = 313,
@@ -60,6 +60,6 @@
         Stairs = 318,
         Cart = 319,
 		
-		Xmas = 500,
+		Xmas = 1000,
     }
 }
