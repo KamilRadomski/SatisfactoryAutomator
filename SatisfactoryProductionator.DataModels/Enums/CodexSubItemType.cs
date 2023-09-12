@@ -20,12 +20,18 @@ namespace SatisfactoryProductionator.DataModels.Enums
         Belts = 200,
         Lifts = 201,
         Supports = 250,
-        Ramps = 251,
         Sorting = 252,
 
         Container = 300,
         FluidContainer = 301,
         SmallContainer = 302,
+
+        Frame = 399,
+        Standard = 400,
+        Ramps = 401,
+        InvertedRamps = 402,
+        QuarterPipes = 403,
+
 
     }
 }
