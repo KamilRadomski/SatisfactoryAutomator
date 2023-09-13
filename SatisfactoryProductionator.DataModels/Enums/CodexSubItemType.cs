@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SatisfactoryProductionator.DataModels.Enums
+﻿namespace SatisfactoryProductionator.DataModels.Enums
 {
     public enum CodexSubItemType
     {
@@ -13,17 +7,19 @@ namespace SatisfactoryProductionator.DataModels.Enums
         Ammo = 2,
         Nobelisk = 3,
 
-        Conveyor = 100,
-        Door = 101,
-        Angled = 102,
-        
-       
+        BasicWalls = 50,
+        RampWalls = 51,
+        TiltedWalls = 52,
+        Windows = 53,
+        Doors = 54,
+        ConveyorWalls = 55,
+        Roofs = 56,
+        RoofCorners = 57,
 
         Container = 300,
         FluidContainer = 301,
         SmallContainer = 302,
-
-        Frame = 399,
+        
         Standard = 400,
         HalfFoundations = 401,
         Ramps = 402,
@@ -34,10 +30,25 @@ namespace SatisfactoryProductionator.DataModels.Enums
         QuarterPipes = 420,
         Extensions = 421,
 
-        Belts = 500,
-        Lifts = 501,
-        Supports = 550,
-        Sorting = 552,
 
+        Frames = 499,
+        ConveyorBelts = 500,
+        ConveyorLifts = 501,
+        ConveyorSupports = 502,
+        Sorting = 510,
+        Pipelines = 520,
+        PipelineSupports = 521,
+        Hypertubes= 522,
+        Beams = 523,
+        Pillars = 524,
+        Power = 525,
+        Lights = 526,
+        Signs = 527,
+        Walkways = 528,
+        Attachments = 529,
+        Pads = 530,
+        Train = 531,
+
+        Xmas = 550,
     }
 }

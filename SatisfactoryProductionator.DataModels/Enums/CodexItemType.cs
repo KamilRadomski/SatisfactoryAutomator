@@ -22,7 +22,6 @@
 		SpaceParts = 17,
 		Special = 18,
 		
-
 		Hands = 100,
 		Head = 101,
 		Body = 102,

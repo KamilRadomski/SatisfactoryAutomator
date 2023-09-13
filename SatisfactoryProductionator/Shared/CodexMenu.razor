@@ -134,10 +134,11 @@
             InfrastructureSubCategory.WallsRoofs => infraItems.Where(x => x.CodexItemType is CodexItemType.Wall || 
                                                                           x.CodexItemType is CodexItemType.Roof)
                                                               .Select(y => y.CodexSubItemType.ToString()).Distinct().ToList(),
-            InfrastructureSubCategory.General => infraItems.Where(x => x.CodexItemType is not CodexItemType.Default ||
-                                                                       x.CodexItemType is not CodexItemType.Foundation ||
-                                                                       x.CodexItemType is not CodexItemType.Wall ||
+            InfrastructureSubCategory.General => infraItems.Where(x => x.CodexItemType is not CodexItemType.Default &&
+                                                                       x.CodexItemType is not CodexItemType.Foundation &&
+                                                                       x.CodexItemType is not CodexItemType.Wall &&
                                                                        x.CodexItemType is not CodexItemType.Roof)
+                                                                       .OrderBy(z => z.CodexSubItemType)
                                                               .Select(y => y.CodexSubItemType.ToString()).Distinct().ToList(),
         };
 
