@@ -743,13 +743,13 @@ namespace SatisfactoryProductionator.DataService.DataMaps
             { "Desc_CandyCaneDecor_C"                                   , (CodexCategory.Infrastructure , CodexItemType.Xmas      , CodexSubItemType.Xmas) },
 
             //Disabled
-            { "Desc_Wall_Conveyor_8x4_04_C"                             , (CodexCategory.Default    , CodexItemType.Wall      , CodexSubItemType.ConveyorWalls) },
-            { "Desc_Wall_Conveyor_8x4_04_Steel_C"                       , (CodexCategory.Default    , CodexItemType.Wall      , CodexSubItemType.ConveyorWalls) },
-            { "Desc_SteelWall_8x4_C"                                    , (CodexCategory.Default    , CodexItemType.Wall      , CodexSubItemType.Default) },
-            { "Desc_Wall_Window_8x4_03_Steel_C"                         , (CodexCategory.Default        , CodexItemType.Default  , CodexSubItemType.Default) },
-            { "Desc_JumpPad_C"                                          , (CodexCategory.Default       , CodexItemType.Default   , CodexSubItemType.Default) },
-            { "Desc_JumpPadTilted_C"                                    , (CodexCategory.Default       , CodexItemType.Default   , CodexSubItemType.Default) },
-            { "Desc_PillarTop_C"                                        , (CodexCategory.Default, CodexItemType.Pillar    , CodexSubItemType.Pillars) },
+            { "Desc_Wall_Conveyor_8x4_04_C"                             , (CodexCategory.Default ,  CodexItemType.Wall     , CodexSubItemType.ConveyorWalls) },
+            { "Desc_Wall_Conveyor_8x4_04_Steel_C"                       , (CodexCategory.Default ,  CodexItemType.Wall     , CodexSubItemType.ConveyorWalls) },
+            { "Desc_SteelWall_8x4_C"                                    , (CodexCategory.Default ,  CodexItemType.Wall     , CodexSubItemType.Default) },
+            { "Desc_Wall_Window_8x4_03_Steel_C"                         , (CodexCategory.Default ,  CodexItemType.Default  , CodexSubItemType.Default) },
+            { "Desc_JumpPad_C"                                          , (CodexCategory.Default ,  CodexItemType.Default  , CodexSubItemType.Default) },
+            { "Desc_JumpPadTilted_C"                                    , (CodexCategory.Default ,  CodexItemType.Default  , CodexSubItemType.Default) },
+            { "Desc_PillarTop_C"                                        , (CodexCategory.Default ,  CodexItemType.Pillar   , CodexSubItemType.Pillars) },
         };
     }
 }
