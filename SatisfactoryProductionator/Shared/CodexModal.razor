@@ -1,0 +1,28 @@
+﻿@using SatisfactoryProductionator.Services;
+
+@inject CodexModalState CodexModalState;
+
+@implements IDisposable;
+
+<div data-augmented-ui-reset class=@IsModalActiveCss()>
+    <div data-augmented-ui="tl-2-clip-y tr-2-clip-x br-2-clip-y bl-2-clip-x border" class="codex-modal">
+    
+    </div>
+</div>
+
+@code {
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        CodexModalState.OnStateChange += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        CodexModalState.OnStateChange -= StateHasChanged;
+    }
+
+    private string IsModalActiveCss() => CodexModalState.Active ? "modal-on" : "modal-off";
+
+}

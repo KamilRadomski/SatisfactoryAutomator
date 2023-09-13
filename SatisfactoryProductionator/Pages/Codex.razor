@@ -33,7 +33,7 @@ else
     <CodexMenu />
 
     /*Main Panel*/
-    <div data-augmented-ui-reset class="main-panel">
+    @* <div data-augmented-ui-reset class="main-panel">
         @foreach (var group in GroupItems())
         {
             <div data-augmented-ui="tl-clip tr-2-clip-x br-clip bl-clip border" class="main-panel-category">
@@ -53,7 +53,7 @@ else
                 }
             </div>
         }
-    </div>
+    </div> *@
 
     /*Info Panel Toggle*/
     <button type="button" class="info-toggle-button" @onclick=TogglePanel>

@@ -93,7 +93,7 @@ div.main-panel-category-button-item {
 /*#endregion */
 
 /*#region Info Panel - Main */
-
+/*
 .info-panel-on {
 	width: 1381px;
 	height: 849px;
@@ -115,7 +115,7 @@ div.main-panel-category-button-item {
 	transition: .4s;
 	opacity: 0;
 	transform: scale(.05);
-}
+}*/
 
 div.info-panel {
 	position: relative;

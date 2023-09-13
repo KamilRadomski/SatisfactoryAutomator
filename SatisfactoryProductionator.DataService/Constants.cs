@@ -80,8 +80,6 @@ namespace SatisfactoryProductionator.DataService
 			{ "Desc_XMassTree_C" , "Build_XmassTree_C" },
             { "Desc_PowerPoleWallMk2_C" , "Build_PowerPoleWall_Mk2_C" },
             { "Desc_PowerPoleWallMk3_C" , "Build_PowerPoleWall_Mk3_C" },
-			//Desc_Wall_Window_8x4_03_Steel_C ???
-			//Desc_QuarterPipeMiddle_Ficsit_4x1_C
         };
 
 

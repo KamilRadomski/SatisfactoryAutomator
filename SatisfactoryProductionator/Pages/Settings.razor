@@ -4,6 +4,7 @@
 @using SatisfactoryProductionator.DataModels.Models.Codex;
 @using SatisfactoryProductionator.DataModels;
 @using SatisfactoryProductionator.Services;
+@* @using SatisfactoryProductionator.Shared; *@
 
 @inject CodexState CodexState
 @inject CodexMenuState CodexMenuState
@@ -88,6 +89,9 @@
                 }
             </table>
         }
+
+        <CodexModal />
+
     </div>
 </div>
 
@@ -138,6 +142,7 @@
 
     private List<CodexItemType> GetSubCategories(InfrastructureSubCategory infraCategory)
     {
+        //TODO Fix this trash
         return infraCategory switch
         {
             InfrastructureSubCategory.Foundations => new List<CodexItemType> { CodexItemType.Foundation },

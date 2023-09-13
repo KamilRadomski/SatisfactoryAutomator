@@ -1,10 +1,15 @@
-﻿
+﻿@using SatisfactoryProductionator.Services;
+
+@inject CodexModalState CodexModalState;
+
+@implements IDisposable
+
 <div data-augmented-ui-reset></div>
 
 
 @* <button class="main-panel-category-button" type="button" @onclick="@(() => AddItemRecipe(@item.DisplayName!))"> *@
 <div data-augmented-ui="tl-clip tr-2-clip-y br-clip bl-2-clip-x border" class="codex-item-button">
-    <button class="codex-group-item" type="button">
+    <button class="codex-group-item" type="button" @onclick=ToggleModal>
         <img src=@iconPath alt=@className />
         <div class="codex-item-name">
             @FormatDisplayName(displayName)
@@ -22,6 +27,19 @@
 
     [Parameter]
     public string iconPath { get; set; }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        CodexModalState.OnStateChange += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        CodexModalState.OnStateChange -= StateHasChanged;
+    }
+
+    private void ToggleModal() => CodexModalState.ToggleCodexModal();
 
     private static string FormatDisplayName(string name) => name.Replace(" - ", "-").Replace(" ", ".");
 }

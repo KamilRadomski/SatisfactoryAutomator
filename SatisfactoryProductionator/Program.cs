@@ -19,6 +19,6 @@ builder.Services.AddTransient(sp => new HttpClient { BaseAddress = new Uri(build
 builder.Services.AddSingleton<SettingsState>();
 builder.Services.AddSingleton<CodexState>();
 builder.Services.AddSingleton<CodexMenuState>();
-
+builder.Services.AddSingleton<CodexModalState>();
 
 await builder.Build().RunAsync();
