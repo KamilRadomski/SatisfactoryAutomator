@@ -25,21 +25,38 @@ namespace SatisfactoryProductionator.DataService
 
         public async Task<Codex> GenerateCodex()
         {
+            return await BuildCodex();
+        }
+
+        private async Task<Codex> BuildCodex()
+        {
             Codex codex = new();
-            await ParseJsonFile();
+            List<CodexItem> entries = new();
 
-            codex.CodexItems = ItemGenerator.GenerateCodexItems(_docModels);
+            entries = entries.Concat(await ParseItems()).ToList();
+            entries = entries.Concat(await ParseEquipment()).ToList();
 
-            //codex.Recipes = RecipeGenerator.GenerateRecipes(_docModels);
-            
+            codex.CodexItems = entries;
 
             return codex;
         }
 
-        private async Task ParseJsonFile()
+        private async Task<List<CodexItem>> ParseItems()
         {
-            var content = await _httpClient.GetStringAsync(Constants.JSON_FILEPATH);
-            _docModels = JsonSerializer.Deserialize<List<DocModel>>(content)!;
+            var content = await _httpClient.GetStringAsync(Constants.ITEM_FILEPATH);
+
+            var items = JsonSerializer.Deserialize<List<Item>>(content)!.ToList<CodexItem>();
+
+            return items;
+        }
+
+        private async Task<List<CodexItem>> ParseEquipment()
+        {
+            var content = await _httpClient.GetStringAsync(Constants.EQUIPMENT_FILEPATH);
+
+            var items = JsonSerializer.Deserialize<List<Equipment>>(content)!.ToList<CodexItem>();
+
+            return items;
         }
     }
 }

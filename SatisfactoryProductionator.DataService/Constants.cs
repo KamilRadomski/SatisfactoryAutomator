@@ -15,11 +15,9 @@ namespace SatisfactoryProductionator.DataService
 
 
         public static readonly string COMPATIBLE_ITEMS_PATTERN = @"Desc_[\w]+_C";
-		///
+		
 
-		//public static readonly string EXTRACTABLE_RESOURCES_CLASS = "FGBuildableResourceExtractor";
 
-		/// 
 
 		public static readonly string RAW_RESOURCES = "Resources/RawResources";
 		public static readonly string RAW_RESOURCES2 = "Resource/RawResources";

@@ -48,6 +48,8 @@ namespace SatisfactoryProductionator.DataService.Utility
             return items;
         }
 
+       
+
         private static CategoryClasses GetMatchingBuildInfo(string className, List<CategoryClasses> buildInfoClasses)
         {
             string buildInfoClassName;
