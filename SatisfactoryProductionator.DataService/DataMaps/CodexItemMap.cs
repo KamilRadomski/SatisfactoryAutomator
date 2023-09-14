@@ -97,7 +97,7 @@ namespace SatisfactoryProductionator.DataService.DataMaps
             { "Desc_Fuel_C"                      , (CodexCategory.Item  , CodexItemType.Fuels            , CodexSubItemType.Default) },
             { "Desc_TurboFuel_C"                 , (CodexCategory.Item  , CodexItemType.Fuels            , CodexSubItemType.Default) },
             { "Desc_NuclearFuelRod_C"            , (CodexCategory.Item  , CodexItemType.Fuels            , CodexSubItemType.Default) },
-            { "Desc_PlutoniumFuelRod_C Fuel Rod" , (CodexCategory.Item  , CodexItemType.Fuels            , CodexSubItemType.Default) },
+            { "Desc_PlutoniumFuelRod_C" , (CodexCategory.Item  , CodexItemType.Fuels            , CodexSubItemType.Default) },
 
             { "Desc_FluidCanister_C"             , (CodexCategory.Item  , CodexItemType.Containers       , CodexSubItemType.Default) },
             { "Desc_GasTank_C"                   , (CodexCategory.Item  , CodexItemType.Containers       , CodexSubItemType.Default) },
