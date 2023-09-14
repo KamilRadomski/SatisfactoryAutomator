@@ -6,7 +6,15 @@ namespace SatisfactoryProductionator.DataService
 	public static class Constants
 	{
 		public static readonly string JSON_FILEPATH = @"/data/docs.json";
-		public static readonly string COMPATIBLE_ITEMS_PATTERN = @"Desc_[\w]+_C";
+
+        public static readonly string ITEM_FILEPATH= @"/data/items.json";
+        public static readonly string BUILDING_FILEPATH = @"/data/buildings.json";
+        public static readonly string EQUIPMENT_FILEPATH = @"/data/equipment.json";
+        public static readonly string INFRA_FILEPATH = @"/data/infrastructure.json";
+
+
+
+        public static readonly string COMPATIBLE_ITEMS_PATTERN = @"Desc_[\w]+_C";
 		///
 
 		//public static readonly string EXTRACTABLE_RESOURCES_CLASS = "FGBuildableResourceExtractor";
