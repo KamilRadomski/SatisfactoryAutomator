@@ -97,7 +97,6 @@ namespace SatisfactoryProductionator.DataService.DataMaps
             { "Desc_Fuel_C"                      , (CodexCategory.Item  , CodexItemType.Fuels            , CodexSubItemType.Default) },
             { "Desc_TurboFuel_C"                 , (CodexCategory.Item  , CodexItemType.Fuels            , CodexSubItemType.Default) },
             { "Desc_NuclearFuelRod_C"            , (CodexCategory.Item  , CodexItemType.Fuels            , CodexSubItemType.Default) },
-            { "Desc_PlutoniumFuelRod_C" , (CodexCategory.Item  , CodexItemType.Fuels            , CodexSubItemType.Default) },
 
             { "Desc_FluidCanister_C"             , (CodexCategory.Item  , CodexItemType.Containers       , CodexSubItemType.Default) },
             { "Desc_GasTank_C"                   , (CodexCategory.Item  , CodexItemType.Containers       , CodexSubItemType.Default) },
@@ -266,7 +265,7 @@ namespace SatisfactoryProductionator.DataService.DataMaps
             { "Desc_RadarTower_C"                                       , (CodexCategory.Building      , CodexItemType.Towers        , CodexSubItemType.Default) },
             { "Desc_LookoutTower_C"                                     , (CodexCategory.Building      , CodexItemType.Towers        , CodexSubItemType.Default) },
 
-            { "Desc_TreeGiftProducer_C"                                 , (CodexCategory.Building      , CodexItemType.Xmas          , CodexSubItemType.Default) },
+            
 
             //FGBuildingDescriptor - Infrastructure  //FGPoleDescriptor
             //Foundations
@@ -741,6 +740,7 @@ namespace SatisfactoryProductionator.DataService.DataMaps
             { "Desc_XmassTree_C"                                        , (CodexCategory.Infrastructure , CodexItemType.Xmas      , CodexSubItemType.Xmas) },
             { "Desc_XMassTree_C"                                        , (CodexCategory.Infrastructure , CodexItemType.Xmas      , CodexSubItemType.Xmas) },
             { "Desc_CandyCaneDecor_C"                                   , (CodexCategory.Infrastructure , CodexItemType.Xmas      , CodexSubItemType.Xmas) },
+            { "Desc_TreeGiftProducer_C"                                 , (CodexCategory.Infrastructure , CodexItemType.Xmas      , CodexSubItemType.Default) },
 
             //Disabled
             { "Desc_Wall_Conveyor_8x4_04_C"                             , (CodexCategory.Default ,  CodexItemType.Wall     , CodexSubItemType.ConveyorWalls) },
