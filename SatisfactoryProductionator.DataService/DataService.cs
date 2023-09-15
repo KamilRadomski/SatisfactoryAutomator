@@ -1,22 +1,12 @@
-﻿using Microsoft.VisualBasic;
-using SatisfactoryProductionator.DataModels.Enums;
-using SatisfactoryProductionator.DataModels.Models;
-using SatisfactoryProductionator.DataModels.Models.Codex;
-using SatisfactoryProductionator.DataModels.Models.Old;
-using SatisfactoryProductionator.DataService.Utility;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using SatisfactoryProductionator.DataModels.Models.Codex;
 using System.Text.Json;
-using System.Threading.Tasks;
+
 
 namespace SatisfactoryProductionator.DataService
 {
     public class DataService : IDataService
     {
         private readonly HttpClient _httpClient;
-        private List<DocModel> _docModels;
 
         public DataService(HttpClient httpClient) 
         {
@@ -33,48 +23,21 @@ namespace SatisfactoryProductionator.DataService
             Codex codex = new();
             List<CodexItem> entries = new();
 
-            entries = entries.Concat(await ParseItems()).ToList();
-            entries = entries.Concat(await ParseEquipment()).ToList();
-            entries = entries.Concat(await ParseBuildings()).ToList();
-            entries = entries.Concat(await ParseInfrastructure()).ToList();
+            entries = entries.Concat(await ParseData<Item>(Constants.ITEM_FILEPATH)).ToList();
+            entries = entries.Concat(await ParseData<Building>(Constants.BUILDING_FILEPATH)).ToList();
+            entries = entries.Concat(await ParseData<Equipment>(Constants.EQUIPMENT_FILEPATH)).ToList();
+            entries = entries.Concat(await ParseData<Infrastructure>(Constants.INFRA_FILEPATH)).ToList();
 
-            codex.CodexItems = entries;
+            codex.CodexItems = entries.OrderBy(x => x.CodexCategory).ThenBy(x => x.CodexItemType).ThenBy(x => x.CodexSubItemType).ThenBy(x => x.DisplayName).ToList();
 
             return codex;
         }
 
-        private async Task<List<CodexItem>> ParseItems()
+        private async Task<List<T>> ParseData<T>(string filePath)
         {
-            var content = await _httpClient.GetStringAsync(Constants.ITEM_FILEPATH);
+            var content = await _httpClient.GetStringAsync(filePath);
 
-            var items = JsonSerializer.Deserialize<List<Item>>(content)!.ToList<CodexItem>();
-
-            return items;
-        }
-
-        private async Task<List<CodexItem>> ParseEquipment()
-        {
-            var content = await _httpClient.GetStringAsync(Constants.EQUIPMENT_FILEPATH);
-
-            var items = JsonSerializer.Deserialize<List<Equipment>>(content)!.ToList<CodexItem>();
-
-            return items;
-        }
-
-        private async Task<List<CodexItem>> ParseBuildings()
-        {
-            var content = await _httpClient.GetStringAsync(Constants.BUILDING_FILEPATH);
-
-            var items = JsonSerializer.Deserialize<List<Building>>(content)!.ToList<CodexItem>();
-
-            return items;
-        }
-
-        private async Task<List<CodexItem>> ParseInfrastructure()
-        {
-            var content = await _httpClient.GetStringAsync(Constants.INFRA_FILEPATH);
-
-            var items = JsonSerializer.Deserialize<List<Infrastructure>>(content)!.ToList<CodexItem>();
+            var items = JsonSerializer.Deserialize<List<T>>(content);
 
             return items;
         }
