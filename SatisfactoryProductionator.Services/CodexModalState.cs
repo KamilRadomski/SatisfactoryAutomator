@@ -1,5 +1,4 @@
 ﻿using SatisfactoryProductionator.DataModels.Models.Codex;
-using SatisfactoryProductionator.DataModels.Models.Old;
 using SatisfactoryProductionator.DataService;
 using System;
 using System.Collections.Generic;

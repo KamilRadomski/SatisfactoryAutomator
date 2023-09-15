@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SatisfactoryProductionator.DataModels\SatisfactoryProductionator.DataModels.csproj" />
-    <ProjectReference Include="..\SatisfactoryProductionator.DataParser\SatisfactoryProductionator.DataParser.csproj" />
     <ProjectReference Include="..\SatisfactoryProductionator.DataService\SatisfactoryProductionator.DataService.csproj" />
   </ItemGroup>
 
