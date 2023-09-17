@@ -1,0 +1,105 @@
+﻿
+
+
+/*#region Info Panel - Recipe Details */
+div.info-panel-details {
+    position: relative;
+    display: flex;
+    float: right;
+    width: 572px;
+    height: 270px;
+    top: 10px;
+    margin-right: 4px;
+    margin-bottom: 10px;
+    --aug-tl: 10px;
+    --aug-tr: 20px;
+    --aug-bl: 10px;
+    --aug-br: 20px;
+    --aug-border-all: 3px;
+    --aug-border-bg: var(--myblue);
+}
+
+.info-panel-details-default:hover {
+    background: var(--myhighlightblue);
+    color: var(--myhoverblue);
+}
+
+.info-panel-details-default:active {
+    background: var(--myhoverblue);
+    color: var(--myblue);
+}
+
+.info-panel-details-title {
+    position: relative;
+    font-size: 1.6rem;
+    margin-left: 15px;
+}
+
+.info-panel-details-building {
+    position: relative;
+    height: 148px;
+    width: 148px;
+    margin-top: 12px;
+}
+
+.info-panel-details-building-name {
+    font-size: 1.2rem;
+    margin-top: 1px;
+    text-align: center;
+}
+
+.info-panel-details-building-mw {
+    font-size: .8rem;
+}
+
+.info-panel-details-table {
+    position: relative;
+    margin-left: 8px;
+}
+
+.info-panel-details-left {
+    position: relative;
+    float: left;
+    height: 100%;
+    width: 350px;
+    margin-left: 0%;
+}
+
+.info-panel-details-right {
+    position: relative;
+    height: 100%;
+    width: 190px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.info-panel-details-row-category {
+    padding-left: 15px;
+    font-size: 1rem;
+}
+
+div.info-panel-details-default-aug {
+    height: 35px;
+    width: 150px;
+    --aug-tl: 5px;
+    --aug-tr: 4px;
+    --aug-bl: 4px;
+    --aug-br: 5px;
+    --aug-border-all: 1px;
+    --aug-border-bg: var(--myblue);
+}
+
+.info-panel-details-default {
+    font-family: Tomorrow;
+    font-variant: small-caps;
+    height: 37px;
+    width: 152px;
+    background: unset;
+    color: var(--myblue);
+    font-size: 19px;
+    padding-bottom: 3px;
+    margin-top: -1px;
+    margin-left: -1px;
+}
+/*#endregion */
