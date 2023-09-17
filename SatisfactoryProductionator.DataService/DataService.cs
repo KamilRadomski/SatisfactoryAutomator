@@ -21,9 +21,10 @@ namespace SatisfactoryProductionator.DataService
 
         private async Task<Codex> BuildCodex()
         {
-            Codex codex = new();
-
-            codex.Recipes = ParseData<Recipe>(Constants.RECIPE_FILEPATH));
+            Codex codex = new()
+            {
+                Recipes = await ParseData<Recipe>(Constants.RECIPE_FILEPATH)
+            };
 
             List<CodexItem> entries = new();
 
@@ -43,7 +44,7 @@ namespace SatisfactoryProductionator.DataService
 
             var items = JsonSerializer.Deserialize<List<T>>(content);
 
-            return items;
+            return items ?? new List<T>();
         }
     }
 }
