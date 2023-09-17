@@ -10,9 +10,7 @@
             <ul class="group-list">
                 @foreach (var item in GetGroup())
                 {
-                    <CodexGroupItem className=@item.ClassName
-                                    displayName=@item.DisplayName
-                                    iconPath=@item.IconPath />
+                    <CodexGroupItem item=@item />
                 }
             </ul>
         

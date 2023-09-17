@@ -7,12 +7,12 @@
 
 <div data-augmented-ui-reset class=@IsModalActiveCss()>
     <div data-augmented-ui="tl-2-clip-y tr-2-clip-x br-2-clip-y bl-2-clip-x border" class="codex-modal">
-    
+        <ModalInfo />
     </div>
 </div>
 
 @code {
-
+    
     public CodexItem selectedItem { get; set; }
 
     protected override void OnInitialized()

@@ -1,4 +1,5 @@
-﻿@using SatisfactoryProductionator.Services;
+﻿@using SatisfactoryProductionator.DataModels.Models.Codex;
+@using SatisfactoryProductionator.Services;
 
 @inject CodexModalState CodexModalState;
 
@@ -6,13 +7,11 @@
 
 <div data-augmented-ui-reset></div>
 
-
-@* <button class="main-panel-category-button" type="button" @onclick="@(() => AddItemRecipe(@item.DisplayName!))"> *@
 <div data-augmented-ui="tl-clip tr-2-clip-y br-clip bl-2-clip-x border" class="codex-item-button">
-    <button class="codex-group-item" type="button" @onclick=ToggleModal>
-        <img src=@iconPath alt=@className />
+    <button class="codex-group-item" type="button" @onclick="@(() => SetSelectedItem(@item))">
+        <img src=@item.IconPath alt=@item.ClassName />
         <div class="codex-item-name">
-            @FormatDisplayName(displayName)
+            @FormatDisplayName(item.DisplayName)
         </div>
     </button>
 </div>
@@ -20,13 +19,8 @@
 
 @code {
     [Parameter]
-    public string className { get; set; }
+    public CodexItem item { get; set; }
 
-    [Parameter]
-    public string displayName { get; set; }
-
-    [Parameter]
-    public string iconPath { get; set; }
 
     protected override void OnInitialized()
     {
@@ -38,6 +32,8 @@
     {
         CodexModalState.OnStateChange -= StateHasChanged;
     }
+
+    private void SetSelectedItem(CodexItem item) => CodexModalState.SetSelectedItem(item);
 
     private void ToggleModal() => CodexModalState.ToggleCodexModal();
 

@@ -1,4 +1,4 @@
-﻿using SatisfactoryProductionator.DataModels.Enums;
+﻿using SatisfactoryProductionator.DataModels.Models.Codex;
 
 namespace SatisfactoryProductionator.DataModels.Models.CodexPages
 {
