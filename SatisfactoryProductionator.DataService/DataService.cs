@@ -1,4 +1,5 @@
-﻿using SatisfactoryProductionator.DataModels.Models.Codex;
+﻿using SatisfactoryProductionator.DataModels.Models;
+using SatisfactoryProductionator.DataModels.Models.Codex;
 using System.Text.Json;
 
 
@@ -21,6 +22,9 @@ namespace SatisfactoryProductionator.DataService
         private async Task<Codex> BuildCodex()
         {
             Codex codex = new();
+
+            codex.Recipes = ParseData<Recipe>(Constants.RECIPE_FILEPATH));
+
             List<CodexItem> entries = new();
 
             entries = entries.Concat(await ParseData<Item>(Constants.ITEM_FILEPATH)).ToList();
