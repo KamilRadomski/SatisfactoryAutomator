@@ -1,44 +1,6 @@
 ﻿
 <div data-augmented-ui="tl-clip tr-clip br-clip bl-clip border" class="info-panel-details">
-   @*  @if (_recipeDetails == null)
-    {
-        <div class="info-panel-details-title">No Recipe Selected</div>
-    }
-    else
-    {
-        <div class="info-panel-details-left">
-            <div class="info-panel-details-title">@FormatDisplayName(_recipeDetails!.DisplayName!)</div>
-            <table class="info-panel-details-table">
-                <tr>
-                    <td class="info-panel-details-row-category">Inputs</td>
-                </tr>
-                <tr>
-                    @foreach (var item in _recipeDetails.Inputs!)
-                    {
-                        <td>
-                            <button class="main-panel-category-button info-panel-recipe-button" type="button" @onclick="@(() => AddItemRecipe(item.Key))">
-                                <img class="info-panel-recipe-image" src=@GetIconLocation(item.Key) alt=@item.Key />
-                                <div class="info-panel-recipe-quantity">X @item.Value[0]</div>
-                            </button>
-                        </td>
-                    }
-                </tr>
-                <tr>
-                    <td class="info-panel-details-row-category">Outputs</td>
-                </tr>
-                <tr>
-                    @foreach (var item in _recipeDetails.Outputs!)
-                    {
-                        <td>
-                            <button class="main-panel-category-button info-panel-recipe-button" type="button" @onclick="@(() => AddItemRecipe(item.Key))">
-                                <img class="info-panel-recipe-image" src=@GetIconLocation(item.Key) alt=@item.Key />
-                                <div class="info-panel-recipe-quantity">X @item.Value[0]</div>
-                            </button>
-                        </td>
-                    }
-                </tr>
-            </table>
-        </div>
+    @*
         <div class="info-panel-details-right">
             <img class="info-panel-details-building" src=@GetIconLocation(_recipeDetails!.Building!) alt=@_recipeDetails.Building />
             <div class="info-panel-details-building-name">@_recipeDetails.Building</div>

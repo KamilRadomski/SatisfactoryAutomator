@@ -15,7 +15,7 @@
     }
     @foreach (var recipe in GetRecipes())
     {
-        if (_currentRecipeType == RecipeType.Default || recipe.RecipeType != _currentRecipeType)
+        if (_currentRecipeType == RecipeType.Default || (_currentRecipeType == RecipeType.Basic && recipe.RecipeType == RecipeType.Alternate ))
         {
             _currentRecipeType = recipe.RecipeType;
             <tr>
@@ -144,8 +144,16 @@
     private string GetIconLocation(string itemName)
     {
         var item = CodexState.FetchItem(itemName);
-        
+
         return item.IconPath;
+    }
+
+    private PageType GetPageType()
+    {
+        var index = selectedEntry.Index;
+
+        return selectedEntry.CodexItem.Pages[index].PageType;
+
     }
 
 }
