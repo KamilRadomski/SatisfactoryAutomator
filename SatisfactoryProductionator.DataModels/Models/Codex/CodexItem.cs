@@ -1,5 +1,4 @@
 ﻿using SatisfactoryProductionator.DataModels.Enums;
-using SatisfactoryProductionator.DataModels.Models.CodexPages;
 using System;
 using System.Collections.Generic;
 using System.Linq;

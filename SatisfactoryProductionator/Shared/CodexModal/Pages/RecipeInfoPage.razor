@@ -1,6 +1,5 @@
 ﻿@using SatisfactoryProductionator.DataModels.Enums;
 @using SatisfactoryProductionator.DataModels.Models.Codex;
-@using SatisfactoryProductionator.DataModels.Models.CodexPages;
 @using SatisfactoryProductionator.DataModels.Models;
 @using SatisfactoryProductionator.Services;
 
@@ -109,9 +108,11 @@
     private List<Recipe> GetRecipes()
     {
         var index = selectedEntry.Index;
-        var recipes = selectedEntry.CodexItem.Pages[index] as RecipePage;
+        var recipeNames = selectedEntry.CodexItem.Pages[index].Recipes;
 
-        return recipes.Recipes;
+        var recipes = CodexState.FetchRecipes(recipeNames);
+
+        return recipes;
     }
 
     private string FormatCategoryName(string name)

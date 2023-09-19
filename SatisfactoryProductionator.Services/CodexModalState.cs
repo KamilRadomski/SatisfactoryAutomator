@@ -81,6 +81,41 @@ namespace SatisfactoryProductionator.Services
         public bool IsBackActive() => BackStack.Count > 0;
         public bool IsFrontActive() => FrontStack.Count > 0;
 
+        public void SetPageLeft()
+        {
+            var index = SelectedEntry.Index;
+            index--;
+
+            if (index < 0)
+            {
+                index = GetPageCount() - 1;
+            }
+                
+            SelectedEntry.Index = index;
+            NotifyStateChanged();
+        }
+
+        public void SetPageRight()
+        {
+            var index = SelectedEntry.Index;
+            index++;
+
+            if (index > GetPageCount() - 1)
+                index = 0;
+
+            SelectedEntry.Index = index;
+            NotifyStateChanged();
+        }
+
+        public int GetPageCount()
+        {
+            if (SelectedEntry == null) return 0;
+
+            var category = SelectedEntry.Category;
+            var pages = SelectedEntry.CodexItem.Pages.Where(x => x.Category == category).ToList();
+
+            return pages.Count;
+        }
 
         private ModalEntry? GenerateModalEntry(CodexItem item)
         {

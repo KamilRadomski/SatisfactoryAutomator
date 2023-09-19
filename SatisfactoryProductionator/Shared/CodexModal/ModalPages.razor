@@ -1,7 +1,6 @@
 ﻿@using SatisfactoryProductionator.DataModels.Enums;
 @using SatisfactoryProductionator.DataModels.Models;
 @using SatisfactoryProductionator.DataModels.Models.Codex;
-@using SatisfactoryProductionator.DataModels.Models.CodexPages;
 @using SatisfactoryProductionator.Services;
 @using SatisfactoryProductionator.Shared.CodexModal.Pages
 
@@ -16,30 +15,30 @@
     }
     else
     {
-        if(GetPageType() == CodexPageCategory.Recipe)
+        if (GetPageType() == CodexPageCategory.Recipe)
         {
             <RecipeInfoPage />
         }
 
-        @* @if (GetPageCount() > 1)
-    {
-    <div data-augmented-ui-reset class="info-panel-recipe-paging">
-    <div class="info-panel-recipe-paging-pages">
-    @for (var i = 0; i < GetPageCount(); i++)
-    {
-    <div class=@ParseCssPageLight(i)></div>
-    }
-    </div>
-    <div class="info-panel-recipe-paging-nav">
-    <button type="button" class="info-panel-recipe-paging-nav-button" @onclick=@InfoPageLeft>
-    <span class="info-panel-paging-nav-icon oi-caret-left" aria-hidden="true"></span>
-    </button>
-    <button type="button" class="info-panel-recipe-paging-nav-button" @onclick=@InfoPageRight>
-    <span class="info-panel-paging-nav-icon oi-caret-right" aria-hidden="true"></span>
-    </button>
-    </div>
-    </div>
-    } *@
+        @if (GetPageCount() > 1)
+        {
+            <div data-augmented-ui-reset class="info-panel-recipe-paging">
+                <div class="info-panel-recipe-paging-pages">
+                    @for (var i = 0; i < GetPageCount(); i++)
+                    {
+                        <div class=@ParseCssPageLight(i)></div>
+                    }
+                </div>
+                <div class="info-panel-recipe-paging-nav">
+                    <button type="button" class="info-panel-recipe-paging-nav-button" @onclick=@InfoPageLeft>
+                        <span class="info-panel-paging-nav-icon oi-caret-left" aria-hidden="true"></span>
+                    </button>
+                    <button type="button" class="info-panel-recipe-paging-nav-button" @onclick=@InfoPageRight>
+                        <span class="info-panel-paging-nav-icon oi-caret-right" aria-hidden="true"></span>
+                    </button>
+                </div>
+            </div>
+        }
     }
 </div>
 
@@ -81,5 +80,22 @@
 
         return page.Category;
     }
+
+    private int GetPageCount()
+    {
+        return CodexModalState.GetPageCount();
+    }
+
+    private void InfoPageLeft()
+    {
+        CodexModalState.SetPageLeft();
+    }
+
+    private void InfoPageRight()
+    {
+        CodexModalState.SetPageRight();
+    }
+
+    private string ParseCssPageLight(int i) => selectedEntry.Index == i ? "info-panel-recipe-paging-pages-light info-panel-recipe-paging-pages-light-on" : "info-panel-recipe-paging-pages-light info-panel-recipe-paging-pages-light-off";
 
 }

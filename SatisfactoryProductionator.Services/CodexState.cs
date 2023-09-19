@@ -28,5 +28,17 @@ namespace SatisfactoryProductionator.Services
             return Codex.CodexItems.FirstOrDefault(x => x.ClassName == className);
         }
 
+        public List<Recipe> FetchRecipes(List<string> names)
+        {
+            var recipes = new List<Recipe>();
+
+            foreach (var name in names)
+            {
+                recipes.Add(Codex.Recipes.FirstOrDefault(x => x.ClassName == name));
+            }
+
+            return recipes;
+        }
+
     }
 }

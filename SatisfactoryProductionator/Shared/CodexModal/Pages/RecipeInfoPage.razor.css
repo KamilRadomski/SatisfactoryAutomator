@@ -55,14 +55,18 @@ div.info-panel-recipe-name-alternate {
     --aug-border-bg: var(--myblue);
 }
 
+
 .info-panel-recipe-button {
     margin-top: 2px;
     margin-bottom: 2px;
+    background: unset;
+    border: unset;
 }
 
-    .info-panel-recipe-button:hover {
-        transform: scale(1.1);
+    .info-panel-recipe-button:hover img {
+        /*transform: scale(1.1);*/
         transition: .2s;
+        filter: drop-shadow(3px 3px 4px var(--sfBlue)) drop-shadow(-3px 3px 4px var(--sfBlue)) drop-shadow(3px -3px 4px var(--sfBlue)) drop-shadow(-3px -3px 4px var(--sfBlue));
     }
 
 .info-panel-recipe-image {

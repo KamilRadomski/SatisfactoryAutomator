@@ -1,5 +1,6 @@
 ﻿@page "/codex"
-@using SatisfactoryProductionator.DataModels.Models.CodexPages;
+
+@using SatisfactoryProductionator.DataModels.Models.Codex;
 @using SatisfactoryProductionator.DataModels;
 @using SatisfactoryProductionator.DataModels.Models
 @using SatisfactoryProductionator.DataModels.Enums
@@ -11,118 +12,7 @@
 
 @inject HttpClient Http
 
+@code
 {
-            {
-
-                
-            }
-}
-
-@code {
-    private static AppSettings _settings = new AppSettings();
-
-    private static ItemRecipes? _currentItemRecipes;
-    private static RecipePage? _currentRecipePage;
-    private static Recipe? _recipeDetails;
-    private static Dictionary<string, ItemRecipes>? _itemRecipeCache;
-    private static RecipeType? _currentRecipeType;
-
-    private static void SetRecipePage(int index)
-    {
-        // _currentRecipePage = _currentItemRecipes!.Pages![index];
-
-        // _currentItemRecipes!.PageIndex = index;
-    }
-
-    private static int GetPageCount()
-    {
-        var count = _currentItemRecipes!.Pages!.Count;
-
-        return _currentItemRecipes.HasDoubleMainPage ? --count : count;
-    }
-
-
-    /*Recipe Page Nav Buttons*/
-    #region
-
-    private static void InfoPageLeft()
-    {
-        var pageCount = GetPageCount();
-        var index = _currentItemRecipes!.PageIndex;
-        index--;
-
-        if (index < 0)
-            index = pageCount - 1;
-
-        SetRecipePage(index);
-    }
-
-    private static void InfoPageRight()
-    {
-        var pageCount = GetPageCount();
-        var index = _currentItemRecipes!.PageIndex;
-        index++;
-
-        if (index > pageCount - 1)
-            index = 0;
-
-        SetRecipePage(index);
-    }
-
-    #endregion
-
-    /*CSS Methods*/
-    #region
-
-    private static string ParseCssPageLight(int i) => _currentItemRecipes!.PageIndex == i ? "info-panel-recipe-paging-pages-light info-panel-recipe-paging-pages-light-on" : "info-panel-recipe-paging-pages-light info-panel-recipe-paging-pages-light-off";
-
-
-    private static string CssIsDefault(Recipe recipe)
-    {
-        if (_settings.PreferredRecipe.ContainsValue(recipe.DisplayName))
-        {
-            return "shadow-on";
-        }
-
-        var item = recipe.Outputs!.Keys.First();
-
-        if (recipe.RecipeType is RecipeType.Basic && !_settings.PreferredRecipe.ContainsKey(item))
-        {
-            return "shadow-on";
-        }
-
-        return string.Empty;
-    }
-
-    #endregion
-
-    // private static void SetRecipeDetails(string? name) => _recipeDetails = _currentItemRecipes!.Pages!.SelectMany(x => x.Recipes!).First(x => x.DisplayName == name);
-
-
-    private static string GetRecipePageHeader(PageType pageType, RecipeType recipeType) => pageType != PageType.Main ? pageType.ToString() : recipeType.ToString();
-
-   
-
-    private void SetDefaultRecipe(Recipe recipe)
-    {
-        var item = recipe.Outputs!.Keys.First();
-
-        if (!_settings.PreferredRecipe!.ContainsKey(item) && recipe.RecipeType is RecipeType.Basic) return;
-
-        if(_settings.PreferredRecipe!.ContainsKey(item) && recipe.RecipeType is RecipeType.Alternate)
-        {
-            _settings.PreferredRecipe[item] = recipe.DisplayName!;
-        }
-        else if (_settings.PreferredRecipe!.ContainsKey(item) && recipe.RecipeType is RecipeType.Basic)
-        {
-            _settings.PreferredRecipe.Remove(item);
-        }
-        else
-        {
-            _settings.PreferredRecipe.Add(item, recipe.DisplayName!);
-        }
-
-        SettingsState.SetValue(_settings);
-    }
 
 }

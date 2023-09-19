@@ -101,7 +101,7 @@
         CodexModalState.OnStateChange -= StateHasChanged;
     }
 
-    private T CastSelectedItem<T>() where T : CodexItem => selectedEntry as T;
+    private T CastSelectedItem<T>() where T : CodexItem => selectedEntry.CodexItem as T;
 
     private string FormatDisplayName(string name) => name.Replace(" - ", "-").Replace(" ", ".");
 
