@@ -1,0 +1,150 @@
+﻿@using SatisfactoryProductionator.DataModels.Enums;
+@using SatisfactoryProductionator.DataModels.Models.Codex;
+@using SatisfactoryProductionator.DataModels.Models.CodexPages;
+@using SatisfactoryProductionator.DataModels.Models;
+@using SatisfactoryProductionator.Services;
+
+@inject CodexModalState CodexModalState;
+@inject CodexState CodexState;
+
+@implements IDisposable
+
+
+<table class="info-panel-recipe-table">
+    @{
+        _currentRecipeType = RecipeType.Default;
+    }
+    @foreach (var recipe in GetRecipes())
+    {
+        if (_currentRecipeType == RecipeType.Default || recipe.RecipeType != _currentRecipeType)
+        {
+            _currentRecipeType = recipe.RecipeType;
+            <tr>
+                <td colspan="4" class="info-panel-recipe-header">@FormatCategoryName(GetPageHeader(recipe))</td>
+            </tr>
+        }
+        <tr>
+            <td>
+                @if (recipe.RecipeType is RecipeType.Basic)
+                {
+                    @* <div class=@CssIsDefault(recipe)> *@
+                        <div data-augmented-ui="tl-clip tr-clip br-clip bl-clip border" class="info-panel-recipe-name-basic">
+                            <button type="button" class="info-panel-recipe-name-button">
+                            @* <button type="button" class="info-panel-recipe-name-button" @onclick="@(() => SetRecipeDetails(recipe.DisplayName))"> *@
+                                @FormatDisplayName(recipe.DisplayName!)
+                            </button>
+                        </div>
+                  @*   </div> *@
+                }
+                else
+                {
+                    @* <div class=@CssIsDefault(recipe)> *@
+                        <div data-augmented-ui="tl-2-clip-x tr-2-clip-x br-2-clip-x b-clip-x bl-2-clip-x border" class="info-panel-recipe-name-alternate">
+                        <button type="button" class="info-panel-recipe-name-button">
+                            @* <button type="button" class="info-panel-recipe-name-button" @onclick="@(() => SetRecipeDetails(recipe.DisplayName))"> *@
+                                @FormatDisplayName(recipe.DisplayName!)
+                            </button>
+                        </div>
+                    @* </div> *@
+                }
+
+            </td>
+            <td>
+                <table>
+                    <tr>
+                        @foreach (var item in recipe.Inputs!)
+                        {
+                            <td>
+                                <button class="main-panel-category-button info-panel-recipe-button" type="button" @onclick="@(() => SetSelectedItem(item.Key!))">
+                                    <img class="info-panel-recipe-image" src=@GetIconLocation(item.Key) alt=@item.Key />
+                                    <div class="info-panel-recipe-quantity">@Math.Round(item.Value[1], 2)/min</div>
+                                </button>
+                            </td>
+                        }
+                    </tr>
+                </table>
+            </td>
+            <td> >>> </td>
+            <td>
+                <table>
+                    <tr>
+                        @foreach (var item in recipe.Outputs!)
+                        {
+                            <td>
+                                <button class="main-panel-category-button info-panel-recipe-button" type="button" @onclick="@(() => SetSelectedItem(@item.Key!))">
+                                    <img class="info-panel-recipe-image" src=@GetIconLocation(item.Key) alt=@item.Key />
+                                    <div class="info-panel-recipe-quantity">@Math.Round(item.Value[1], 2)/min</div>
+                                </button>
+                            </td>
+                        }
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    }
+</table>
+
+@code {
+    [CascadingParameter(Name = "SelectedEntry")]
+    public ModalEntry selectedEntry { get; set; }
+
+    private RecipeType _currentRecipeType { get; set; }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        CodexModalState.OnStateChange += StateHasChanged;
+        CodexState.OnStateChange += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        CodexModalState.OnStateChange -= StateHasChanged;
+        CodexState.OnStateChange -= StateHasChanged;
+    }
+
+    private string FormatDisplayName(string name) => name.Replace(" - ", "-").Replace(" ", ".");
+
+    private List<Recipe> GetRecipes()
+    {
+        var index = selectedEntry.Index;
+        var recipes = selectedEntry.CodexItem.Pages[index] as RecipePage;
+
+        return recipes.Recipes;
+    }
+
+    private string FormatCategoryName(string name)
+    {
+        for (int i = name.Length - 1; i > 0; i--)
+        {
+            if (char.IsUpper(name[i]))
+            {
+                name = name.Insert(i, ".");
+            }
+        }
+        return name;
+    }
+
+    private string GetPageHeader(Recipe recipe)
+    {
+        var index = selectedEntry.Index;
+        var page = selectedEntry.CodexItem.Pages[index];
+
+        return page.PageType != PageType.Main ? page.PageType.ToString() : recipe.RecipeType.ToString();
+    }
+
+    private void SetSelectedItem(string itemName)
+    {
+        var item = CodexState.FetchItem(itemName);
+        CodexModalState.SetSelectedItem(item);
+    } 
+
+    private string GetIconLocation(string itemName)
+    {
+        var item = CodexState.FetchItem(itemName);
+        
+        return item.IconPath;
+    }
+
+}

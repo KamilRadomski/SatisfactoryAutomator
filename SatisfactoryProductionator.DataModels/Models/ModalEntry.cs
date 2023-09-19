@@ -7,6 +7,6 @@ namespace SatisfactoryProductionator.DataModels.Models
     {
         public CodexItem CodexItem { get; set; }
         public int Index { get; set; }
-        public CodexPageCategoryType Category { get; set; }
+        public CodexPageCategory Category { get; set; }
     }
 }

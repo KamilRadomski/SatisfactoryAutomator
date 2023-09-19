@@ -9,7 +9,7 @@ namespace SatisfactoryProductionator.DataModels.Models.CodexPages
 {
     public class CodexPage
     {
-        public CodexPageCategoryType Category { get; set; }
+        public CodexPageCategory Category { get; set; }
         public PageType PageType { get; set; }
 
     }

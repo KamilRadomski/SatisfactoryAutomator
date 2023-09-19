@@ -23,5 +23,10 @@ namespace SatisfactoryProductionator.Services
             NotifyStateChanged();
         }
 
+        public CodexItem FetchItem(string className)
+        {
+            return Codex.CodexItems.FirstOrDefault(x => x.ClassName == className);
+        }
+
     }
 }

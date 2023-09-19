@@ -1,7 +1,7 @@
 ﻿
 /*#region Info Panel - Recipes */
 div.info-panel-recipe {
-    position: absolute;
+    position: relative;
     float: left;
     height: 460px;
     width: 793px;

@@ -1,4 +1,5 @@
 ﻿@using SatisfactoryProductionator.DataModels.Models.Codex;
+@using SatisfactoryProductionator.DataModels.Models;
 @using SatisfactoryProductionator.Services;
 @using SatisfactoryProductionator.DataModels.Enums;
 
@@ -8,20 +9,16 @@
 
 <div data-augmented-ui-reset></div>
 
-@{
-    SetSelectedItem();
-}
-
 <div data-augmented-ui="tl-2-clip-y tr-2-clip-x br-clip b-clip-x bl-clip border" class="info-panel-top">
     <div data-augmented-ui-reset class="info-panel-top-header">
 
-        @if(selectedItem == null)
+        @if(selectedEntry == null)
         {
             <div class="info-panel-top-header-name">-</div>
         }
         else
         {
-            <div class="info-panel-top-header-name">@FormatDisplayName(selectedItem.DisplayName)</div>
+            <div class="info-panel-top-header-name">@FormatDisplayName(selectedEntry.CodexItem.DisplayName)</div>
         }
         <div class="info-panel-top-header-buttons">
 
@@ -50,22 +47,21 @@
     </div>
 
      <div class="info-panel-top-data">
-        @if(selectedItem == null)
+        @if(selectedEntry == null)
         {
             <div class="info-panel-top-header-name">No Item Selected</div>
         }
         else
         {
-            
-        
-        <img class="info-panel-top-data-image" src=@selectedItem.IconPath alt=@selectedItem.DisplayName />
+
+
+            <img class="info-panel-top-data-image" src=@selectedEntry.CodexItem.IconPath alt=@selectedEntry.CodexItem.DisplayName />
         <div class="info-panel-top-data-description">
-            <p>@selectedItem.Description</p>
-            
-                @if (selectedItem.CodexCategory is CodexCategory.Item)
+                <p>@selectedEntry.CodexItem.Description</p>
+
+                @if (selectedEntry.CodexItem.CodexCategory is CodexCategory.Item)
                 {
                     var item = CastSelectedItem<Item>();
-
 
                     if (item.FormType is FormType.Solid)
                     {
@@ -90,7 +86,8 @@
 </div>
 
 @code {
-    public CodexItem selectedItem { get ; set; }
+    [CascadingParameter(Name = "SelectedEntry")]
+    public ModalEntry selectedEntry { get ; set; }
 
     protected override void OnInitialized()
     {
@@ -104,12 +101,7 @@
         CodexModalState.OnStateChange -= StateHasChanged;
     }
 
-    private void SetSelectedItem()
-    {
-        selectedItem = CodexModalState.GetSelectedItem();
-    }
-
-    private T CastSelectedItem<T>() where T : CodexItem => selectedItem as T;
+    private T CastSelectedItem<T>() where T : CodexItem => selectedEntry as T;
 
     private string FormatDisplayName(string name) => name.Replace(" - ", "-").Replace(" ", ".");
 

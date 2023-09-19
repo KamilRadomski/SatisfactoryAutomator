@@ -1,6 +1,6 @@
 ﻿namespace SatisfactoryProductionator.DataModels.Enums
 {
-    public enum CodexPageCategoryType
+    public enum CodexPageCategory
     {
         Default = 0,
         Recipe = 1,

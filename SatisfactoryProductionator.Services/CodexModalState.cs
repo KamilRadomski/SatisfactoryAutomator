@@ -6,7 +6,7 @@ namespace SatisfactoryProductionator.Services
     public class CodexModalState
     {
         public bool Active { get; set; } = false;
-        public ModalEntry? SelectedItem { get; set; }
+        public ModalEntry? SelectedEntry { get; set; }
         public Stack<ModalEntry?> BackStack { get; set; } = new Stack<ModalEntry?>();
         public Stack<ModalEntry?> FrontStack { get; set; } = new Stack<ModalEntry?>();
 
@@ -27,35 +27,35 @@ namespace SatisfactoryProductionator.Services
         public void ClearModal()
         {
             Active = false;
-            SelectedItem = null;
+            SelectedEntry = null;
             BackStack.Clear();
             FrontStack.Clear();
             NotifyStateChanged();
         }
 
-        public CodexItem? GetSelectedItem()
+        public ModalEntry? GetSelectedEntry()
         {
-            if (SelectedItem == null) return null;
-            return SelectedItem.CodexItem;
+            if (SelectedEntry == null) return null;
+            return SelectedEntry;
         }
 
         public void SetSelectedItem(CodexItem item) 
         {
-            if (SelectedItem != null && SelectedItem.CodexItem == item) 
+            if (SelectedEntry != null && SelectedEntry.CodexItem == item) 
             {
                 Active = true;
                 NotifyStateChanged();
                 return;
             }
 
-            if (SelectedItem != null) 
+            if (SelectedEntry != null) 
             {
-                BackStack.Push(SelectedItem);
+                BackStack.Push(SelectedEntry);
             }
 
             FrontStack.Clear();
 
-            SelectedItem = GenerateModalEntry(item);
+            SelectedEntry = GenerateModalEntry(item);
             Active = true;
             NotifyStateChanged();
         }
@@ -63,16 +63,16 @@ namespace SatisfactoryProductionator.Services
         public void DisplayPrevious()
         {
             if (!IsBackActive()) return;
-            FrontStack.Push(SelectedItem);
-            SelectedItem = BackStack.Pop();
+            FrontStack.Push(SelectedEntry);
+            SelectedEntry = BackStack.Pop();
             NotifyStateChanged();
         }
 
         public void DisplayNext()
         {
             if (!IsFrontActive()) return;
-            BackStack.Push(SelectedItem);
-            SelectedItem = FrontStack.Pop();
+            BackStack.Push(SelectedEntry);
+            SelectedEntry = FrontStack.Pop();
             NotifyStateChanged();
         }
 

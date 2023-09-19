@@ -1,4 +1,5 @@
 ﻿@using SatisfactoryProductionator.DataModels.Models.Codex;
+@using SatisfactoryProductionator.DataModels.Models;
 @using SatisfactoryProductionator.Services;
 
 @inject CodexModalState CodexModalState;
@@ -7,16 +8,17 @@
 
 <div data-augmented-ui-reset class=@IsModalActiveCss()>
     <div data-augmented-ui="tl-2-clip-y tr-2-clip-x br-2-clip-y bl-2-clip-x border" class="codex-modal">
-        <ModalInfo />
-        <ModalPages />
-        <ModalSelectInfo />
-        <ModalOptions />
+        <CascadingValue Value=@selectedEntry Name="SelectedEntry">
+            <ModalInfo />
+            <ModalPages />
+            <ModalSelectInfo />
+            <ModalOptions />
+        </CascadingValue>
     </div>
 </div>
 
 @code {
-    
-    public CodexItem selectedItem { get; set; }
+    public ModalEntry selectedEntry => CodexModalState.GetSelectedEntry();
 
     protected override void OnInitialized()
     {
