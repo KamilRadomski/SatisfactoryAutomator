@@ -21,6 +21,9 @@
     --sfBlue10: rgba(33, 147, 227, .1);
     --sfBlue20: rgba(33, 147, 227, .2);
     --sfBlue40: rgba(33, 147, 227, .4);
+    --sfRed: rgb(255, 2, 0);
+    --sfOrange: rgb(255, 139, 0);
+    --sfGreen: rgb(16, 255, 0)
 }
 
 html, body {
