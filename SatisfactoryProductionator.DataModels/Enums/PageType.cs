@@ -2,9 +2,10 @@
 {
 	public enum PageType
 	{
-		Default = 0,
-		Main = 1,
-		ByProducts = 2,
-		Inputs = 3,
-	}
+        Default = 0,
+        Main = 1,
+        Extraction = 2,
+        ByProducts = 3,
+        Inputs = 4,
+    }
 }
