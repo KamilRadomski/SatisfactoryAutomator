@@ -63,17 +63,17 @@
                 {
                     var item = CastSelectedItem<Item>();
 
-                    if (item.FormType is FormType.Solid)
+                    if (@item.FormType is FormType.Solid)
                     {
-                        <p>Stack.Size :: item.StackSize</p>
+                        <p>Stack.Size :: @item.StackSize</p>
                     }
-                    if (item.EnergyValue > 0)
+                    if (@item.EnergyValue > 0)
                     {
-                        <p>MJ.Rating :: item.EnergyValue</p>
+                        <p>MJ.Rating :: @item.EnergyValue</p>
                     }
-                    if (item.ResourceSinkPoints > 0)
+                    if (@item.ResourceSinkPoints > 0)
                     {
-                        <p>Resource.Sink.Points :: item.ResourceSinkPoints</p>
+                        <p>Resource.Sink.Points :: @item.ResourceSinkPoints</p>
                     }
                     else
                     {

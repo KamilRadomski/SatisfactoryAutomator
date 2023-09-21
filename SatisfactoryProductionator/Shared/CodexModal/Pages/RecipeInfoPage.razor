@@ -15,7 +15,7 @@
     }
     @foreach (var recipe in GetRecipes())
     {
-        if (_currentRecipeType == RecipeType.Default || (_currentRecipeType == RecipeType.Basic && recipe.RecipeType == RecipeType.Alternate ))
+        if (_currentRecipeType == RecipeType.Default || (GetPageType() is PageType.Main && _currentRecipeType == RecipeType.Basic && recipe.RecipeType == RecipeType.Alternate ))
         {
             _currentRecipeType = recipe.RecipeType;
             <tr>
@@ -104,7 +104,7 @@
                                 {
                                     <td>
                                         <div class="extract-space">
-                                        <img class="extract-image @GetBackgroundColor(i++)" src=@selectedEntry.CodexItem.IconPath alt=@selectedEntry.CodexItem.DisplayName />
+                                        <img class="extract-image @GetBackgroundColor(i++, item.Length)" src=@selectedEntry.CodexItem.IconPath alt=@selectedEntry.CodexItem.DisplayName />
                                         <div class="info-panel-recipe-quantity">X @value.ToString()/min </div>
                                         </div>
                                     </td>
@@ -197,8 +197,10 @@
         return CodexState.FetchItem(className);
     }
 
-    private string GetBackgroundColor(int i)
+    private string GetBackgroundColor(int i, int count)
     {
+        if (count < 2) return string.Empty;
+
         return i switch
         {
         0 => "impure",

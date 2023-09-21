@@ -110,6 +110,11 @@ div.info-panel-recipe-name-alternate {
     right: 25px;
 }
 
+.page-category-container {
+    border: 1px solid red;
+
+}
+
 .info-panel-recipe-paging-pages {
     width: 150px;
     display: flex;
