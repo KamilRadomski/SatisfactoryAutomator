@@ -1,4 +1,54 @@
-﻿
-@code {
+﻿@using SatisfactoryProductionator.DataModels.Enums;
+@using SatisfactoryProductionator.DataModels.Models.Codex;
+@using SatisfactoryProductionator.DataModels.Models;
+@using SatisfactoryProductionator.Services;
 
+@inject CodexModalState CodexModalState;
+@inject CodexState CodexState;
+
+@implements IDisposable
+
+<table class="info-panel-recipe-table">
+    <tr>
+        <td colspan="4" class="info-panel-recipe-header">@FormatCategoryName(GetPageType().ToString())</td>
+    </tr>
+</table>
+
+
+@code {
+    [CascadingParameter(Name = "SelectedEntry")]
+    public ModalEntry selectedEntry { get; set; }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        CodexModalState.OnStateChange += StateHasChanged;
+        CodexState.OnStateChange += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        CodexModalState.OnStateChange -= StateHasChanged;
+        CodexState.OnStateChange -= StateHasChanged;
+    }
+
+    private string FormatCategoryName(string name)
+    {
+        for (int i = name.Length - 1; i > 0; i--)
+        {
+            if (char.IsUpper(name[i]))
+            {
+                name = name.Insert(i, ".");
+            }
+        }
+        return name;
+    }
+
+    private PageType GetPageType()
+    {
+        var index = selectedEntry.Index;
+
+        return selectedEntry.CodexItem.Pages[index].PageType;
+    }
 }

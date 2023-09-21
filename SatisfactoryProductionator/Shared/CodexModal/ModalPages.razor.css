@@ -28,6 +28,7 @@ div.info-panel-recipe {
     padding-left: 19px;
     padding-top: 0.75rem;
     border-collapse: separate;
+    border: 1px solid red;
 }
 
 .info-panel-recipe-header {
