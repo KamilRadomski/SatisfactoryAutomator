@@ -5,7 +5,8 @@
         Default = 0,
         Main = 1,
         Extraction = 2,
-        ByProducts = 3,
-        Inputs = 4,
+        Cost = 3,
+        ByProducts = 4,
+        Inputs = 5,
     }
 }
