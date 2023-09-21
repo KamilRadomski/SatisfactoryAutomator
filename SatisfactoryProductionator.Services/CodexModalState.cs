@@ -76,8 +76,6 @@ namespace SatisfactoryProductionator.Services
             NotifyStateChanged();
         }
 
-       
-
         public bool IsBackActive() => BackStack.Count > 0;
         public bool IsFrontActive() => FrontStack.Count > 0;
 
@@ -111,10 +109,7 @@ namespace SatisfactoryProductionator.Services
         {
             if (SelectedEntry == null) return 0;
 
-            var category = SelectedEntry.Category;
-            var pages = SelectedEntry.CodexItem.Pages.Where(x => x.Category == category).ToList();
-
-            return pages.Count;
+            return SelectedEntry.CodexItem.Pages.Count;
         }
 
         private ModalEntry? GenerateModalEntry(CodexItem item)
@@ -123,7 +118,6 @@ namespace SatisfactoryProductionator.Services
             {
                 CodexItem = item,
                 Index = 0,
-                Category = item.Pages.First().Category
             };
         }
 

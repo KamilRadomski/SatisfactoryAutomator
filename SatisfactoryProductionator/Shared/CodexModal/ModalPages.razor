@@ -15,9 +15,29 @@
     }
     else
     {
-        if (GetPageType() == CodexPageCategory.Recipe)
+        var pageType = GetPageType();
+
+        if (pageType == PageType.Main ||
+            pageType == PageType.ByProducts ||
+            pageType == PageType.Inputs)
         {
             <RecipeInfoPage />
+        }
+        else if (pageType == PageType.Extraction)
+        {
+            <ExtractInfoPage />
+        }
+        else if (pageType == PageType.Cost)
+        {
+            <CostInfoPage />
+        }
+        else if (pageType == PageType.CompatibleItems)
+        {
+            <CompatibleItemsInfoPage />
+        }
+        else if (pageType == PageType.Fuel)
+        {
+            <FuelUseInfoPage />
         }
 
         @if (GetPageCount() > 1)
@@ -77,12 +97,12 @@
         return name;
     }
 
-    private CodexPageCategory GetPageType()
+    private PageType GetPageType()
     {
         var index = selectedEntry.Index;
         var page = selectedEntry.CodexItem.Pages[index];
 
-        return page.Category;
+        return page.PageType;
     }
 
     private int GetPageCount()

@@ -8,5 +8,7 @@
         Cost = 3,
         ByProducts = 4,
         Inputs = 5,
+        CompatibleItems = 6,
+        Fuel = 7,
     }
 }
