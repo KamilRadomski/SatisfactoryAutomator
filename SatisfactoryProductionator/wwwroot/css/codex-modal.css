@@ -20,6 +20,11 @@
     max-height: 96px;
 }
 
+.image-128 {
+    max-width: 128px;
+    max-height: 128px;
+}
+
 .image-button {
     margin-top: 2px;
     margin-bottom: 2px;

@@ -8,9 +8,25 @@
 
 @implements IDisposable
 
-<table class="page-table">
+<table class="page-table w99">
     <tr>
         <td colspan="4" class="page-header">@FormatCategoryName(GetPageType().ToString())</td>
+    </tr>
+    <tr>
+        <table class="flex-even">
+            <tr class="flex-even w99">
+                @{var recipe = GetRecipes().First();}
+                @foreach(var item in recipe.Inputs)
+                {
+                    <td>
+                        <button class="image-button cost-image" type="button" @onclick="@(() => SetSelectedItem(item.Key!))">
+                            <img class="image-128" src=@GetIconLocation(item.Key) alt=@item.Key />
+                            <div class="cost-quantity">X @Math.Round(item.Value[0], 2)</div>
+                        </button>
+                    </td>
+                }
+            </tr>
+        </table>
     </tr>
 </table>
 
@@ -33,6 +49,12 @@
         CodexState.OnStateChange -= StateHasChanged;
     }
 
+    private void SetSelectedItem(string itemName)
+    {
+        var item = CodexState.FetchItem(itemName);
+        CodexModalState.SetSelectedItem(item);
+    }
+
     private string FormatCategoryName(string name)
     {
         for (int i = name.Length - 1; i > 0; i--)
@@ -45,10 +67,27 @@
         return name;
     }
 
+    private List<Recipe> GetRecipes()
+    {
+        var index = selectedEntry.Index;
+        var recipeNames = selectedEntry.CodexItem.Pages[index].Recipes;
+
+        var recipes = CodexState.FetchRecipes(recipeNames);
+
+        return recipes;
+    }
+
     private PageType GetPageType()
     {
         var index = selectedEntry.Index;
 
         return selectedEntry.CodexItem.Pages[index].PageType;
+    }
+
+    private string GetIconLocation(string itemName)
+    {
+        var item = CodexState.FetchItem(itemName);
+
+        return item.IconPath;
     }
 }
