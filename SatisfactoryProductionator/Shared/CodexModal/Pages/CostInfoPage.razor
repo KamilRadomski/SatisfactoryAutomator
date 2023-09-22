@@ -21,7 +21,7 @@
                     <td>
                         <button class="image-button cost-image" type="button" @onclick="@(() => SetSelectedItem(item.Key!))">
                             <img class="image-128" src=@GetIconLocation(item.Key) alt=@item.Key />
-                            <div class="cost-quantity">X @Math.Round(item.Value[0], 2)</div>
+                            <div class="cost-quantity">@Math.Round(item.Value[0], 2)</div>
                         </button>
                     </td>
                 }
