@@ -1,44 +1,19 @@
-﻿.info-panel-recipe-table {
-    padding-left: 19px;
-    padding-top: 0.75rem;
-    border-collapse: separate;
-}
-
-.info-panel-recipe-header {
-    font-size: 1.2rem;
-    border-bottom: 1px solid;
-    padding-top: 0px;
-}
-
-
-.info-panel-recipe-button {
-    margin-top: 2px;
-    margin-bottom: 2px;
-    background: unset;
-    border: unset;
-}
-
-.extract-image {
-    max-width: 64px;
-    max-height: 64px;
-}
-
-.extract-space {
+﻿.extract-space {
     margin-right: 25px;
     margin-left: 25px;
 }
 
-.building-image {
-    max-width: 96px;
-    max-height: 96px;
+.building-text {
+    color: var(--sfBlue);
+    font-size: 14px;
+    margin-top: 0;
 }
 
-
-.info-panel-recipe-quantity {
-    color: var(--myblue);
-    font-size: .75rem;
+.extract-quantity {
+    color: var(--sfBlue);
+    font-size: 12px;
+    margin-top: 3px;
 }
-
 
 .impure {
     filter: drop-shadow(0px 0px 5px var(--sfRed)) drop-shadow(0px 0px 10px var(--sfRed));

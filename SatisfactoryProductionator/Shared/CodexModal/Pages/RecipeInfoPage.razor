@@ -9,113 +9,78 @@
 @implements IDisposable
 
 
-<table class="info-panel-recipe-table">
+<table class="page-table">
     @{
         _currentRecipeType = RecipeType.Default;
     }
     @foreach (var recipe in GetRecipes())
     {
-        if (_currentRecipeType == RecipeType.Default || (GetPageType() is PageType.Main && _currentRecipeType == RecipeType.Basic && recipe.RecipeType == RecipeType.Alternate ))
+        if (_currentRecipeType == RecipeType.Default || (GetPageType() is PageType.Main && _currentRecipeType == RecipeType.Basic && recipe.RecipeType == RecipeType.Alternate))
         {
             _currentRecipeType = recipe.RecipeType;
             <tr>
-                <td colspan="4" class="info-panel-recipe-header">@FormatCategoryName(GetPageHeader(recipe))</td>
+                <td colspan="4" class="page-header">@FormatCategoryName(GetPageHeader(recipe))</td>
             </tr>
         }
-        if(GetPageType() is not PageType.Extraction)
-        {
-            <tr>
-                <td>
-                    @if (recipe.RecipeType is RecipeType.Basic)
-                    {
-                        @* <div class=@CssIsDefault(recipe)> *@
-                            <div data-augmented-ui="tl-clip tr-clip br-clip bl-clip border" class="info-panel-recipe-name-basic">
-                                <button type="button" class="info-panel-recipe-name-button">
-                                @* <button type="button" class="info-panel-recipe-name-button" @onclick="@(() => SetRecipeDetails(recipe.DisplayName))"> *@
-                                    @FormatDisplayName(recipe.DisplayName!)
-                                </button>
-                            </div>
-                      @*   </div> *@
-                    }
-                    else
-                    {
-                        @* <div class=@CssIsDefault(recipe)> *@
-                            <div data-augmented-ui="tl-2-clip-x tr-2-clip-x br-2-clip-x b-clip-x bl-2-clip-x border" class="info-panel-recipe-name-alternate">
-                            <button type="button" class="info-panel-recipe-name-button">
-                                @* <button type="button" class="info-panel-recipe-name-button" @onclick="@(() => SetRecipeDetails(recipe.DisplayName))"> *@
-                                    @FormatDisplayName(recipe.DisplayName!)
-                                </button>
-                            </div>
-                        @* </div> *@
-                    }
 
-                </td>
-                <td>
-                    <table>
-                        <tr>
-                            @foreach (var item in recipe.Inputs!)
-                            {
-                                <td>
-                                    <button class="main-panel-category-button info-panel-recipe-button" type="button" @onclick="@(() => SetSelectedItem(item.Key!))">
-                                        <img class="info-panel-recipe-image" src=@GetIconLocation(item.Key) alt=@item.Key />
-                                        <div class="info-panel-recipe-quantity">@Math.Round(item.Value[1], 2)/min</div>
-                                    </button>
-                                </td>
-                            }
-                        </tr>
-                    </table>
-                </td>
-                <td> >>> </td>
-                <td>
-                    <table>
-                        <tr>
-                            @foreach (var item in recipe.Outputs!)
-                            {
-                                <td>
-                                    <button class="main-panel-category-button info-panel-recipe-button" type="button" @onclick="@(() => SetSelectedItem(@item.Key!))">
-                                        <img class="info-panel-recipe-image" src=@GetIconLocation(item.Key) alt=@item.Key />
-                                        <div class="info-panel-recipe-quantity">@Math.Round(item.Value[1], 2)/min</div>
-                                    </button>
-                                </td>
-                            }
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-        }
-        else //Extraction 
-        {
-            var buildingInfo = GetBuildingInfo(@recipe.Building);
-            <tr>
-                <td>
-                    <button class="main-panel-category-button info-panel-recipe-button" type="button" @onclick="@(() => SetSelectedItem(buildingInfo.ClassName))">
-                        <img class="building-image" src=@buildingInfo.IconPath alt=@buildingInfo.DisplayName />
-                        <div class="info-panel-recipe-quantity">@buildingInfo.DisplayName</div>
-                    </button>
-                </td>
-                <td> >>> </td> 
-                <td>
-                    <table>
-                        <tr>
-                            @foreach(var item in recipe.Outputs.Values)
-                            {
-                                var i = 0;
-                                foreach (var value in item)
-                                {
-                                    <td>
-                                        <div class="extract-space">
-                                        <img class="extract-image @GetBackgroundColor(i++, item.Length)" src=@selectedEntry.CodexItem.IconPath alt=@selectedEntry.CodexItem.DisplayName />
-                                        <div class="info-panel-recipe-quantity">X @value.ToString()/min </div>
-                                        </div>
-                                    </td>
-                                    
-                                }
-                            }
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-        }
+        <tr>
+            <td>
+                @if (recipe.RecipeType is RecipeType.Basic)
+                {
+                    @* <div class=@CssIsDefault(recipe)> *@
+                    <div data-augmented-ui="tl-clip tr-clip br-clip bl-clip border" class="basic-recipe">
+                        <button type="button" class="recipe-button">
+                            @* <button type="button" class="info-panel-recipe-name-button" @onclick="@(() => SetRecipeDetails(recipe.DisplayName))"> *@
+                            @FormatDisplayName(recipe.DisplayName!)
+                        </button>
+                    </div>
+                    @*   </div> *@
+                }
+                else
+                {
+                    @* <div class=@CssIsDefault(recipe)> *@
+                    <div data-augmented-ui="tl-2-clip-x tr-2-clip-x br-2-clip-x b-clip-x bl-2-clip-x border" class="alt-recipe">
+                        <button type="button" class="recipe-button">
+                            @* <button type="button" class="info-panel-recipe-name-button" @onclick="@(() => SetRecipeDetails(recipe.DisplayName))"> *@
+                            @FormatDisplayName(recipe.DisplayName!)
+                        </button>
+                    </div>
+                    @* </div> *@
+                }
+
+            </td>
+            <td>
+                <table>
+                    <tr>
+                        @foreach (var item in recipe.Inputs!)
+                        {
+                            <td>
+                                <button class="image-button" type="button" @onclick="@(() => SetSelectedItem(item.Key!))">
+                                    <img class="image-64" src=@GetIconLocation(item.Key) alt=@item.Key />
+                                    <div class="recipe-quantity">@Math.Round(item.Value[1], 2)/min</div>
+                                </button>
+                            </td>
+                        }
+                    </tr>
+                </table>
+            </td>
+            <td> >>> </td>
+            <td>
+                <table>
+                    <tr>
+                        @foreach (var item in recipe.Outputs!)
+                        {
+                            <td>
+                                <button class="image-button" type="button" @onclick="@(() => SetSelectedItem(@item.Key!))">
+                                    <img class="image-64" src=@GetIconLocation(item.Key) alt=@item.Key />
+                                    <div class="recipe-quantity">@Math.Round(item.Value[1], 2)/min</div>
+                                </button>
+                            </td>
+                        }
+                    </tr>
+                </table>
+            </td>
+        </tr>
     }
 </table>
 
@@ -175,7 +140,7 @@
     {
         var item = CodexState.FetchItem(itemName);
         CodexModalState.SetSelectedItem(item);
-    } 
+    }
 
     private string GetIconLocation(string itemName)
     {
@@ -191,22 +156,4 @@
         return selectedEntry.CodexItem.Pages[index].PageType;
 
     }
-
-    private CodexItem GetBuildingInfo(string className)
-    {
-        return CodexState.FetchItem(className);
-    }
-
-    private string GetBackgroundColor(int i, int count)
-    {
-        if (count < 2) return string.Empty;
-
-        return i switch
-        {
-        0 => "impure",
-        1 => "normal",
-        2 => "pure"
-        };
-    }
-
 }

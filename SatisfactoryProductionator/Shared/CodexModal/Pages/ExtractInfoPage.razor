@@ -8,18 +8,18 @@
 
 @implements IDisposable
 
-<table class="info-panel-recipe-table">
+<table class="page-table">
     <tr>
-        <td colspan="4" class="info-panel-recipe-header">@FormatCategoryName(GetPageType().ToString())</td>
+        <td colspan="4" class="page-header">@FormatCategoryName(GetPageType().ToString())</td>
     </tr>
     @foreach (var recipe in GetRecipes())
     {
         var buildingInfo = GetBuildingInfo(@recipe.Building);
         <tr>
             <td>
-                <button class="info-panel-recipe-button" type="button" @onclick="@(() => SetSelectedItem(buildingInfo.ClassName))">
-                    <img class="building-image" src=@buildingInfo.IconPath alt=@buildingInfo.DisplayName />
-                    <div class="info-panel-recipe-quantity">@buildingInfo.DisplayName</div>
+                <button class="image-button" type="button" @onclick="@(() => SetSelectedItem(buildingInfo.ClassName))">
+                    <img class="image-96" src=@buildingInfo.IconPath alt=@buildingInfo.DisplayName />
+                    <div class="building-text">@buildingInfo.DisplayName</div>
                 </button>
             </td>
             <td> >>> </td>
@@ -33,8 +33,8 @@
                             {
                                 <td>
                                     <div class="extract-space">
-                                        <img class="extract-image @GetBackgroundColorCss(i++, item.Length)" src=@selectedEntry.CodexItem.IconPath alt=@selectedEntry.CodexItem.DisplayName />
-                                        <div class="info-panel-recipe-quantity">X @value.ToString()/min </div>
+                                        <img class="image-64 @GetBackgroundColorCss(i++, item.Length)" src=@selectedEntry.CodexItem.IconPath alt=@selectedEntry.CodexItem.DisplayName />
+                                        <div class="extract-quantity">X @value.ToString()/min </div>
                                     </div>
                                 </td>
                             }

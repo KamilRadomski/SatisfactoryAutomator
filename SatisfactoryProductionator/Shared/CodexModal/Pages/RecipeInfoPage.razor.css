@@ -1,17 +1,4 @@
-﻿
-.info-panel-recipe-table {
-    padding-left: 19px;
-    padding-top: 0.75rem;
-    border-collapse: separate;
-}
-
-.info-panel-recipe-header {
-    font-size: 1.2rem;
-    border-bottom: 1px solid;
-    padding-top: 0px;
-}
-
-.info-panel-recipe-name-button {
+﻿.recipe-button {
     font-family: Tomorrow;
     font-variant: small-caps;
     background: unset;
@@ -22,17 +9,17 @@
     white-space: nowrap;
 }
 
-    .info-panel-recipe-name-button:hover {
+    .recipe-button:hover {
         background: var(--myhighlightblue);
         color: var(--myhoverblue);
     }
 
-    .info-panel-recipe-name-button:active {
+    .recipe-button:active {
         background: var(--myhoverblue);
         color: var(--myblue);
     }
 
-div.info-panel-recipe-name-basic {
+div.basic-recipe {
     width: 210px;
     height: 40px;
     --aug-tl: 20px;
@@ -43,7 +30,7 @@ div.info-panel-recipe-name-basic {
     --aug-border-bg: var(--myblue);
 }
 
-div.info-panel-recipe-name-alternate {
+div.alt-recipe {
     width: 210px;
     height: 40px;
     --aug-tl: 4px;
@@ -55,26 +42,7 @@ div.info-panel-recipe-name-alternate {
     --aug-border-bg: var(--myblue);
 }
 
-
-.info-panel-recipe-button {
-    margin-top: 2px;
-    margin-bottom: 2px;
-    background: unset;
-    border: unset;
-}
-
-    .info-panel-recipe-button:hover img {
-        /*transform: scale(1.1);*/
-        transition: .2s;
-        filter: drop-shadow(3px 3px 4px var(--sfBlue)) drop-shadow(-3px 3px 4px var(--sfBlue)) drop-shadow(3px -3px 4px var(--sfBlue)) drop-shadow(-3px -3px 4px var(--sfBlue));
-    }
-
-.info-panel-recipe-image {
-    max-width: 64px;
-    max-height: 64px;
-}
-
-.info-panel-recipe-quantity {
+.recipe-quantity {
     color: var(--myblue);
     font-size: .75rem;
 }
