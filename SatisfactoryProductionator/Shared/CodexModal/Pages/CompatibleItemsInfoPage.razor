@@ -18,9 +18,9 @@
                 @foreach (var item in GetItems())
                 {
                     <td>
-                        <button class="image-button cost-image" type="button" @onclick="@(() => SetSelectedItem(item.ClassName))">
+                        <button class="image-button mt-48" type="button" @onclick="@(() => SetSelectedItem(item.ClassName))">
                             <img class="image-128" src=@item.IconPath alt=@item.ClassName />
-                            <div class="cost-quantity">@item.DisplayName</div>
+                            <div class="button-text-16">@item.DisplayName</div>
                         </button>
                     </td>
                 }

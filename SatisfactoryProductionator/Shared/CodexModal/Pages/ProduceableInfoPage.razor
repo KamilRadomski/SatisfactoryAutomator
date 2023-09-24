@@ -14,34 +14,24 @@
     </tr>
     <tr>
         <td>
-        @{
-            var fuelBundle = BundleFuelInputs();
-        }
+            @{
+                var itemBundle = BundleItems();
+            }
             <table class="w99">
-                @foreach(var group in fuelBundle)
+                @foreach (var group in itemBundle)
                 {
-                <tr class="flex-even w99">
-                
-                    @foreach (var item in group)
-                    {
-                        <td>
-                            @if (fuelBundle.Count > 1)
-                            {
-                                <button class="image-button" type="button" @onclick="@(() => SetSelectedItem(item.Key))">
-                                    <img class="image-96" src=@GetIconPath(item.Key) alt=@item.Key />
-                                    <div class="button-text-16"> @Math.Round(item.Value[1], 2)/min</div>
+                    <tr class="flex-even w99">
+
+                        @foreach (var item in group)
+                        {
+                            <td>
+                                <button class="image-button mt-6" type="button" @onclick="@(() => SetSelectedItem(item))">
+                                    <img class="image-80" src=@GetIconPath(item) alt=@item />
+                                    <div class="button-text-12">@GetItemName(item)</div>
                                 </button>
-                            }
-                            else
-                            {
-                                <button class="image-button mt-48" type="button" @onclick="@(() => SetSelectedItem(item.Key))">
-                                    <img class="image-128" src=@GetIconPath(item.Key) alt=@item.Key />
-                                    <div class="button-text-16"> @Math.Round(item.Value[1], 2)/min</div>
-                                </button>
-                            }
-                        </td>
-                    }
-                </tr>
+                            </td>
+                        }
+                    </tr>
                 }
             </table>
         </td>
@@ -92,13 +82,12 @@
         CodexModalState.SetSelectedItem(item);
     }
 
-    private Recipe GetFuels()
+    private List<string> GetProduceables()
     {
         var index = selectedEntry.Index;
 
-        var classNames = selectedEntry.CodexItem.Pages[index].Recipes;
+        return selectedEntry.CodexItem.Pages[index].Recipes;
 
-        return CodexState.FetchRecipes( classNames).First();
     }
 
     private string GetIconPath(string itemName)
@@ -108,25 +97,31 @@
         return item.IconPath;
     }
 
-    private List<List<KeyValuePair<string, double[]>>> BundleFuelInputs()
+    private string GetItemName(string itemName)
     {
-        List<List<KeyValuePair<string, double[]>>> items = new();
+        var item = CodexState.FetchItem(itemName);
 
-        var inputs = GetFuels().Inputs.ToList();
-        var tempList = new List<KeyValuePair<string, double[]>>();
+        return item.DisplayName;
+    }
 
-        foreach (var entry in inputs)
+    private List<List<string>> BundleItems()
+    {
+        List<List<string>> items = new();
+
+        var tempList = new List<string>();
+
+        foreach (var entry in GetProduceables())
         {
             tempList.Add(entry);
 
-            if(tempList.Count % 5 == 0)
+            if (tempList.Count % 5 == 0)
             {
                 items.Add(tempList);
-                tempList = new List<KeyValuePair<string, double[]>>();
+                tempList = new List<string>();
             }
         }
 
-        if(tempList.Count > 0) 
+        if (tempList.Count > 0)
         {
             items.Add(tempList);
         }

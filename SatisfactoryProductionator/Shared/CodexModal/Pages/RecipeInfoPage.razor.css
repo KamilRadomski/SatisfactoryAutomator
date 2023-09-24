@@ -2,7 +2,7 @@
     font-family: Tomorrow;
     font-variant: small-caps;
     background: unset;
-    color: var(--myblue);
+    color: var(--sfBlue);
     border: unset;
     width: 210px;
     height: 40px;
@@ -16,7 +16,7 @@
 
     .recipe-button:active {
         background: var(--myhoverblue);
-        color: var(--myblue);
+        color: var(--sfBlue);
     }
 
 div.basic-recipe {
@@ -27,7 +27,7 @@ div.basic-recipe {
     --aug-bl: 7px;
     --aug-br: 20px;
     --aug-border-all: 1px;
-    --aug-border-bg: var(--myblue);
+    --aug-border-bg: var(--sfBlue);
 }
 
 div.alt-recipe {
@@ -39,10 +39,10 @@ div.alt-recipe {
     --aug-br: 6px;
     --aug-b: 5px;
     --aug-border-all: 1px;
-    --aug-border-bg: var(--myblue);
+    --aug-border-bg: var(--sfBlue);
 }
 
 .recipe-quantity {
-    color: var(--myblue);
+    color: var(--sfBlue);
     font-size: .75rem;
 }

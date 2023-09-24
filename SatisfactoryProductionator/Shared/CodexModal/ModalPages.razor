@@ -35,9 +35,15 @@
         {
             <CompatibleItemsInfoPage />
         }
-        else if (pageType == PageType.Fuel)
+        else if (pageType == PageType.FuelRates)
         {
             <FuelUseInfoPage />
+        }
+        else if (pageType == PageType.Buildables ||
+                 pageType == PageType.Craftables || 
+                 pageType == PageType.Extractables)
+        {
+            <ProduceableInfoPage />
         }
 
         @if (GetPageCount() > 1)

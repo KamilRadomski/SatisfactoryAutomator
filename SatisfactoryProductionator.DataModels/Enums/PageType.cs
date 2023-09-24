@@ -10,5 +10,9 @@
         Inputs = 5,
         CompatibleItems = 6,
         Fuel = 7,
+        FuelRates = 8,
+        Extractables = 9,
+        Buildables = 10,
+        Craftables = 11,
     }
 }
