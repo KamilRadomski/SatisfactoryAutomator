@@ -1,1 +1,40 @@
-﻿
+﻿.codex-main-panel {
+    position: absolute;
+    top: 14px;
+    left: 275px;
+    right: 14px;
+    bottom: 14px;
+    --aug-border-all: 3px;
+    --aug-border-bg: var(--sfBlue);
+    --aug-tl: 15px;
+    --aug-tr: 33px;
+    --aug-br: 33px;
+    --aug-bl: 20px;
+}
+
+.codex-main-panel-inner {
+    position: absolute;
+    margin-right: 16px;
+    top: 27px;
+    left: 20px;
+    height: 100%;
+    overflow: scroll;
+    overflow-y: auto;
+}
+
+
+    .codex-main-panel-inner::-webkit-scrollbar {
+        width: 1em;
+    }
+
+    .codex-main-panel-inner::-webkit-scrollbar-track {
+        background: var(--sfBlue40);
+        border-radius: 16px;
+        margin-block: 5em;
+        margin-block-start: 5em;
+    }
+
+    .codex-main-panel-inner::-webkit-scrollbar-thumb {
+        border-radius: 100vh;
+        background: var(--sfBlue40);
+    }
