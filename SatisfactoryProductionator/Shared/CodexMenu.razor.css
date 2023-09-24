@@ -52,7 +52,13 @@ div.codex-menu {
     .infra:hover {
         --aug-border-all: 2px;
         background-color: var(--sfBlue20);
+        
     }
+
+        .codex-sub-button:hover .codex-sub-text,
+        .codex-sub-btn-active .codex-sub-text {
+            color: var(--sfBlueHover);
+        }
 
 .codex-sub-btn {
     width:100%;
@@ -62,8 +68,10 @@ div.codex-menu {
 }
 
 .codex-sub-btn-active {
-    background-color: var(--sfBlue20);
+    background-color: var(--sfBlue40);
 }
+
+ 
 
 div.codex-sub-u {
     height: 58px;
@@ -306,7 +314,7 @@ div.codex-sub-d {
     font-size: 1.3rem;
     border-radius: 5px;
     background: black;
-    color: var(--myblue);
+    color: var(--sfBlue);
     border: 2px solid;
     height: 87%;
     margin-bottom: 3px;
@@ -317,16 +325,16 @@ div.codex-sub-d {
         border: 3px solid;
         margin-bottom: 0px;
         padding-bottom: 0px;
-        background: rgba(255,255,255,.1);
+        background: var(--sfBlue20);
     }
 
     .quick-nav-list-item-button:active {
-        background: var(--myhighlightblue);
+        background: var(--sfBlueBGActive);
     }
 
     .quick-nav-list-item-button:hover ::deep .quick-nav-list-item-button-text {
         top: -4px;
-        color: var(--myhoverblue);
+        color: var(--sfBlueHover);
     }
 
 .quick-nav-list-item-button-text {
