@@ -1,0 +1,36 @@
+﻿@using SatisfactoryProductionator.DataModels.Models.Codex;
+@using SatisfactoryProductionator.DataModels.Models;
+@using SatisfactoryProductionator.Services;
+
+@inject CodexModalState CodexModalState;
+
+@implements IDisposable;
+
+<div data-augmented-ui-reset class=@IsModalActiveCss()>
+    <div data-augmented-ui="tl-2-clip-y tr-2-clip-x br-2-clip-y bl-2-clip-x border" class="codex-modal">
+        <CascadingValue Value=@selectedEntry Name="SelectedEntry">
+            <ModalInfo />
+            <ModalPages />
+            <ModalSelectInfo />
+            <ModalOptions />
+        </CascadingValue>
+    </div>
+</div>
+
+@code {
+    public ModalEntry selectedEntry => CodexModalState.GetSelectedEntry();
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        CodexModalState.OnStateChange += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        CodexModalState.OnStateChange -= StateHasChanged;
+    }
+
+    private string IsModalActiveCss() => CodexModalState.Active ? "modal-on" : "modal-off";
+}

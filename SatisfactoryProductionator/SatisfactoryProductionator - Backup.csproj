@@ -1,0 +1,41 @@
+<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RunAOTCompliation>True</RunAOTCompliation>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.7" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.7" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SatisfactoryProductionator.DataManager\SatisfactoryProductionator.DataManager.csproj" />
+    <ProjectReference Include="..\SatisfactoryProductionator.DataModels\SatisfactoryProductionator.DataModels.csproj" />
+    <ProjectReference Include="..\SatisfactoryProductionator.DataParser\SatisfactoryProductionator.DataParser.csproj" />
+    <ProjectReference Include="..\SatisfactoryProductionator.DataService\SatisfactoryProductionator.DataService.csproj" />
+    <ProjectReference Include="..\SatisfactoryProductionator.Services\SatisfactoryProductionator.Services.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\images" />
+    <Folder Include="wwwroot\images\icons" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Program.cs">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="wwwroot\images\icons\adaptivecontrolunit_256.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+</Project>

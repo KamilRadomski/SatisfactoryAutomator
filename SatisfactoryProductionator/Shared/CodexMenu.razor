@@ -1,6 +1,9 @@
 ﻿@using SatisfactoryProductionator.DataModels.Enums;
-@using SatisfactoryProductionator.DataModels.Models;
-@using SatisfactoryProductionator.DataParser;
+@using SatisfactoryProductionator.Services;
+
+@inject CodexState CodexState
+@inject CodexMenuState CodexMenuState
+
 <div data-augmented-ui-reset></div>
 
 <div data-augmented-ui="tl-clip tr-2-clip-y br-clip bl-clip border" class="codex-menu">
@@ -8,47 +11,216 @@
         <div data-augmented-ui="tl-clip tr-2-clip-y br-clip bl-2-clip-x border" class="codex-sub-menu">
             <div data-augmented-ui-reset>
                 <div data-augmented-ui="tl-clip tr-clip br-clip bl-clip border" class="codex-sub-button codex-sub-u">
-                    <button type="button" class="codex-sub-btn">
+                    <button type="button" class="codex-sub-btn @activeU" @onclick="@(() => SetSelectedCategory(CodexCategory.Item))">
                         <div class="codex-sub-text codex-sub-text-u">Items</div>
                     </button>
                 </div>
                 <div data-augmented-ui="tl-clip tr-clip br-clip bl-clip r-clip border" class="codex-sub-button codex-sub-l">
-                    <button type="button" class="codex-sub-btn">
+                    <button type="button" class="codex-sub-btn @activeL" @onclick="@(() => SetSelectedCategory(CodexCategory.Equipment))">
                         <div class="codex-sub-text codex-sub-text-l">Gear</div>
                     </button>
                 </div>
                 <div data-augmented-ui="tl-clip tr-clip br-clip bl-clip border" class="codex-sub-button codex-sub-c">
-                    <button type="button" class="codex-sub-btn">
+                    <button type="button" class="codex-sub-btn @activeC" @onclick="@(() => SetSelectedCategory(CodexCategory.Building))">
                         <div class="codex-sub-text codex-sub-text-c">Buildings</div>
                     </button>
                 </div>
                 <div data-augmented-ui="tl-clip tr-clip-y br-clip bl-clip l-clip border" class="codex-sub-button codex-sub-r">
-                    <button type="button" class="codex-sub-btn">
+                    <button type="button" class="codex-sub-btn @activeR">
                         <div class="codex-sub-text codex-sub-text-r">Tiers</div>
                     </button>
                 </div>
                 <div data-augmented-ui="tl-clip tr-clip br-clip bl-clip-x border" class="codex-sub-button codex-sub-d">
-                    <button type="button" class="codex-sub-btn">
+                    <button type="button" class="codex-sub-btn @activeD" @onclick="@(() => SetSelectedCategory(CodexCategory.Infrastructure))">
                         <div class="codex-sub-text codex-sub-text-d">Infrastructure</div>
                     </button>
                 </div>
             </div>
         </div>
-        <ul class="quick-nav-list">
-            @foreach (var group in GroupItems())
-            {
-                <li class="quick-nav-list-item">
-                    <button type="button" class="quick-nav-list-item-button" onclick="document.getElementById('@group.Key').scrollIntoView({behavior:'smooth'})">
-                        <div class="quick-nav-list-item-button-text">@FormatCategoryName(group.Key.ToString()!)</div>
-                    </button>
-                </li>
-            }
-        </ul>
+        <div data-augmented-ui="tl-clip tr-2-clip-y br-2-clip-x bl-clip border" class="@GetInfraSubMenuCss()">
+            <div data-augmented-ui-reset></div>
+            <div data-augmented-ui="tl-clip-x tr-clip br-clip-x bl-clip-x border" class="infra infra-foundation">
+                <button type="button" class="codex-sub-btn @activeFoundation" @onclick="@(() => SetSelectedInfrastructure(InfrastructureSubCategory.Foundations))">
+                    <div class="codex-sub-text infra-text-foundation">Foundations</div>
+                </button>
+            </div>
+            <div data-augmented-ui="t-clip-x r-clip b-clip-x l-clip  border" class="infra infra-wall">
+                <button type="button" class="codex-sub-btn @activeWalls" @onclick="@(() => SetSelectedInfrastructure(InfrastructureSubCategory.WallsRoofs))">
+                    <div class="codex-sub-text infra-text-walls-roofs">Walls / Roofs</div>
+                </button>
+            </div>
+            <div data-augmented-ui=" tl-clip-x tr-clip-x br-2-clip-x bl-clip border" class="infra infra-general">
+                <button type="button" class="codex-sub-btn @activeGeneral" @onclick="@(() => SetSelectedInfrastructure(InfrastructureSubCategory.General))">
+                    <div class="codex-sub-text infra-text-general">General</div>
+                </button>
+            </div>
+        </div>
+        @if(CodexState.Codex == null)
+        {
+            <div class="codex-submenu-loading">Loading....</div>
+        }
+        else
+        {
+            <div class=@GetNavContainerCss()>
+                @* <div class="quick-nav-list-container container-infra-active"> *@
+                <ul class="quick-nav-list">
+                    @foreach (var name in GetGroupNames())
+                    {
+                        <li class="quick-nav-list-item">
+                            <button type="button" class="quick-nav-list-item-button" onclick="document.getElementById('@name').scrollIntoView({behavior:'smooth'})">
+                                <div class="quick-nav-list-item-button-text">@FormatCategoryName(name)</div>
+                            </button>
+                        </li>
+                    }
+                </ul>
+            </div>
+        }
     </div>
 </div>
 
 @code {
-    private static IEnumerable<IGrouping<ItemType?, Item>> GroupItems() => DataAggregator.Items.OrderBy(x => x.Category).ThenBy(x => x.DisplayName).GroupBy(x => x.Category);
+    private static string activeU;
+    private static string activeL;
+    private static string activeC;
+    private static string activeR;
+    private static string activeD;
+    private static string activeFoundation;
+    private static string activeWalls;
+    private static string activeGeneral;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        base.OnInitialized();
+        // SettingsState.OnStateChange += StateHasChanged;
+        CodexState.OnStateChange += StateHasChanged;
+
+        // _settings = SettingsState.Value ?? new AppSettings();
+
+        if (CodexState.Codex == null)
+        {
+            await CodexState.InitializeCodexAsync();
+        }
+
+        var category = CodexMenuState.SelectedCategory;
+
+        SetSelectedCategory(category);
+    }
+
+    public void Dispose()
+    {
+        // SettingsState.OnStateChange -= StateHasChanged;
+        CodexState.OnStateChange -= StateHasChanged;
+    }
+
+    private List<string> GetGroupNames()
+    {
+        var category = CodexMenuState.SelectedCategory;
+
+        if(category is not CodexCategory.Infrastructure)
+        {
+            return CodexState.Codex.CodexItems.Where(x => x.CodexCategory == category).Select(y => y.CodexItemType.ToString()).Distinct().ToList();
+        }
+
+        var infraCategory = CodexMenuState.SelectedInfrastructure;
+        var infraItems = CodexState.Codex.CodexItems.Where(x => x.CodexCategory == CodexCategory.Infrastructure).ToList();
+
+        var categoryNames = infraCategory switch
+        {
+            InfrastructureSubCategory.Foundations => infraItems.Where(x => x.CodexItemType is CodexItemType.Foundation)
+                                                               .Select(y => y.CodexSubItemType.ToString()).Distinct().ToList(),
+            InfrastructureSubCategory.WallsRoofs => infraItems.Where(x => x.CodexItemType is CodexItemType.Wall || 
+                                                                          x.CodexItemType is CodexItemType.Roof)
+                                                              .Select(y => y.CodexSubItemType.ToString()).Distinct().ToList(),
+            InfrastructureSubCategory.General => infraItems.Where(x => x.CodexItemType is not CodexItemType.Default &&
+                                                                       x.CodexItemType is not CodexItemType.Foundation &&
+                                                                       x.CodexItemType is not CodexItemType.Wall &&
+                                                                       x.CodexItemType is not CodexItemType.Roof)
+                                                                       .OrderBy(z => z.CodexSubItemType)
+                                                              .Select(y => y.CodexSubItemType.ToString()).Distinct().ToList(),
+        };
+
+        return categoryNames;
+    }
+
+    private void SetSelectedCategory(CodexCategory category)
+    {
+        CodexMenuState.SetCategory(category);
+
+        activeU = "";
+        activeL = "";
+        activeC = "";
+        activeR = "";
+        activeD = "";
+
+        switch(category)
+        {
+            case CodexCategory.Item:
+                activeU = "codex-sub-btn-active";
+                break;
+            case CodexCategory.Equipment :
+                activeL = "codex-sub-btn-active";
+                break;
+            case CodexCategory.Building:
+                activeC = "codex-sub-btn-active";
+                break;
+            case CodexCategory.Infrastructure:
+                activeD = "codex-sub-btn-active";
+                break;
+            case CodexCategory.Unlock:
+                activeR = "codex-sub-btn-active";
+                break;
+        }
+    }
+
+    private void SetSelectedInfrastructure(InfrastructureSubCategory category)
+    {
+        CodexMenuState.SetInfrastructure(category);
+
+        activeFoundation = "";
+        activeWalls = "";
+        activeGeneral = "";
+
+        switch(category)
+        {
+            case InfrastructureSubCategory.Foundations:
+                activeFoundation = "codex-sub-btn-active";
+                break;
+            case InfrastructureSubCategory.WallsRoofs:
+                activeWalls = "codex-sub-btn-active";
+                break;
+            case InfrastructureSubCategory.General:
+                activeGeneral = "codex-sub-btn-active";
+                break;
+        }
+
+    }
+
+    private string GetNavContainerCss()
+    {
+        var category = CodexMenuState.SelectedCategory;
+
+        if (category is CodexCategory.Infrastructure)
+        {
+            return "quick-nav-list-container container-infra-active";
+        }
+
+        return "quick-nav-list-container";
+    }
+
+    private string GetInfraSubMenuCss()
+    {
+        var category = CodexMenuState.SelectedCategory;
+
+        if (category is CodexCategory.Infrastructure)
+        {
+            return "codex-infra-sub-menu infra-active";
+        }
+
+        return "codex-infra-sub-menu";
+    }
+
+
 
     private static string FormatCategoryName(string name)
     {

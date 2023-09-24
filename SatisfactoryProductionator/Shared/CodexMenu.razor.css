@@ -27,6 +27,7 @@ div.codex-menu {
     margin-left: 15px;
     margin-top: 15px;
     background: black;
+    z-index: 10;
     --aug-border-all: 2px;
     --aug-border-bg: var(--sfBlue);
     --aug-tl: 10px;
@@ -35,27 +36,33 @@ div.codex-menu {
     --aug-br: 30px;
 }
 
+.codex-submenu-loading {
+    position: relative;
+    top: 10px;
+    left: 20px;
+}
+
 .codex-sub-button {
     position: absolute;
     --aug-border-all: 1px;
     --aug-border-bg: var(--sfBlue);
 }
 
-    .codex-sub-button:hover {
+    .codex-sub-button:hover,
+    .infra:hover {
         --aug-border-all: 2px;
         background-color: var(--sfBlue20);
     }
 
-        .codex-sub-button:hover .codex-sub-text {
-            transform:scale(1.1);
-        }
-
 .codex-sub-btn {
-    border: 1px solid red;
     width:100%;
     height:100%;
-    padding:0px;
+    border:0px;
     background:unset;
+}
+
+.codex-sub-btn-active {
+    background-color: var(--sfBlue20);
 }
 
 div.codex-sub-u {
@@ -67,6 +74,7 @@ div.codex-sub-u {
     --aug-tr: 6px;
     --aug-bl: 52px;
     --aug-br: 43px;
+    --aug-border-top: 2px;
 }
 
 div.codex-sub-l {
@@ -79,6 +87,7 @@ div.codex-sub-l {
     --aug-bl: 4px;
     --aug-br: 47px;
     --aug-r: 24px;
+    --aug-border-left: 2px;
 }
 
 div.codex-sub-c {
@@ -103,6 +112,7 @@ div.codex-sub-r {
     --aug-br: 9px;
     --aug-l: 26px;
     --aug-tr-inset1: 8px;
+    --aug-border-right: 2px;
 }
 
 div.codex-sub-d {
@@ -114,6 +124,7 @@ div.codex-sub-d {
     --aug-tr: 41px;
     --aug-bl: 9px;
     --aug-br: 12px;
+    --aug-border-bottom: 2px;
 }
 
 .codex-sub-text {
@@ -158,8 +169,54 @@ div.codex-sub-d {
     font-size: 18px;
 }
 
+.codex-infra-sub-menu {
+    position: absolute;
+    top: 18px;
+    left: 21px;
+    height: 170px;
+    width: 210px;
+    background: black;
+    z-index: 9;
+    --aug-border-all: 2px;
+    --aug-border-bg: var(--sfBlue); 
+    --aug-tl: 10px;
+    --aug-tr: 10px;
+    --aug-bl: 15px;
+    --aug-br: 10px;
+    transition: .3s;
+}
 
+.infra-active {
+    top: 150px;
+}
 
+.infra-text-foundation {
+    top: 2px;
+    left: 55px;
+    font-size: 20px;
+}
+
+.infra-text-walls-roofs {
+    top: 10px;
+    left: 34px;
+    font-size: 20px;
+}
+
+.infra-text-general {
+    top: 2px;
+    left: 57px;
+    font-size: 20px;
+}
+
+.quick-nav-list-container {
+    left:10px;
+    width: 230px;
+    position: absolute;
+    overflow: auto;
+    overflow-x: hidden;
+    height: calc(100vh - 440px);
+    transition: .3s;
+}
 
 
 
@@ -177,9 +234,68 @@ div.codex-sub-d {
     padding-top: 0px;
 }
 
+.container-infra-active {
+    padding-top: 120px;
+}
+
+.infra {
+    --aug-border-all: 1px;
+    --aug-border-bg: var(--sfBlue);
+    position: absolute;
+}
+
+.infra-foundation {
+    top: 54px;
+    left: 6px;
+    height: 35px;
+    width: 198px;
+    --aug-tl: 7px;
+    --aug-tr: 10px;
+    --aug-bl: 10px;
+    --aug-br: 10px;
+    --aug-bl-inset2: 40px;
+    --aug-br-inset1: 25px;
+    --aug-border-x: 2px;
+    --aug-border-top: 2px;
+}
+
+.infra-wall {
+    top: 82px;
+    left: 6px;
+    height: 54px;
+    width: 198px;
+    --aug-t: 10px;
+    --aug-r: 5px;
+    --aug-l: 8px;
+    --aug-b: 10px;
+    --aug-t-extend1: 113px;
+    --aug-t-offset: 8px;
+    --aug-b-extend1: 124px;
+    --aug-b-offset: -7px;
+    --aug-l-offset: -2px;
+    --aug-r-offset: 12px;
+    --aug-border-x: 2px;
+}
+
+.infra-general {
+    top: 129px;
+    left: 6px;
+    height: 35px;
+    width: 198px;
+    --aug-tl: 10px;
+    --aug-tr: 10px;
+    --aug-bl: 10px;
+    --aug-br: 9px;
+    --aug-tl-inset1: 20px;
+    --aug-tr-inset2: 35px;
+    --aug-border-x: 2px;
+    --aug-border-bottom: 2px;
+}
+
+
 .quick-nav-list-item {
     display: grid;
-    text-align: -webkit-match-parent;
+    text-align: inherit;
     width: 200px;
 }
 
@@ -216,4 +332,29 @@ div.codex-sub-d {
 .quick-nav-list-item-button-text {
     top: -3px;
     position: relative;
+}
+
+.quick-nav-list-container::-webkit-scrollbar {
+    width: 3px;
+}
+
+.quick-nav-list-container::-webkit-scrollbar-track {
+    background: var(--sfBlue40);
+    border-radius: 100vh;
+    margin-block: 2em;
+    margin-block-start: 1em;
+}
+
+.quick-nav-list-container::-webkit-scrollbar-thumb {
+    border: 3px solid rgba(255, 255, 255, .15);
+    border-radius: 100vh;
+    background: var(--sfBlue40);
+}
+
+.quick-nav-list-container::-webkit-scrollbar-thumb:hover {
+    background: var(--myblue);
+}
+
+.quick-nav-list-container::-webkit-scrollbar-track:hover {
+    background: var(--myhoverblueclear2);
 }

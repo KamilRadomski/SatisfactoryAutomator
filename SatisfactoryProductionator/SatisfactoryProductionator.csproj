@@ -14,14 +14,19 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SatisfactoryProductionator.DataManager\SatisfactoryProductionator.DataManager.csproj" />
     <ProjectReference Include="..\SatisfactoryProductionator.DataModels\SatisfactoryProductionator.DataModels.csproj" />
-    <ProjectReference Include="..\SatisfactoryProductionator.DataParser\SatisfactoryProductionator.DataParser.csproj" />
+    <ProjectReference Include="..\SatisfactoryProductionator.DataService\SatisfactoryProductionator.DataService.csproj" />
+    <ProjectReference Include="..\SatisfactoryProductionator.Services\SatisfactoryProductionator.Services.csproj" />
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Utility\" />
     <Folder Include="wwwroot\images" />
     <Folder Include="wwwroot\images\icons" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\.editorconfig" Link=".editorconfig" />
   </ItemGroup>
 
   <ItemGroup>

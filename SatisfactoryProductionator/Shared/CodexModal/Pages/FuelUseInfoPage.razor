@@ -1,0 +1,136 @@
+﻿@using SatisfactoryProductionator.DataModels.Enums;
+@using SatisfactoryProductionator.DataModels.Models.Codex;
+@using SatisfactoryProductionator.DataModels.Models;
+@using SatisfactoryProductionator.Services;
+
+@inject CodexModalState CodexModalState;
+@inject CodexState CodexState;
+
+@implements IDisposable
+
+<table class="page-table w99">
+    <tr>
+        <td colspan="4" class="page-header w99">@FormatCategoryName(GetPageType().ToString())</td>
+    </tr>
+    <tr>
+        <td>
+        @{
+            var fuelBundle = BundleFuelInputs();
+        }
+            <table class="w99">
+                @foreach(var group in fuelBundle)
+                {
+                <tr class="flex-even w99">
+                
+                    @foreach (var item in group)
+                    {
+                        <td>
+                            @if (fuelBundle.Count > 1)
+                            {
+                                <button class="image-button" type="button" @onclick="@(() => SetSelectedItem(item.Key))">
+                                    <img class="image-96" src=@GetIconPath(item.Key) alt=@item.Key />
+                                    <div class="button-text-16"> @Math.Round(item.Value[1], 2)/min</div>
+                                </button>
+                            }
+                            else
+                            {
+                                <button class="image-button mt-48" type="button" @onclick="@(() => SetSelectedItem(item.Key))">
+                                    <img class="image-128" src=@GetIconPath(item.Key) alt=@item.Key />
+                                    <div class="button-text-16"> @Math.Round(item.Value[1], 2)/min</div>
+                                </button>
+                            }
+                        </td>
+                    }
+                </tr>
+                }
+            </table>
+        </td>
+    </tr>
+</table>
+
+
+@code {
+    [CascadingParameter(Name = "SelectedEntry")]
+    public ModalEntry selectedEntry { get; set; }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        CodexModalState.OnStateChange += StateHasChanged;
+        CodexState.OnStateChange += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        CodexModalState.OnStateChange -= StateHasChanged;
+        CodexState.OnStateChange -= StateHasChanged;
+    }
+
+    private string FormatCategoryName(string name)
+    {
+        for (int i = name.Length - 1; i > 0; i--)
+        {
+            if (char.IsUpper(name[i]))
+            {
+                name = name.Insert(i, ".");
+            }
+        }
+        return name;
+    }
+
+    private PageType GetPageType()
+    {
+        var index = selectedEntry.Index;
+
+        return selectedEntry.CodexItem.Pages[index].PageType;
+    }
+
+    private void SetSelectedItem(string itemName)
+    {
+        var item = CodexState.FetchItem(itemName);
+        CodexModalState.SetSelectedItem(item);
+    }
+
+    private Recipe GetFuels()
+    {
+        var index = selectedEntry.Index;
+
+        var classNames = selectedEntry.CodexItem.Pages[index].Recipes;
+
+        return CodexState.FetchRecipes( classNames).First();
+    }
+
+    private string GetIconPath(string itemName)
+    {
+        var item = CodexState.FetchItem(itemName);
+
+        return item.IconPath;
+    }
+
+    private List<List<KeyValuePair<string, double[]>>> BundleFuelInputs()
+    {
+        List<List<KeyValuePair<string, double[]>>> items = new();
+
+        var inputs = GetFuels().Inputs.ToList();
+        var tempList = new List<KeyValuePair<string, double[]>>();
+
+        foreach (var entry in inputs)
+        {
+            tempList.Add(entry);
+
+            if(tempList.Count % 5 == 0)
+            {
+                items.Add(tempList);
+                tempList = new List<KeyValuePair<string, double[]>>();
+            }
+        }
+
+        if(tempList.Count > 0) 
+        {
+            items.Add(tempList);
+        }
+
+        return items;
+    }
+}

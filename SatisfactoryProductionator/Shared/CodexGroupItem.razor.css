@@ -1,0 +1,46 @@
+﻿.codex-group-item {
+    background: unset;
+    padding: 0;
+    margin: 0;
+    width:100%;
+    height:100%;
+    border: unset;
+}
+
+div.codex-item-button {
+    width: 310px;
+    height: 300px;
+    margin: 10px;
+    --aug-tl: 30px;
+    --aug-tr: 25px;
+    --aug-br: 20px;
+    --aug-bl: 20px;
+    --aug-border-y: 3px;
+    --aug-border-x: 1px;
+    --aug-border-bg: var(--myblue);
+    --aug-tr-extend2: 63%;
+    background: black;
+}
+
+.codex-item-button:hover {
+    --aug-border-y: 5px;
+    --aug-border-x: 2px;
+    background: var(--sfBlue20);
+}
+
+.codex-item-name {
+    position: relative;
+    margin: 0px;
+    padding: 0px;
+    padding-right: 20px;
+    top: 0px;
+    font-size: 1rem;
+    color: var(--myblue);
+    text-align: right;
+    font-variant: small-caps;
+}
+
+.codex-group-item img {
+    padding-right:20px;
+}
+

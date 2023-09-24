@@ -1,31 +1,38 @@
 ﻿@page "/settings"
-@using SatisfactoryProductionator.Shared.States
-@using SatisfactoryProductionator.Shared.States.Models
-@inject SettingsState SettingsState
+
+@using SatisfactoryProductionator.DataModels.Enums;
+@using SatisfactoryProductionator.DataModels.Models.Codex;
+@using SatisfactoryProductionator.DataModels;
+@using SatisfactoryProductionator.Services;
+@using SatisfactoryProductionator.Shared;
+@using SatisfactoryProductionator.Shared.CodexModal;
+
+@inject CodexState CodexState
+@inject CodexMenuState CodexMenuState
+
 @implements IDisposable
-
-<div style="position: relative;top: 50px; left: 300px">
-
-    
-
-</div>
-
 
 
 @code {
 
     private static AppSettings _settings = new AppSettings();
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
         base.OnInitialized();
-        SettingsState.OnStateChange += StateHasChanged;
-        _settings = SettingsState.Value ?? new AppSettings();
+        CodexState.OnStateChange += StateHasChanged;
+        CodexMenuState.OnStateChange += StateHasChanged;
+
+        if (CodexState.Codex == null)
+        {
+            await CodexState.InitializeCodexAsync();
+        }
     }
 
     public void Dispose()
     {
-        SettingsState.OnStateChange -= StateHasChanged;
+        CodexState.OnStateChange -= StateHasChanged;
+        CodexMenuState.OnStateChange -= StateHasChanged;
     }
 
 }

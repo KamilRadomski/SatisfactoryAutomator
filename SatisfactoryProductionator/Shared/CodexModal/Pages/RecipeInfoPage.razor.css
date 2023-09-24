@@ -1,0 +1,48 @@
+﻿.recipe-button {
+    font-family: Tomorrow;
+    font-variant: small-caps;
+    background: unset;
+    color: var(--sfBlue);
+    border: unset;
+    width: 210px;
+    height: 40px;
+    white-space: nowrap;
+}
+
+    .recipe-button:hover {
+        background: var(--myhighlightblue);
+        color: var(--myhoverblue);
+    }
+
+    .recipe-button:active {
+        background: var(--myhoverblue);
+        color: var(--sfBlue);
+    }
+
+div.basic-recipe {
+    width: 210px;
+    height: 40px;
+    --aug-tl: 20px;
+    --aug-tr: 7px;
+    --aug-bl: 7px;
+    --aug-br: 20px;
+    --aug-border-all: 1px;
+    --aug-border-bg: var(--sfBlue);
+}
+
+div.alt-recipe {
+    width: 210px;
+    height: 40px;
+    --aug-tl: 4px;
+    --aug-tr: 4px;
+    --aug-bl: 6px;
+    --aug-br: 6px;
+    --aug-b: 5px;
+    --aug-border-all: 1px;
+    --aug-border-bg: var(--sfBlue);
+}
+
+.recipe-quantity {
+    color: var(--sfBlue);
+    font-size: .75rem;
+}

@@ -1,0 +1,78 @@
+﻿@using SatisfactoryProductionator.DataModels.Enums;
+@using SatisfactoryProductionator.DataModels.Models.Codex;
+
+<div data-augmented-ui-reset></div>
+
+<div data-augmented-ui="tl-clip tr-2-clip-x br-clip bl-clip border" class="codex-group">
+    <div id="@GetGroupId()" class="codex-item-group">
+        <div class="codex-group-heading">@GetCategoryName()</div>
+        
+            <ul class="group-list">
+                @foreach (var item in GetGroup())
+                {
+                    <CodexGroupItem item=@item />
+                }
+            </ul>
+        
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public IGrouping<CodexItemType, CodexItem> itemGroup { get; set; }
+
+    [Parameter]
+    public IGrouping<CodexSubItemType, CodexItem> subItemGroup { get; set; }
+
+    [Parameter]
+    public CodexCategory category { get; set; }
+
+    private string GetCategoryName()
+    {
+        if (category is CodexCategory.Infrastructure)
+        {
+            return FormatCategoryName(subItemGroup.Key.ToString());
+        }
+        else
+        {
+            return FormatCategoryName(itemGroup.Key.ToString());
+        }
+    }
+
+    private string FormatCategoryName(string name)
+    {
+        for (int i = name.Length - 1; i > 0; i--)
+        {
+            if (char.IsUpper(name[i]))
+            {
+                name = name.Insert(i, ".");
+            }
+        }
+        return name;
+    }
+
+    private string GetGroupId()
+    {
+        if(category is CodexCategory.Infrastructure)
+        {
+            return subItemGroup.Key.ToString();
+        }
+        else
+        {
+            return itemGroup.Key.ToString();
+        }
+    }
+
+    private List<CodexItem> GetGroup()
+    {
+        if(category is CodexCategory.Infrastructure)
+        {
+            return subItemGroup.ToList();
+        }
+        else
+        {
+            return itemGroup.ToList();
+        }
+    }
+
+}

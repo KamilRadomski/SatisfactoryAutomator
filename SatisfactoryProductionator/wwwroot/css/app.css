@@ -1,5 +1,7 @@
 ﻿@import url('augmented-ui/augmented-ui.min.css');
 @import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
+@import url('codex-modal.css');
+
 @import url("https://fonts.googleapis.com/css?family=Barlow|Tomorrow:400,700&display=swap");
 
 
@@ -21,6 +23,9 @@
     --sfBlue10: rgba(33, 147, 227, .1);
     --sfBlue20: rgba(33, 147, 227, .2);
     --sfBlue40: rgba(33, 147, 227, .4);
+    --sfRed: rgb(255, 2, 0);
+    --sfOrange: rgb(255, 139, 0);
+    --sfGreen: rgb(16, 255, 0)
 }
 
 html, body {
@@ -104,7 +109,7 @@ a, .btn-link {
     margin-bottom: 0px;
 }
 
-
+/*
 ::-webkit-scrollbar {
     width: 1em;
 }
@@ -128,9 +133,18 @@ a, .btn-link {
 
 ::-webkit-scrollbar-track:hover {
     background: var(--myhoverblueclear2);
-}
+}*/
 
 .no-flow {
     overflow-y: hidden;
     overflow-x: hidden;
+}
+
+.w99 {
+    width: 99%;
+}
+
+.flex-even {
+    display: flex;
+    justify-content: space-evenly;
 }
