@@ -217,12 +217,12 @@ div.codex-sub-d {
 }
 
 .quick-nav-list-container {
-    left:10px;
+    left:0px;
     width: 230px;
     position: absolute;
     overflow: auto;
     overflow-x: hidden;
-    height: calc(100vh - 440px);
+    height: calc(100vh - 459px);
     transition: .3s;
 }
 
@@ -243,13 +243,34 @@ div.codex-sub-d {
 }
 
 .container-infra-active {
-    padding-top: 120px;
+    height: calc(100vh - 577px) !important; 
+}
+
+.nav-infra-active {
+    margin-top: 126px !important;
+    height: calc(100vh - 575px) !important;
 }
 
 .infra {
     --aug-border-all: 1px;
     --aug-border-bg: var(--sfBlue);
     position: absolute;
+}
+
+div.nav-wrapper {
+    position: absolute;
+    margin-top: 8px;
+    left: 10px;
+    height: calc(100vh - 457px);
+    width: 230px;
+    --aug-border-y: 2px;
+    --aug-border-x: 0px;
+    --aug-border-bg: var(--sfBlue);
+    --aug-tl: 10px;
+    --aug-tr: 10px;
+    --aug-bl: 23px;
+    --aug-br: 10px;
+    transition: .3s;
 }
 
 .infra-foundation {
@@ -350,7 +371,7 @@ div.codex-sub-d {
     background: var(--sfBlue40);
     border-radius: 100vh;
     margin-block: 2em;
-    margin-block-start: 1em;
+    margin-block-start: 2em;
 }
 
 .quick-nav-list-container::-webkit-scrollbar-thumb {

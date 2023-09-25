@@ -55,24 +55,26 @@
                 </button>
             </div>
         </div>
-        @if(CodexState.Codex == null)
+        @if (CodexState.Codex == null)
         {
             <div class="codex-submenu-loading">Loading....</div>
         }
         else
         {
-            <div class=@GetNavContainerCss()>
-                @* <div class="quick-nav-list-container container-infra-active"> *@
-                <ul class="quick-nav-list">
-                    @foreach (var name in GetGroupNames())
-                    {
-                        <li class="quick-nav-list-item">
-                            <button type="button" class="quick-nav-list-item-button" onclick="document.getElementById('@name').scrollIntoView({behavior:'smooth'})">
-                                <div class="quick-nav-list-item-button-text">@FormatCategoryName(name)</div>
-                            </button>
-                        </li>
-                    }
-                </ul>
+            <div data-augmented-ui="tl-clip tr-clip br-clip bl-clip border" class="nav-wrapper @NavInfra()">
+                <div class=@GetNavContainerCss()>
+                    @* <div class="quick-nav-list-container container-infra-active"> *@
+                    <ul class="quick-nav-list">
+                        @foreach (var name in GetGroupNames())
+                        {
+                            <li class="quick-nav-list-item">
+                                <button type="button" class="quick-nav-list-item-button" onclick="document.getElementById('@name').scrollIntoView({behavior:'smooth'})">
+                                    <div class="quick-nav-list-item-button-text">@FormatCategoryName(name)</div>
+                                </button>
+                            </li>
+                        }
+                    </ul>
+                </div>
             </div>
         }
     </div>
@@ -119,7 +121,7 @@
     {
         var category = CodexMenuState.SelectedCategory;
 
-        if(category is not CodexCategory.Infrastructure)
+        if (category is not CodexCategory.Infrastructure)
         {
             return CodexState.Codex.CodexItems.Where(x => x.CodexCategory == category).Select(y => y.CodexItemType.ToString()).Distinct().ToList();
         }
@@ -131,7 +133,7 @@
         {
             InfrastructureSubCategory.Foundations => infraItems.Where(x => x.CodexItemType is CodexItemType.Foundation)
                                                                .Select(y => y.CodexSubItemType.ToString()).Distinct().ToList(),
-            InfrastructureSubCategory.WallsRoofs => infraItems.Where(x => x.CodexItemType is CodexItemType.Wall || 
+            InfrastructureSubCategory.WallsRoofs => infraItems.Where(x => x.CodexItemType is CodexItemType.Wall ||
                                                                           x.CodexItemType is CodexItemType.Roof)
                                                               .Select(y => y.CodexSubItemType.ToString()).Distinct().ToList(),
             InfrastructureSubCategory.General => infraItems.Where(x => x.CodexItemType is not CodexItemType.Default &&
@@ -155,12 +157,12 @@
         activeR = "";
         activeD = "";
 
-        switch(category)
+        switch (category)
         {
             case CodexCategory.Item:
                 activeU = "codex-sub-btn-active";
                 break;
-            case CodexCategory.Equipment :
+            case CodexCategory.Equipment:
                 activeL = "codex-sub-btn-active";
                 break;
             case CodexCategory.Building:
@@ -183,7 +185,7 @@
         activeWalls = "";
         activeGeneral = "";
 
-        switch(category)
+        switch (category)
         {
             case InfrastructureSubCategory.Foundations:
                 activeFoundation = "codex-sub-btn-active";
@@ -208,6 +210,18 @@
         }
 
         return "quick-nav-list-container";
+    }
+
+    private string NavInfra()
+    {
+        var category = CodexMenuState.SelectedCategory;
+
+        if (category is CodexCategory.Infrastructure)
+        {
+            return "nav-infra-active";
+        }
+
+        return "";
     }
 
     private string GetInfraSubMenuCss()
