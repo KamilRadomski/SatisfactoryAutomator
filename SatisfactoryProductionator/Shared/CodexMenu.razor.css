@@ -337,7 +337,8 @@ div.nav-wrapper {
     background: black;
     color: var(--sfBlue);
     border: 2px solid;
-    height: 87%;
+    height: 100%;
+    width: 100%;
     margin-bottom: 3px;
     padding-bottom: 1px;
 }
@@ -362,6 +363,97 @@ div.nav-wrapper {
     top: -3px;
     position: relative;
 }
+
+.quick-nav-li {
+    display: grid;
+    text-align: inherit;
+}
+
+.quick-nav-btn {
+    font-family: Tomorrow;
+    font-variant: small-caps;
+    -webkit-appearance: button;
+    font-size: 1.3rem;
+    background: black;
+    color: var(--sfBlue);
+    border: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.quick-nav-text {
+    top: -1px;
+    position: relative;
+}
+
+.quick-nav {
+    width: 200px;
+    height: 46px;
+}
+
+.quick-nav:hover .quick-nav-text {
+    color:var(--sfBlueHover);
+}
+
+    .quick-nav:hover .quick-nav-btn {
+        background: var(--sfBlue20);
+    }
+
+
+div.quick-nav-0 {
+    --aug-border-bottom: 1px;
+    --aug-border-top: 2px;
+    --aug-border-x: 2px;
+    --aug-border-bg: var(--sfBlue);
+    --aug-tl: 7px;
+    --aug-tr: 13px;
+    --aug-bl: 12px;
+    --aug-br: 7px;
+    --aug-br-extend2: 90px;
+}
+
+    div.quick-nav-0:hover {
+        --aug-border-bottom: 2px;
+        --aug-border-top: 3px;
+        --aug-border-x: 3px;
+    }
+
+div.quick-nav-mid {
+    --aug-border-y: 1px;
+    --aug-border-x: 2px;
+    --aug-border-bg: var(--sfBlue);
+    --aug-tl: 7px;
+    --aug-tr: 13px;
+    --aug-bl: 12px;
+    --aug-br: 7px;
+    --aug-br-extend2: 90px;
+    --aug-tl-extend2: 90px;
+    margin-top: -4px;
+}
+
+    div.quick-nav-mid:hover {
+        --aug-border-y: 2px;
+        --aug-border-x: 3px;
+    }
+
+div.quick-nav-last {
+    --aug-border-bottom: 2px;
+    --aug-border-top: 1px;
+    --aug-border-x: 2px;
+    --aug-border-bg: var(--sfBlue);
+    --aug-tl: 7px;
+    --aug-tr: 13px;
+    --aug-bl: 12px;
+    --aug-br: 10px;
+    --aug-tl-extend2: 90px;
+    margin-top: -4px;
+}
+
+    div.quick-nav-last:hover {
+        --aug-border-bottom: 3px;
+        --aug-border-top: 2px;
+        --aug-border-x: 3px;
+    }
 
 .quick-nav-list-container::-webkit-scrollbar {
     width: 3px;
