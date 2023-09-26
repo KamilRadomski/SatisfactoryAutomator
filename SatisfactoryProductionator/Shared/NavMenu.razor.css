@@ -37,14 +37,21 @@ div.nav-panel {
             background-color: var(--sfBlue40);
         }
 
-
     .nav-item:active {
         --aug-border-all: 3px;
+
     }
 
     .nav-item ::deep a:hover {
         background-color: var(--sfBlue20);
     }
+
+.nav-item:hover .nav-oi,
+.nav-item:hover div,
+.nav-item ::deep a.active .nav-oi,
+.nav-item ::deep a.active div {
+    color: var(--sfBlueHover)
+}
 
 .nav-item-hover {
     transform: scale(1.08);
