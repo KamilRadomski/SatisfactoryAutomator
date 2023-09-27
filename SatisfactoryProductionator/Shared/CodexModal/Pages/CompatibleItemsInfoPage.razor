@@ -11,7 +11,7 @@
 
 <table class="page-table w99">
     <tr>
-        <td colspan="4" class="page-header">@GetPageType().ToString().FormatCategoryName()</td>
+        <td colspan="4" class="page-header">@selectedEntry.GetPageHeader().FormatCategoryName()</td>
     </tr>
     <tr>
         <table class="flex-even">
@@ -47,13 +47,6 @@
     {
         CodexModalState.OnStateChange -= StateHasChanged;
         CodexState.OnStateChange -= StateHasChanged;
-    }
-
-    private PageType GetPageType()
-    {
-        var index = selectedEntry.Index;
-
-        return selectedEntry.CodexItem.Pages[index].PageType;
     }
 
     private List<CodexItem> GetItems()
