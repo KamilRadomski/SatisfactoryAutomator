@@ -1,5 +1,6 @@
 ﻿@using SatisfactoryProductionator.DataModels.Enums;
 @using SatisfactoryProductionator.DataModels.Models.Codex;
+@using SatisfactoryProductionator.Extensions;
 
 <div data-augmented-ui-reset></div>
 
@@ -31,24 +32,12 @@
     {
         if (category is CodexCategory.Infrastructure)
         {
-            return FormatCategoryName(subItemGroup.Key.ToString());
+            return subItemGroup.Key.ToString().FormatCategoryName();
         }
         else
         {
-            return FormatCategoryName(itemGroup.Key.ToString());
+            return itemGroup.Key.ToString().FormatCategoryName();
         }
-    }
-
-    private string FormatCategoryName(string name)
-    {
-        for (int i = name.Length - 1; i > 0; i--)
-        {
-            if (char.IsUpper(name[i]))
-            {
-                name = name.Insert(i, ".");
-            }
-        }
-        return name;
     }
 
     private string GetGroupId()

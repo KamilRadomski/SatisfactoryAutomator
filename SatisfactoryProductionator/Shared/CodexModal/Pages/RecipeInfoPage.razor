@@ -1,6 +1,7 @@
 ﻿@using SatisfactoryProductionator.DataModels.Enums;
 @using SatisfactoryProductionator.DataModels.Models.Codex;
 @using SatisfactoryProductionator.DataModels.Models;
+@using SatisfactoryProductionator.Extensions;
 @using SatisfactoryProductionator.Services;
 
 @inject CodexModalState CodexModalState;
@@ -19,7 +20,7 @@
         {
             _currentRecipeType = recipe.RecipeType;
             <tr>
-                <td colspan="4" class="page-header">@FormatCategoryName(GetPageHeader(recipe))</td>
+                <td colspan="4" class="page-header">@GetPageHeader(recipe).FormatCategoryName()</td>
             </tr>
         }
 
@@ -31,7 +32,7 @@
                     <div data-augmented-ui="tl-clip tr-clip br-clip bl-clip border" class="basic-recipe">
                         <button type="button" class="recipe-button">
                             @* <button type="button" class="info-panel-recipe-name-button" @onclick="@(() => SetRecipeDetails(recipe.DisplayName))"> *@
-                            @FormatDisplayName(recipe.DisplayName!)
+                            @recipe.DisplayName.FormatDisplayName()
                         </button>
                     </div>
                     @*   </div> *@
@@ -42,7 +43,7 @@
                     <div data-augmented-ui="tl-2-clip-x tr-2-clip-x br-2-clip-x b-clip-x bl-2-clip-x border" class="alt-recipe">
                         <button type="button" class="recipe-button">
                             @* <button type="button" class="info-panel-recipe-name-button" @onclick="@(() => SetRecipeDetails(recipe.DisplayName))"> *@
-                            @FormatDisplayName(recipe.DisplayName!)
+                            @recipe.DisplayName.FormatDisplayName()
                         </button>
                     </div>
                     @* </div> *@
@@ -104,8 +105,6 @@
         CodexState.OnStateChange -= StateHasChanged;
     }
 
-    private string FormatDisplayName(string name) => name.Replace(" - ", "-").Replace(" ", ".");
-
     private List<Recipe> GetRecipes()
     {
         var index = selectedEntry.Index;
@@ -114,18 +113,6 @@
         var recipes = CodexState.FetchRecipes(recipeNames);
 
         return recipes;
-    }
-
-    private string FormatCategoryName(string name)
-    {
-        for (int i = name.Length - 1; i > 0; i--)
-        {
-            if (char.IsUpper(name[i]))
-            {
-                name = name.Insert(i, ".");
-            }
-        }
-        return name;
     }
 
     private string GetPageHeader(Recipe recipe)

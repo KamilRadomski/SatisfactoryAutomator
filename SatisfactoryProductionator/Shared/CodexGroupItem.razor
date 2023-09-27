@@ -1,4 +1,5 @@
 ﻿@using SatisfactoryProductionator.DataModels.Models.Codex;
+@using SatisfactoryProductionator.Extensions;
 @using SatisfactoryProductionator.Services;
 
 @inject CodexModalState CodexModalState;
@@ -8,10 +9,10 @@
 <div data-augmented-ui-reset></div>
 
 <div data-augmented-ui="tl-clip tr-2-clip-y br-clip bl-2-clip-x border" class="codex-item-button">
-    <button class="codex-group-item" type="button" @onclick="@(() => SetSelectedItem(@item))">
+    <button class="codex-group-item" type="button" @onclick="@(() => CodexModalState.SetSelectedItem(item))">
         <img src=@item.IconPath alt=@item.ClassName />
         <div class="codex-item-name">
-            @FormatDisplayName(item.DisplayName)
+            @item.DisplayName.FormatDisplayName()
         </div>
     </button>
 </div>
@@ -20,7 +21,6 @@
 @code {
     [Parameter]
     public CodexItem item { get; set; }
-
 
     protected override void OnInitialized()
     {
@@ -32,10 +32,4 @@
     {
         CodexModalState.OnStateChange -= StateHasChanged;
     }
-
-    private void SetSelectedItem(CodexItem item) => CodexModalState.SetSelectedItem(item);
-
-    private void ToggleModal() => CodexModalState.ToggleCodexModal();
-
-    private static string FormatDisplayName(string name) => name.Replace(" - ", "-").Replace(" ", ".");
 }

@@ -46,20 +46,22 @@
             <ProduceableInfoPage />
         }
 
-        @if (GetPageCount() > 1)
+        var pageCount = CodexModalState.GetPageCount();
+
+        @if (pageCount > 1)
         {
             <div data-augmented-ui-reset class="info-panel-recipe-paging">
                 <div class="info-panel-recipe-paging-pages">
-                    @for (var i = 0; i < GetPageCount(); i++)
+                    @for (var i = 0; i < pageCount; i++)
                     {
-                        <div class=@ParseCssPageLight(i)></div>
+                        <div class="pages-light @PageLightCss(i)"></div>
                     }
                 </div>
                 <div class="info-panel-recipe-paging-nav">
-                    <button type="button" class="info-panel-recipe-paging-nav-button" @onclick=@InfoPageLeft>
+                    <button type="button" class="info-panel-recipe-paging-nav-button" @onclick=@(() => CodexModalState.SetPageLeft())>
                         <span class="info-panel-paging-nav-icon oi-caret-left" aria-hidden="true"></span>
                     </button>
-                    <button type="button" class="info-panel-recipe-paging-nav-button" @onclick=@InfoPageRight>
+                    <button type="button" class="info-panel-recipe-paging-nav-button" @onclick=@(() => CodexModalState.SetPageRight())>
                         <span class="info-panel-paging-nav-icon oi-caret-right" aria-hidden="true"></span>
                     </button>
                 </div>
@@ -73,8 +75,6 @@
     [CascadingParameter(Name = "SelectedEntry")]
     public ModalEntry selectedEntry { get; set; }
 
-    private RecipeType _currentRecipeType { get; set; }
-
     protected override void OnInitialized()
     {
         base.OnInitialized();
@@ -86,19 +86,7 @@
     {
         CodexModalState.OnStateChange -= StateHasChanged;
     }
-
-    private string FormatCategoryName(string name)
-    {
-        for (int i = name.Length - 1; i > 0; i--)
-        {
-            if (char.IsUpper(name[i]))
-            {
-                name = name.Insert(i, ".");
-            }
-        }
-        return name;
-    }
-
+   
     private PageType GetPageType()
     {
         var index = selectedEntry.Index;
@@ -107,22 +95,6 @@
         return page.PageType;
     }
 
-    private int GetPageCount()
-    {
-        return CodexModalState.GetPageCount();
-    }
-
-    private void InfoPageLeft()
-    {
-        CodexModalState.SetPageLeft();
-    }
-
-    private void InfoPageRight()
-    {
-        CodexModalState.SetPageRight();
-    }
-
-    private string ParseCssPageLight(int i) => selectedEntry.Index == i ? "info-panel-recipe-paging-pages-light info-panel-recipe-paging-pages-light-on" : "info-panel-recipe-paging-pages-light info-panel-recipe-paging-pages-light-off";
+    private string PageLightCss(int i) => selectedEntry.Index == i ? "light-on" : "light-off";
 
 }
-

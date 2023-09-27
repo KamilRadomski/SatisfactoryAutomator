@@ -1,6 +1,7 @@
 ﻿@using SatisfactoryProductionator.DataModels.Enums;
 @using SatisfactoryProductionator.DataModels.Models.Codex;
 @using SatisfactoryProductionator.DataModels.Models;
+@using SatisfactoryProductionator.Extensions;
 @using SatisfactoryProductionator.Services;
 
 @inject CodexModalState CodexModalState;
@@ -10,7 +11,7 @@
 
 <table class="page-table w99">
     <tr>
-        <td colspan="4" class="page-header w99">@FormatCategoryName(GetPageType().ToString())</td>
+        <td colspan="4" class="page-header w99">@GetPageType().ToString().FormatCategoryName()</td>
     </tr>
     <tr>
         <td>
@@ -67,18 +68,6 @@
         CodexState.OnStateChange -= StateHasChanged;
     }
 
-    private string FormatCategoryName(string name)
-    {
-        for (int i = name.Length - 1; i > 0; i--)
-        {
-            if (char.IsUpper(name[i]))
-            {
-                name = name.Insert(i, ".");
-            }
-        }
-        return name;
-    }
-
     private PageType GetPageType()
     {
         var index = selectedEntry.Index;
@@ -98,7 +87,7 @@
 
         var classNames = selectedEntry.CodexItem.Pages[index].Recipes;
 
-        return CodexState.FetchRecipes( classNames).First();
+        return CodexState.FetchRecipes(classNames).First();
     }
 
     private string GetIconPath(string itemName)

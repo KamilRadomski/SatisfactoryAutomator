@@ -1,4 +1,5 @@
 ﻿@using SatisfactoryProductionator.DataModels.Enums;
+@using SatisfactoryProductionator.Extensions;
 @using SatisfactoryProductionator.Services;
 
 @inject CodexState CodexState
@@ -77,7 +78,7 @@
                             {
                                 <div data-augmented-ui="tl-clip tr-clip br-2-clip-x bl-clip border" class="quick-nav quick-nav-0">
                                     <button type="button" class="quick-nav-btn" onclick="document.getElementById('@names[i]').scrollIntoView({behavior:'smooth'})">
-                                        <div class="quick-nav-text">@FormatCategoryName(names[i])</div>
+                                        <div class="quick-nav-text">@names[i].FormatCategoryName()</div>
                                     </button>
                                 </div>
                             }
@@ -85,7 +86,7 @@
                             {
                                 <div data-augmented-ui=" tl-2-clip-x tr-clip br-2-clip-x bl-clip border" class="quick-nav quick-nav-mid">
                                     <button type="button" class="quick-nav-btn" onclick="document.getElementById('@names[i]').scrollIntoView({behavior:'smooth'})">
-                                        <div class="quick-nav-text">@FormatCategoryName(names[i])</div>
+                                        <div class="quick-nav-text">@names[i].FormatCategoryName()</div>
                                     </button>
                                 </div>
                             }
@@ -93,7 +94,7 @@
                             {
                                 <div data-augmented-ui=" tl-2-clip-x tr-clip br-clip bl-clip border" class="quick-nav quick-nav-last">
                                     <button type="button" class="quick-nav-btn" onclick="document.getElementById('@names[i]').scrollIntoView({behavior:'smooth'})">
-                                        <div class="quick-nav-text">@FormatCategoryName(names[i])</div>
+                                        <div class="quick-nav-text">@names[i].FormatCategoryName()</div>
                                     </button>
                                 </div>
                             }
@@ -262,17 +263,4 @@
         return "codex-infra-sub-menu";
     }
 
-
-
-    private static string FormatCategoryName(string name)
-    {
-        for (int i = name.Length - 1; i > 0; i--)
-        {
-            if (char.IsUpper(name[i]))
-            {
-                name = name.Insert(i, ".");
-            }
-        }
-        return name;
-    }
 }

@@ -41,19 +41,19 @@
     align-items: center;
 }
 
-.info-panel-recipe-paging-pages-light {
+.pages-light {
     height: 15px;
     width: 15px;
     margin: 2px;
 }
 
-.info-panel-recipe-paging-pages-light-on {
-    background: var(--myblue);
+.light-on {
+    background: var(--sfBlue);
     transform: scale(1.15);
 }
 
-.info-panel-recipe-paging-pages-light-off {
-    background: var(--myblue50);
+.light-off {
+    background: var(--sfBlue40);
 }
 
 .info-panel-recipe-paging-nav {
