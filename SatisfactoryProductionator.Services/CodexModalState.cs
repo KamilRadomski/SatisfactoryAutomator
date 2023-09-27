@@ -12,6 +12,18 @@ namespace SatisfactoryProductionator.Services
 
         public event Action OnStateChange;
 
+        private readonly CodexState _codexState;
+
+        public CodexModalState(CodexState codexState)
+        {
+            if(codexState.Codex == null)
+            {
+                codexState.InitializeCodexAsync();
+            }
+
+            _codexState = codexState;
+        }
+
         public void ToggleCodexModal()
         {
             Active = !Active;
@@ -37,6 +49,12 @@ namespace SatisfactoryProductionator.Services
         {
             if (SelectedEntry == null) return null;
             return SelectedEntry;
+        }
+
+        public void SetSelectedItem(string name)
+        {
+            var item = _codexState.FetchItem(name);
+            SetSelectedItem(item);
         }
 
         public void SetSelectedItem(CodexItem item) 
