@@ -1,0 +1,11 @@
+﻿.main-panel {
+    margin-left: 400px;
+    position: relative;
+    top: 14px;
+    margin-right: 22px;
+    height: 96vh;
+    overflow: scroll;
+    overflow-x: hidden;
+    background: inherit;
+    margin-bottom: 0px;
+}

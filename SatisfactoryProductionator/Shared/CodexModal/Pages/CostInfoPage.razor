@@ -22,7 +22,7 @@
                     <td>
                         <button class="image-button mt-48" type="button" @onclick="@(() => SetSelectedItem(item.Key!))">
                             <img class="image-128" src=@GetIconLocation(item.Key) alt=@item.Key />
-                            <div class="button-text-16">@Math.Round(item.Value[0], 2)</div>
+                            <div class="font-16 mt-4">@Math.Round(item.Value[0], 2)</div>
                         </button>
                     </td>
                 }

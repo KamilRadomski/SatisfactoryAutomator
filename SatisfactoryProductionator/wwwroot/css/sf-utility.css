@@ -1,5 +1,9 @@
-﻿.mt-6 {margin-top: 6px;}
+﻿.mt-4 {margin-top: 4px;}
+.mt-6 {margin-top: 6px;}
 .mt-48 {margin-top: 48px;}
+
+.font-12 {font-size: 12px;}
+.font-16 {font-size: 16px;}
 
 .pos-abs {position: absolute;}
 .pos-rel {position: relative;}
@@ -9,4 +13,34 @@
 .flex-even {
     display: flex;
     justify-content: space-evenly;
+}
+
+.flex-col {
+    display: flex;
+    flex-direction: column;
+}
+
+.image-64 {
+    max-width: 64px;
+    max-height: 64px;
+}
+
+.image-80 {
+    max-width: 80px;
+    max-height: 80px;
+}
+
+.image-96 {
+    max-width: 96px;
+    max-height: 96px;
+}
+
+.image-128 {
+    max-width: 128px;
+    max-height: 128px;
+}
+
+.no-flow {
+    overflow-y: hidden;
+    overflow-x: hidden;
 }

@@ -30,14 +30,14 @@
                             {
                                 <button class="image-button" type="button" @onclick="@(() => SetSelectedItem(item.Key))">
                                     <img class="image-96" src=@GetIconPath(item.Key) alt=@item.Key />
-                                    <div class="button-text-16"> @Math.Round(item.Value[1], 2)/min</div>
+                                        <div class="font-16 mt-4"> @Math.Round(item.Value[1], 2)/min</div>
                                 </button>
                             }
                             else
                             {
                                 <button class="image-button mt-48" type="button" @onclick="@(() => SetSelectedItem(item.Key))">
                                     <img class="image-128" src=@GetIconPath(item.Key) alt=@item.Key />
-                                    <div class="button-text-16"> @Math.Round(item.Value[1], 2)/min</div>
+                                        <div class="font-16 mt-4"> @Math.Round(item.Value[1], 2)/min</div>
                                 </button>
                             }
                         </td>
