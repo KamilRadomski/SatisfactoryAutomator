@@ -7,94 +7,94 @@
 
 <div data-augmented-ui-reset></div>
 
-<div data-augmented-ui="tl-clip tr-2-clip-y br-clip bl-clip border" class="codex-menu">
+<div data-augmented-ui="tl-clip tr-2-clip-y br-clip bl-clip border" class="pos-abs codex-menu">
     <div data-augmented-ui-reset></div>
-    <div data-augmented-ui="tl-clip tr-2-clip-y br-clip bl-2-clip-x border" class="codex-sub-menu">
+    <div data-augmented-ui="tl-clip tr-2-clip-y br-clip bl-2-clip-x border" class="sub-menu">
         <div data-augmented-ui-reset>
-            <div data-augmented-ui="tl-clip tr-clip br-clip bl-clip border" class="codex-sub-button codex-sub-u">
-                <button type="button" class="codex-sub-btn @activeU" @onclick="@(() => SetSelectedCategory(CodexCategory.Item))">
-                    <div class="codex-sub-text codex-sub-text-u">Items</div>
+            <div data-augmented-ui="tl-clip tr-clip br-clip bl-clip border" class="sub sub-u">
+                <button type="button" class="sub-btn @activeU" @onclick="@(() => SetSelectedCategory(CodexCategory.Item))">
+                    <div class="pos-abs text-u">Items</div>
                 </button>
             </div>
-            <div data-augmented-ui="tl-clip tr-clip br-clip bl-clip r-clip border" class="codex-sub-button codex-sub-l">
-                <button type="button" class="codex-sub-btn @activeL" @onclick="@(() => SetSelectedCategory(CodexCategory.Equipment))">
-                    <div class="codex-sub-text codex-sub-text-l">Gear</div>
+            <div data-augmented-ui="tl-clip tr-clip br-clip bl-clip r-clip border" class="sub sub-l">
+                <button type="button" class="sub-btn @activeL" @onclick="@(() => SetSelectedCategory(CodexCategory.Equipment))">
+                    <div class="pos-abs text-l">Gear</div>
                 </button>
             </div>
-            <div data-augmented-ui="tl-clip tr-clip br-clip bl-clip border" class="codex-sub-button codex-sub-c">
-                <button type="button" class="codex-sub-btn @activeC" @onclick="@(() => SetSelectedCategory(CodexCategory.Building))">
-                    <div class="codex-sub-text codex-sub-text-c">Buildings</div>
+            <div data-augmented-ui="tl-clip tr-clip br-clip bl-clip border" class="sub sub-c">
+                <button type="button" class="sub-btn @activeC" @onclick="@(() => SetSelectedCategory(CodexCategory.Building))">
+                    <div class="pos-abs text-c">Buildings</div>
                 </button>
             </div>
-            <div data-augmented-ui="tl-clip tr-clip-y br-clip bl-clip l-clip border" class="codex-sub-button codex-sub-r">
-                <button type="button" class="codex-sub-btn @activeR">
-                    <div class="codex-sub-text codex-sub-text-r">Tiers</div>
+            <div data-augmented-ui="tl-clip tr-clip-y br-clip bl-clip l-clip border" class="sub sub-r">
+                <button type="button" class="sub-btn @activeR">
+                    <div class="pos-abs text-r">Tiers</div>
                 </button>
             </div>
-            <div data-augmented-ui="tl-clip tr-clip br-clip bl-clip-x border" class="codex-sub-button codex-sub-d">
-                <button type="button" class="codex-sub-btn @activeD" @onclick="@(() => SetSelectedCategory(CodexCategory.Infrastructure))">
-                    <div class="codex-sub-text codex-sub-text-d">Infrastructure</div>
+            <div data-augmented-ui="tl-clip tr-clip br-clip bl-clip-x border" class="sub sub-d">
+                <button type="button" class="sub-btn @activeD" @onclick="@(() => SetSelectedCategory(CodexCategory.Infrastructure))">
+                    <div class="pos-abs text-d">Infrastructure</div>
                 </button>
             </div>
         </div>
     </div>
-    <div data-augmented-ui="tl-clip tr-2-clip-y br-2-clip-x bl-clip border" class="@GetInfraSubMenuCss()">
+    <div data-augmented-ui="tl-clip tr-2-clip-y br-2-clip-x bl-clip border" class="pos-abs infra-sub-menu @GetInfraMenuActiveCss()">
         <div data-augmented-ui-reset></div>
-        <div data-augmented-ui="tl-clip-x tr-clip br-clip-x bl-clip-x border" class="infra infra-foundation">
-            <button type="button" class="codex-sub-btn @activeFoundation" @onclick="@(() => SetSelectedInfrastructure(InfrastructureSubCategory.Foundations))">
-                <div class="codex-sub-text infra-text-foundation">Foundations</div>
+        <div data-augmented-ui="tl-clip-x tr-clip br-clip-x bl-clip-x border" class="pos-abs infra infra-foundation">
+            <button type="button" class="sub-btn @activeFoundation" @onclick="@(() => SetSelectedInfrastructure(InfrastructureSubCategory.Foundations))">
+                <div class="pos-abs text-foundation">Foundations</div>
             </button>
         </div>
-        <div data-augmented-ui="t-clip-x r-clip b-clip-x l-clip  border" class="infra infra-wall">
-            <button type="button" class="codex-sub-btn @activeWalls" @onclick="@(() => SetSelectedInfrastructure(InfrastructureSubCategory.WallsRoofs))">
-                <div class="codex-sub-text infra-text-walls-roofs">Walls / Roofs</div>
+        <div data-augmented-ui="t-clip-x r-clip b-clip-x l-clip  border" class="pos-abs infra infra-wall">
+            <button type="button" class="sub-btn @activeWalls" @onclick="@(() => SetSelectedInfrastructure(InfrastructureSubCategory.WallsRoofs))">
+                <div class="pos-abs text-walls-roofs">Walls / Roofs</div>
             </button>
         </div>
-        <div data-augmented-ui=" tl-clip-x tr-clip-x br-2-clip-x bl-clip border" class="infra infra-general">
-            <button type="button" class="codex-sub-btn @activeGeneral" @onclick="@(() => SetSelectedInfrastructure(InfrastructureSubCategory.General))">
-                <div class="codex-sub-text infra-text-general">General</div>
+        <div data-augmented-ui=" tl-clip-x tr-clip-x br-2-clip-x bl-clip border" class="pos-abs infra infra-general">
+            <button type="button" class="sub-btn @activeGeneral" @onclick="@(() => SetSelectedInfrastructure(InfrastructureSubCategory.General))">
+                <div class="pos-abs text-general">General</div>
             </button>
         </div>
     </div>
     @if (CodexState.Codex == null)
     {
-        <div class="codex-submenu-loading">Loading....</div>
+        <div class="pos-rel loading">Loading....</div>
     }
     else
     {
-        <div data-augmented-ui="tl-clip tr-clip br-clip bl-clip border" class="nav-wrapper @NavInfra()">
+        <div data-augmented-ui="tl-clip tr-clip br-clip bl-clip border" class="pos-abs mt-8 nav-wrapper @GetQuickNavOffsetCss()">
             <div data-augmented-ui-reset></div>
-            <div class=@GetNavContainerCss()>
+            <div class="pos-abs list-wrapper @GetListWrapperSizeCss()">
 
                 @{
                     var names = GetGroupNames();
                 }
-                <ul class="quick-nav-list">
+                <ul class="nav-list">
 
                     @for (int i = 0; i < names.Count; i++)
                     {
-                        <li class="quick-nav-li">
+                        <li class="nav-li">
                             @if (i == 0)
                             {
-                                <div data-augmented-ui="tl-clip tr-clip br-2-clip-x bl-clip border" class="quick-nav quick-nav-0">
-                                    <button type="button" class="quick-nav-btn" onclick="document.getElementById('@names[i]').scrollIntoView({behavior:'smooth'})">
-                                        <div class="quick-nav-text">@names[i].FormatCategoryName()</div>
+                                <div data-augmented-ui="tl-clip tr-clip br-2-clip-x bl-clip border" class="nav nav-0">
+                                    <button type="button" class="nav-btn" onclick="document.getElementById('@names[i]').scrollIntoView({behavior:'smooth'})">
+                                        <div class="pos-rel nav-text">@names[i].FormatCategoryName()</div>
                                     </button>
                                 </div>
                             }
                             else if (i != names.Count - 1)
                             {
-                                <div data-augmented-ui=" tl-2-clip-x tr-clip br-2-clip-x bl-clip border" class="quick-nav quick-nav-mid">
-                                    <button type="button" class="quick-nav-btn" onclick="document.getElementById('@names[i]').scrollIntoView({behavior:'smooth'})">
-                                        <div class="quick-nav-text">@names[i].FormatCategoryName()</div>
+                                <div data-augmented-ui=" tl-2-clip-x tr-clip br-2-clip-x bl-clip border" class="nav nav-mid">
+                                    <button type="button" class="nav-btn" onclick="document.getElementById('@names[i]').scrollIntoView({behavior:'smooth'})">
+                                        <div class="pos-rel nav-text">@names[i].FormatCategoryName()</div>
                                     </button>
                                 </div>
                             }
                             else
                             {
-                                <div data-augmented-ui=" tl-2-clip-x tr-clip br-clip bl-clip border" class="quick-nav quick-nav-last">
-                                    <button type="button" class="quick-nav-btn" onclick="document.getElementById('@names[i]').scrollIntoView({behavior:'smooth'})">
-                                        <div class="quick-nav-text">@names[i].FormatCategoryName()</div>
+                                <div data-augmented-ui=" tl-2-clip-x tr-clip br-clip bl-clip border" class="nav nav-last">
+                                    <button type="button" class="nav-btn" onclick="document.getElementById('@names[i]').scrollIntoView({behavior:'smooth'})">
+                                        <div class="pos-rel nav-text">@names[i].FormatCategoryName()</div>
                                     </button>
                                 </div>
                             }
@@ -121,10 +121,8 @@
     protected override async Task OnInitializedAsync()
     {
         base.OnInitialized();
-        // SettingsState.OnStateChange += StateHasChanged;
-        CodexState.OnStateChange += StateHasChanged;
 
-        // _settings = SettingsState.Value ?? new AppSettings();
+        CodexState.OnStateChange += StateHasChanged;
 
         if (CodexState.Codex == null)
         {
@@ -140,7 +138,6 @@
 
     public void Dispose()
     {
-        // SettingsState.OnStateChange -= StateHasChanged;
         CodexState.OnStateChange -= StateHasChanged;
     }
 
@@ -167,8 +164,8 @@
                                                                        x.CodexItemType is not CodexItemType.Foundation &&
                                                                        x.CodexItemType is not CodexItemType.Wall &&
                                                                        x.CodexItemType is not CodexItemType.Roof)
-                                                                       .OrderBy(z => z.CodexSubItemType)
-                                                              .Select(y => y.CodexSubItemType.ToString()).Distinct().ToList(),
+                                                           .OrderBy(z => z.CodexSubItemType)
+                                                           .Select(y => y.CodexSubItemType.ToString()).Distinct().ToList(),
         };
 
         return categoryNames;
@@ -187,19 +184,19 @@
         switch (category)
         {
             case CodexCategory.Item:
-                activeU = "codex-sub-btn-active";
+                activeU = "active";
                 break;
             case CodexCategory.Equipment:
-                activeL = "codex-sub-btn-active";
+                activeL = "active";
                 break;
             case CodexCategory.Building:
-                activeC = "codex-sub-btn-active";
+                activeC = "active";
                 break;
             case CodexCategory.Infrastructure:
-                activeD = "codex-sub-btn-active";
+                activeD = "active";
                 break;
             case CodexCategory.Unlock:
-                activeR = "codex-sub-btn-active";
+                activeR = "active";
                 break;
         }
     }
@@ -215,52 +212,20 @@
         switch (category)
         {
             case InfrastructureSubCategory.Foundations:
-                activeFoundation = "codex-sub-btn-active";
+                activeFoundation = "active";
                 break;
             case InfrastructureSubCategory.WallsRoofs:
-                activeWalls = "codex-sub-btn-active";
+                activeWalls = "active";
                 break;
             case InfrastructureSubCategory.General:
-                activeGeneral = "codex-sub-btn-active";
+                activeGeneral = "active";
                 break;
         }
-
     }
 
-    private string GetNavContainerCss()
-    {
-        var category = CodexMenuState.SelectedCategory;
+    private string GetListWrapperSizeCss() => (CodexMenuState.SelectedCategory is CodexCategory.Infrastructure) ? "list-shrank" : "list-full";
 
-        if (category is CodexCategory.Infrastructure)
-        {
-            return "quick-nav-list-container container-infra-active";
-        }
-
-        return "quick-nav-list-container";
-    }
-
-    private string NavInfra()
-    {
-        var category = CodexMenuState.SelectedCategory;
-
-        if (category is CodexCategory.Infrastructure)
-        {
-            return "nav-infra-active";
-        }
-
-        return "";
-    }
-
-    private string GetInfraSubMenuCss()
-    {
-        var category = CodexMenuState.SelectedCategory;
-
-        if (category is CodexCategory.Infrastructure)
-        {
-            return "codex-infra-sub-menu infra-active";
-        }
-
-        return "codex-infra-sub-menu";
-    }
-
+    private string GetQuickNavOffsetCss() => (CodexMenuState.SelectedCategory is CodexCategory.Infrastructure) ? "nav-active-offset" : "";
+   
+    private string GetInfraMenuActiveCss() => (CodexMenuState.SelectedCategory is CodexCategory.Infrastructure) ? "infra-active" : "";
 }
