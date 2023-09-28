@@ -1,0 +1,12 @@
+﻿.mt-6 {margin-top: 6px;}
+.mt-48 {margin-top: 48px;}
+
+.pos-abs {position: absolute;}
+.pos-rel {position: relative;}
+
+.w99 {width: 99%;}
+
+.flex-even {
+    display: flex;
+    justify-content: space-evenly;
+}

@@ -1,38 +1,38 @@
-﻿<div data-augmented-ui=" tl-clip tr-clip br-clip bl-clip border" class="nav-panel">
-    <nav data-augmented-ui-reset class="aug-navbar-column">
+﻿<div data-augmented-ui=" tl-clip tr-clip br-clip bl-clip border" class=" pos-abs nav-menu">
+    <nav data-augmented-ui-reset>
 
-        <div data-augmented-ui="tl-clip tr-clip br-clip-inset bl-clip border" class="nav-item @navUL" @onmouseover=OnMouseOverUL @onmouseout=OnMouseOut>
+        <div data-augmented-ui="tl-clip tr-clip br-clip-inset bl-clip border" class="pos-abs nav-item ul @navUL" @onmouseover=OnMouseOverUL @onmouseout=OnMouseOut>
             <NavLink href="codex">
-                <span class="nav-oi nav-oi-ul oi-aperture" aria-hidden="true"></span>
-                <div class="nav-text-ul">Codex</div>
+                <span class="pos-abs icon icon-ul oi-aperture" aria-hidden="true"></span>
+                <div class="pos-abs text-ul">Codex</div>
             </NavLink>
         </div>
 
-        <div data-augmented-ui="tl-clip tr-clip br-clip bl-clip-inset border" class="nav-item @navUR" @onmouseover=OnMouseOverUR @onmouseout=OnMouseOut>
+        <div data-augmented-ui="tl-clip tr-clip br-clip bl-clip-inset border" class="pos-abs nav-item ur @navUR" @onmouseover=OnMouseOverUR @onmouseout=OnMouseOut>
             <NavLink href="grapher" Match="NavLinkMatch.All">
-                <span class="nav-oi nav-oi-ur oi-fork" aria-hidden="true"></span>
-                <div class="nav-text-ur">Grapher</div>
+                <span class="pos-abs icon icon-ur oi-fork" aria-hidden="true"></span>
+                <div class="pos-abs text-ur">Grapher</div>
             </NavLink>
         </div>
 
-        <div data-augmented-ui="tl-clip tr-clip br-clip bl-clip border" class="nav-item @navCenter" @onmouseover=OnMouseOverCenter @onmouseout=OnMouseOut>
+        <div data-augmented-ui="tl-clip tr-clip br-clip bl-clip border" class="pos-abs nav-item c @navC" @onmouseover=OnMouseOverCenter @onmouseout=OnMouseOut>
             <NavLink href="" Match="NavLinkMatch.All">
-                <span class="nav-oi nav-oi-center oi-home" aria-hidden="true"></span>
-                <div class="nav-text-center">Home</div>
+                <span class="pos-abs icon icon-c oi-home" aria-hidden="true"></span>
+                <div class="pos-abs text-c">Home</div>
             </NavLink>
         </div>
 
-        <div data-augmented-ui="tl-clip tr-clip-inset br-clip bl-clip border" class="nav-item @navBL" @onmouseover=OnMouseOverBL @onmouseout=OnMouseOut>
+        <div data-augmented-ui="tl-clip tr-clip-inset br-clip bl-clip border" class="pos-abs nav-item bl @navBL" @onmouseover=OnMouseOverBL @onmouseout=OnMouseOut>
             <NavLink href="permutator" Match="NavLinkMatch.All">
-                <span class="nav-oi nav-oi-bl oi-spreadsheet" aria-hidden="true"></span>
-                <div class="nav-text-bl">Permutator</div>
+                <span class="pos-abs icon icon-bl oi-spreadsheet" aria-hidden="true"></span>
+                <div class="pos-abs text-bl">Permutator</div>
             </NavLink>
         </div>
 
-        <div data-augmented-ui="tl-clip-inset tr-clip br-clip bl-clip border" class="nav-item @navBR" @onmouseover=OnMouseOverBR @onmouseout=OnMouseOut>
+        <div data-augmented-ui="tl-clip-inset tr-clip br-clip bl-clip border" class="pos-abs nav-item br @navBR" @onmouseover=OnMouseOverBR @onmouseout=OnMouseOut>
             <NavLink href="settings">
-                <span class="nav-oi nav-oi-br oi-cog" aria-hidden="true"></span>
-                <div class="nav-text-br">Settings</div>
+                <span class="pos-abs icon icon-br oi-cog" aria-hidden="true"></span>
+                <div class="pos-abs text-br">Settings</div>
             </NavLink>
         </div>
 
@@ -40,74 +40,62 @@
 </div>
 
 @code {
-    private static string navCenter;
-    private static string navUL;
-    private static string navUR;
-    private static string navBL;
-    private static string navBR;
-
+    private string navC = "";
+    private string navUL = "";
+    private string navUR = "";
+    private string navBL = "";
+    private string navBR = "";
 
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        navCenter = "nav-item-center";
-        navUL = "nav-item-ul";
-        navUR = "nav-item-ur";
-        navBL = "nav-item-bl";
-        navBR = "nav-item-br";
     }
 
     private void OnMouseOverUL()
     {
-        navCenter = "nav-item-center nav-item-shrink";
-        navUL = "nav-item-ul nav-item-hover";
-        navUR = "nav-item-ur nav-item-shrink";
-        navBL = "nav-item-bl nav-item-shrink";
-        navBR = "nav-item-br nav-item-shrink";
+        ShrinkAll();
+        navUL = "grow";
     }
 
     private void OnMouseOverUR()
     {
-        navCenter = "nav-item-center nav-item-shrink";
-        navUL = "nav-item-ul nav-item-shrink";
-        navUR = "nav-item-ur nav-item-hover";
-        navBL = "nav-item-bl nav-item-shrink";
-        navBR = "nav-item-br nav-item-shrink";
+        ShrinkAll();
+        navUR = "grow";
     }
 
     private void OnMouseOverCenter()
     {
-        navCenter = "nav-item-center nav-item-hover";
-        navUL = "nav-item-ul nav-item-shrink";
-        navUR = "nav-item-ur nav-item-shrink";
-        navBL = "nav-item-bl nav-item-shrink";
-        navBR = "nav-item-br nav-item-shrink";
+        ShrinkAll();
+        navC = "grow";
     }
 
     private void OnMouseOverBL()
     {
-        navCenter = "nav-item-center nav-item-shrink";
-        navUL = "nav-item-ul nav-item-shrink";
-        navUR = "nav-item-ur nav-item-shrink";
-        navBL = "nav-item-bl nav-item-hover";
-        navBR = "nav-item-br nav-item-shrink";
+        ShrinkAll();
+        navBL = "grow";
     }
 
     private void OnMouseOverBR()
     {
-        navCenter = "nav-item-center nav-item-shrink";
-        navUL = "nav-item-ul nav-item-shrink";
-        navUR = "nav-item-ur nav-item-shrink";
-        navBL = "nav-item-bl nav-item-shrink";
-        navBR = "nav-item-br nav-item-hover";
+        ShrinkAll();
+        navBR = "grow";
     }
 
     private void OnMouseOut()
     {
-        navCenter = "nav-item-center";
-        navUL = "nav-item-ul";
-        navUR = "nav-item-ur";
-        navBL = "nav-item-bl";
-        navBR = "nav-item-br";
+        navC = "";
+        navUL = "";
+        navUR = "";
+        navBL = "";
+        navBR = "";
+    }
+
+    private void ShrinkAll()
+    {
+        navC = "shrink";
+        navUL = "shrink";
+        navUR = "shrink";
+        navBL = "shrink";
+        navBR = "shrink";
     }
 }
