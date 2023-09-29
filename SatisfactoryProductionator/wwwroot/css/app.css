@@ -19,11 +19,12 @@
     --myhoverblue50: rgba(153, 199, 229, .5);
     --myhoverblueclear: rgba(153, 199, 229, 0.5);
     --myhoverblueclear2: rgba(153, 199, 229, 0.6);
-    
+
     --sfBlue: rgb(33, 147, 227);
     --sfBlue10: rgba(33, 147, 227, .1);
     --sfBlue20: rgba(33, 147, 227, .2);
     --sfBlue40: rgba(33, 147, 227, .4);
+    --sfBlue70: rgba(33, 147, 227, .7);
     --sfBlueHover: rgb(153 199 229);
     --sfBlueBGActive: rgba(164,218,255,0.25);
     --sfRed: rgb(255, 2, 0);

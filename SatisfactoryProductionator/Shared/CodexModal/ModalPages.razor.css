@@ -1,4 +1,4 @@
-﻿div.info-panel-recipe {
+﻿div.page {
     position: relative;
     float: left;
     height: 460px;
@@ -10,38 +10,31 @@
     --aug-r: 10px;
     --aug-r-center: 275px;
     --aug-border-all: 3px;
-    --aug-border-bg: var(--myblue);
+    --aug-border-bg: var(--sfBlue);
     top: 10px;
     left: 3px;
 }
 
-.info-panel-no-recipe-message {
+.no-page-message {
     font-size: 3rem;
     position: relative;
     top: 5px;
     left: 50px;
 }
 
-
-
-.info-panel-recipe-paging {
+.paging {
     width: 200px;
     height: 30px;
-    display: flex;
-    justify-content: right;
-    position: absolute;
     bottom: 10px;
     right: 25px;
 }
 
-.info-panel-recipe-paging-pages {
+.page-lights {
     width: 150px;
-    display: flex;
-    justify-content: flex-end;
     align-items: center;
 }
 
-.pages-light {
+.light {
     height: 15px;
     width: 15px;
     margin: 2px;
@@ -56,21 +49,21 @@
     background: var(--sfBlue40);
 }
 
-.info-panel-recipe-paging-nav {
+.page-nav {
     width: 60px;
     display: flex;
     float: right;
 }
 
-.info-panel-recipe-paging-nav-button {
+.nav-btn {
     height: 30px;
     width: 20px;
     background: unset;
     border: unset;
 }
 
-.info-panel-paging-nav-icon {
-    color: var(--myblue50);
+.nav-icon {
+    color: var(--sfBlue40);
     position: relative;
     top: -10px;
     font-family: Icons;
@@ -79,10 +72,10 @@
     font-size: 30px;
 }
 
-    .info-panel-paging-nav-icon:hover {
-        color: var(--myblue75);
+    .nav-icon:hover {
+        color: var(--sfBlue70);
     }
 
-    .info-panel-paging-nav-icon:active {
-        color: var(--myblue);
+    .nav-icon:active {
+        color: var(--sfBlue);
     }

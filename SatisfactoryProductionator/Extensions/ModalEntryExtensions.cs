@@ -16,5 +16,10 @@ namespace SatisfactoryProductionator.Extensions
         {
             return modalEntry.GetPageType().ToString();
         }
+
+        public static int GetPageCount(this ModalEntry modalEntry) 
+        {
+            return modalEntry.CodexItem.Pages.Count;
+        }
     }
 }

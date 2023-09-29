@@ -123,7 +123,7 @@ namespace SatisfactoryProductionator.Services
             NotifyStateChanged();
         }
 
-        public int GetPageCount()
+        private int GetPageCount()
         {
             if (SelectedEntry == null) return 0;
 

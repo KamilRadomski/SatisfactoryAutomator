@@ -27,6 +27,16 @@
     flex-wrap: wrap;
 }
 
+.flex-right {
+    display: flex;
+    justify-content: right;
+}
+
+.flex-end {
+    display: flex;
+    justify-content: flex-end;
+}
+
 .image-64 {
     max-width: 64px;
     max-height: 64px;

@@ -1,6 +1,7 @@
 ﻿@using SatisfactoryProductionator.DataModels.Enums;
 @using SatisfactoryProductionator.DataModels.Models;
 @using SatisfactoryProductionator.DataModels.Models.Codex;
+@using SatisfactoryProductionator.Extensions;
 @using SatisfactoryProductionator.Services;
 @using SatisfactoryProductionator.Shared.CodexModal.Pages
 
@@ -8,14 +9,14 @@
 
 @implements IDisposable
 
-<div data-augmented-ui="tl-clip tr-clip br-clip bl-2-clip-x r-clip-y border" class="info-panel-recipe">
+<div data-augmented-ui="tl-clip tr-clip br-clip bl-2-clip-x r-clip-y border" class="page">
     @if (selectedEntry == null)
     {
-        <p class="info-panel-no-recipe-message"> - </p>
+        <p class="no-page-message"> - </p>
     }
     else
     {
-        var pageType = GetPageType();
+        var pageType = selectedEntry.GetPageType();
 
         if (pageType == PageType.Main ||
             pageType == PageType.ByProducts ||
@@ -46,23 +47,23 @@
             <ProduceableInfoPage />
         }
 
-        var pageCount = CodexModalState.GetPageCount();
+        var pageCount = selectedEntry.GetPageCount();
 
         @if (pageCount > 1)
         {
-            <div data-augmented-ui-reset class="info-panel-recipe-paging">
-                <div class="info-panel-recipe-paging-pages">
+            <div data-augmented-ui-reset class="pos-abs flex-right paging">
+                <div class="flex-end page-lights">
                     @for (var i = 0; i < pageCount; i++)
                     {
-                        <div class="pages-light @PageLightCss(i)"></div>
+                        <div class="light @PageLightCss(i)"></div>
                     }
                 </div>
-                <div class="info-panel-recipe-paging-nav">
-                    <button type="button" class="info-panel-recipe-paging-nav-button" @onclick=@(() => CodexModalState.SetPageLeft())>
-                        <span class="info-panel-paging-nav-icon oi-caret-left" aria-hidden="true"></span>
+                <div class="page-nav">
+                    <button type="button" class="nav-btn" @onclick=@(() => CodexModalState.SetPageLeft())>
+                        <span class="nav-icon oi-caret-left" aria-hidden="true"></span>
                     </button>
-                    <button type="button" class="info-panel-recipe-paging-nav-button" @onclick=@(() => CodexModalState.SetPageRight())>
-                        <span class="info-panel-paging-nav-icon oi-caret-right" aria-hidden="true"></span>
+                    <button type="button" class="nav-btn" @onclick=@(() => CodexModalState.SetPageRight())>
+                        <span class="nav-icon oi-caret-right" aria-hidden="true"></span>
                     </button>
                 </div>
             </div>
@@ -87,14 +88,5 @@
         CodexModalState.OnStateChange -= StateHasChanged;
     }
    
-    private PageType GetPageType()
-    {
-        var index = selectedEntry.Index;
-        var page = selectedEntry.CodexItem.Pages[index];
-
-        return page.PageType;
-    }
-
     private string PageLightCss(int i) => selectedEntry.Index == i ? "light-on" : "light-off";
-
 }
