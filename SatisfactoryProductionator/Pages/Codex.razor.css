@@ -1,5 +1,4 @@
-﻿.codex-main-panel {
-    position: absolute;
+﻿div.panel-wrapper {
     top: 14px;
     left: 275px;
     right: 14px;
@@ -12,8 +11,7 @@
     --aug-bl: 20px;
 }
 
-.codex-main-panel-inner {
-    position: absolute;
+.main-panel {
     margin-right: 16px;
     top: 27px;
     left: 20px;
@@ -22,19 +20,18 @@
     overflow-y: auto;
 }
 
-
-    .codex-main-panel-inner::-webkit-scrollbar {
+    .main-panel::-webkit-scrollbar {
         width: 1em;
     }
 
-    .codex-main-panel-inner::-webkit-scrollbar-track {
+    .main-panel::-webkit-scrollbar-track {
         background: var(--sfBlue40);
         border-radius: 16px;
         margin-block: 5em;
         margin-block-start: 5em;
     }
 
-    .codex-main-panel-inner::-webkit-scrollbar-thumb {
+    .main-panel::-webkit-scrollbar-thumb {
         border-radius: 100vh;
         background: var(--sfBlue40);
     }

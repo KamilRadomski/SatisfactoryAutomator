@@ -15,9 +15,9 @@
 <div data-augmented-ui-reset></div>
 <CodexMenu />
 
-<div data-augmented-ui="tl-2-clip-x tr-clip br-clip bl-2-clip-y border" class="codex-main-panel">
+<div data-augmented-ui="tl-2-clip-x tr-clip br-clip bl-2-clip-y border" class="pos-abs panel-wrapper">
 
-    <div class="codex-main-panel-inner">
+    <div class="pos-abs main-panel">
         @if (CodexState.Codex == null)
         {
             <div>Loading.....</div>
@@ -93,7 +93,6 @@
 
     private List<CodexItemType> GetSubCategories(InfrastructureSubCategory infraCategory)
     {
-        //TODO Fix this trash
         return infraCategory switch
         {
             InfrastructureSubCategory.Foundations => new List<CodexItemType> { CodexItemType.Foundation },
