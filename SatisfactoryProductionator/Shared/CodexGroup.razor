@@ -4,11 +4,11 @@
 
 <div data-augmented-ui-reset></div>
 
-<div data-augmented-ui="tl-clip tr-2-clip-x br-clip bl-clip border" class="codex-group">
-    <div id="@GetGroupId()" class="codex-item-group">
-        <div class="codex-group-heading">@GetCategoryName()</div>
+<div data-augmented-ui="tl-clip tr-2-clip-x br-clip bl-clip border" class="group">
+    <div id="@GetGroupId()">
+        <div class="group-heading">@GetGroupId().FormatCategoryName()</div>
         
-            <ul class="group-list">
+            <ul class="flex-wrap">
                 @foreach (var item in GetGroup())
                 {
                     <CodexGroupItem item=@item />
@@ -28,40 +28,7 @@
     [Parameter]
     public CodexCategory category { get; set; }
 
-    private string GetCategoryName()
-    {
-        if (category is CodexCategory.Infrastructure)
-        {
-            return subItemGroup.Key.ToString().FormatCategoryName();
-        }
-        else
-        {
-            return itemGroup.Key.ToString().FormatCategoryName();
-        }
-    }
+    private string GetGroupId() => (category is CodexCategory.Infrastructure) ? subItemGroup.Key.ToString() : itemGroup.Key.ToString();
 
-    private string GetGroupId()
-    {
-        if(category is CodexCategory.Infrastructure)
-        {
-            return subItemGroup.Key.ToString();
-        }
-        else
-        {
-            return itemGroup.Key.ToString();
-        }
-    }
-
-    private List<CodexItem> GetGroup()
-    {
-        if(category is CodexCategory.Infrastructure)
-        {
-            return subItemGroup.ToList();
-        }
-        else
-        {
-            return itemGroup.ToList();
-        }
-    }
-
+    private List<CodexItem> GetGroup() => (category is CodexCategory.Infrastructure) ? subItemGroup.ToList() : itemGroup.ToList();
 }

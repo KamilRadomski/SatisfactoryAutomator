@@ -22,6 +22,11 @@
     flex-direction: column;
 }
 
+.flex-wrap {
+    display: flex;
+    flex-wrap: wrap;
+}
+
 .image-64 {
     max-width: 64px;
     max-height: 64px;
