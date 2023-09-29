@@ -6,8 +6,8 @@
 
 @implements IDisposable;
 
-<div data-augmented-ui-reset class=@IsModalActiveCss()>
-    <div data-augmented-ui="tl-2-clip-y tr-2-clip-x br-2-clip-y bl-2-clip-x border" class="codex-modal">
+<div data-augmented-ui-reset class="pos-abs modal-wrapper @IsModalActiveCss()">
+    <div data-augmented-ui="tl-2-clip-y tr-2-clip-x br-2-clip-y bl-2-clip-x border" class="modal">
         <CascadingValue Value=@selectedEntry Name="SelectedEntry">
             <ModalInfo />
             <ModalPages />
