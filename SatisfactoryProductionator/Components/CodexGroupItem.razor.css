@@ -20,13 +20,8 @@
 }
 
 .item-name {
-    margin: 0px;
     padding: 0px 20px 0px 0px;
-    top: 0px;
-    font-size: 1rem;
-    color: var(--sfBlue);
     text-align: right;
-    font-variant: small-caps;
 }
 
 .aug-btn img {

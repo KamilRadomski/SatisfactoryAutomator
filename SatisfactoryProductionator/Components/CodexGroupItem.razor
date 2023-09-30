@@ -11,8 +11,8 @@
 <div data-augmented-ui="tl-clip tr-2-clip-y br-clip bl-2-clip-x border" class="item-wrapper">
     <button class="aug-btn" type="button" @onclick="@(() => CodexModalState.SetSelectedItem(item))">
         <img src=@item.IconPath alt=@item.ClassName />
-        <div class="pos-rel item-name">
-            @item.DisplayName.FormatDisplayName()
+        <div class="pos-rel font-16 item-name">
+            @item.DisplayName.FormatDisplayName().CondenseDisplayName()
         </div>
     </button>
 </div>

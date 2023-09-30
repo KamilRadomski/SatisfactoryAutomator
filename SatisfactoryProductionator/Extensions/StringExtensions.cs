@@ -16,7 +16,12 @@
 
         public static string FormatDisplayName(this string name)
         {
-            return name.Replace(" - ", "-").Replace(" ", ".");
+            return name.Replace(" - ", "-").Replace(" ", ".").Replace("..", ".");
+        }
+
+        public static string CondenseDisplayName(this string name)
+        {
+            return name.Replace("Inverted.", "Inv.");
         }
     }
 }
