@@ -1,12 +1,10 @@
 ﻿.recipe-button {
-    font-family: Tomorrow;
-    font-variant: small-caps;
     background: unset;
-    color: var(--sfBlue);
     border: unset;
     width: 210px;
     height: 40px;
     white-space: nowrap;
+
 }
 
     .recipe-button:hover {
@@ -40,9 +38,4 @@ div.alt-recipe {
     --aug-b: 5px;
     --aug-border-all: 1px;
     --aug-border-bg: var(--sfBlue);
-}
-
-.recipe-quantity {
-    color: var(--sfBlue);
-    font-size: .75rem;
 }

@@ -26,7 +26,7 @@ namespace SatisfactoryProductionator.Extensions
         {
             var index = modalEntry.Index;
 
-            return modalEntry.CodexEntry.Pages[index].Entries.ToList();
+            return modalEntry.CodexEntry.Pages[index].Entries;
         }
     }
 }

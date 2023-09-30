@@ -16,7 +16,7 @@
     }
     @foreach (var recipe in GetRecipes())
     {
-        if (_currentRecipeType == RecipeType.Default || (GetPageType() is PageType.Main && _currentRecipeType == RecipeType.Basic && recipe.RecipeType == RecipeType.Alternate))
+        if (_currentRecipeType == RecipeType.Default || (selectedEntry.GetPageType() is PageType.Main && _currentRecipeType == RecipeType.Basic && recipe.RecipeType == RecipeType.Alternate))
         {
             _currentRecipeType = recipe.RecipeType;
             <tr>
@@ -56,9 +56,9 @@
                         @foreach (var item in recipe.Inputs!)
                         {
                             <td>
-                                <button class="image-button" type="button" @onclick="@(() => SetSelectedItem(item.Key!))">
-                                    <img class="image-64" src=@GetIconLocation(item.Key) alt=@item.Key />
-                                    <div class="recipe-quantity">@Math.Round(item.Value[1], 2)/min</div>
+                                <button class="image-button" type="button" @onclick="@(() => CodexModalState.SetSelectedItem(item.Key!))">
+                                    <img class="image-64" src=@CodexState.FetchIconPath(item.Key) alt=@item.Key />
+                                    <div class="font-12">@Math.Round(item.Value[1], 2)/min</div>
                                 </button>
                             </td>
                         }
@@ -72,9 +72,9 @@
                         @foreach (var item in recipe.Outputs!)
                         {
                             <td>
-                                <button class="image-button" type="button" @onclick="@(() => SetSelectedItem(@item.Key!))">
-                                    <img class="image-64" src=@GetIconLocation(item.Key) alt=@item.Key />
-                                    <div class="recipe-quantity">@Math.Round(item.Value[1], 2)/min</div>
+                                <button class="image-button" type="button" @onclick="@(() => CodexModalState.SetSelectedItem(@item.Key!))">
+                                    <img class="image-64" src=@CodexState.FetchIconPath(item.Key) alt=@item.Key />
+                                    <div class="font-12">@Math.Round(item.Value[1], 2)/min</div>
                                 </button>
                             </td>
                         }
@@ -107,40 +107,15 @@
 
     private List<Recipe> GetRecipes()
     {
-        var index = selectedEntry.Index;
-        var recipeNames = selectedEntry.CodexEntry.Pages[index].Entries;
+        var recipeNames = selectedEntry.GetEntries();
 
-        var recipes = CodexState.FetchRecipes(recipeNames);
-
-        return recipes;
+        return CodexState.FetchRecipes(recipeNames);
     }
 
     private string GetPageHeader(Recipe recipe)
     {
-        var index = selectedEntry.Index;
-        var page = selectedEntry.CodexEntry.Pages[index];
+        var pageType = selectedEntry.GetPageType();
 
-        return page.PageType != PageType.Main ? page.PageType.ToString() : recipe.RecipeType.ToString();
-    }
-
-    private void SetSelectedItem(string itemName)
-    {
-        var item = CodexState.FetchItem(itemName);
-        CodexModalState.SetSelectedItem(item);
-    }
-
-    private string GetIconLocation(string itemName)
-    {
-        var item = CodexState.FetchItem(itemName);
-
-        return item.IconPath;
-    }
-
-    private PageType GetPageType()
-    {
-        var index = selectedEntry.Index;
-
-        return selectedEntry.CodexEntry.Pages[index].PageType;
-
+        return pageType != PageType.Main ? pageType.ToString() : recipe.RecipeType.ToString();
     }
 }

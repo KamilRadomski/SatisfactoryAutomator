@@ -130,7 +130,7 @@ namespace SatisfactoryProductionator.Services
             return SelectedEntry.CodexEntry.Pages.Count;
         }
 
-        private ModalEntry? GenerateModalEntry(CodexEntry item)
+        private static ModalEntry? GenerateModalEntry(CodexEntry item)
         {
             return new ModalEntry()
             {
