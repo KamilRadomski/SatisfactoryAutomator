@@ -21,7 +21,7 @@
                 {
                     <td>
                         <button class="image-button mt-48" type="button" @onclick="@(() => CodexModalState.SetSelectedItem(item.Key!))">
-                            <img class="image-128" src=@CodexState.FetchIconLocation(item.Key) alt=@item.Key />
+                            <img class="image-128" src=@CodexState.FetchIconPath(item.Key) alt=@item.Key />
                             <div class="font-16 mt-4">@Math.Round(item.Value[0], 2)</div>
                         </button>
                     </td>

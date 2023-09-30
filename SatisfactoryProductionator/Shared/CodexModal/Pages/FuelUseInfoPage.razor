@@ -11,7 +11,7 @@
 
 <table class="page-table w99">
     <tr>
-        <td colspan="4" class="page-header w99">@GetPageType().ToString().FormatCategoryName()</td>
+        <td colspan="4" class="page-header w99">@selectedEntry.GetPageHeader().FormatCategoryName()</td>
     </tr>
     <tr>
         <td>
@@ -28,15 +28,15 @@
                         <td>
                             @if (fuelBundle.Count > 1)
                             {
-                                <button class="image-button" type="button" @onclick="@(() => SetSelectedItem(item.Key))">
-                                    <img class="image-96" src=@GetIconPath(item.Key) alt=@item.Key />
+                                <button class="image-button" type="button" @onclick="@(() => CodexModalState.SetSelectedItem(item.Key))">
+                                        <img class="image-96" src=@CodexState.FetchIconPath(item.Key) alt=@item.Key />
                                         <div class="font-16 mt-4"> @Math.Round(item.Value[1], 2)/min</div>
                                 </button>
                             }
                             else
                             {
-                                <button class="image-button mt-48" type="button" @onclick="@(() => SetSelectedItem(item.Key))">
-                                    <img class="image-128" src=@GetIconPath(item.Key) alt=@item.Key />
+                                    <button class="image-button mt-48" type="button" @onclick="@(() => CodexModalState.SetSelectedItem(item.Key))">
+                                    <img class="image-128" src=@CodexState.FetchIconPath(item.Key) alt=@item.Key />
                                         <div class="font-16 mt-4"> @Math.Round(item.Value[1], 2)/min</div>
                                 </button>
                             }
@@ -68,33 +68,11 @@
         CodexState.OnStateChange -= StateHasChanged;
     }
 
-    private PageType GetPageType()
-    {
-        var index = selectedEntry.Index;
-
-        return selectedEntry.CodexEntry.Pages[index].PageType;
-    }
-
-    private void SetSelectedItem(string itemName)
-    {
-        var item = CodexState.FetchItem(itemName);
-        CodexModalState.SetSelectedItem(item);
-    }
-
     private Recipe GetFuels()
     {
-        var index = selectedEntry.Index;
-
-        var classNames = selectedEntry.CodexEntry.Pages[index].Entries;
+        var classNames = selectedEntry.GetEntries();
 
         return CodexState.FetchRecipes(classNames).First();
-    }
-
-    private string GetIconPath(string itemName)
-    {
-        var item = CodexState.FetchItem(itemName);
-
-        return item.IconPath;
     }
 
     private List<List<KeyValuePair<string, double[]>>> BundleFuelInputs()
