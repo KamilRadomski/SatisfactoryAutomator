@@ -1,4 +1,4 @@
-﻿.recipe-button {
+﻿.recipe-btn {
     background: unset;
     border: unset;
     width: 210px;
@@ -7,35 +7,34 @@
 
 }
 
-    .recipe-button:hover {
+    .recipe-btn:hover {
         background: var(--sfBlueBGActive);
         color: var(--sfBlueHover);
     }
 
-    .recipe-button:active {
+    .recipe-btn:active {
         background: var(--sfBlueHover);
         color: var(--sfBlue);
     }
 
-div.basic-recipe {
+div.recipe {
     width: 210px;
     height: 40px;
-    --aug-tl: 20px;
-    --aug-tr: 7px;
-    --aug-bl: 7px;
-    --aug-br: 20px;
     --aug-border-all: 1px;
     --aug-border-bg: var(--sfBlue);
 }
 
-div.alt-recipe {
-    width: 210px;
-    height: 40px;
+div.basic {
+    --aug-tl: 20px;
+    --aug-tr: 7px;
+    --aug-bl: 7px;
+    --aug-br: 20px;
+}
+
+div.alt {
     --aug-tl: 4px;
     --aug-tr: 4px;
     --aug-bl: 6px;
     --aug-br: 6px;
     --aug-b: 5px;
-    --aug-border-all: 1px;
-    --aug-border-bg: var(--sfBlue);
 }

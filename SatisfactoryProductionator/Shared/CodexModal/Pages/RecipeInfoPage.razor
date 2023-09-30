@@ -29,8 +29,8 @@
                 @if (recipe.RecipeType is RecipeType.Basic)
                 {
                     @* <div class=@CssIsDefault(recipe)> *@
-                    <div data-augmented-ui="tl-clip tr-clip br-clip bl-clip border" class="basic-recipe">
-                        <button type="button" class="recipe-button">
+                    <div data-augmented-ui="tl-clip tr-clip br-clip bl-clip border" class="recipe basic">
+                        <button type="button" class="recipe-btn">
                             @* <button type="button" class="info-panel-recipe-name-button" @onclick="@(() => SetRecipeDetails(recipe.DisplayName))"> *@
                             @recipe.DisplayName.FormatDisplayName()
                         </button>
@@ -40,8 +40,8 @@
                 else
                 {
                     @* <div class=@CssIsDefault(recipe)> *@
-                    <div data-augmented-ui="tl-2-clip-x tr-2-clip-x br-2-clip-x b-clip-x bl-2-clip-x border" class="alt-recipe">
-                        <button type="button" class="recipe-button">
+                    <div data-augmented-ui="tl-2-clip-x tr-2-clip-x br-2-clip-x b-clip-x bl-2-clip-x border" class="recipe alt">
+                        <button type="button" class="recipe-btn">
                             @* <button type="button" class="info-panel-recipe-name-button" @onclick="@(() => SetRecipeDetails(recipe.DisplayName))"> *@
                             @recipe.DisplayName.FormatDisplayName()
                         </button>
