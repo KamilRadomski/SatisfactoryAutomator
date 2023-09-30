@@ -1,8 +1,0 @@
-div.outer-panel {
-    height: 100vh;
-    --aug-tr: 40px;
-    --aug-br: 40px;
-    --aug-tl: 40px;
-    --aug-bl: 40px;
-    --aug-border-all: 7px;
-}
