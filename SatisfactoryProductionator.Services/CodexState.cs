@@ -22,11 +22,18 @@ namespace SatisfactoryProductionator.Services
             Codex = await _dataService.GenerateCodex();
             NotifyStateChanged();
         }
-        public  string FetchIconPath(string className)
+        public string FetchIconPath(string className)
         {
-            var item = Codex.CodexItems.FirstOrDefault(x => x.ClassName == className);
+            var item = FetchItem(className);
 
             return item.IconPath;
+        }
+
+        public string FetchDisplayName(string className)
+        {
+            var item = FetchItem(className);
+
+            return item.DisplayName;
         }
 
         public CodexEntry FetchItem(string className)
