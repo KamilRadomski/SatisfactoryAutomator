@@ -28,7 +28,7 @@
                             <td>
                                 <button class="image-button mt-6" type="button" @onclick="@(() => CodexModalState.SetSelectedItem(item))">
                                     <img class="image-80" src=@CodexState.FetchIconPath(item) alt=@item />
-                                    <div class="font-12 mt-4">@CodexState.FetchDisplayName(item)</div>
+                                    <div class="font-12 mt-4">@CodexState.FetchDisplayName(item).FormatDisplayName()</div>
                                 </button>
                             </td>
                         }
@@ -56,13 +56,6 @@
     {
         CodexModalState.OnStateChange -= StateHasChanged;
         CodexState.OnStateChange -= StateHasChanged;
-    }
-
-    private string GetItemName(string itemName)
-    {
-        var item = CodexState.FetchItem(itemName);
-
-        return item.DisplayName;
     }
 
     private List<List<string>> BundleItems()
