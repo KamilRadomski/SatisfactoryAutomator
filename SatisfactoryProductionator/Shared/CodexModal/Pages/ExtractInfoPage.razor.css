@@ -1,18 +1,5 @@
 ﻿.extract-space {
-    margin-right: 25px;
-    margin-left: 25px;
-}
-
-.building-text {
-    color: var(--sfBlue);
-    font-size: 14px;
-    margin-top: 0;
-}
-
-.extract-quantity {
-    color: var(--sfBlue);
-    font-size: 12px;
-    margin-top: 3px;
+    margin: 0 25px; 
 }
 
 .impure {

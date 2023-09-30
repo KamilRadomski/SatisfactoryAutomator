@@ -11,16 +11,16 @@
 
 <table class="page-table">
     <tr>
-        <td colspan="4" class="page-header">@GetPageType().ToString().FormatCategoryName()</td>
+        <td colspan="4" class="page-header">@selectedEntry.GetPageHeader().FormatCategoryName()</td>
     </tr>
     @foreach (var recipe in GetRecipes())
     {
-        var buildingInfo = GetBuildingInfo(@recipe.Building);
+        var buildingInfo = CodexState.FetchItem(recipe.Building);
         <tr>
             <td>
-                <button class="image-button" type="button" @onclick="@(() => SetSelectedItem(buildingInfo.ClassName))">
+                <button class="image-button" type="button" @onclick="@(() => CodexModalState.SetSelectedItem(buildingInfo.ClassName))">
                     <img class="image-96" src=@buildingInfo.IconPath alt=@buildingInfo.DisplayName />
-                    <div class="building-text">@buildingInfo.DisplayName</div>
+                    <div class="font-14 mt-0">@buildingInfo.DisplayName</div>
                 </button>
             </td>
             <td> >>> </td>
@@ -35,7 +35,7 @@
                                 <td>
                                     <div class="extract-space">
                                         <img class="image-64 @GetBackgroundColorCss(i++, item.Length)" src=@selectedEntry.CodexEntry.IconPath alt=@selectedEntry.CodexEntry.DisplayName />
-                                        <div class="extract-quantity">@value.ToString()/min </div>
+                                        <div class="font-12 mt-3">@value.ToString()/min</div>
                                     </div>
                                 </td>
                             }
@@ -67,30 +67,9 @@
 
     private List<Recipe> GetRecipes()
     {
-        var index = selectedEntry.Index;
-        var recipeNames = selectedEntry.CodexEntry.Pages[index].Entries;
+        var recipeNames = selectedEntry.GetEntries();
 
-        var recipes = CodexState.FetchRecipes(recipeNames);
-
-        return recipes;
-    }
-
-    private PageType GetPageType()
-    {
-        var index = selectedEntry.Index;
-
-        return selectedEntry.CodexEntry.Pages[index].PageType;
-    }
-
-    private CodexEntry GetBuildingInfo(string className)
-    {
-        return CodexState.FetchItem(className);
-    }
-
-    private void SetSelectedItem(string itemName)
-    {
-        var item = CodexState.FetchItem(itemName);
-        CodexModalState.SetSelectedItem(item);
+        return CodexState.FetchRecipes(recipeNames);
     }
 
     private string GetBackgroundColorCss(int i, int count)
