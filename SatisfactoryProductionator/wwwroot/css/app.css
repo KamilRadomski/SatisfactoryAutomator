@@ -5,27 +5,14 @@
 
 @import url("https://fonts.googleapis.com/css?family=Barlow|Tomorrow:400,700&display=swap");
 
-
-
-
-
 :root {
-    --myblue: rgb(33, 147, 227);
-    --myblue75: rgba(33, 147, 227, 0.75);
-    --myblue50: rgba(33, 147, 227, 0.5);
-    --myblueclear: rgba(33, 147, 227,0.5);
-    --myhighlightblue: rgba(164,218,255,0.25);
-    --myhoverblue: rgb(153 199 229);
-    --myhoverblue50: rgba(153, 199, 229, .5);
-    --myhoverblueclear: rgba(153, 199, 229, 0.5);
-    --myhoverblueclear2: rgba(153, 199, 229, 0.6);
-
     --sfBlue: rgb(33, 147, 227);
     --sfBlue10: rgba(33, 147, 227, .1);
     --sfBlue20: rgba(33, 147, 227, .2);
     --sfBlue40: rgba(33, 147, 227, .4);
     --sfBlue70: rgba(33, 147, 227, .7);
     --sfBlueHover: rgb(153 199 229);
+    --sfBlueHover50: rgba(153 199 229, .5);
     --sfBlueBGActive: rgba(164,218,255,0.25);
     --sfRed: rgb(255, 2, 0);
     --sfOrange: rgb(255, 139, 0);
@@ -33,7 +20,6 @@
 }
 
 html, body {
-    /*font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;*/
     background: black;
     color: var(--sfBlue);
 }
@@ -103,7 +89,3 @@ a, .btn-link {
     .blazor-error-boundary::after {
         content: "An error has occurred."
     }
-
-
-
-

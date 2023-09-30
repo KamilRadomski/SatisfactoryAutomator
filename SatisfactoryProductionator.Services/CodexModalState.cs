@@ -140,6 +140,5 @@ namespace SatisfactoryProductionator.Services
         }
 
         private void NotifyStateChanged() => OnStateChange?.Invoke();
-
     }
 }

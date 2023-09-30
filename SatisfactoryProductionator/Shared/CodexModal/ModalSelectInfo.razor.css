@@ -16,17 +16,17 @@ div.info-panel-details {
     --aug-bl: 10px;
     --aug-br: 20px;
     --aug-border-all: 3px;
-    --aug-border-bg: var(--myblue);
+    --aug-border-bg: var(--sfBlue);
 }
 
 .info-panel-details-default:hover {
-    background: var(--myhighlightblue);
-    color: var(--myhoverblue);
+    background: var(--sfBlueBGActive);
+    color: var(--sfBlueHover);
 }
 
 .info-panel-details-default:active {
-    background: var(--myhoverblue);
-    color: var(--myblue);
+    background: var(--sfBlueHover);
+    color: var(--sfBlue);
 }
 
 .info-panel-details-title {
@@ -87,7 +87,7 @@ div.info-panel-details-default-aug {
     --aug-bl: 4px;
     --aug-br: 5px;
     --aug-border-all: 1px;
-    --aug-border-bg: var(--myblue);
+    --aug-border-bg: var(--sfBlue);
 }
 
 .info-panel-details-default {
@@ -96,7 +96,7 @@ div.info-panel-details-default-aug {
     height: 37px;
     width: 152px;
     background: unset;
-    color: var(--myblue);
+    color: var(--sfBlue);
     font-size: 19px;
     padding-bottom: 3px;
     margin-top: -1px;

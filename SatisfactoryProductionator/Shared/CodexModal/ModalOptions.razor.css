@@ -9,6 +9,6 @@
     --aug-br: 30px;
     --aug-bl: 20px;
     --aug-border-all: 3px;
-    --aug-border-bg: var(--myblue);
+    --aug-border-bg: var(--sfBlue);
     top: 9px;
 }

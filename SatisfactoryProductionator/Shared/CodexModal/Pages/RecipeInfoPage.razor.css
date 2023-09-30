@@ -10,12 +10,12 @@
 }
 
     .recipe-button:hover {
-        background: var(--myhighlightblue);
-        color: var(--myhoverblue);
+        background: var(--sfBlueBGActive);
+        color: var(--sfBlueHover);
     }
 
     .recipe-button:active {
-        background: var(--myhoverblue);
+        background: var(--sfBlueHover);
         color: var(--sfBlue);
     }
 

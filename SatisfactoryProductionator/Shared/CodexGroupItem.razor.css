@@ -9,7 +9,7 @@
     --aug-bl: 20px;
     --aug-border-y: 3px;
     --aug-border-x: 1px;
-    --aug-border-bg: var(--myblue);
+    --aug-border-bg: var(--sfBlue);
     --aug-tr-extend2: 63%;
 }
 
@@ -24,7 +24,7 @@
     padding: 0px 20px 0px 0px;
     top: 0px;
     font-size: 1rem;
-    color: var(--myblue);
+    color: var(--sfBlue);
     text-align: right;
     font-variant: small-caps;
 }

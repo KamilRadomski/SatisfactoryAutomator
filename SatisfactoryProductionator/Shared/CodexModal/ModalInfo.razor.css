@@ -10,7 +10,7 @@
     --aug-b-center: 798px;
     --aug-b-extend1: 9px;
     --aug-border-all: 3px;
-    --aug-border-bg: var(--myblue);
+    --aug-border-bg: var(--sfBlue);
     top: 2px;
     left: 2px;
 }
@@ -51,7 +51,7 @@
 
     .info-panel-top-header-buttons-clear:hover > div, .info-panel-top-header-buttons-close:hover > div {
         --aug-border-all: 5px;
-        background: var(--myhoverblue50);
+        background: var(--sfBlueHover50);
         transition: .2s;
     }
 
@@ -73,18 +73,18 @@
 
 	.info-panel-top-header-buttons-nav:not(:disabled):hover > div {
 		--aug-border-all: 5px;
-		background: var(--myhoverblue50);
+		background: var(--sfBlueHover50);
 		transition: .2s;
 	}
 
 	.info-panel-top-header-buttons-nav:not(:disabled):active > div, .info-panel-top-header-buttons-close:not(:disabled):active > div, .info-panel-top-header-buttons-clear:not(:disabled):active > div {
-		background: var(--myhoverblue);
+		background: var(--sfBlueHover);
 	}*/
 
 div.info-panel-top-header-buttons-button {
     --aug-all-width: 60px;
     --aug-border-all: 4px;
-    --aug-border-bg: var(--myblue);
+    --aug-border-bg: var(--sfBlue);
     display: flex;
     flex-wrap: wrap;
     align-content: center;
@@ -95,7 +95,7 @@ div.info-panel-top-header-buttons-button {
 div.info-panel-top-header-buttons-button-inactive {
     --aug-all-width: 60px;
     --aug-border-all: 4px;
-    --aug-border-bg: var(--myblue);
+    --aug-border-bg: var(--sfBlue);
     display: flex;
     flex-wrap: wrap;
     align-content: center;
@@ -106,12 +106,12 @@ div.info-panel-top-header-buttons-button-inactive {
 
 .info-panel-top-header-buttons-button:not(:disabled):hover {
     --aug-border-all: 5px;
-    background: var(--myhoverblue50);
+    background: var(--sfBlueHover50);
     transition: .2s;
 }
 
 .info-panel-top-header-buttons-button:not(:disabled):active {
-    background: var(--myhoverblue);
+    background: var(--sfBlueHover);
 }
 
 .info-panel-top-header-buttons-icon {
@@ -119,7 +119,7 @@ div.info-panel-top-header-buttons-button-inactive {
     font-style: normal;
     font-weight: 400;
     -webkit-font-smoothing: antialiased;
-    color: var(--myblue);
+    color: var(--sfBlue);
     font-size: 2rem;
 }
 
