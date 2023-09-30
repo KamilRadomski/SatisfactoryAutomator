@@ -21,5 +21,12 @@ namespace SatisfactoryProductionator.Extensions
         {
             return modalEntry.CodexEntry.Pages.Count;
         }
+
+        public static List<string> GetEntries(this ModalEntry modalEntry)
+        {
+            var index = modalEntry.Index;
+
+            return modalEntry.CodexEntry.Pages[index].Entries.ToList();
+        }
     }
 }

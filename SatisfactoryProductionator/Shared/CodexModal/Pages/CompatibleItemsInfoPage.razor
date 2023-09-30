@@ -53,11 +53,8 @@
 
     private List<CodexEntry> GetItems()
     {
-        var index = selectedEntry.Index;
+        var items = selectedEntry.GetEntries();
 
-        var classNames = selectedEntry.CodexEntry.Pages[index].Entries;
-
-        return CodexState.FetchItems(classNames);
+        return CodexState.FetchItems(items);
     }
-
 }
