@@ -59,7 +59,7 @@
     private List<Recipe> GetRecipes()
     {
         var index = selectedEntry.Index;
-        var recipeNames = selectedEntry.CodexItem.Pages[index].Recipes;
+        var recipeNames = selectedEntry.CodexEntry.Pages[index].Entries;
 
         var recipes = CodexState.FetchRecipes(recipeNames);
 
@@ -70,7 +70,7 @@
     {
         var index = selectedEntry.Index;
 
-        return selectedEntry.CodexItem.Pages[index].PageType;
+        return selectedEntry.CodexEntry.Pages[index].PageType;
     }
 
     private string GetIconLocation(string itemName)

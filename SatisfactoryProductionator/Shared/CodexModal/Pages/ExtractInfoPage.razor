@@ -34,7 +34,7 @@
                             {
                                 <td>
                                     <div class="extract-space">
-                                        <img class="image-64 @GetBackgroundColorCss(i++, item.Length)" src=@selectedEntry.CodexItem.IconPath alt=@selectedEntry.CodexItem.DisplayName />
+                                        <img class="image-64 @GetBackgroundColorCss(i++, item.Length)" src=@selectedEntry.CodexEntry.IconPath alt=@selectedEntry.CodexEntry.DisplayName />
                                         <div class="extract-quantity">@value.ToString()/min </div>
                                     </div>
                                 </td>
@@ -68,7 +68,7 @@
     private List<Recipe> GetRecipes()
     {
         var index = selectedEntry.Index;
-        var recipeNames = selectedEntry.CodexItem.Pages[index].Recipes;
+        var recipeNames = selectedEntry.CodexEntry.Pages[index].Entries;
 
         var recipes = CodexState.FetchRecipes(recipeNames);
 
@@ -79,10 +79,10 @@
     {
         var index = selectedEntry.Index;
 
-        return selectedEntry.CodexItem.Pages[index].PageType;
+        return selectedEntry.CodexEntry.Pages[index].PageType;
     }
 
-    private CodexItem GetBuildingInfo(string className)
+    private CodexEntry GetBuildingInfo(string className)
     {
         return CodexState.FetchItem(className);
     }

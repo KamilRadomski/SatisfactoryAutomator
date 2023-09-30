@@ -108,7 +108,7 @@
     private List<Recipe> GetRecipes()
     {
         var index = selectedEntry.Index;
-        var recipeNames = selectedEntry.CodexItem.Pages[index].Recipes;
+        var recipeNames = selectedEntry.CodexEntry.Pages[index].Entries;
 
         var recipes = CodexState.FetchRecipes(recipeNames);
 
@@ -118,7 +118,7 @@
     private string GetPageHeader(Recipe recipe)
     {
         var index = selectedEntry.Index;
-        var page = selectedEntry.CodexItem.Pages[index];
+        var page = selectedEntry.CodexEntry.Pages[index];
 
         return page.PageType != PageType.Main ? page.PageType.ToString() : recipe.RecipeType.ToString();
     }
@@ -140,7 +140,7 @@
     {
         var index = selectedEntry.Index;
 
-        return selectedEntry.CodexItem.Pages[index].PageType;
+        return selectedEntry.CodexEntry.Pages[index].PageType;
 
     }
 }

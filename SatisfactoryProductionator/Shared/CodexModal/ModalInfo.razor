@@ -19,7 +19,7 @@
         }
         else
         {
-            <div class="info-panel-top-header-name">@selectedEntry.CodexItem.DisplayName.FormatDisplayName()</div>
+            <div class="info-panel-top-header-name">@selectedEntry.CodexEntry.DisplayName.FormatDisplayName()</div>
         }
         <div class="info-panel-top-header-buttons">
 
@@ -56,11 +56,11 @@
         {
 
 
-            <img class="info-panel-top-data-image" src=@selectedEntry.CodexItem.IconPath alt=@selectedEntry.CodexItem.DisplayName />
+            <img class="info-panel-top-data-image" src=@selectedEntry.CodexEntry.IconPath alt=@selectedEntry.CodexEntry.DisplayName />
         <div class="info-panel-top-data-description">
-                <p>@selectedEntry.CodexItem.Description</p>
+                <p>@selectedEntry.CodexEntry.Description</p>
 
-                @if (selectedEntry.CodexItem.CodexCategory is CodexCategory.Item)
+                @if (selectedEntry.CodexEntry.CodexCategory is CodexCategory.Item)
                 {
                     var item = CastSelectedItem<Item>();
 
@@ -102,7 +102,7 @@
         CodexModalState.OnStateChange -= StateHasChanged;
     }
 
-    private T CastSelectedItem<T>() where T : CodexItem => selectedEntry.CodexItem as T;
+    private T CastSelectedItem<T>() where T : CodexEntry => selectedEntry.CodexEntry as T;
 
     private string IsPrevActiveCss() => CodexModalState.BackStack.Count > 0 ? "info-panel-top-header-buttons-button" : "info-panel-top-header-buttons-button-inactive";
 

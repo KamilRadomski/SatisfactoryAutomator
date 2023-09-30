@@ -57,9 +57,9 @@ namespace SatisfactoryProductionator.Services
             SetSelectedItem(item);
         }
 
-        public void SetSelectedItem(CodexItem item) 
+        public void SetSelectedItem(CodexEntry item) 
         {
-            if (SelectedEntry != null && SelectedEntry.CodexItem == item) 
+            if (SelectedEntry != null && SelectedEntry.CodexEntry == item) 
             {
                 Active = true;
                 NotifyStateChanged();
@@ -127,14 +127,14 @@ namespace SatisfactoryProductionator.Services
         {
             if (SelectedEntry == null) return 0;
 
-            return SelectedEntry.CodexItem.Pages.Count;
+            return SelectedEntry.CodexEntry.Pages.Count;
         }
 
-        private ModalEntry? GenerateModalEntry(CodexItem item)
+        private ModalEntry? GenerateModalEntry(CodexEntry item)
         {
             return new ModalEntry()
             {
-                CodexItem = item,
+                CodexEntry = item,
                 Index = 0,
             };
         }

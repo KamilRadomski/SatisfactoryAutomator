@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SatisfactoryProductionator.DataModels.Models.Codex
 {
-    public class Building : CodexItem
+    public class Building : CodexEntry
     {
         public double[] PowerRating { get; set; }
     }

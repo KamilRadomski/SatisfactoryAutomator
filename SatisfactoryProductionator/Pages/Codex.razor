@@ -70,7 +70,7 @@
         CodexMenuState.OnStateChange -= StateHasChanged;
     }
 
-    private List<IGrouping<CodexItemType, CodexItem>> GetCategoryItems()
+    private List<IGrouping<CodexItemType, CodexEntry>> GetCategoryItems()
     {
         var category = CodexMenuState.SelectedCategory;
 
@@ -79,7 +79,7 @@
         return items;
     }
 
-    private List<IGrouping<CodexSubItemType, CodexItem>> GetCategorySubItems()
+    private List<IGrouping<CodexSubItemType, CodexEntry>> GetCategorySubItems()
     {
         var infraCategory = CodexMenuState.SelectedInfrastructure;
         var subCategoryList = GetSubCategories(infraCategory);

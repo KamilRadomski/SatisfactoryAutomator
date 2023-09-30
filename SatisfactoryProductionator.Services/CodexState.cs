@@ -23,14 +23,14 @@ namespace SatisfactoryProductionator.Services
             NotifyStateChanged();
         }
 
-        public CodexItem FetchItem(string className)
+        public CodexEntry FetchItem(string className)
         {
             return Codex.CodexItems.FirstOrDefault(x => x.ClassName == className);
         }
 
-        public List<CodexItem> FetchItems(List<string> classNames)
+        public List<CodexEntry> FetchItems(List<string> classNames)
         {
-            var items = new List<CodexItem>();
+            var items = new List<CodexEntry>();
 
             foreach(var className in classNames)
             {

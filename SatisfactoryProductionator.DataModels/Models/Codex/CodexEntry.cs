@@ -1,13 +1,8 @@
 ﻿using SatisfactoryProductionator.DataModels.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SatisfactoryProductionator.DataModels.Models.Codex
 {
-    public class CodexItem
+    public class CodexEntry
     {
         public string ClassName { get; set; }
         public string DisplayName { get; set; }

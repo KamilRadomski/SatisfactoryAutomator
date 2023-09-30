@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SatisfactoryProductionator.DataModels.Models.Codex
 {
-    public class Item : CodexItem
+    public class Item : CodexEntry
     {
         public int ResourceSinkPoints { get; set; }
         public string StackSize { get; set; }

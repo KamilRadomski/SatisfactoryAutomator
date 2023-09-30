@@ -26,7 +26,7 @@ namespace SatisfactoryProductionator.DataService
                 Recipes = await ParseData<Recipe>(Constants.RECIPE_FILEPATH)
             };
 
-            List<CodexItem> entries = new();
+            List<CodexEntry> entries = new();
 
             entries = entries.Concat(await ParseData<Item>(Constants.ITEM_FILEPATH)).ToList();
             entries = entries.Concat(await ParseData<Building>(Constants.BUILDING_FILEPATH)).ToList();

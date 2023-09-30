@@ -9,7 +9,7 @@ namespace SatisfactoryProductionator.Extensions
         {
             var index = modalEntry.Index;
 
-            return modalEntry.CodexItem.Pages[index].PageType;
+            return modalEntry.CodexEntry.Pages[index].PageType;
         }
 
         public static string GetPageHeader(this ModalEntry modalEntry)
@@ -19,7 +19,7 @@ namespace SatisfactoryProductionator.Extensions
 
         public static int GetPageCount(this ModalEntry modalEntry) 
         {
-            return modalEntry.CodexItem.Pages.Count;
+            return modalEntry.CodexEntry.Pages.Count;
         }
     }
 }

@@ -14,19 +14,21 @@
         <td colspan="4" class="page-header">@selectedEntry.GetPageHeader().FormatCategoryName()</td>
     </tr>
     <tr>
-        <table class="flex-even">
-            <tr class="flex-even w99">
-                @foreach (var item in GetItems())
-                {
-                    <td>
-                        <button class="image-button mt-48" type="button" @onclick="@(() => CodexModalState.SetSelectedItem(item.ClassName))">
-                            <img class="image-128" src=@item.IconPath alt=@item.ClassName />
-                            <div class="font-16 mt-4">@item.DisplayName</div>
-                        </button>
-                    </td>
-                }
-            </tr>
-        </table>
+        <td>
+            <table class="flex-even">
+                <tr class="flex-even w99">
+                    @foreach (var item in GetItems())
+                    {
+                        <td>
+                            <button class="image-button mt-48" type="button" @onclick="@(() => CodexModalState.SetSelectedItem(item.ClassName))">
+                                <img class="image-128" src=@item.IconPath alt=@item.ClassName />
+                                <div class="font-16 mt-4">@item.DisplayName</div>
+                            </button>
+                        </td>
+                    }
+                </tr>
+            </table>
+        </td>
     </tr>
 </table>
 
@@ -49,11 +51,11 @@
         CodexState.OnStateChange -= StateHasChanged;
     }
 
-    private List<CodexItem> GetItems()
+    private List<CodexEntry> GetItems()
     {
         var index = selectedEntry.Index;
 
-        var classNames = selectedEntry.CodexItem.Pages[index].Recipes;
+        var classNames = selectedEntry.CodexEntry.Pages[index].Entries;
 
         return CodexState.FetchItems(classNames);
     }

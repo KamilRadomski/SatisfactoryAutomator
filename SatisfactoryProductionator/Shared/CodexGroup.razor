@@ -20,15 +20,15 @@
 
 @code {
     [Parameter]
-    public IGrouping<CodexItemType, CodexItem> itemGroup { get; set; }
+    public IGrouping<CodexItemType, CodexEntry> itemGroup { get; set; }
 
     [Parameter]
-    public IGrouping<CodexSubItemType, CodexItem> subItemGroup { get; set; }
+    public IGrouping<CodexSubItemType, CodexEntry> subItemGroup { get; set; }
 
     [Parameter]
     public CodexCategory category { get; set; }
 
     private string GetGroupId() => (category is CodexCategory.Infrastructure) ? subItemGroup.Key.ToString() : itemGroup.Key.ToString();
 
-    private List<CodexItem> GetGroup() => (category is CodexCategory.Infrastructure) ? subItemGroup.ToList() : itemGroup.ToList();
+    private List<CodexEntry> GetGroup() => (category is CodexCategory.Infrastructure) ? subItemGroup.ToList() : itemGroup.ToList();
 }

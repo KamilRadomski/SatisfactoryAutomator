@@ -62,7 +62,7 @@
     {
         var index = selectedEntry.Index;
 
-        return selectedEntry.CodexItem.Pages[index].PageType;
+        return selectedEntry.CodexEntry.Pages[index].PageType;
     }
 
     private void SetSelectedItem(string itemName)
@@ -75,7 +75,7 @@
     {
         var index = selectedEntry.Index;
 
-        return selectedEntry.CodexItem.Pages[index].Recipes;
+        return selectedEntry.CodexEntry.Pages[index].Entries;
 
     }
 
