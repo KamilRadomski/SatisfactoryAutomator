@@ -9,3 +9,19 @@
     background: inherit;
     margin-bottom: 0px;
 }
+
+    .main-panel::-webkit-scrollbar {
+        width: 1em;
+    }
+
+    .main-panel::-webkit-scrollbar-track {
+        background: var(--sfBlue40);
+        border-radius: 16px;
+        margin-block: 5em;
+        margin-block-start: 5em;
+    }
+
+    .main-panel::-webkit-scrollbar-thumb {
+        border-radius: 100vh;
+        background: var(--sfBlue40);
+    }

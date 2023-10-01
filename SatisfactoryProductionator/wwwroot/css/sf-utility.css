@@ -3,6 +3,7 @@
 .mt-4 {margin-top: 4px;}
 .mt-6 {margin-top: 6px;}
 .mt-8 {margin-top: 8px;}
+.mt-16 {margin-top: 16px;}
 .mt-48 {margin-top: 48px;}
 
 .font-12 {font-size: 12px;}
@@ -13,6 +14,9 @@
 .pos-rel {position: relative;}
 
 .w99 {width: 99%;}
+
+.h100 {height: 100%}
+.h90 {height: 90%}
 
 .flex-even {
     display: flex;
