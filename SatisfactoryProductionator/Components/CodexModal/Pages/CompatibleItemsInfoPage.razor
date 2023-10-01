@@ -1,0 +1,60 @@
+﻿@using SatisfactoryProductionator.DataModels.Enums;
+@using SatisfactoryProductionator.DataModels.Models.Codex;
+@using SatisfactoryProductionator.DataModels.Models;
+@using SatisfactoryProductionator.Extensions;
+@using SatisfactoryProductionator.Services;
+
+@inject CodexModalState CodexModalState;
+@inject CodexState CodexState;
+
+@implements IDisposable
+
+<table class="page-table w99">
+    <tr>
+        <td colspan="4" class="page-header">@selectedEntry.GetPageHeader().FormatCategoryName()</td>
+    </tr>
+    <tr>
+        <td>
+            <table class="flex-even">
+                <tr class="flex-even w99">
+                    @foreach (var item in GetItems())
+                    {
+                        <td>
+                            <button class="image-button mt-48" type="button" @onclick="@(() => CodexModalState.SetSelectedItem(item.ClassName))">
+                                <img class="image-128" src=@item.IconPath alt=@item.ClassName />
+                                <div class="font-16 mt-4">@item.DisplayName</div>
+                            </button>
+                        </td>
+                    }
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+
+
+@code {
+    [CascadingParameter(Name = "SelectedEntry")]
+    public ModalEntry selectedEntry { get; set; }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        CodexModalState.OnStateChange += StateHasChanged;
+        CodexState.OnStateChange += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        CodexModalState.OnStateChange -= StateHasChanged;
+        CodexState.OnStateChange -= StateHasChanged;
+    }
+
+    private List<CodexEntry> GetItems()
+    {
+        var items = selectedEntry.GetEntries();
+
+        return CodexState.FetchItems(items);
+    }
+}

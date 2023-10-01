@@ -1,0 +1,34 @@
+﻿@using SatisfactoryProductionator.DataModels.Models.Codex;
+@using SatisfactoryProductionator.Extensions;
+@using SatisfactoryProductionator.Services;
+
+@inject CodexModalState CodexModalState;
+
+@implements IDisposable
+
+<div data-augmented-ui-reset></div>
+
+<div data-augmented-ui="tl-clip tr-2-clip-y br-clip bl-2-clip-x border" class="item-wrapper">
+    <button class="aug-btn" type="button" @onclick="@(() => CodexModalState.SetSelectedItem(item))">
+        <img src=@item.IconPath alt=@item.ClassName />
+        <div class="pos-rel font-16 item-name">
+            @item.DisplayName.FormatDisplayName().CondenseDisplayName()
+        </div>
+    </button>
+</div>
+
+@code {
+    [Parameter]
+    public CodexEntry item { get; set; }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        CodexModalState.OnStateChange += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        CodexModalState.OnStateChange -= StateHasChanged;
+    }
+}

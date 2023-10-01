@@ -1,11 +1,10 @@
-﻿using SatisfactoryProductionator.DataModels.Enums;
-using SatisfactoryProductionator.DataModels.Models.Codex;
+﻿using SatisfactoryProductionator.DataModels.Models.Codex;
 
 namespace SatisfactoryProductionator.DataModels.Models
 {
     public class ModalEntry
     {
-        public CodexItem CodexItem { get; set; }
+        public CodexEntry CodexEntry { get; set; }
         public int Index { get; set; }
     }
 }

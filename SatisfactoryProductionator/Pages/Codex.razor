@@ -4,8 +4,8 @@
 @using SatisfactoryProductionator.DataModels.Models.Codex;
 @using SatisfactoryProductionator.DataModels;
 @using SatisfactoryProductionator.Services;
-@using SatisfactoryProductionator.Shared;
-@using SatisfactoryProductionator.Shared.CodexModal;
+@using SatisfactoryProductionator.Components;
+@using SatisfactoryProductionator.Components.CodexModal;
 
 @inject CodexState CodexState
 @inject CodexMenuState CodexMenuState
@@ -15,9 +15,9 @@
 <div data-augmented-ui-reset></div>
 <CodexMenu />
 
-<div data-augmented-ui="tl-2-clip-x tr-clip br-clip bl-2-clip-y border" class="codex-main-panel">
+<div data-augmented-ui="tl-2-clip-x tr-clip br-clip bl-2-clip-y border" class="pos-abs panel-wrapper">
 
-    <div class="codex-main-panel-inner">
+    <div class="pos-abs main-panel">
         @if (CodexState.Codex == null)
         {
             <div>Loading.....</div>
@@ -70,7 +70,7 @@
         CodexMenuState.OnStateChange -= StateHasChanged;
     }
 
-    private List<IGrouping<CodexItemType, CodexItem>> GetCategoryItems()
+    private List<IGrouping<CodexItemType, CodexEntry>> GetCategoryItems()
     {
         var category = CodexMenuState.SelectedCategory;
 
@@ -79,7 +79,7 @@
         return items;
     }
 
-    private List<IGrouping<CodexSubItemType, CodexItem>> GetCategorySubItems()
+    private List<IGrouping<CodexSubItemType, CodexEntry>> GetCategorySubItems()
     {
         var infraCategory = CodexMenuState.SelectedInfrastructure;
         var subCategoryList = GetSubCategories(infraCategory);
@@ -93,7 +93,6 @@
 
     private List<CodexItemType> GetSubCategories(InfrastructureSubCategory infraCategory)
     {
-        //TODO Fix this trash
         return infraCategory switch
         {
             InfrastructureSubCategory.Foundations => new List<CodexItemType> { CodexItemType.Foundation },

@@ -1,0 +1,92 @@
+﻿@using SatisfactoryProductionator.DataModels.Enums;
+@using SatisfactoryProductionator.DataModels.Models;
+@using SatisfactoryProductionator.DataModels.Models.Codex;
+@using SatisfactoryProductionator.Extensions;
+@using SatisfactoryProductionator.Services;
+@using SatisfactoryProductionator.Components.CodexModal.Pages
+
+@inject CodexModalState CodexModalState;
+
+@implements IDisposable
+
+<div data-augmented-ui="tl-clip tr-clip br-clip bl-2-clip-x r-clip-y border" class="page">
+    @if (selectedEntry == null)
+    {
+        <p class="no-page-message"> - </p>
+    }
+    else
+    {
+        var pageType = selectedEntry.GetPageType();
+
+        if (pageType == PageType.Main ||
+            pageType == PageType.ByProducts ||
+            pageType == PageType.Inputs)
+        {
+            <RecipeInfoPage />
+        }
+        else if (pageType == PageType.Extraction)
+        {
+            <ExtractInfoPage />
+        }
+        else if (pageType == PageType.Cost)
+        {
+            <CostInfoPage />
+        }
+        else if (pageType == PageType.CompatibleItems)
+        {
+            <CompatibleItemsInfoPage />
+        }
+        else if (pageType == PageType.FuelRates)
+        {
+            <FuelUseInfoPage />
+        }
+        else if (pageType == PageType.Buildables ||
+                 pageType == PageType.Craftables || 
+                 pageType == PageType.Extractables)
+        {
+            <ProduceableInfoPage />
+        }
+
+        var pageCount = selectedEntry.GetPageCount();
+
+        @if (pageCount > 1)
+        {
+            <div data-augmented-ui-reset class="pos-abs flex-right paging">
+                <div class="flex-end page-lights">
+                    @for (var i = 0; i < pageCount; i++)
+                    {
+                        <div class="light @PageLightCss(i)"></div>
+                    }
+                </div>
+                <div class="page-nav">
+                    <button type="button" class="nav-btn" @onclick=@(() => CodexModalState.SetPageLeft())>
+                        <span class="nav-icon oi-caret-left" aria-hidden="true"></span>
+                    </button>
+                    <button type="button" class="nav-btn" @onclick=@(() => CodexModalState.SetPageRight())>
+                        <span class="nav-icon oi-caret-right" aria-hidden="true"></span>
+                    </button>
+                </div>
+            </div>
+        }
+    }
+</div>
+
+
+@code {
+    [CascadingParameter(Name = "SelectedEntry")]
+    public ModalEntry selectedEntry { get; set; }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        CodexModalState.OnStateChange += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        CodexModalState.OnStateChange -= StateHasChanged;
+    }
+   
+    private string PageLightCss(int i) => selectedEntry.Index == i ? "light-on" : "light-off";
+}

@@ -12,6 +12,18 @@ namespace SatisfactoryProductionator.Services
 
         public event Action OnStateChange;
 
+        private readonly CodexState _codexState;
+
+        public CodexModalState(CodexState codexState)
+        {
+            if(codexState.Codex == null)
+            {
+                codexState.InitializeCodexAsync();
+            }
+
+            _codexState = codexState;
+        }
+
         public void ToggleCodexModal()
         {
             Active = !Active;
@@ -39,9 +51,15 @@ namespace SatisfactoryProductionator.Services
             return SelectedEntry;
         }
 
-        public void SetSelectedItem(CodexItem item) 
+        public void SetSelectedItem(string name)
         {
-            if (SelectedEntry != null && SelectedEntry.CodexItem == item) 
+            var item = _codexState.FetchItem(name);
+            SetSelectedItem(item);
+        }
+
+        public void SetSelectedItem(CodexEntry item) 
+        {
+            if (SelectedEntry != null && SelectedEntry.CodexEntry == item) 
             {
                 Active = true;
                 NotifyStateChanged();
@@ -105,23 +123,22 @@ namespace SatisfactoryProductionator.Services
             NotifyStateChanged();
         }
 
-        public int GetPageCount()
+        private int GetPageCount()
         {
             if (SelectedEntry == null) return 0;
 
-            return SelectedEntry.CodexItem.Pages.Count;
+            return SelectedEntry.CodexEntry.Pages.Count;
         }
 
-        private ModalEntry? GenerateModalEntry(CodexItem item)
+        private static ModalEntry? GenerateModalEntry(CodexEntry item)
         {
             return new ModalEntry()
             {
-                CodexItem = item,
+                CodexEntry = item,
                 Index = 0,
             };
         }
 
         private void NotifyStateChanged() => OnStateChange?.Invoke();
-
     }
 }

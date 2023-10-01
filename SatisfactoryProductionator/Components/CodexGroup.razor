@@ -1,0 +1,34 @@
+﻿@using SatisfactoryProductionator.DataModels.Enums;
+@using SatisfactoryProductionator.DataModels.Models.Codex;
+@using SatisfactoryProductionator.Extensions;
+
+<div data-augmented-ui-reset></div>
+
+<div data-augmented-ui="tl-clip tr-2-clip-x br-clip bl-clip border" class="group">
+    <div id="@GetGroupId()">
+        <div class="group-heading">@GetGroupId().FormatCategoryName()</div>
+        
+            <ul class="flex-wrap">
+                @foreach (var item in GetGroup())
+                {
+                    <CodexGroupItem item=@item />
+                }
+            </ul>
+        
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public IGrouping<CodexItemType, CodexEntry> itemGroup { get; set; }
+
+    [Parameter]
+    public IGrouping<CodexSubItemType, CodexEntry> subItemGroup { get; set; }
+
+    [Parameter]
+    public CodexCategory category { get; set; }
+
+    private string GetGroupId() => (category is CodexCategory.Infrastructure) ? subItemGroup.Key.ToString() : itemGroup.Key.ToString();
+
+    private List<CodexEntry> GetGroup() => (category is CodexCategory.Infrastructure) ? subItemGroup.ToList() : itemGroup.ToList();
+}

@@ -1,0 +1,29 @@
+﻿.modal-wrapper {
+    width: 1381px;
+    height: 849px;
+    top: 5%;
+    left: 15%;
+}
+
+.modal-on {
+    z-index: 20;
+    transition: .4s;
+}
+
+.modal-off {
+    z-index: 0;
+    z-index: -1;
+    transition: .4s;
+    opacity: 0;
+    transform: scale(.05);
+}
+
+div.modal {
+    --aug-tl: 30px;
+    --aug-tr: 30px;
+    --aug-br: 30px;
+    --aug-bl: 30px;
+    --aug-border-all: 7px;
+    background: black;
+    display: inline-table;
+}

@@ -1,0 +1,20 @@
+﻿div.group {
+    margin: 15px 15px 20px 15px;
+    padding: 0px 25px 10px 10px;
+    --aug-tl: 55px;
+    --aug-tr: 55px;
+    --aug-br: 70px;
+    --aug-bl: 30px;
+    --aug-border-bg: var(--sfBlue);
+    --aug-border-x: 0px;
+    --aug-border-y: 3px;
+    --aug-tr-extend1: 50%;
+    transition: .5s;
+}
+
+.group-heading {
+    font-size: 3em;
+    width: 45%;
+    text-align: center;
+    scroll-margin-top: 15px;
+}

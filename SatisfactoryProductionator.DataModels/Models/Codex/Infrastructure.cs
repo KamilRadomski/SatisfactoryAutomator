@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SatisfactoryProductionator.DataModels.Models.Codex
 {
-    public class Infrastructure : CodexItem
+    public class Infrastructure : CodexEntry
     {
 
     }

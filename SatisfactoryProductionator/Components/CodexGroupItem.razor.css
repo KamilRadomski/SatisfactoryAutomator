@@ -1,0 +1,30 @@
+﻿div.item-wrapper {
+    width: 310px;
+    height: 300px;
+    margin: 10px;
+    background: black;
+    --aug-tl: 30px;
+    --aug-tr: 25px;
+    --aug-br: 20px;
+    --aug-bl: 20px;
+    --aug-border-y: 3px;
+    --aug-border-x: 1px;
+    --aug-border-bg: var(--sfBlue);
+    --aug-tr-extend2: 63%;
+}
+
+.item-wrapper:hover {
+    --aug-border-y: 5px;
+    --aug-border-x: 2px;
+    background: var(--sfBlue20);
+}
+
+.item-name {
+    padding: 0px 20px 0px 0px;
+    text-align: right;
+}
+
+.aug-btn img {
+    padding-right:20px;
+}
+

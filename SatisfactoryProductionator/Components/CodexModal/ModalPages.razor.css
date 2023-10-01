@@ -1,0 +1,81 @@
+﻿div.page {
+    position: relative;
+    float: left;
+    height: 460px;
+    width: 793px;
+    --aug-tl: 20px;
+    --aug-tr: 10px;
+    --aug-br: 20px;
+    --aug-bl: 30px;
+    --aug-r: 10px;
+    --aug-r-center: 275px;
+    --aug-border-all: 3px;
+    --aug-border-bg: var(--sfBlue);
+    top: 10px;
+    left: 3px;
+}
+
+.no-page-message {
+    font-size: 3rem;
+    position: relative;
+    top: 5px;
+    left: 50px;
+}
+
+.paging {
+    width: 200px;
+    height: 30px;
+    bottom: 10px;
+    right: 25px;
+}
+
+.page-lights {
+    width: 150px;
+    align-items: center;
+}
+
+.light {
+    height: 15px;
+    width: 15px;
+    margin: 2px;
+}
+
+.light-on {
+    background: var(--sfBlue);
+    transform: scale(1.15);
+}
+
+.light-off {
+    background: var(--sfBlue40);
+}
+
+.page-nav {
+    width: 60px;
+    display: flex;
+    float: right;
+}
+
+.nav-btn {
+    height: 30px;
+    width: 20px;
+    background: unset;
+    border: unset;
+}
+
+.nav-icon {
+    color: var(--sfBlue40);
+    position: relative;
+    top: -10px;
+    font-family: Icons;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 30px;
+}
+
+    .nav-icon:hover {
+        color: var(--sfBlue70);
+    }
+
+    .nav-icon:active {
+        color: var(--sfBlue);
+    }
