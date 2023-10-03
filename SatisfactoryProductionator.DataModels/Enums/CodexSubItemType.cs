@@ -50,5 +50,6 @@
         Train = 531,
 
         Xmas = 550,
+        ElevatorPhases = 551,
     }
 }

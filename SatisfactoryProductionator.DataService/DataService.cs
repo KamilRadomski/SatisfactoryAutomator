@@ -32,6 +32,7 @@ namespace SatisfactoryProductionator.DataService
             entries = entries.Concat(await ParseData<Building>(Constants.BUILDING_FILEPATH)).ToList();
             entries = entries.Concat(await ParseData<Equipment>(Constants.EQUIPMENT_FILEPATH)).ToList();
             entries = entries.Concat(await ParseData<Infrastructure>(Constants.INFRA_FILEPATH)).ToList();
+            entries = entries.Concat(await ParseData<Unlock>(Constants.UNLOCK_FILEPATH)).ToList();
 
             codex.CodexItems = entries.OrderBy(x => x.CodexCategory).ThenBy(x => x.CodexItemType).ThenBy(x => x.CodexSubItemType).ThenBy(x => x.DisplayName).ToList();
 

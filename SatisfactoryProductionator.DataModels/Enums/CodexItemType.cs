@@ -59,5 +59,6 @@
         Cart = 319,
 		
 		Xmas = 1000,
+        Milestones = 1001,
     }
 }
