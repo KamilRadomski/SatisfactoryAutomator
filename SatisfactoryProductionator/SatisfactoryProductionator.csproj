@@ -20,11 +20,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\images" />
-    <Folder Include="wwwroot\images\icons" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="..\.editorconfig" Link=".editorconfig" />
   </ItemGroup>
 
