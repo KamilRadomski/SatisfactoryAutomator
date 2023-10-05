@@ -59,5 +59,8 @@
         Cart = 319,
 		
 		Xmas = 1000,
+        Milestones = 1001,
+        Mam = 1002,
+        AwesomeShop = 1003,
     }
 }

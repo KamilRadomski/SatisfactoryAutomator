@@ -7,6 +7,6 @@
         public static readonly string EQUIPMENT_FILEPATH = @"/data/equipment.json";
         public static readonly string INFRA_FILEPATH = @"/data/infrastructure.json";
 		public static readonly string RECIPE_FILEPATH = @"/data/recipes.json";
-
-	}
+        public static readonly string UNLOCK_FILEPATH = @"/data/unlocks.json";
+    }
 }
