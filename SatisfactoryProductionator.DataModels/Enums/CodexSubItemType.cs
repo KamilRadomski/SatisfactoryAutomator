@@ -49,7 +49,25 @@
         Pads = 530,
         Train = 531,
 
-        Xmas = 550,
         ElevatorPhases = 551,
+        Tier0 = 552,
+        Tier1 = 553,
+        Tier2 = 554,
+        Tier3 = 555,
+        Tier4 = 556,
+        Tier5 = 557,
+        Tier6 = 558,
+        Tier7 = 559,
+        Tier8 = 560,
+        AlienOrganisms = 561,
+        Caterium = 562,
+        Mycelia = 563,
+        Nutrients = 564,
+        PowerSlugs = 565,
+        Quartz = 566,
+        Sulfur = 567,
+
+
+        Xmas = 600,
     }
 }
