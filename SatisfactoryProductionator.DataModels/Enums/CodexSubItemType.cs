@@ -69,5 +69,13 @@
 
 
         Xmas = 600,
+        Statues = 601,
+        Architecture = 602,
+        Customizer = 603,
+        FicsitSpecials = 604,
+        Foundations = 605,
+        Management = 606,
+        Organization = 607,
+        Walls = 608,
     }
 }
