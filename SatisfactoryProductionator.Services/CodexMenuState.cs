@@ -8,6 +8,8 @@ namespace SatisfactoryProductionator.Services
 
         public static InfrastructureSubCategory SelectedInfrastructure { get; set; } = InfrastructureSubCategory.Foundations;
 
+        public static UnlockSubCategory SelectedUnlock { get; set; } = UnlockSubCategory.Milestone;
+
         public event Action OnStateChange;
 
         public void SetCategory(CodexCategory category)
@@ -20,6 +22,13 @@ namespace SatisfactoryProductionator.Services
         public void SetInfrastructure(InfrastructureSubCategory category)
         {
             SelectedInfrastructure = category;
+
+            NotifyStateChanged();
+        }
+
+        public void SetUnlock(UnlockSubCategory category)
+        {
+            SelectedUnlock = category;
 
             NotifyStateChanged();
         }

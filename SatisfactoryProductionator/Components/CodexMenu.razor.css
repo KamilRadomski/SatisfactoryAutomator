@@ -1,5 +1,4 @@
-﻿/*#region Quick Nav */
-div.codex-menu {
+﻿div.codex-menu {
     top: 225px;
     bottom: 15px;
     left: 15px;
@@ -247,6 +246,34 @@ div.sub-d {
     left: 57px;
     font-size: 20px;
 }
+
+/**************/
+.unlock-sub-menu {
+    top: 18px;
+    left: 21px;
+    height: 170px;
+    width: 210px;
+    background: black;
+    z-index: 8;
+    --aug-border-all: 2px;
+    --aug-border-bg: var(--sfBlue);
+    --aug-tl: 10px;
+    --aug-tr: 10px;
+    --aug-bl: 15px;
+    --aug-br: 10px;
+    transition: .3s;
+}
+
+.unlock-active {
+    top: 150px;
+}
+
+
+
+
+
+
+/**************/
 
 .loading {
     top: 10px;
