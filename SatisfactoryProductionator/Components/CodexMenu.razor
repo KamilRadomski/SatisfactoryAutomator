@@ -57,26 +57,24 @@
         </div>
     </div>
 
-    <div data-augmented-ui="tl-clip tr-2-clip-y br-2-clip-x bl-clip border" class="pos-abs unlock-sub-menu @GetUnlockMenuActiveCss()">
+    <div data-augmented-ui="tl-clip tr-2-clip-x br-2-clip-x bl-2-clip-y border" class="pos-abs unlock-sub-menu @GetUnlockMenuActiveCss()">
         <div data-augmented-ui-reset></div>
-        <div data-augmented-ui="tl-clip-x tr-clip br-clip-x bl-clip-x border" class="pos-abs infra infra-foundation">
+        <div data-augmented-ui="tl-clip-x tr-clip br-2-clip-x bl-2-clip-x border" class="pos-abs infra unlock-milestone">
             <button type="button" class="sub-btn @activeMilestone" @onclick="@(() => SetSelectedUnlock(UnlockSubCategory.Milestone))">
-                <div class="pos-abs text-foundation">Milestones</div>
+                <div class="pos-abs text-milestone">Milestones</div>
             </button>
         </div>
-        <div data-augmented-ui="t-clip-x r-clip b-clip-x l-clip  border" class="pos-abs infra infra-wall">
+        <div data-augmented-ui="tl-clip t-clip-x tr-clip br-2-clip-x bl-2-clip-x border" class="pos-abs infra unlock-mam">
             <button type="button" class="sub-btn @activeMam" @onclick="@(() => SetSelectedUnlock(UnlockSubCategory.Mam))">
-                <div class="pos-abs text-walls-roofs">MAM</div>
+                <div class="pos-abs text-mam">MAM</div>
             </button>
         </div>
-        <div data-augmented-ui=" tl-clip-x tr-clip-x br-2-clip-x bl-clip border" class="pos-abs infra infra-general">
+        <div data-augmented-ui="tl-clip t-clip-x tr-clip br-2-clip-x bl-clip border" class="pos-abs infra unlock-shop">
             <button type="button" class="sub-btn @activeShop" @onclick="@(() => SetSelectedUnlock(UnlockSubCategory.Shop))">
-                <div class="pos-abs text-general">Awesome Shop</div>
+                <div class="pos-abs text-shop">Awesome Shop</div>
             </button>
         </div>
     </div>
-
-
 
     @if (CodexState.Codex == null)
     {

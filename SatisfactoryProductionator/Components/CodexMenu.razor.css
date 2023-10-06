@@ -257,10 +257,10 @@ div.sub-d {
     z-index: 8;
     --aug-border-all: 2px;
     --aug-border-bg: var(--sfBlue);
-    --aug-tl: 10px;
-    --aug-tr: 10px;
+    --aug-tl: 47px;
+    --aug-tr: 17px;
     --aug-bl: 15px;
-    --aug-br: 10px;
+    --aug-br: 16px;
     transition: .3s;
 }
 
@@ -268,9 +268,72 @@ div.sub-d {
     top: 150px;
 }
 
+.unlock-milestone {
+    top: 53px;
+    left: 6px;
+    height: 37px;
+    width: 198px;
+    --aug-tl: 8px;
+    --aug-tr: 8px;
+    --aug-bl: 6px;
+    --aug-br: 6px;
+    --aug-tl-inset1: 38px;
+    --aug-bl-extend1: 74px;
+    --aug-br-extend2: 30px;
+    --aug-border-x: 2px;
+    --aug-border-top: 2px;
+}
 
+.unlock-mam {
+    top: 86px;
+    left: 6px;
+    height: 40px;
+    width: 198px;
+    --aug-t: 7px;
+    --aug-tl: 4px;
+    --aug-tr: 3px;
+    --aug-bl: 9px;
+    --aug-br: 9px;
+    --aug-t-extend1: 71px;
+    --aug-t-offset: 22px;
+    --aug-bl-extend1: 50px;
+    --aug-br-extend2: 51px;
+    --aug-border-x: 2px;
+}
 
+.unlock-shop {
+    top: 119px;
+    left: 20px;
+    height: 46px;
+    width: 185px;
+    --aug-t: 9px;
+    --aug-tl: 10px;
+    --aug-tr: 7px;
+    --aug-bl: 11px;
+    --aug-br: 15px;
+    --aug-t-extend1: 64px;
+    --aug-t-offset: -10px;
+    --aug-border-x: 2px;
+    --aug-border-bottom: 2px;
+}
 
+.text-milestone {
+    top: 2px;
+    left: 73px;
+    font-size: 20px;
+}
+
+.text-mam {
+    top: 8px;
+    left: 73px;
+    font-size: 20px;
+}
+
+.text-shop {
+    top: 8px;
+    left: 14px;
+    font-size: 20px;
+}
 
 
 /**************/
