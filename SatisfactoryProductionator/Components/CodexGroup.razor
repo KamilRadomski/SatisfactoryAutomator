@@ -28,7 +28,7 @@
     [Parameter]
     public CodexCategory category { get; set; }
 
-    private string GetGroupId() => (category is CodexCategory.Infrastructure) ? subItemGroup.Key.ToString() : itemGroup.Key.ToString();
+    private string GetGroupId() => (category is CodexCategory.Infrastructure || category is CodexCategory.Unlock) ? subItemGroup.Key.ToString() : itemGroup.Key.ToString();
 
-    private List<CodexEntry> GetGroup() => (category is CodexCategory.Infrastructure) ? subItemGroup.ToList() : itemGroup.ToList();
+    private List<CodexEntry> GetGroup() => (category is CodexCategory.Infrastructure || category is CodexCategory.Unlock) ? subItemGroup.ToList() : itemGroup.ToList();
 }

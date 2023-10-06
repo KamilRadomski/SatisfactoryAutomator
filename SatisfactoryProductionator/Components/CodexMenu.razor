@@ -56,6 +56,26 @@
             </button>
         </div>
     </div>
+
+    <div data-augmented-ui="tl-clip tr-2-clip-x br-2-clip-x bl-2-clip-y border" class="pos-abs unlock-sub-menu @GetUnlockMenuActiveCss()">
+        <div data-augmented-ui-reset></div>
+        <div data-augmented-ui="tl-clip-x tr-clip br-2-clip-x bl-2-clip-x border" class="pos-abs infra unlock-milestone">
+            <button type="button" class="sub-btn @activeMilestone" @onclick="@(() => SetSelectedUnlock(UnlockSubCategory.Milestone))">
+                <div class="pos-abs text-milestone">Milestones</div>
+            </button>
+        </div>
+        <div data-augmented-ui="tl-clip t-clip-x tr-clip br-2-clip-x bl-2-clip-x border" class="pos-abs infra unlock-mam">
+            <button type="button" class="sub-btn @activeMam" @onclick="@(() => SetSelectedUnlock(UnlockSubCategory.Mam))">
+                <div class="pos-abs text-mam">MAM</div>
+            </button>
+        </div>
+        <div data-augmented-ui="tl-clip t-clip-x tr-clip br-2-clip-x bl-clip border" class="pos-abs infra unlock-shop">
+            <button type="button" class="sub-btn @activeShop" @onclick="@(() => SetSelectedUnlock(UnlockSubCategory.Shop))">
+                <div class="pos-abs text-shop">Awesome Shop</div>
+            </button>
+        </div>
+    </div>
+
     @if (CodexState.Codex == null)
     {
         <div class="pos-rel loading">Loading....</div>
@@ -116,6 +136,9 @@
     private static string activeFoundation;
     private static string activeWalls;
     private static string activeGeneral;
+    private static string activeMilestone;
+    private static string activeMam;
+    private static string activeShop;
 
 
     protected override async Task OnInitializedAsync()
@@ -129,11 +152,11 @@
             await CodexState.InitializeCodexAsync();
         }
 
-        var category = CodexMenuState.SelectedCategory;
-        SetSelectedCategory(category);
+        SetSelectedCategory(CodexMenuState.SelectedCategory);
 
-        var infraCategory = CodexMenuState.SelectedInfrastructure;
-        SetSelectedInfrastructure(infraCategory);
+        SetSelectedInfrastructure(CodexMenuState.SelectedInfrastructure);
+
+        SetSelectedUnlock(CodexMenuState.SelectedUnlock);
     }
 
     public void Dispose()
@@ -145,30 +168,49 @@
     {
         var category = CodexMenuState.SelectedCategory;
 
-        if (category is not CodexCategory.Infrastructure)
+        if(category is CodexCategory.Infrastructure)
+        {
+            var infraCategory = CodexMenuState.SelectedInfrastructure;
+            var infraItems = CodexState.Codex.CodexItems.Where(x => x.CodexCategory == CodexCategory.Infrastructure).ToList();
+
+            var categoryNames = infraCategory switch
+            {
+                InfrastructureSubCategory.Foundations => infraItems.Where(x => x.CodexItemType is CodexItemType.Foundation)
+                                                                   .Select(y => y.CodexSubItemType.ToString()).Distinct().ToList(),
+                InfrastructureSubCategory.WallsRoofs => infraItems.Where(x => x.CodexItemType is CodexItemType.Wall ||
+                                                                              x.CodexItemType is CodexItemType.Roof)
+                                                                  .Select(y => y.CodexSubItemType.ToString()).Distinct().ToList(),
+                InfrastructureSubCategory.General => infraItems.Where(x => x.CodexItemType is not CodexItemType.Default &&
+                                                                           x.CodexItemType is not CodexItemType.Foundation &&
+                                                                           x.CodexItemType is not CodexItemType.Wall &&
+                                                                           x.CodexItemType is not CodexItemType.Roof)
+                                                               .OrderBy(z => z.CodexSubItemType)
+                                                               .Select(y => y.CodexSubItemType.ToString()).Distinct().ToList(),
+            };
+
+            return categoryNames;
+        }
+        else if(category is CodexCategory.Unlock)
+        {
+            var unlockCategory = CodexMenuState.SelectedUnlock;
+            var unlockItems = CodexState.Codex.CodexItems.Where(x => x.CodexCategory == CodexCategory.Unlock).ToList();
+
+            var categoryNames = unlockCategory switch
+            {
+                UnlockSubCategory.Milestone => unlockItems.Where(x => x.CodexItemType is CodexItemType.Milestones)
+                                                          .Select(y => y.CodexSubItemType.ToString()).Distinct().ToList(),
+                UnlockSubCategory.Mam => unlockItems.Where(x => x.CodexItemType is CodexItemType.Mam)
+                                                    .Select(y => y.CodexSubItemType.ToString()).Distinct().ToList(),
+                UnlockSubCategory.Shop => unlockItems.Where(x => x.CodexItemType is CodexItemType.AwesomeShop)
+                                                     .Select(y => y.CodexSubItemType.ToString()).Distinct().ToList(),
+            };
+
+            return categoryNames;
+        }
+        else
         {
             return CodexState.Codex.CodexItems.Where(x => x.CodexCategory == category).Select(y => y.CodexItemType.ToString()).Distinct().ToList();
         }
-
-        var infraCategory = CodexMenuState.SelectedInfrastructure;
-        var infraItems = CodexState.Codex.CodexItems.Where(x => x.CodexCategory == CodexCategory.Infrastructure).ToList();
-
-        var categoryNames = infraCategory switch
-        {
-            InfrastructureSubCategory.Foundations => infraItems.Where(x => x.CodexItemType is CodexItemType.Foundation)
-                                                               .Select(y => y.CodexSubItemType.ToString()).Distinct().ToList(),
-            InfrastructureSubCategory.WallsRoofs => infraItems.Where(x => x.CodexItemType is CodexItemType.Wall ||
-                                                                          x.CodexItemType is CodexItemType.Roof)
-                                                              .Select(y => y.CodexSubItemType.ToString()).Distinct().ToList(),
-            InfrastructureSubCategory.General => infraItems.Where(x => x.CodexItemType is not CodexItemType.Default &&
-                                                                       x.CodexItemType is not CodexItemType.Foundation &&
-                                                                       x.CodexItemType is not CodexItemType.Wall &&
-                                                                       x.CodexItemType is not CodexItemType.Roof)
-                                                           .OrderBy(z => z.CodexSubItemType)
-                                                           .Select(y => y.CodexSubItemType.ToString()).Distinct().ToList(),
-        };
-
-        return categoryNames;
     }
 
     private void SetSelectedCategory(CodexCategory category)
@@ -223,9 +265,35 @@
         }
     }
 
-    private string GetListWrapperSizeCss() => (CodexMenuState.SelectedCategory is CodexCategory.Infrastructure) ? "list-shrank" : "list-full";
+    private void SetSelectedUnlock(UnlockSubCategory category)
+    {
+        CodexMenuState.SetUnlock(category);
 
-    private string GetQuickNavOffsetCss() => (CodexMenuState.SelectedCategory is CodexCategory.Infrastructure) ? "nav-active-offset" : "";
+        activeMilestone = "";
+        activeMam = "";
+        activeShop = "";
+
+        switch (category)
+        {
+            case UnlockSubCategory.Milestone:
+                activeMilestone = "active";
+                break;
+            case UnlockSubCategory.Mam:
+                activeMam = "active";
+                break;
+            case UnlockSubCategory.Shop:
+                activeShop = "active";
+                break;
+        }
+    }
+
+    private string GetListWrapperSizeCss() => (CodexMenuState.SelectedCategory is CodexCategory.Infrastructure || 
+                                               CodexMenuState.SelectedCategory is CodexCategory.Unlock) ? "list-shrank" : "list-full";
+
+    private string GetQuickNavOffsetCss() => (CodexMenuState.SelectedCategory is CodexCategory.Infrastructure ||
+                                              CodexMenuState.SelectedCategory is CodexCategory.Unlock) ? "nav-active-offset" : "";
    
     private string GetInfraMenuActiveCss() => (CodexMenuState.SelectedCategory is CodexCategory.Infrastructure) ? "infra-active" : "";
+
+    private string GetUnlockMenuActiveCss() => (CodexMenuState.SelectedCategory is CodexCategory.Unlock) ? "unlock-active" : "";
 }

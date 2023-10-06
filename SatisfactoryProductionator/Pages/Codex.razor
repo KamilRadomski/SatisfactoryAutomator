@@ -25,20 +25,28 @@
         else
         {
             <table>
-                @if (CodexMenuState.SelectedCategory is not CodexCategory.Infrastructure)
+                @if (CodexMenuState.SelectedCategory is CodexCategory.Infrastructure)
+                {
+                    @foreach (var group in GetInfrastructureCategorySubItems())
+                    {
+                        <CodexGroup subItemGroup="group"
+                                    category=CodexCategory.Infrastructure />
+                    }
+                }
+                else if (CodexMenuState.SelectedCategory is CodexCategory.Unlock)
+                {
+                    @foreach (var group in GetUnlockCategorySubItems())
+                    {
+                        <CodexGroup subItemGroup="group"
+                                    category=CodexCategory.Unlock />
+                    }
+                }
+                else
                 {
                     @foreach (var group in GetCategoryItems())
                     {
                         <CodexGroup itemGroup="group"
                                     category=CodexCategory.Default />
-                    }
-                }
-                else
-                {
-                    @foreach (var group in GetCategorySubItems())
-                    {
-                        <CodexGroup subItemGroup="group"
-                                    category=CodexCategory.Infrastructure />
                     }
                 }
             </table>
@@ -79,10 +87,10 @@
         return items;
     }
 
-    private List<IGrouping<CodexSubItemType, CodexEntry>> GetCategorySubItems()
+    private List<IGrouping<CodexSubItemType, CodexEntry>> GetInfrastructureCategorySubItems()
     {
         var infraCategory = CodexMenuState.SelectedInfrastructure;
-        var subCategoryList = GetSubCategories(infraCategory);
+        var subCategoryList = GetInfrastructureSubCategories(infraCategory);
 
         var items = CodexState.Codex.CodexItems.Where(x => x.CodexCategory is CodexCategory.Infrastructure &&
                                                            subCategoryList.Contains(x.CodexItemType))
@@ -91,7 +99,7 @@
         return items;
     }
 
-    private List<CodexItemType> GetSubCategories(InfrastructureSubCategory infraCategory)
+    private List<CodexItemType> GetInfrastructureSubCategories(InfrastructureSubCategory infraCategory)
     {
         return infraCategory switch
         {
@@ -114,6 +122,28 @@
                                                                           CodexItemType.Stairs,
                                                                           CodexItemType.Xmas,
                                                                           CodexItemType.Frame}
+        };
+    }
+
+    private List<IGrouping<CodexSubItemType, CodexEntry>> GetUnlockCategorySubItems()
+    {
+        var unlockCategory = CodexMenuState.SelectedUnlock;
+        var subCategoryList = GetUnlockSubCategories(unlockCategory);
+
+        var items = CodexState.Codex.CodexItems.Where(x => x.CodexCategory is CodexCategory.Unlock &&
+                                                           subCategoryList.Contains(x.CodexItemType))
+                                               .OrderBy(x => x.CodexSubItemType).GroupBy(x => x.CodexSubItemType).ToList();
+
+        return items;
+    }
+
+    private List<CodexItemType> GetUnlockSubCategories(UnlockSubCategory unlockCategory)
+    {
+        return unlockCategory switch
+        {
+            UnlockSubCategory.Milestone => new List<CodexItemType> { CodexItemType.Milestones },
+            UnlockSubCategory.Mam => new List<CodexItemType> { CodexItemType.Mam},
+            UnlockSubCategory.Shop => new List<CodexItemType> {CodexItemType.AwesomeShop}
         };
     }
 }
