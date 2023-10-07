@@ -11,7 +11,7 @@
 
 <table class="page-table h-90 w99">
     <tr>
-        <td colspan="4" class="page-header w99">@selectedEntry.GetPageHeader().FormatCategoryName()</td>
+        <td colspan="4" class="page-header w99">@selectedEntry.GetPageHeader().FormatCategoryName() @GetTierDisplay()</td>
     </tr>
     <tr>
         <td>
@@ -64,11 +64,14 @@
 
         var tempList = new List<string>();
 
-        foreach (var entry in selectedEntry.GetEntries())
+        var entries = selectedEntry.GetEntries();
+        var rowSplit = GetRowSplit(entries.Count);
+
+        foreach (var entry in entries)
         {
             tempList.Add(entry);
 
-            if (tempList.Count % 5 == 0)
+            if (tempList.Count % rowSplit == 0)
             {
                 items.Add(tempList);
                 tempList = new List<string>();
@@ -81,5 +84,30 @@
         }
 
         return items;
+    }
+
+    private int GetRowSplit(int cnt)
+    {
+        if (cnt <= 4) return 4;
+
+        if (cnt % 2 == 1) cnt++;
+
+        if (cnt % 5 == 0) return 5;
+        else if (cnt % 4 == 0) return 4;
+        else return 3;
+    }
+
+    private string GetTierDisplay()
+    {
+        if (selectedEntry.CodexEntry.CodexSubItemType is not CodexSubItemType.ElevatorPhases) return "";
+
+        var phase = int.Parse(selectedEntry.CodexEntry.ClassName.Replace("Schematic_Phase_", ""));
+
+        if (phase == 4) return "";
+
+        var index = selectedEntry.Index;
+        var tier = ((2 * phase) + index).ToString();
+
+        return $"::Tier {tier}";
     }
 }
