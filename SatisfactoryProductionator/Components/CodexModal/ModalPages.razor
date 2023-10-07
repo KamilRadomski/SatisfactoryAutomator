@@ -42,9 +42,14 @@
         }
         else if (pageType == PageType.Buildables ||
                  pageType == PageType.Craftables || 
-                 pageType == PageType.Extractables)
+                 pageType == PageType.Extractables ||
+                 pageType == PageType.Unlocks)
         {
             <ProduceableInfoPage />
+        }
+        else if (pageType == PageType.CompletionCost)
+        {
+            <CompletionPage />
         }
 
         var pageCount = selectedEntry.GetPageCount();

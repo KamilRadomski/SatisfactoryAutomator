@@ -14,5 +14,7 @@
         Extractables = 9,
         Buildables = 10,
         Craftables = 11,
+        CompletionCost = 12,
+        Unlocks = 13,
     }
 }
