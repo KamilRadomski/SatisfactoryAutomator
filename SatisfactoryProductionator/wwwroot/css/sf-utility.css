@@ -4,6 +4,7 @@
 .mt-6 {margin-top: 6px;}
 .mt-8 {margin-top: 8px;}
 .mt-16 {margin-top: 16px;}
+.mt-24 {margin-top: 24px;}
 .mt-48 {margin-top: 48px;}
 
 .font-12 {font-size: 12px;}
@@ -17,6 +18,10 @@
 
 .h100 {height: 100%}
 .h90 {height: 90%}
+
+.d-block {
+    display: block;
+}
 
 .flex-even {
     display: flex;

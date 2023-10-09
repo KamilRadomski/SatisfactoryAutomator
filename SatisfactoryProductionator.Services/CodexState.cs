@@ -26,12 +26,26 @@ namespace SatisfactoryProductionator.Services
         {
             var item = FetchItem(className);
 
+            //Todo Remove
+            if(item == null)
+            {
+                var test = className;
+                return "";
+            }
+
             return item.IconPath;
         }
 
         public string FetchDisplayName(string className)
         {
             var item = FetchItem(className);
+
+            //Todo Remove
+            if (item == null)
+            {
+                var test = className;
+                return "";
+            }
 
             return item.DisplayName;
         }
