@@ -1,4 +1,6 @@
-﻿@using SatisfactoryProductionator.DataModels.Models;
+﻿@using SatisfactoryProductionator.Components.CodexModal.ExtraInfo
+@using SatisfactoryProductionator.DataModels.Enums;
+@using SatisfactoryProductionator.DataModels.Models;
 @using SatisfactoryProductionator.Services;
 
 @inject CodexModalState CodexModalState;
@@ -6,9 +8,26 @@
 @implements IDisposable;
 
 <div data-augmented-ui="tl-clip tr-clip br-clip bl-clip border" class="info-panel-details">
-    
+    @if(selectedEntry != null)
+    {
+        if(selectedEntry.CodexEntry.CodexCategory is CodexCategory.Item)
+        {
+            <RecipeExtraInfo />
+        }
+        else if (selectedEntry.CodexEntry.CodexCategory is CodexCategory.Infrastructure)
+        {
+            <InfrastructureExtraInfo />
+        }
+        else if (selectedEntry.CodexEntry.CodexCategory is CodexCategory.Unlock)
+        {
+            <UnlocksExtraInfo />
+        }
+        else
+        {
+            <FillerExtraInfo />
+        }       
+    }
 </div>
-
 
 @code {
     [CascadingParameter(Name = "SelectedEntry")]
