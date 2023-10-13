@@ -1,0 +1,125 @@
+﻿@using SatisfactoryProductionator.DataModels.Enums;
+@using SatisfactoryProductionator.DataModels.Models.Codex;
+@using SatisfactoryProductionator.DataModels.Models;
+@using SatisfactoryProductionator.Extensions;
+@using SatisfactoryProductionator.Services;
+
+@inject CodexModalState CodexModalState;
+@inject CodexState CodexState;
+
+@implements IDisposable
+
+@if (GetCompletionPage().PageType is PageType.Default)
+{
+    <FillerExtraInfo />
+}
+else
+{
+    <table class="page-table w99">
+        <tr>
+            <td colspan="4" class="page-header">@selectedEntry.GetCompletionHeader().FormatCategoryName()</td>
+        </tr>
+        <tr>
+            <td>
+                @{
+                    var itemBundle = BundleItems();
+                }
+                <table class="flex-even d-block">
+                    @foreach (var group in itemBundle)
+                    {
+                        <tr class="flex-even w99">
+                            @foreach (var item in group)
+                            {
+                                <td>
+                                    <button class="image-button @GetMarginCss(itemBundle.Count)" type="button" @onclick="@(() => CodexModalState.SetSelectedItem(item.Key!))">
+                                        <img class="@GetImageSizeCss(itemBundle.Count)" src=@CodexState.FetchIconPath(item.Key) alt=@item.Key />
+                                        @if (item.Value[0] > 0)
+                                        {
+                                            <div class="font-16 mt-4">@Math.Round(item.Value[0], 2)</div>
+                                        }
+                                        else
+                                        {
+                                            <div class="font-16 mt-4">@CodexState.FetchDisplayName(item.Key)</div>
+                                        }
+                                    </button>
+                                </td>
+                            }
+                        </tr>
+                    }
+                </table>
+            </td>
+        </tr>
+    </table>
+}
+
+@code {
+    [CascadingParameter(Name = "SelectedEntry")]
+    public ModalEntry selectedEntry { get; set; }
+
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        CodexModalState.OnStateChange += StateHasChanged;
+        CodexState.OnStateChange += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        CodexModalState.OnStateChange -= StateHasChanged;
+        CodexState.OnStateChange -= StateHasChanged;
+    }
+
+    private CodexPage GetCompletionPage()
+    {
+        var unlock = selectedEntry.CodexEntry as Unlock;
+
+        return unlock.CompletionPage;
+    }
+
+    private List<Recipe> GetRecipes()
+    {
+        var page = GetCompletionPage();
+
+        return CodexState.FetchRecipes(page.Entries);
+    }
+
+    private List<List<KeyValuePair<string, double[]>>> BundleItems()
+    {
+        List<List<KeyValuePair<string, double[]>>> items = new();
+
+        var inputs = GetRecipes().First().Inputs.ToList();
+
+        if (inputs.Count < 6)
+        {
+            items.Add(inputs);
+
+            return items;
+        }
+
+        var tempList = new List<KeyValuePair<string, double[]>>();
+
+        foreach (var entry in inputs)
+        {
+            tempList.Add(entry);
+
+            if (tempList.Count % 3 == 0)
+            {
+                items.Add(tempList);
+                tempList = new List<KeyValuePair<string, double[]>>();
+            }
+        }
+
+        if (tempList.Count > 0)
+        {
+            items.Add(tempList);
+        }
+
+        return items;
+    }
+
+    private string GetMarginCss(int cnt) => cnt == 1 ? "mt-4" : "mt-4";
+
+    private string GetImageSizeCss(int cnt) => cnt == 1 ? "image-64" : "image-48";
+}

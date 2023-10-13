@@ -106,7 +106,7 @@
         if (phase == 4) return "";
 
         var index = selectedEntry.Index;
-        var tier = ((2 * phase) + index).ToString();
+        var tier = ((2 * phase) + index + 1).ToString();
 
         return $"::Tier {tier}";
     }
