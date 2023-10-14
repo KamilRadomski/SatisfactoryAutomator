@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SatisfactoryProductionator.DataModels.Enums;
 
 namespace SatisfactoryProductionator.DataModels.Models.Codex
 {
     public class Infrastructure : CodexEntry
     {
-
+        public MaterialType MaterialType { get; set; }
     }
 }
