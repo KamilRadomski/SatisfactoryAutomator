@@ -3,6 +3,7 @@
 @using SatisfactoryProductionator.DataModels.Models;
 @using SatisfactoryProductionator.Extensions;
 @using SatisfactoryProductionator.Services;
+@using SatisfactoryProductionator.Utilities;
 
 @inject CodexModalState CodexModalState;
 @inject CodexState CodexState;
@@ -15,9 +16,7 @@
     </tr>
     <tr>
         <td>
-            @{
-                var itemBundle = BundleItems();
-            }
+            @{ var itemBundle = selectedEntry.BundleInputs(GetRecipes(), rowSplit: 3); }
             <table class="flex-even d-block">
                 @foreach(var group in itemBundle)
                 {
@@ -25,8 +24,8 @@
                     @foreach (var item in group)
                     {
                         <td>
-                            <button class="image-button @GetMarginCss(itemBundle.Count)" type="button" @onclick="@(() => CodexModalState.SetSelectedItem(item.Key!))">
-                                <img class="@GetImageSizeCss(itemBundle.Count)" src=@CodexState.FetchIconPath(item.Key) alt=@item.Key />
+                            <button class="image-button @CodexPageUtil.GetMarginCss(itemBundle.Count)" type="button" @onclick="@(() => CodexModalState.SetSelectedItem(item.Key!))">
+                                    <img class="@CodexPageUtil.GetImageSizeCss(itemBundle.Count)" src=@CodexState.FetchIconPath(item.Key) alt=@item.Key />
                                 @if (item.Value[0] > 0)
                                 {
                                     <div class="font-16 mt-4">@Math.Round(item.Value[0], 2)</div>
@@ -69,42 +68,4 @@
 
         return CodexState.FetchRecipes(recipeNames);
     }
-
-    private List<List<KeyValuePair<string, double[]>>> BundleItems()
-    {
-        List<List<KeyValuePair<string, double[]>>> items = new();
-
-        var inputs = GetRecipes().First().Inputs.ToList();
-
-        if (inputs.Count < 6)
-        {
-            items.Add(inputs);
-
-            return items;
-        }
-
-        var tempList = new List<KeyValuePair<string, double[]>>();
-
-        foreach (var entry in inputs)
-        {
-            tempList.Add(entry);
-
-            if (tempList.Count % 3 == 0)
-            {
-                items.Add(tempList);
-                tempList = new List<KeyValuePair<string, double[]>>();
-            }
-        }
-
-        if (tempList.Count > 0)
-        {
-            items.Add(tempList);
-        }
-
-        return items;
-    }
-
-    private string GetMarginCss(int cnt) => cnt == 1 ? "mt-48" : "mt-24";
-
-    private string GetImageSizeCss(int cnt) => cnt == 1 ? "image-128" : "image-96";
 }

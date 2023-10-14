@@ -3,6 +3,7 @@
 @using SatisfactoryProductionator.DataModels.Models;
 @using SatisfactoryProductionator.Extensions;
 @using SatisfactoryProductionator.Services;
+@using SatisfactoryProductionator.Utilities;
 
 @inject CodexModalState CodexModalState;
 @inject CodexState CodexState;
@@ -15,34 +16,21 @@
     </tr>
     <tr>
         <td>
-        @{
-            var fuelBundle = BundleFuelInputs();
-        }
+            @{ var fuelBundle = selectedEntry.BundleInputs(GetFuels()); }
             <table class="w99">
-                @foreach(var group in fuelBundle)
+                @foreach (var group in fuelBundle)
                 {
-                <tr class="flex-even w99">
-                
-                    @foreach (var item in group)
-                    {
-                        <td>
-                            @if (fuelBundle.Count > 1)
-                            {
-                                <button class="image-button mt-16" type="button" @onclick="@(() => CodexModalState.SetSelectedItem(item.Key))">
-                                        <img class="image-96" src=@CodexState.FetchIconPath(item.Key) alt=@item.Key />
-                                        <div class="font-16 mt-4"> @Math.Round(item.Value[1], 2)/min</div>
+                    <tr class="flex-even w99">
+                        @foreach (var item in group)
+                        {
+                            <td>
+                                <button class="image-button @CodexPageUtil.GetMarginCss(fuelBundle.Count)" type="button" @onclick="@(() => CodexModalState.SetSelectedItem(item.Key))">
+                                    <img class="@CodexPageUtil.GetImageSizeCss(fuelBundle.Count)" src=@CodexState.FetchIconPath(item.Key) alt=@item.Key />
+                                    <div class="font-16 mt-4"> @Math.Round(item.Value[1], 2)/min</div>
                                 </button>
-                            }
-                            else
-                            {
-                                    <button class="image-button mt-48" type="button" @onclick="@(() => CodexModalState.SetSelectedItem(item.Key))">
-                                    <img class="image-128" src=@CodexState.FetchIconPath(item.Key) alt=@item.Key />
-                                        <div class="font-16 mt-4"> @Math.Round(item.Value[1], 2)/min</div>
-                                </button>
-                            }
-                        </td>
-                    }
-                </tr>
+                            </td>
+                        }
+                    </tr>
                 }
             </table>
         </td>
@@ -68,36 +56,10 @@
         CodexState.OnStateChange -= StateHasChanged;
     }
 
-    private Recipe GetFuels()
+    private List<Recipe> GetFuels()
     {
         var classNames = selectedEntry.GetEntries();
 
-        return CodexState.FetchRecipes(classNames).First();
-    }
-
-    private List<List<KeyValuePair<string, double[]>>> BundleFuelInputs()
-    {
-        List<List<KeyValuePair<string, double[]>>> items = new();
-
-        var inputs = GetFuels().Inputs.ToList();
-        var tempList = new List<KeyValuePair<string, double[]>>();
-
-        foreach (var entry in inputs)
-        {
-            tempList.Add(entry);
-
-            if(tempList.Count % 6 == 0)
-            {
-                items.Add(tempList);
-                tempList = new List<KeyValuePair<string, double[]>>();
-            }
-        }
-
-        if(tempList.Count > 0) 
-        {
-            items.Add(tempList);
-        }
-
-        return items;
+        return CodexState.FetchRecipes(classNames);
     }
 }
