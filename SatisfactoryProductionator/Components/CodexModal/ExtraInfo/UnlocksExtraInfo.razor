@@ -31,7 +31,7 @@ else
                             @foreach (var item in group)
                             {
                                 <td>
-                                    <button class="image-button @GetMarginCss(itemBundle.Count)" type="button" @onclick="@(() => CodexModalState.SetSelectedItem(item.Key!))">
+                                    <button class="image-button mt-4" type="button" @onclick="@(() => CodexModalState.SetSelectedItem(item.Key!))">
                                         <img class="@GetImageSizeCss(itemBundle.Count)" src=@CodexState.FetchIconPath(item.Key) alt=@item.Key />
                                         @if (item.Value[0] > 0)
                                         {
@@ -118,8 +118,6 @@ else
 
         return items;
     }
-
-    private string GetMarginCss(int cnt) => cnt == 1 ? "mt-4" : "mt-4";
 
     private string GetImageSizeCss(int cnt) => cnt == 1 ? "image-64" : "image-48";
 }

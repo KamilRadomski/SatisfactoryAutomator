@@ -3,6 +3,7 @@
 @using SatisfactoryProductionator.DataModels.Models;
 @using SatisfactoryProductionator.Extensions;
 @using SatisfactoryProductionator.Services;
+@using SatisfactoryProductionator.Utilities;
 
 @inject CodexModalState CodexModalState;
 @inject CodexState CodexState;
@@ -15,18 +16,22 @@
     </tr>
     <tr>
         <td>
+            @{ var itemBundle = selectedEntry.BundleEntries(GetItems()); }
             <table class="flex-even">
-                <tr class="flex-even w99">
-                    @foreach (var item in GetItems())
-                    {
-                        <td>
-                            <button class="image-button mt-48" type="button" @onclick="@(() => CodexModalState.SetSelectedItem(item.ClassName))">
-                                <img class="image-128" src=@item.IconPath alt=@item.ClassName />
-                                <div class="font-16 mt-4">@item.DisplayName</div>
-                            </button>
-                        </td>
-                    }
-                </tr>
+                @foreach(var group in itemBundle)
+                {
+                    <tr class="flex-even w99">
+                        @foreach (var item in group)
+                        {
+                            <td>
+                                <button class="image-button @CodexPageUtil.GetMarginCss(itemBundle.Count)" type="button" @onclick="@(() => CodexModalState.SetSelectedItem(item.ClassName))">
+                                    <img class="@CodexPageUtil.GetImageSizeCss(itemBundle.Count)" src=@item.IconPath alt=@item.ClassName />
+                                    <div class="font-16 mt-4">@item.DisplayName</div>
+                                </button>
+                            </td>
+                        }
+                    </tr>
+                }
             </table>
         </td>
     </tr>

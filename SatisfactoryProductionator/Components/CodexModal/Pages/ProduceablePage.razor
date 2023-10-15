@@ -3,6 +3,7 @@
 @using SatisfactoryProductionator.DataModels.Models;
 @using SatisfactoryProductionator.Extensions;
 @using SatisfactoryProductionator.Services;
+@using SatisfactoryProductionator.Utilities;
 
 @inject CodexModalState CodexModalState;
 @inject CodexState CodexState;
@@ -15,9 +16,7 @@
     </tr>
     <tr>
         <td>
-            @{
-                var itemBundle = BundleItems();
-            }
+            @{ var itemBundle = selectedEntry.BundleItems(); }
             <table class="h-100 w99">
                 @foreach (var group in itemBundle)
                 {
@@ -26,8 +25,8 @@
                         @foreach (var item in group)
                         {
                             <td>
-                                <button class="image-button mt-16" type="button" @onclick="@(() => CodexModalState.SetSelectedItem(item))">
-                                    <img class="image-96" src=@CodexState.FetchIconPath(item) alt=@item />
+                                <button class="image-button @CodexPageUtil.GetMarginCss(itemBundle.Count)" type="button" @onclick="@(() => CodexModalState.SetSelectedItem(item))">
+                                    <img class="@CodexPageUtil.GetImageSizeCss(itemBundle.Count)" src=@CodexState.FetchIconPath(item) alt=@item />
                                     <div class="font-16 mt-4">@CodexState.FetchDisplayName(item).FormatDisplayName()</div>
                                 </button>
                             </td>
@@ -38,7 +37,6 @@
         </td>
     </tr>
 </table>
-
 
 @code {
     [CascadingParameter(Name = "SelectedEntry")]
@@ -56,45 +54,6 @@
     {
         CodexModalState.OnStateChange -= StateHasChanged;
         CodexState.OnStateChange -= StateHasChanged;
-    }
-
-    private List<List<string>> BundleItems()
-    {
-        List<List<string>> items = new();
-
-        var tempList = new List<string>();
-
-        var entries = selectedEntry.GetEntries();
-        var rowSplit = GetRowSplit(entries.Count);
-
-        foreach (var entry in entries)
-        {
-            tempList.Add(entry);
-
-            if (tempList.Count % rowSplit == 0)
-            {
-                items.Add(tempList);
-                tempList = new List<string>();
-            }
-        }
-
-        if (tempList.Count > 0)
-        {
-            items.Add(tempList);
-        }
-
-        return items;
-    }
-
-    private int GetRowSplit(int cnt)
-    {
-        if (cnt <= 4) return 4;
-
-        if (cnt % 2 == 1) cnt++;
-
-        if (cnt % 5 == 0) return 5;
-        else if (cnt % 4 == 0) return 4;
-        else return 3;
     }
 
     private string GetTierDisplay()

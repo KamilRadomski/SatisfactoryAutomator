@@ -63,5 +63,6 @@
         Milestones = 1001,
         Mam = 1002,
         AwesomeShop = 1003,
+        Pattern = 1004,
     }
 }

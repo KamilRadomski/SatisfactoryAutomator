@@ -67,8 +67,6 @@
         Quartz = 566,
         Sulfur = 567,
 
-
-        Xmas = 600,
         Statues = 601,
         Architecture = 602,
         Customizer = 603,
@@ -77,5 +75,14 @@
         Management = 606,
         Organization = 607,
         Walls = 608,
+
+        ArrowPatterns = 609,
+        IconPatterns = 610,
+        NumberPatterns = 611,
+        LinePatterns = 612,
+        ZonePatterns = 613,
+        PathPatterns = 614,
+
+        Xmas = 615,
     }
 }
