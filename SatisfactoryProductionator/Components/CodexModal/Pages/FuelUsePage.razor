@@ -26,7 +26,15 @@
                             <td>
                                 <button class="image-button @CodexPageUtil.GetMarginCss(fuelBundle.Count)" type="button" @onclick="@(() => CodexModalState.SetSelectedItem(item.Key))">
                                     <img class="@CodexPageUtil.GetImageSizeCss(fuelBundle.Count)" src=@CodexState.FetchIconPath(item.Key) alt=@item.Key />
-                                    <div class="font-16 mt-4"> @Math.Round(double.Parse(item.Value), 3)/min</div>
+                                    @if(selectedEntry.CodexEntry.ClassName != "Drone")
+                                    {
+                                        <div class="font-16 mt-4"> @Math.Round(double.Parse(item.Value), 3)/min</div>
+                                    }
+                                    else
+                                    {
+                                        <div class="font-16 mt-4">4 Per Flight</div>
+                                        <div class="font-16 mt-4">+1 Per 1km</div>
+                                    }
                                 </button>
                             </td>
                         }

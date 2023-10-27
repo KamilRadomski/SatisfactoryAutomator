@@ -60,7 +60,7 @@
     {
         if (selectedEntry.CodexEntry.CodexSubItemType is not CodexSubItemType.ElevatorPhases) return "";
 
-        var phase = int.Parse(selectedEntry.CodexEntry.ClassName.Replace("Schematic_Phase_", ""));
+        var phase = int.Parse(selectedEntry.CodexEntry.ClassName.Replace("Phase_", ""));
 
         if (phase == 4) return "";
 
