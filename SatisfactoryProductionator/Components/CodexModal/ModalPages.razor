@@ -28,14 +28,6 @@
         {
             <ExtractPage />
         }
-        else if (pageType == PageType.Cost)
-        {
-            <CostPage />
-        }
-        else if (pageType == PageType.CompatibleItems)
-        {
-            <CompatibleItemsPage />
-        }
         else if (pageType == PageType.FuelRates)
         {
             <FuelUsePage />
@@ -43,13 +35,10 @@
         else if (pageType == PageType.Buildables ||
                  pageType == PageType.Craftables || 
                  pageType == PageType.Extractables ||
-                 pageType == PageType.Unlocks)
+                 pageType == PageType.Unlocks ||
+                 pageType == PageType.CompatibleItems)
         {
-            <ProduceablePage />
-        }
-        else if (pageType == PageType.CompletionCost)
-        {
-            <CompletionPage />
+            <ListPage />
         }
 
         var pageCount = selectedEntry.GetPageCount();
