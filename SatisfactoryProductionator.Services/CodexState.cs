@@ -79,5 +79,10 @@ namespace SatisfactoryProductionator.Services
             return recipes;
         }
 
+        public List<Extraction> FetchExtractions(string output)
+        {
+            return Codex.Extractions.Where(x => x.Output == output).ToList();
+        }
+
     }
 }

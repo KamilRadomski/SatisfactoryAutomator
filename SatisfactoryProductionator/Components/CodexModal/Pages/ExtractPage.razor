@@ -13,9 +13,9 @@
     <tr>
         <td colspan="4" class="page-header">@selectedEntry.GetPageHeader().FormatCategoryName()</td>
     </tr>
-    @foreach (var recipe in GetRecipes())
+    @foreach (var extraction in GetExtractions())
     {
-        var buildingInfo = CodexState.FetchItem(recipe.Building);
+        var buildingInfo = CodexState.FetchItem(extraction.Building);
         <tr>
             <td>
                 <button class="image-button" type="button" @onclick="@(() => CodexModalState.SetSelectedItem(buildingInfo.ClassName))">
@@ -27,19 +27,17 @@
             <td>
                 <table>
                     <tr>
-                        @foreach (var item in recipe.Outputs.Values)
+                        @{var i = 0;}
+                        @foreach (var value in extraction.Rates)
                         {
-                            var i = 0;
-                            foreach (var value in item)
-                            {
-                                <td>
-                                    <div class="extract-space">
-                                        <img class="image-64 @GetBackgroundColorCss(i++, item.Length)" src=@selectedEntry.CodexEntry.IconPath alt=@selectedEntry.CodexEntry.DisplayName />
-                                        <div class="font-12 mt-3">@value.ToString()/min</div>
-                                    </div>
-                                </td>
-                            }
+                        <td>
+                            <div class="extract-space">
+                                <img class="image-64 @GetBackgroundColorCss(i++, extraction.Rates.Length)" src=@selectedEntry.CodexEntry.IconPath alt=@selectedEntry.CodexEntry.DisplayName />
+                                <div class="font-12 mt-3">@value.ToString()/min</div>
+                            </div>
+                        </td>
                         }
+
                     </tr>
                 </table>
             </td>
@@ -65,11 +63,11 @@
         CodexState.OnStateChange -= StateHasChanged;
     }
 
-    private List<Recipe> GetRecipes()
+    private List<Extraction> GetExtractions()
     {
-        var recipeNames = selectedEntry.GetEntries();
+        var output = selectedEntry.CodexEntry.CodexItemType is CodexItemType.Ores ? "Ore" : selectedEntry.CodexEntry.ClassName;
 
-        return CodexState.FetchRecipes(recipeNames);
+        return CodexState.FetchExtractions(output);
     }
 
     private string GetBackgroundColorCss(int i, int count)

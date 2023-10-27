@@ -23,7 +23,9 @@ namespace SatisfactoryProductionator.DataService
         {
             Codex codex = new()
             {
-                Recipes = await ParseData<Recipe>(Constants.RECIPE_FILEPATH)
+                Recipes = await ParseData<Recipe>(Constants.RECIPE_FILEPATH),
+                Extractions = await ParseData<Extraction>(Constants.EXTRACT_FILEPATH),
+                
             };
 
             List<CodexEntry> entries = new();

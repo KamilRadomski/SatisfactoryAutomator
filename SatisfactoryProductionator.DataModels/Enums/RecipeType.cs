@@ -6,5 +6,7 @@
 		Basic = 1,
 		Alternate = 2,
 		Extraction = 3,
-	}
+        FuelRate = 4,
+        Completion = 5,
+    }
 }
