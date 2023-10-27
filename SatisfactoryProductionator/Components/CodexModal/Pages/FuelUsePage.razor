@@ -16,7 +16,7 @@
     </tr>
     <tr>
         <td>
-            @{ var fuelBundle = selectedEntry.BundleInputs(GetFuels()); }
+            @{ var fuelBundle = selectedEntry.BundleFuels(GetFuels()); }
             <table class="w99">
                 @foreach (var group in fuelBundle)
                 {
@@ -26,7 +26,7 @@
                             <td>
                                 <button class="image-button @CodexPageUtil.GetMarginCss(fuelBundle.Count)" type="button" @onclick="@(() => CodexModalState.SetSelectedItem(item.Key))">
                                     <img class="@CodexPageUtil.GetImageSizeCss(fuelBundle.Count)" src=@CodexState.FetchIconPath(item.Key) alt=@item.Key />
-                                    <div class="font-16 mt-4"> @Math.Round(item.Value[1], 2)/min</div>
+                                    <div class="font-16 mt-4"> @Math.Round(double.Parse(item.Value), 3)/min</div>
                                 </button>
                             </td>
                         }
@@ -56,10 +56,18 @@
         CodexState.OnStateChange -= StateHasChanged;
     }
 
-    private List<Recipe> GetFuels()
+    private List<KeyValuePair<string,string>> GetFuels()
     {
         var classNames = selectedEntry.GetEntries();
 
-        return CodexState.FetchRecipes(classNames);
+        List<KeyValuePair<string, string>> fuels = new();
+
+        foreach(var name in classNames)
+        {
+            var values = name.Split('-');
+            fuels.Add(new KeyValuePair<string, string>(values[0], values[1]));
+        }
+
+        return fuels;
     }
 }

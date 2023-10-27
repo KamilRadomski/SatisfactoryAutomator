@@ -101,6 +101,34 @@ namespace SatisfactoryProductionator.Extensions
             return items;
         }
 
+        public static List<List<KeyValuePair<string, string>>> BundleFuels(this ModalEntry modelEntry, List<KeyValuePair<string, string>> entries)
+        {
+            List<List<KeyValuePair<string, string>>> items = new();
+
+            var tempList = new List<KeyValuePair<string, string>>();
+
+            var rowSplit = GetRowSplit(entries.Count);
+
+            foreach (var entry in entries)
+            {
+                tempList.Add(entry);
+
+                if (tempList.Count % rowSplit == 0)
+                {
+                    items.Add(tempList);
+                    tempList = new List<KeyValuePair<string, string>>();
+                }
+            }
+
+            if (tempList.Count > 0)
+            {
+                items.Add(tempList);
+            }
+
+            return items;
+        
+        }
+
         public static List<List<CodexEntry>> BundleEntries(this ModalEntry modalEntry, List<CodexEntry> entries)  
         {
             List<List<CodexEntry>> items = new();
