@@ -14,17 +14,9 @@
         {
             <RecipeExtraInfo />
         }
-        else if (selectedEntry.CodexEntry.CodexCategory is CodexCategory.Infrastructure)
-        {
-            <InfrastructureExtraInfo />
-        }
-        else if (selectedEntry.CodexEntry.CodexCategory is CodexCategory.Unlock)
-        {
-            <UnlocksExtraInfo />
-        }
         else
         {
-            <FillerExtraInfo />
+            <UnlocksExtraInfo />
         }       
     }
 </div>

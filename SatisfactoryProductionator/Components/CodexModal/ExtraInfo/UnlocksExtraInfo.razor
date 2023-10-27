@@ -9,7 +9,11 @@
 
 @implements IDisposable
 
-@if (GetCompletionPage().PageType is PageType.Default)
+@{
+    cost = GetCost();
+}
+
+@if (cost.ItemCost.Count == 0)
 {
     <FillerExtraInfo />
 }
@@ -17,7 +21,7 @@ else
 {
     <table class="page-table w99">
         <tr>
-            <td colspan="4" class="page-header">@selectedEntry.GetCompletionHeader().FormatCategoryName()</td>
+            <td colspan="4" class="page-header">Cost</td>
         </tr>
         <tr>
             <td>
@@ -33,9 +37,9 @@ else
                                 <td>
                                     <button class="image-button mt-4" type="button" @onclick="@(() => CodexModalState.SetSelectedItem(item.Key!))">
                                         <img class="@GetImageSizeCss(itemBundle.Count)" src=@CodexState.FetchIconPath(item.Key) alt=@item.Key />
-                                        @if (item.Value[0] > 0)
+                                        @if (item.Value > 0)
                                         {
-                                            <div class="font-16 mt-4">@Math.Round(item.Value[0], 2)</div>
+                                            <div class="font-16 mt-4">@Math.Round(item.Value, 2)</div>
                                         }
                                         else
                                         {
@@ -55,6 +59,7 @@ else
 @code {
     [CascadingParameter(Name = "SelectedEntry")]
     public ModalEntry selectedEntry { get; set; }
+    public Cost cost { get; set; }
 
 
     protected override void OnInitialized()
@@ -71,25 +76,31 @@ else
         CodexState.OnStateChange -= StateHasChanged;
     }
 
-    private CodexPage GetCompletionPage()
+    private Cost GetCost()
     {
-        var unlock = selectedEntry.CodexEntry as Unlock;
+        switch(selectedEntry.CodexEntry.CodexCategory)
+        {
+            case CodexCategory.Building:
+                return (selectedEntry.CodexEntry as Building)!.Cost;
 
-        return unlock.CompletionPage;
+            case CodexCategory.Infrastructure:
+                return (selectedEntry.CodexEntry as Infrastructure)!.Cost;
+
+            case CodexCategory.Equipment:
+                return (selectedEntry.CodexEntry as Equipment)!.Cost;
+
+            case CodexCategory.Unlock:
+                return (selectedEntry.CodexEntry as Unlock)!.Cost;
+
+            default: return new Cost() {ItemCost = new Dictionary<string, double>()};
+        }
     }
 
-    private List<Recipe> GetRecipes()
+    private List<List<KeyValuePair<string, double>>> BundleItems()
     {
-        var page = GetCompletionPage();
+        List<List<KeyValuePair<string, double>>> items = new();
 
-        return CodexState.FetchRecipes(page.Entries);
-    }
-
-    private List<List<KeyValuePair<string, double[]>>> BundleItems()
-    {
-        List<List<KeyValuePair<string, double[]>>> items = new();
-
-        var inputs = GetRecipes().First().Inputs.ToList();
+        var inputs = cost.ItemCost.ToList();
 
         if (inputs.Count < 6)
         {
@@ -98,7 +109,7 @@ else
             return items;
         }
 
-        var tempList = new List<KeyValuePair<string, double[]>>();
+        var tempList = new List<KeyValuePair<string, double>>();
 
         foreach (var entry in inputs)
         {
@@ -107,7 +118,7 @@ else
             if (tempList.Count % 3 == 0)
             {
                 items.Add(tempList);
-                tempList = new List<KeyValuePair<string, double[]>>();
+                tempList = new List<KeyValuePair<string, double>>();
             }
         }
 
