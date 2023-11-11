@@ -5,9 +5,29 @@
 
 @implements IDisposable;
 
-<div>
-</div>
+<div class="info-buttons-wrapper">
 
+    <div data-augmented-ui="all-hex border" class="info-button">
+        <button type="button" class="btn-clear" @onclick=@CodexModalState.ClearModal>
+            <span class="btn-icon oi-trash" aria-hidden="true"></span>
+        </button>
+    </div>
+
+    <div data-augmented-ui="all-hexangle-left border" class="info-button @IsPrevActiveCss()">
+        <button type="button" disabled=@IsPrevDisabled() class="btn-nav" @onclick=@CodexModalState.DisplayPrevious></button>
+    </div>
+
+    <div data-augmented-ui="all-hexangle-right border" class="info-button @IsNextActiveCss()">
+        <button type="button" disabled=@IsNextDisabled() class="btn-nav" @onclick=@CodexModalState.DisplayNext></button>
+    </div>
+
+    <div data-augmented-ui="all-hex border" class="info-button">
+        <button type="button" class="btn-close" @onclick=@CodexModalState.CloseModal>
+            <span class="btn-icon oi-x" aria-hidden="true"></span>
+        </button>
+    </div>
+
+</div>
 
 @code {
     [CascadingParameter(Name = "SelectedEntry")]
@@ -24,4 +44,12 @@
     {
         CodexModalState.OnStateChange -= StateHasChanged;
     }
+
+    private string IsPrevActiveCss() => CodexModalState.BackStack.Count > 0 ? "" : "inactive";
+
+    private string IsNextActiveCss() => CodexModalState.FrontStack.Count > 0 ? "" : "inactive";
+
+    private bool IsPrevDisabled() => !(CodexModalState.BackStack.Count > 0);
+
+    private bool IsNextDisabled() => !(CodexModalState.FrontStack.Count > 0);
 }

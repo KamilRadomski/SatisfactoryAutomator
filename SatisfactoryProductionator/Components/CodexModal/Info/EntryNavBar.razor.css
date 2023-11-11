@@ -1,0 +1,66 @@
+﻿
+.info-buttons-wrapper {
+    justify-content: right;
+    display: flex;
+    width: 90%;
+}
+
+div.info-button {
+    --aug-all-width: 60px;
+    --aug-border-all: 4px;
+    --aug-border-bg: var(--sfBlue);
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    margin-left: 10px;
+}
+
+div.inactive {
+    opacity: 50%;
+}
+
+.btn-clear {
+    background: unset;
+    width: 60px;
+    height: 60px;
+}
+
+.btn-close {
+    background: unset;
+    width: 60px;
+    height: 62px;
+    padding-bottom: 8px;
+}
+
+    .btn-clear:hover > div, .btn-close:hover > div {
+        --aug-border-all: 5px;
+        background: var(--sfBlueHover50);
+        transition: .2s;
+    }
+
+.btn-nav {
+    background: unset;
+    padding: 3px;
+    width: 60px;
+    height: 63px;
+}
+
+.info-button:not(:disabled):hover {
+    --aug-border-all: 5px;
+    background: var(--sfBlueHover50);
+    transition: .2s;
+}
+
+.info-button:not(:disabled):active {
+    background: var(--sfBlueHover);
+}
+
+.btn-icon {
+    font-family: Icons;
+    font-style: normal;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    color: var(--sfBlue);
+    font-size: 2rem;
+}

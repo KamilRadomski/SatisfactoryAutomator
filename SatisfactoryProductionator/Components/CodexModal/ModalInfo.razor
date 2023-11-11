@@ -3,6 +3,7 @@
 @using SatisfactoryProductionator.Extensions;
 @using SatisfactoryProductionator.Services;
 @using SatisfactoryProductionator.DataModels.Enums;
+@using SatisfactoryProductionator.Components.CodexModal.Info
 
 @inject CodexModalState CodexModalState;
 
@@ -10,85 +11,84 @@
 
 <div data-augmented-ui-reset></div>
 
-<div data-augmented-ui="tl-2-clip-y tr-2-clip-x br-clip b-clip-x bl-clip border" class="info-panel-top">
-    <div data-augmented-ui-reset class="info-panel-top-header">
+<div data-augmented-ui="tl-2-clip-y tr-2-clip-x br-clip b-clip-x bl-clip border" class="info-panel">
+    <div data-augmented-ui-reset class="info-header">
 
-        @if(selectedEntry == null)
+        @if (selectedEntry == null)
         {
-            <div class="info-panel-top-header-name">-</div>
+            <div class="header-text">-</div>
         }
         else
         {
-            <div class="info-panel-top-header-name">@selectedEntry.CodexEntry.DisplayName.FormatDisplayName()</div>
+            <div class="header-text">@selectedEntry.CodexEntry.DisplayName.FormatDisplayName()</div>
         }
-        <div class="info-panel-top-header-buttons">
 
-            <div data-augmented-ui="all-hex border" class="info-panel-top-header-buttons-button">
-                <button type="button" class="info-panel-top-header-buttons-clear" @onclick=@CodexModalState.ClearModal>
-                    <span class="info-panel-top-header-buttons-icon oi-trash" aria-hidden="true"></span>
-                </button>
-            </div>
+        <EntryNavBar />
+    </div>
 
-            <div data-augmented-ui="all-hexangle-left border" class=@IsPrevActiveCss()>
-                <button type="button" disabled=@IsPrevDisabled() class="info-panel-top-header-buttons-nav" @onclick=@CodexModalState.DisplayPrevious></button>
-            </div>
+    @*  <div data-augmented-ui="
+    tl-2-clip-x tr-clip br-clip bl-2-clip-y both
+    " class="styleme"></div>
 
-            <div data-augmented-ui="all-hexangle-right border" class=@IsNextActiveCss()>
-                <button type="button" disabled=@IsNextDisabled() class="info-panel-top-header-buttons-nav" @onclick=@CodexModalState.DisplayNext></button>
-            </div>
+    <div data-augmented-ui="
+    tr-2-clip-y br-2-clip-x l-clip-y both
+    " class="styleme"></div>
+    <div class="info-panel-top-data"> *@
 
-            <div data-augmented-ui="all-hex border" class="info-panel-top-header-buttons-button">
-                <button type="button" class="info-panel-top-header-buttons-close" @onclick=@CodexModalState.CloseModal>
-                    <span class="info-panel-top-header-buttons-icon oi-x" aria-hidden="true"></span>
-                </button>
-            </div>
+    @if (selectedEntry == null)
+    {
+        <div class="info-panel-top-header-name">No Item Selected</div>
+    }
+    else
+    {
+
+
+        <img class="info-panel-top-data-image" src=@selectedEntry.CodexEntry.IconPath alt=@selectedEntry.CodexEntry.DisplayName />
+        @* Add new class here *@
+        <div class="info-panel-top-data-description">
+            <p>@selectedEntry.CodexEntry.Description</p>
+
+            @* Call subcomponents here *@
+            @if (selectedEntry.CodexEntry.CodexCategory is CodexCategory.Item)
+            {
+                var item = CastEntry<Item>();
+
+                if (@item.FormType is FormType.Solid)
+                {
+                    <p>Stack.Size :: @item.StackSize</p>
+                }
+                if (@item.EnergyValue > 0)
+                {
+                    <p>MJ.Rating :: @item.EnergyValue</p>
+                }
+                if (@item.ResourceSinkPoints > 0)
+                {
+                    <p>Resource.Sink.Points :: @item.ResourceSinkPoints</p>
+                }
+                else
+                {
+                    <p>Caution :: Cannot Sink!</p>
+                }
+            }
+
+            @*  <img class="info-panel-top-data-image2 image-64 test" src=@selectedEntry.CodexEntry.IconPath alt=@selectedEntry.CodexEntry.DisplayName />
+        <img class="info-panel-top-data-image2 image-64 test" src=@selectedEntry.CodexEntry.IconPath alt=@selectedEntry.CodexEntry.DisplayName />
+        <img class="info-panel-top-data-image2 image-64 test" src=@selectedEntry.CodexEntry.IconPath alt=@selectedEntry.CodexEntry.DisplayName />
+        <img class="info-panel-top-data-image2 image-64 test" src=@selectedEntry.CodexEntry.IconPath alt=@selectedEntry.CodexEntry.DisplayName />
+        <img class="info-panel-top-data-image2 image-64 test" src=@selectedEntry.CodexEntry.IconPath alt=@selectedEntry.CodexEntry.DisplayName />
+        <img class="info-panel-top-data-image2 image-64 test" src=@selectedEntry.CodexEntry.IconPath alt=@selectedEntry.CodexEntry.DisplayName />
+        <img class="info-panel-top-data-image2 image-64 test" src=@selectedEntry.CodexEntry.IconPath alt=@selectedEntry.CodexEntry.DisplayName />
+        <img class="info-panel-top-data-image2 image-64 test" src=@selectedEntry.CodexEntry.IconPath alt=@selectedEntry.CodexEntry.DisplayName /> *@
 
         </div>
 
-    </div>
-
-     <div class="info-panel-top-data">
-        @if(selectedEntry == null)
-        {
-            <div class="info-panel-top-header-name">No Item Selected</div>
-        }
-        else
-        {
-
-
-            <img class="info-panel-top-data-image" src=@selectedEntry.CodexEntry.IconPath alt=@selectedEntry.CodexEntry.DisplayName />
-        <div class="info-panel-top-data-description">
-                <p>@selectedEntry.CodexEntry.Description</p>
-
-                @if (selectedEntry.CodexEntry.CodexCategory is CodexCategory.Item)
-                {
-                    var item = CastSelectedItem<Item>();
-
-                    if (@item.FormType is FormType.Solid)
-                    {
-                        <p>Stack.Size :: @item.StackSize</p>
-                    }
-                    if (@item.EnergyValue > 0)
-                    {
-                        <p>MJ.Rating :: @item.EnergyValue</p>
-                    }
-                    if (@item.ResourceSinkPoints > 0)
-                    {
-                        <p>Resource.Sink.Points :: @item.ResourceSinkPoints</p>
-                    }
-                    else
-                    {
-                        <p>Caution :: Cannot Sink!</p>
-                    }
-                } 
-            </div>
-        }
-    </div> 
+        @* Add side buttons here 1,2,3,4,5,8 *@
+    }
 </div>
 
 @code {
     [CascadingParameter(Name = "SelectedEntry")]
-    public ModalEntry selectedEntry { get ; set; }
+    public ModalEntry selectedEntry { get; set; }
 
     protected override void OnInitialized()
     {
@@ -102,13 +102,7 @@
         CodexModalState.OnStateChange -= StateHasChanged;
     }
 
-    private T CastSelectedItem<T>() where T : CodexEntry => selectedEntry.CodexEntry as T;
+    private T CastEntry<T>() where T : CodexEntry => selectedEntry.CodexEntry as T;
 
-    private string IsPrevActiveCss() => CodexModalState.BackStack.Count > 0 ? "info-panel-top-header-buttons-button" : "info-panel-top-header-buttons-button-inactive";
 
-    private string IsNextActiveCss() => CodexModalState.FrontStack.Count > 0 ? "info-panel-top-header-buttons-button" : "info-panel-top-header-buttons-button-inactive";
-
-    private bool IsPrevDisabled() => !(CodexModalState.BackStack.Count > 0);
-
-    private bool IsNextDisabled() => !(CodexModalState.FrontStack.Count > 0);
 }

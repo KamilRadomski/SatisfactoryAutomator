@@ -4,7 +4,7 @@
     {
         public int ResourceSinkPoints { get; set; }
         public string StackSize { get; set; }
-        public List<string> CompatibleItems { get; set; }
+        public List<string> CompatibleItems { get; set; } //check to remove
         public Cost Cost { get; set; }
 
     }
