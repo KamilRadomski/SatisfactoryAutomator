@@ -8,6 +8,10 @@
     margin-right: 5px;
 }
 
+.description {
+    font-size: 20px !important;
+}
+
 .info-section {
     margin-left: 10px;
     border: 1px solid;
@@ -16,8 +20,15 @@
     padding: 10px;
     width: 100%;
     font-size: 1.3rem;
+    --aug-tl: 11px;
+    --aug-tr: 30px;
+    --aug-br: 30px;
+    --aug-bl: 7px;
+    --aug-border-all: .1px;
+    --aug-border-bg: var(--sfBlue);
 }
 
     .info-section > p {
         margin-bottom: .5rem;
+        font-size: 1rem;
     }

@@ -7,11 +7,11 @@
 
 @implements IDisposable;
 
-<div class="flex info-wrapper">
+<div data-augmented-ui-reset class="flex info-wrapper">
     <img class="entry-image image-256" src=@selectedEntry.CodexEntry.IconPath alt=@selectedEntry.CodexEntry.DisplayName />
 
-    <div class="info-section">
-        <p>@selectedEntry.CodexEntry.Description</p>
+    <div data-augmented-ui="tl-2-clip-x tr-clip br-clip bl-2-clip-y border" class="info-section">
+        <p class="description">@selectedEntry.CodexEntry.Description</p>
 
         @if (selectedEntry.CodexEntry.CodexCategory is CodexCategory.Item)
         {
@@ -34,11 +34,51 @@
                 <p>Caution :: Cannot Sink!</p>
             }
         }
+        else if (selectedEntry.CodexEntry.CodexCategory is CodexCategory.Equipment)
+        {
+            var item = CastEntry<Equipment>();
 
-        @*  <div data-augmented-ui="
-        tl-2-clip-x tr-clip br-clip bl-2-clip-y both
-        " class="styleme"></div>
-        *@
+            if (@item.ResourceSinkPoints > 0)
+            {
+                <p>Resource.Sink.Points :: @item.ResourceSinkPoints</p>
+            }
+        }
+        else if (selectedEntry.CodexEntry.CodexCategory is CodexCategory.Building)
+        {
+            var item = CastEntry<Building>();
+
+            if (item.CodexItemType is CodexItemType.Manufacturers || item.CodexItemType is CodexItemType.Extractors)
+            {
+                if (item.PowerRating.Length == 1)
+                {
+                    <p>Power Used :: @item.PowerRating[0]mw</p>
+                }
+                else if (item.PowerRating.Length > 1)
+                {
+                    <p>Power Used :: @item.PowerRating[0] - @item.PowerRating[1]mw </p>
+                }
+
+            }
+            else if (item.CodexItemType is CodexItemType.Generators)
+            {
+                if(item.PowerRating.Length == 1)
+                {
+                    <p>Power Generated :: @item.PowerRating[0]mw</p>    
+                }
+            }
+
+        }
+        //TODO Remove following two stubs after Codex Page complete and found that not needed
+        else if (selectedEntry.CodexEntry.CodexCategory is CodexCategory.Infrastructure)
+        {
+            var item = CastEntry<Infrastructure>();
+
+        }
+        else if (selectedEntry.CodexEntry.CodexCategory is CodexCategory.Unlock)
+        {
+            var item = CastEntry<Unlock>();
+        }
+
     </div>
 </div>
 
