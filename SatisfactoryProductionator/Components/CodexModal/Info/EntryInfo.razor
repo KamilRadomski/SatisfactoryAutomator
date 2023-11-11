@@ -1,0 +1,64 @@
+﻿@using SatisfactoryProductionator.DataModels.Enums;
+@using SatisfactoryProductionator.DataModels.Models;
+@using SatisfactoryProductionator.DataModels.Models.Codex;
+@using SatisfactoryProductionator.Services;
+
+@inject CodexModalState CodexModalState;
+
+@implements IDisposable;
+
+<div class="flex info-wrapper">
+    <img class="entry-image image-256" src=@selectedEntry.CodexEntry.IconPath alt=@selectedEntry.CodexEntry.DisplayName />
+
+    <div class="info-section">
+        <p>@selectedEntry.CodexEntry.Description</p>
+
+        @if (selectedEntry.CodexEntry.CodexCategory is CodexCategory.Item)
+        {
+            var item = CastEntry<Item>();
+
+            if (@item.FormType is FormType.Solid)
+            {
+                <p>Stack.Size :: @item.StackSize</p>
+            }
+            if (@item.EnergyValue > 0)
+            {
+                <p>MJ.Rating :: @item.EnergyValue</p>
+            }
+            if (@item.ResourceSinkPoints > 0)
+            {
+                <p>Resource.Sink.Points :: @item.ResourceSinkPoints</p>
+            }
+            else
+            {
+                <p>Caution :: Cannot Sink!</p>
+            }
+        }
+
+        @*  <div data-augmented-ui="
+        tl-2-clip-x tr-clip br-clip bl-2-clip-y both
+        " class="styleme"></div>
+        *@
+    </div>
+</div>
+
+
+@code {
+    [CascadingParameter(Name = "SelectedEntry")]
+    public ModalEntry selectedEntry { get; set; }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        CodexModalState.OnStateChange += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        CodexModalState.OnStateChange -= StateHasChanged;
+    }
+
+    private T CastEntry<T>() where T : CodexEntry => selectedEntry.CodexEntry as T;
+
+}

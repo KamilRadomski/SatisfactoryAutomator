@@ -29,27 +29,3 @@
     text-align: left;
     position: absolute;
 }
-
-.info-panel-top-data {
-    display: flex;
-    padding-left: 10px;
-}
-
-.info-panel-top-data-image {
-    margin-left: 5px;
-    margin-bottom: 10px;
-}
-
-.info-panel-top-data-description {
-    margin-left: 10px;
-    border: 1px solid;
-    margin-right: 30px;
-    margin-bottom: 40px;
-    padding: 10px;
-    width: 100%;
-    font-size: 1.3rem;
-}
-
-    .info-panel-top-data-description > p {
-        margin-bottom: .5rem;
-    }

@@ -24,6 +24,10 @@
     display: block;
 }
 
+.flex {
+    display: flex;
+}
+
 .flex-even {
     display: flex;
     justify-content: space-evenly;
@@ -72,6 +76,11 @@
 .image-128 {
     max-width: 128px;
     max-height: 128px;
+}
+
+.image-256 {
+    max-width: 256px;
+    max-height: 256px;
 }
 
 .no-flow {
