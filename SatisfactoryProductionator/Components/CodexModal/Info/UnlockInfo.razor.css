@@ -1,4 +1,23 @@
-﻿/*.info-panel-top-data {
-    display: flex;
-    padding-left: 10px;
-}*/
+﻿.unlock-wrapper {
+    position: absolute;
+    left: 1047px;
+    top: 109px;
+    width: 300px;
+    height: 226px;
+    justify-content: center;
+    display: grid;
+    --aug-tr: 10px;
+    --aug-br: 15px;
+    --aug-l: 29px;
+    --aug-l-extend1: 167px;
+    --aug-border-all: 1px;
+    --aug-border-bg: var(--sfBlue);
+}
+
+.text {
+    justify-self: center;
+}
+
+.btn-offset {
+    top: -25px;
+}
