@@ -1,0 +1,28 @@
+﻿@using SatisfactoryProductionator.DataModels.Models;
+@using SatisfactoryProductionator.Services;
+
+@inject CodexModalState CodexModalState;
+
+@implements IDisposable;
+
+<div>
+
+</div>
+
+
+@code {
+    [CascadingParameter(Name = "SelectedEntry")]
+    public ModalEntry selectedEntry { get; set; }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        CodexModalState.OnStateChange += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        CodexModalState.OnStateChange -= StateHasChanged;
+    }
+}

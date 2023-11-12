@@ -1,0 +1,104 @@
+﻿@using SatisfactoryProductionator.DataModels.Enums;
+@using SatisfactoryProductionator.DataModels.Models;
+@using SatisfactoryProductionator.DataModels.Models.Codex;
+@using SatisfactoryProductionator.Services;
+
+@inject CodexModalState CodexModalState;
+
+@implements IDisposable;
+
+<div data-augmented-ui-reset class="flex info-wrapper">
+    <img class="entry-image image-256" src=@selectedEntry.CodexEntry.IconPath alt=@selectedEntry.CodexEntry.DisplayName />
+
+    <div data-augmented-ui="tl-2-clip-x tr-clip br-clip bl-2-clip-y border" class="info-section">
+        <p class="description">@selectedEntry.CodexEntry.Description</p>
+
+        @if (selectedEntry.CodexEntry.CodexCategory is CodexCategory.Item)
+        {
+            var item = CastEntry<Item>();
+
+            if (@item.FormType is FormType.Solid)
+            {
+                <p>Stack.Size :: @item.StackSize</p>
+            }
+            if (@item.EnergyValue > 0)
+            {
+                <p>MJ.Rating :: @item.EnergyValue</p>
+            }
+            if (@item.ResourceSinkPoints > 0)
+            {
+                <p>Resource.Sink.Points :: @item.ResourceSinkPoints</p>
+            }
+            else
+            {
+                <p>Caution :: Cannot Sink!</p>
+            }
+        }
+        else if (selectedEntry.CodexEntry.CodexCategory is CodexCategory.Equipment)
+        {
+            var item = CastEntry<Equipment>();
+
+            if (@item.ResourceSinkPoints > 0)
+            {
+                <p>Resource.Sink.Points :: @item.ResourceSinkPoints</p>
+            }
+        }
+        else if (selectedEntry.CodexEntry.CodexCategory is CodexCategory.Building)
+        {
+            var item = CastEntry<Building>();
+
+            if (item.CodexItemType is CodexItemType.Manufacturers || item.CodexItemType is CodexItemType.Extractors)
+            {
+                if (item.PowerRating.Length == 1)
+                {
+                    <p>Power Used :: @item.PowerRating[0]mw</p>
+                }
+                else if (item.PowerRating.Length > 1)
+                {
+                    <p>Power Used :: @item.PowerRating[0] - @item.PowerRating[1]mw </p>
+                }
+
+            }
+            else if (item.CodexItemType is CodexItemType.Generators)
+            {
+                if(item.PowerRating.Length == 1)
+                {
+                    <p>Power Generated :: @item.PowerRating[0]mw</p>    
+                }
+            }
+
+        }
+        //TODO Remove following two stubs after Codex Page complete and found that not needed
+        else if (selectedEntry.CodexEntry.CodexCategory is CodexCategory.Infrastructure)
+        {
+            var item = CastEntry<Infrastructure>();
+
+        }
+        else if (selectedEntry.CodexEntry.CodexCategory is CodexCategory.Unlock)
+        {
+            var item = CastEntry<Unlock>();
+        }
+
+    </div>
+</div>
+
+
+@code {
+    [CascadingParameter(Name = "SelectedEntry")]
+    public ModalEntry selectedEntry { get; set; }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        CodexModalState.OnStateChange += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        CodexModalState.OnStateChange -= StateHasChanged;
+    }
+
+    private T CastEntry<T>() where T : CodexEntry => selectedEntry.CodexEntry as T;
+
+}

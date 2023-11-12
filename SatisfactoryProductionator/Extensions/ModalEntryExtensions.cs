@@ -19,12 +19,12 @@ namespace SatisfactoryProductionator.Extensions
             return modalEntry.GetPageType().ToString();
         }
 
-        public static string GetCompletionHeader(this ModalEntry modalEntry)
-        {
-            var unlockEntry = modalEntry.CodexEntry as Unlock;
+        //public static string GetCompletionHeader(this ModalEntry modalEntry)
+        //{
+        //    var unlockEntry = modalEntry.CodexEntry as Unlock;
 
-            return unlockEntry.CompletionPage.PageType.ToString();
-        }
+        //    return unlockEntry.CompletionPage.PageType.ToString();
+        //}
 
         public static int GetPageCount(this ModalEntry modalEntry) 
         {
