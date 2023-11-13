@@ -16,5 +16,8 @@
         Craftables = 11,
         CompletionCost = 12,
         Unlocks = 13,
+        Purchaseables = 14,
+        Sinkables = 15,
+        Unlockables = 16,
     }
 }

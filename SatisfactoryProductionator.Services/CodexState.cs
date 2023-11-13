@@ -1,5 +1,6 @@
 ﻿using SatisfactoryProductionator.DataService;
 using SatisfactoryProductionator.DataModels.Models.Codex;
+using SatisfactoryProductionator.DataModels.Enums;
 
 namespace SatisfactoryProductionator.Services
 {
@@ -48,6 +49,24 @@ namespace SatisfactoryProductionator.Services
             }
 
             return item.DisplayName;
+        }
+
+        public string FetchRSP(string className)
+        {
+            var entry = FetchItem(className);
+
+            if(entry.CodexCategory == CodexCategory.Item)
+            {
+                var item = entry as Item;
+
+                return item.ResourceSinkPoints.ToString();
+            }
+            else
+            {
+                var item = entry as Equipment;
+
+                return item.ResourceSinkPoints.ToString();
+            }
         }
 
         public CodexEntry FetchItem(string className)

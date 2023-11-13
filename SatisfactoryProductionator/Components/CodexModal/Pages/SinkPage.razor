@@ -1,0 +1,72 @@
+﻿@using SatisfactoryProductionator.DataModels.Enums;
+@using SatisfactoryProductionator.DataModels.Models.Codex;
+@using SatisfactoryProductionator.DataModels.Models;
+@using SatisfactoryProductionator.Extensions;
+@using SatisfactoryProductionator.Services;
+@using SatisfactoryProductionator.Utilities;
+
+@inject CodexModalState CodexModalState;
+@inject CodexState CodexState;
+
+@implements IDisposable
+
+<table class="page-table h-90 w99">
+    <tr>
+        <td colspan="4" class="page-header w99">@selectedEntry.GetPageHeader().FormatCategoryName() @GetTierDisplay()</td>
+    </tr>
+    <tr>
+        <td>
+            @{ var itemBundle = selectedEntry.BundleItems(); }
+            <table class="h-100 w99">
+                @foreach (var group in itemBundle)
+                {
+                    <tr class="flex-even w99">
+
+                        @foreach (var item in group)
+                        {
+                            <td>
+                                <button class="image-button @CodexPageUtil.GetMarginCss(itemBundle.Count)" type="button" @onclick="@(() => CodexModalState.SetSelectedItem(item))">
+                                    <img class="@CodexPageUtil.GetImageSizeCss(itemBundle.Count)" src=@CodexState.FetchIconPath(item) alt=@item />
+                                    <div class="font-16 mt-4">@CodexState.FetchRSP(item) RSP</div>
+                                </button>
+                            </td>
+                        }
+                    </tr>
+                }
+            </table>
+        </td>
+    </tr>
+</table>
+
+@code {
+    [CascadingParameter(Name = "SelectedEntry")]
+    public ModalEntry selectedEntry { get; set; }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        CodexModalState.OnStateChange += StateHasChanged;
+        CodexState.OnStateChange += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        CodexModalState.OnStateChange -= StateHasChanged;
+        CodexState.OnStateChange -= StateHasChanged;
+    }
+
+    private string GetTierDisplay()
+    {
+        if (selectedEntry.CodexEntry.CodexSubItemType is not CodexSubItemType.ElevatorPhases) return "";
+
+        var phase = int.Parse(selectedEntry.CodexEntry.ClassName.Replace("Phase_", ""));
+
+        if (phase == 4) return "";
+
+        var index = selectedEntry.Index;
+        var tier = ((2 * phase) + index + 1).ToString();
+
+        return $"::Tier {tier}";
+    }
+}
