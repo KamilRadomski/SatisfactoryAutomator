@@ -26,7 +26,7 @@
                         {
                             <td>
                                 <button class="image-button @CodexPageUtil.GetMarginCss(itemBundle.Count)" type="button" @onclick="@(() => CodexModalState.SetSelectedItem(item))">
-                                    <img class="@CodexPageUtil.GetImageSizeCss(itemBundle.Count)" src=@CodexState.FetchIconPath(item) alt=@item />
+                                    <img class="@CodexPageUtil.GetImageSizeCss(itemBundle.Count)" src="@CodexState.FetchIconPath(item)" alt=@item />
                                     <div class="font-16 mt-4">@CodexState.FetchDisplayName(item).FormatDisplayName()</div>
                                 </button>
                             </td>
