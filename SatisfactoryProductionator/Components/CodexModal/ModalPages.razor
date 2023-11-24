@@ -36,9 +36,15 @@
                  pageType == PageType.Craftables || 
                  pageType == PageType.Extractables ||
                  pageType == PageType.Unlocks ||
-                 pageType == PageType.CompatibleItems)
+                 pageType == PageType.CompatibleItems ||
+                 pageType == PageType.Purchaseables ||
+                 pageType == PageType.Unlockables)
         {
             <ListPage />
+        }
+        else if (pageType == PageType.Sinkables)
+        {
+            <SinkPage />
         }
         else
         {
