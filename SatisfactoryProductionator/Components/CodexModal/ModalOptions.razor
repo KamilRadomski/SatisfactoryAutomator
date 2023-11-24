@@ -1,10 +1,46 @@
-﻿<div data-augmented-ui="tl-clip tr-clip br-2-clip-y bl-clip border" class="info-panel-options">
-    <div style="padding:20px; margin:10px;font-size:1.2rem;color: red;">
-        <p> UNDER CONSTRUCTION</p>
-        <p>Grapher and Permutator Options</p>
-    </div>
+﻿@using SatisfactoryProductionator.Components.CodexModal.Options
+@using SatisfactoryProductionator.DataModels.Enums;
+@using SatisfactoryProductionator.DataModels.Models;
+@using SatisfactoryProductionator.Services;
+
+@inject CodexModalState CodexModalState;
+
+@implements IDisposable;
+
+<div data-augmented-ui="tl-clip tr-clip br-2-clip-y bl-clip border" class="options-wrapper">
+    @if(selectedEntry == null)
+    {
+        <FillerOptions />
+    }
+    else if(selectedEntry.CodexEntry.CodexCategory is CodexCategory.Item)
+    {
+        <RecipeOptions />
+    }
+    else if(selectedEntry.CodexEntry.CodexCategory is CodexCategory.Infrastructure)
+    {
+        <MaterialOptions />
+    }
 </div>
 
-@code {
 
+@code {
+    [CascadingParameter(Name = "SelectedEntry")]
+    public ModalEntry selectedEntry { get; set; }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        CodexModalState.OnStateChange += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        CodexModalState.OnStateChange -= StateHasChanged;
+    }
 }
+
+
+
+
+    
