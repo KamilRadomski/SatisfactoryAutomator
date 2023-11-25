@@ -103,5 +103,14 @@ namespace SatisfactoryProductionator.Services
             return Codex.Extractions.Where(x => x.Output == output).ToList();
         }
 
+        public List<Infrastructure> FetchRelatedInfrastructure(string className)
+        {
+            var baseName = className.Split('-').First();
+
+            return Codex.CodexItems.Where(x => x.ClassName.StartsWith(baseName))
+                .Select(x => x as Infrastructure)
+                .ToList()!;
+        }
+
     }
 }

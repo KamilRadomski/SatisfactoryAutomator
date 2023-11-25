@@ -1,7 +1,6 @@
 ﻿using SatisfactoryProductionator.DataModels.Enums;
 using SatisfactoryProductionator.DataModels.Models;
 using SatisfactoryProductionator.DataModels.Models.Codex;
-using System.Runtime.Intrinsics.X86;
 
 namespace SatisfactoryProductionator.Extensions
 {
@@ -18,13 +17,6 @@ namespace SatisfactoryProductionator.Extensions
         {
             return modalEntry.GetPageType().ToString();
         }
-
-        //public static string GetCompletionHeader(this ModalEntry modalEntry)
-        //{
-        //    var unlockEntry = modalEntry.CodexEntry as Unlock;
-
-        //    return unlockEntry.CompletionPage.PageType.ToString();
-        //}
 
         public static int GetPageCount(this ModalEntry modalEntry) 
         {
