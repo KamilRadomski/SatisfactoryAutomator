@@ -13,11 +13,14 @@
         padding-left: 15px;
         padding-top: 10px;
     }
+
     .c {
-        color:red;
+        color: red;
     }
 
-    .g { color:green;}
+    .g {
+        color: green;
+    }
 
 </style>
 
@@ -37,27 +40,18 @@
             <li>New Codex page and data parser</li>
             <li>
                 <ul>
-                    <li class="c">Post JSConverter refactor tasks</li>
-                    <li>
-                        <ul>
-                            <li>Add Material swapp options in Infra</li>
-                        </ul>
-                    </li>
+                    <li class="c">Filler sections</li>
+                    <ul>
 
-                    <li class="g">--------------------</li>
+                        <li>process screenshots for pioneer emotes, jace, and snutt</li>
+                        <li>Build out Extra info - Recipes filler(Random info)</li>
+                        <li>Filler components - add pioneer/jace/snutt with stupid phrases</li>
+                        <li>Costs for infrastructure are incorrect in raw json file - will need mapping to fix</li>
 
-                    <li>process screenshots for pioneer emotes, jace, and snutt</li>
-                    <li>Build out Extra info - Recipes, infra, filler(Random info)</li>
+                    </ul>
                     <li>Add Handcraftable info for items/equipment with which workbench to use</li>
                     <li>Text sizing on Codex to 14px for longer names</li>
                     <li>BoomBox - Compatible Items</li>
-                    <li>Filler components - add pioneer/jace/snutt with stupid phrases</li>
-                    <li>Costs for infrastructure are incorrect in raw json file - will need mapping to fix</li>
-                    <li>nuclear - by products</li>
-                    <li>Add Tier # to Items</li>
-                    <li class="g">--------------------</li>
-
-                    <li></li>
                 </ul>
             </li>
         </ul>
@@ -83,49 +77,74 @@
             </li>
 
             <li>Settings Page</li>
-            <li><ul>
-                <li>Rebuild recycled plastic/rubber input setting (30-9999)</li>
-                <li>Updated settings state container to bounds check input setting</li>
-                <li>Add secondary plastic/rubber recipe choices for when recycled recipe falls under minimum</li>
-                <li>Design layout for default recipes</li>
-                <li><ul>
-                    <li>Categorize same way codex is with general settings as first category(recycled, etc.)</li>
-                    <li>Each item will have all its recipes listed next to it with defaulted highlighted (basics, alts, ?byproducts?)</li>
-                    <li>Clicking a button or entering in value where appropriate will update settings state immediately, no need for a save button</li>
-                    <li>Add reset to defaults button which will set min recycle to 30 and set all recipes back to basic</li>
-                </ul></li>
-            </ul></li>
+            <li>
+                <ul>
+                    <li>Rebuild recycled plastic/rubber input setting (30-9999)</li>
+                    <li>Updated settings state container to bounds check input setting</li>
+                    <li>Add secondary plastic/rubber recipe choices for when recycled recipe falls under minimum</li>
+                    <li>Design layout for default recipes</li>
+                    <li>
+                        <ul>
+                            <li>Categorize same way codex is with general settings as first category(recycled, etc.)</li>
+                            <li>Each item will have all its recipes listed next to it with defaulted highlighted (basics, alts, ?byproducts?)</li>
+                            <li>Clicking a button or entering in value where appropriate will update settings state immediately, no need for a save button</li>
+                            <li>Add reset to defaults button which will set min recycle to 30 and set all recipes back to basic</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
 
             <li>Permutator Page</li>
-            <li><ul>
-                <li>Permutator library(may be combined with grapher library or split with a shared utility library)</li>
-                <li>Permutator state container that other pages can work with</li>
-                <li>Ability to select permutation to stick on top to compare while scrolling - collapsible</li>
-                <li>Filtering on top - collapsible</li>
-                <li>QNav area will house sorting</li>
-                <li>Option to set all recipes in a permutation as defaults</li>
-            </ul></li>
+            <li>
+                <ul>
+                    <li>Permutator library(may be combined with grapher library or split with a shared utility library)</li>
+                    <li>Permutator state container that other pages can work with</li>
+                    <li>Ability to select permutation to stick on top to compare while scrolling - collapsible</li>
+                    <li>Filtering on top - collapsible</li>
+                    <li>QNav area will house sorting</li>
+                    <li>Option to set all recipes in a permutation as defaults</li>
+                </ul>
+            </li>
 
             <li>Grapher Page</li>
-            <li><ul>
-                <li>Grapher Library</li>
-                <li>Grapher state container</li>
-                <li>Implement Cytoscape.js for graphing</li>
-                <li>qnav area will hold meta data on what is getting graphed</li>
-                <li><ul>
-                    <li>Total power</li>
-                    <li>Total infra cost</li>
-                    <li>Total materials needed/inputs from storage</li>
-                </ul></li>
-            </ul></li>
-          
+            <li>
+                <ul>
+                    <li>Grapher Library</li>
+                    <li>Grapher state container</li>
+                    <li>Implement Cytoscape.js for graphing</li>
+                    <li>qnav area will hold meta data on what is getting graphed</li>
+                    <li>
+                        <ul>
+                            <li>Total power</li>
+                            <li>Total infra cost</li>
+                            <li>Total materials needed/inputs from storage</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+
             <li>Home Page</li>
-            <li><ul>
-                <li>Overview</li>
-                <li>documentation</li>
-                <li>contact info for bugs/feature requests</li>
-            </ul></li>
+            <li>
+                <ul>
+                    <li>Overview</li>
+                    <li>documentation</li>
+                    <li>contact info for bugs/feature requests</li>
+                </ul>
+            </li>
         </ul>
+
+        <h2>Back Burner Items</h2>
+        <li>
+            <ul>
+                <li>Codex</li>
+                <li>
+                    <ul>
+                        <li>nuclear - by products</li>
+                        <li>Add Tier # to Items</li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
 
         <h2>Stretch Goals</h2>
         <ul>
@@ -154,7 +173,7 @@
     protected override async Task OnInitializedAsync()
     {
         CodexState.OnStateChange += StateHasChanged;
-        
+
         if (CodexState.Codex == null)
         {
             await CodexState.InitializeCodexAsync();
