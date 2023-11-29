@@ -5,24 +5,55 @@
 
 @implements IDisposable;
 
-@* TODO Add stuff to filler panel *@
+@{
+    SetFillerExtraInfo();
+}
 
-<div style="position:absolute;top:10px;left:10px;">:)</div>
+<div class="extra-info-wrapper">
+    <div class="text">@text.Item1</div>
+    <img class="image-128" src="@iconPath" alt="@iconPath" />
+    <div class="text">@text.Item2</div>
+</div>
 
 
 @code {
     [CascadingParameter(Name = "SelectedEntry")]
     public ModalEntry selectedEntry { get; set; }
 
+    public string iconPath { get; set; }
+    public (string, string) text { get; set; }
+
+    public List<string> iconPaths = new()
+    {
+        "jace.png",
+        "snutt.png",
+        "p-love.png"
+    };
+
+    public List<(string, string)> iconText = new(){
+        ("Forever", "A Pioneer!"),
+        ("Obey", "The Snutt!"),
+        ("Welcome To", "Massage-2(A-B)b!")
+    };
+
     protected override void OnInitialized()
     {
         base.OnInitialized();
 
         CodexModalState.OnStateChange += StateHasChanged;
+        // SetFillerExtraInfo();
     }
 
     public void Dispose()
     {
         CodexModalState.OnStateChange -= StateHasChanged;
+    }
+
+    public void SetFillerExtraInfo()
+    {
+        var rnd = new Random().Next(0, iconPaths.Count);
+
+        iconPath = $"images/icons/{iconPaths[rnd]}";
+        text = iconText[rnd];
     }
 }
