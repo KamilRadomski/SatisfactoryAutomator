@@ -1,11 +1,45 @@
-﻿@using SatisfactoryProductionator.DataModels.Models;
+﻿@using SatisfactoryProductionator.DataModels.Enums;
+@using SatisfactoryProductionator.DataModels.Models;
 @using SatisfactoryProductionator.Services;
 
 @inject CodexModalState CodexModalState;
 
 @implements IDisposable;
 
-<div>
+<div class="rps-wrapper">
+    <div class="rps-stats">
+        <p class="rps-stat">Wins::@CodexModalState.Wins</p>
+        <p class="rps-stat">Losses::@CodexModalState.Losses</p>   
+        <p class="rps-stat">Draws::@CodexModalState.Ties</p>  
+    </div>
+
+    <div class="rps-player">
+        <div class="player-choice">
+            <button class="image-button" type="button" @onclick="@(() => PlayerSelection(RPS.Rock))">
+                <img class="rps-image" src="images/icons/h-rock.png" />
+            </button>
+        </div>
+        <div class="player-choice">
+            <button class="image-button" type="button" @onclick="@(() => PlayerSelection(RPS.Paper))">
+                <img class="rps-image" src="images/icons/h-paper.png" />
+            </button>
+        </div>
+        <div class="player-choice">
+            <button class="image-button" type="button" @onclick="@(() => PlayerSelection(RPS.Scissors))">
+                <img class="rps-image" src="images/icons/h-scissors.png" />
+            </button>
+        </div>
+    </div>
+
+    <div class="rps-pioneer">
+        <img class="pioneer" src="@GetPioneerIconPath()" />
+        <div class="message">@GetPioneerMessage()</div>
+            
+    </div>
+
+   @*  <div class="rsp-retry">
+        <button type="button" class="retyr-btn" @onclick="@CodexModalState.RPSRetry"></button>
+    </div> *@
 
 </div>
 
@@ -13,6 +47,8 @@
 @code {
     [CascadingParameter(Name = "SelectedEntry")]
     public ModalEntry selectedEntry { get; set; }
+
+    RPS player = RPS.Ready;
 
     protected override void OnInitialized()
     {
@@ -24,5 +60,62 @@
     public void Dispose()
     {
         CodexModalState.OnStateChange -= StateHasChanged;
+    }
+
+    public void PlayerSelection(RPS playerSelection)
+    {
+        player = playerSelection;
+
+        var rnd = new Random().Next(1, 4);
+
+        var pioneer = (RPS)rnd;
+
+        if(player == pioneer)
+        {
+            CodexModalState.AddTie(pioneer);
+        }
+        else if ((player is RPS.Rock && pioneer is RPS.Scissors) ||
+                 (player is RPS.Scissors && pioneer is RPS.Paper) ||
+                 (player is RPS.Paper && pioneer is RPS.Rock))
+        {
+            CodexModalState.AddWin(pioneer);    
+        }
+        else
+        {
+            CodexModalState.AddLoss(pioneer);
+        }
+    }
+
+    public string GetPioneerIconPath()
+    {
+        var pioneer = CodexModalState.Pioneer;
+
+        return pioneer switch
+        {
+            RPS.Ready => "images/icons/p-ready.png",
+            RPS.Rock => "images/icons/p-rock.png",
+            RPS.Paper => "images/icons/p-paper.png",
+            RPS.Scissors => "images/icons/p-scissors.png",
+        };
+    }
+
+    public string GetPioneerMessage()
+    {
+        var pioneer = CodexModalState.Pioneer;
+
+        if (pioneer is RPS.Ready) return "Ready!";
+
+        if (pioneer == player) return "Draw!";
+
+        if ((pioneer is RPS.Rock && player is RPS.Scissors) ||
+            (player is RPS.Rock && pioneer is RPS.Scissors)) return "Rock Beats Scissors!";
+
+        if ((pioneer is RPS.Scissors && player is RPS.Paper) ||
+        (player is RPS.Scissors && pioneer is RPS.Paper)) return "Scissors Beats Paper!";
+
+        if ((pioneer is RPS.Paper && player is RPS.Rock) ||
+            (player is RPS.Paper && pioneer is RPS.Rock)) return "Paper Beats Rock!";
+
+        return "Ready??";
     }
 }
