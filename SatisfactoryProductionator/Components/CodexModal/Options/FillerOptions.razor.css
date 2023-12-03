@@ -1,0 +1,9 @@
+﻿.filler-text {
+    margin: 10px;
+    font-size: 50px;
+    height: 90%;
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

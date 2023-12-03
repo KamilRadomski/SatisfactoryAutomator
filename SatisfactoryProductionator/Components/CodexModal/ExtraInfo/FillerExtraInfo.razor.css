@@ -1,0 +1,13 @@
+﻿.extra-info-wrapper {
+    margin: 10px;
+    width: 95%;
+    height: 95%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.text {
+    font-size: 48px;
+}

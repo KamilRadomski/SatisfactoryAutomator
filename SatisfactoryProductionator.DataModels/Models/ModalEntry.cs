@@ -6,5 +6,7 @@ namespace SatisfactoryProductionator.DataModels.Models
     {
         public CodexEntry CodexEntry { get; set; }
         public int Index { get; set; }
+
+        public string SelectedRecipe { get; set; }
     }
 }

@@ -5,14 +5,20 @@
 
 @implements IDisposable;
 
-<div>
-
+<div class="filler-text">
+    <p>@GetFillerText()</p>
 </div>
-
 
 @code {
     [CascadingParameter(Name = "SelectedEntry")]
     public ModalEntry selectedEntry { get; set; }
+
+    public List<string> fillerTexts = new()
+    {
+        "The Factory Must Grow!",
+        "Harvest It!",
+        "Comply!"
+    };
 
     protected override void OnInitialized()
     {
@@ -24,5 +30,12 @@
     public void Dispose()
     {
         CodexModalState.OnStateChange -= StateHasChanged;
+    }
+
+    public string GetFillerText()
+    {
+        var rnd = new Random().Next(0, fillerTexts.Count);
+
+        return fillerTexts[rnd];
     }
 }

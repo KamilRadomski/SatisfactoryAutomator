@@ -1,0 +1,40 @@
+﻿.rps-wrapper {
+    margin: 10px;
+}
+
+.rps-stats {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.rps-stat {
+    font-size:24px;
+}
+
+.rps-player {
+    float: left;
+    margin-left: 85px;
+}
+
+.player-choice {
+    margin: 25px;
+}
+
+.rps-pioneer {
+    float: right;
+    display: flex;
+    flex-direction: column;
+}
+
+.rps-image {
+    width: 80px;
+    height: 80px;
+}
+
+.pioneer {
+}
+
+.message {
+    font-size: 24px;
+    align-self: center;
+}

@@ -1,13 +1,47 @@
 ﻿@using SatisfactoryProductionator.DataModels.Models;
+@using SatisfactoryProductionator.DataModels.Models.Codex;
+@using SatisfactoryProductionator.Extensions;
 @using SatisfactoryProductionator.Services;
 
 @inject CodexModalState CodexModalState;
+@inject CodexState CodexState;
 
 @implements IDisposable;
 
-<div>
+@{
+    var entry = selectedEntry.CodexEntry as Infrastructure;
+}
 
-</div>
+@if (entry.MaterialType is DataModels.Enums.MaterialType.Default)
+{
+    <FillerOptions />
+}
+
+<table class="page-table w97">
+    <tr>
+        <td colspan="4" class="page-header">Materials</td>
+    </tr>
+    <tr>
+        <td>
+
+            <table class="flex-even d-block">
+
+                <tr class="flex-even w97">
+                    @foreach (var item in CodexState.FetchRelatedInfrastructure(entry.ClassName))
+                    {
+                        <td>
+                            <button class="image-button mt-4" type="button" @onclick="@(() => CodexModalState.SetSelectedItem(item.ClassName))">
+                                <img class="image-48" src=@item.IconPath alt=@item.ClassName />
+                                <div class="font-16 mt-4">@item.MaterialType.ToString().FormatCategoryName()</div>
+                            </button>
+                        </td>
+                    }
+                </tr>
+
+            </table>
+        </td>
+    </tr>
+</table>
 
 
 @code {
@@ -19,10 +53,14 @@
         base.OnInitialized();
 
         CodexModalState.OnStateChange += StateHasChanged;
+        CodexState.OnStateChange += StateHasChanged;
     }
 
     public void Dispose()
     {
         CodexModalState.OnStateChange -= StateHasChanged;
+        CodexState.OnStateChange -= StateHasChanged;
     }
+
+
 }

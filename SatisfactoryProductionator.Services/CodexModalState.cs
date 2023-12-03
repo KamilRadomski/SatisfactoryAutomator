@@ -1,4 +1,5 @@
-﻿using SatisfactoryProductionator.DataModels.Models;
+﻿using SatisfactoryProductionator.DataModels.Enums;
+using SatisfactoryProductionator.DataModels.Models;
 using SatisfactoryProductionator.DataModels.Models.Codex;
 
 namespace SatisfactoryProductionator.Services
@@ -9,6 +10,11 @@ namespace SatisfactoryProductionator.Services
         public ModalEntry? SelectedEntry { get; set; }
         public Stack<ModalEntry?> BackStack { get; set; } = new Stack<ModalEntry?>();
         public Stack<ModalEntry?> FrontStack { get; set; } = new Stack<ModalEntry?>();
+
+        public int Wins = 0;
+        public int Losses = 0;
+        public int Ties = 0;
+        public RPS Pioneer = RPS.Ready;
 
         public event Action OnStateChange;
 
@@ -120,6 +126,39 @@ namespace SatisfactoryProductionator.Services
                 index = 0;
 
             SelectedEntry.Index = index;
+            NotifyStateChanged();
+        }
+
+        public void AddWin(RPS pioneer)
+        {
+            Wins++;
+            Pioneer = pioneer;
+            NotifyStateChanged();
+        }
+
+        public void AddLoss(RPS pioneer)
+        {
+            Losses++;
+            Pioneer = pioneer;
+            NotifyStateChanged();
+        }
+
+        public void AddTie(RPS pioneer)
+        {
+            Ties++;
+            Pioneer = pioneer;
+            NotifyStateChanged();
+        }
+
+        public void RPSRetry()
+        {
+            Pioneer = RPS.Ready;
+            NotifyStateChanged();
+        }
+
+        public void SetSelectedRecipe(string name)
+        {
+            SelectedEntry.SelectedRecipe = name;
             NotifyStateChanged();
         }
 

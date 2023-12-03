@@ -98,9 +98,32 @@ namespace SatisfactoryProductionator.Services
             return recipes;
         }
 
+        public Recipe FetchRecipe(string name)
+        {
+            var recipes = FetchRecipes(new List<string> { name });
+
+            return recipes.First();
+        }
+
+        public Building FetchBuilding(string name) 
+        {
+            var building = Codex.CodexItems.First(x => x.ClassName == name);
+
+            return building as Building;
+        }
+
         public List<Extraction> FetchExtractions(string output)
         {
             return Codex.Extractions.Where(x => x.Output == output).ToList();
+        }
+
+        public List<Infrastructure> FetchRelatedInfrastructure(string className)
+        {
+            var baseName = className.Split('-').First();
+
+            return Codex.CodexItems.Where(x => x.ClassName.StartsWith(baseName))
+                .Select(x => x as Infrastructure)
+                .ToList()!;
         }
 
     }
