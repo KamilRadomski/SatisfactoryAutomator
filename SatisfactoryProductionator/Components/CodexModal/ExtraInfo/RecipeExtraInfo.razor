@@ -14,60 +14,66 @@
 {
     <FillerExtraInfo />
 }
-else if (string.IsNullOrEmpty(selectedEntry.SelectedRecipe))
-{
-    <div class="no-recipe">
-        Please Select A Recipe!
-    </div>
-}
 else
 {
+    if (string.IsNullOrEmpty(selectedEntry.SelectedRecipe))
+    {
+        SetRecipe();
+    }
+
     FetchRecipeAndBuilding();
 
-    <div class="panel-left">
-        <div class="panel-title">@selectedRecipe.DisplayName.FormatDisplayName()</div>
-        <table class="panel-table">
-            <tr>
-                <td class="row-title">Inputs</td>
-            </tr>
-            <tr>
-                @foreach (var item in selectedRecipe.Inputs!)
-                {
-                    <td>
-                        <button class="image-button" type="button" @onclick="@(() => CodexModalState.SetSelectedItem(item.Key))">
-                            <img class="image-64" src=@CodexState.FetchIconPath(item.Key) alt=@item.Key />
-                            <div class="font-12">X @item.Value[0]</div>
-                        </button>
-                    </td>
-                }
-            </tr>
-            <tr>
-                <td class="row-title">Outputs</td>
-            </tr>
-            <tr>
-                @foreach (var item in selectedRecipe.Outputs)
-                {
-                    <td>
-                        <button class="image-button" type="button" @onclick="@(() => CodexModalState.SetSelectedItem(item.Key))">
-                            <img class="image-64" src=@CodexState.FetchIconPath(item.Key) alt=@item.Key />
-                            <div class="font-12">X @item.Value[0]</div>
-                        </button>
-                    </td>
-                }
-            </tr>
-            
-        </table>
-    </div>
+    if (selectedRecipe == null)
+    {
+        <FillerExtraInfo />
+    }
+    else
+    {
+        <div class="panel-left">
+            <div class="panel-title">@selectedRecipe.DisplayName.FormatDisplayName()</div>
+            <table class="panel-table">
+                <tr>
+                    <td class="row-title">Inputs</td>
+                </tr>
+                <tr>
+                    @foreach (var item in selectedRecipe.Inputs!)
+                    {
+                        <td>
+                            <button class="image-button" type="button" @onclick="@(() => CodexModalState.SetSelectedItem(item.Key))">
+                                <img class="image-64" src=@CodexState.FetchIconPath(item.Key) alt=@item.Key />
+                                <div class="font-12">X @item.Value[0]</div>
+                            </button>
+                        </td>
+                    }
+                </tr>
+                <tr>
+                    <td class="row-title">Outputs</td>
+                </tr>
+                <tr>
+                    @foreach (var item in selectedRecipe.Outputs)
+                    {
+                        <td>
+                            <button class="image-button" type="button" @onclick="@(() => CodexModalState.SetSelectedItem(item.Key))">
+                                <img class="image-64" src=@CodexState.FetchIconPath(item.Key) alt=@item.Key />
+                                <div class="font-12">X @item.Value[0]</div>
+                            </button>
+                        </td>
+                    }
+                </tr>
 
-    <div class="panel-right">
-        <img class="building-image" src=@selectedBuilding.IconPath alt=@selectedBuilding.DisplayName />
-        <div class="building-name">@selectedBuilding.DisplayName</div>
-        <div class="font-12">@selectedBuilding.PowerRating[0] MW</div>
-        <div class="font-12">@selectedRecipe.BuildTime Seconds</div>
-        <div data-augmented-ui="tl-clip-x tr-clip-y br-clip-x bl-clip-y border" class="default-wrapper">
-            <button class="default-btn" type="button" @onclick="@(() => SetDefaultRecipe(selectedRecipe.ClassName))">Set As Default</button>
+            </table>
         </div>
-    </div>
+
+        <div class="panel-right">
+            <img class="building-image" src=@selectedBuilding.IconPath alt=@selectedBuilding.DisplayName />
+            <div class="building-name">@selectedBuilding.DisplayName</div>
+            <div class="font-12">@selectedBuilding.PowerRating[0] MW</div>
+            <div class="font-12">@selectedRecipe.BuildTime Seconds</div>
+            <div data-augmented-ui="tl-clip-x tr-clip-y br-clip-x bl-clip-y border" class="default-wrapper">
+                <button class="image-button default-btn" type="button" @onclick="@(() => SetDefaultRecipe(selectedRecipe.ClassName))">Set As Default</button>
+            </div>
+        </div>
+    }
 }
 
 @code {
@@ -94,7 +100,15 @@ else
     public void FetchRecipeAndBuilding()
     {
         selectedRecipe = CodexState.FetchRecipe(selectedEntry.SelectedRecipe);
-        selectedBuilding = CodexState.FetchBuilding(selectedRecipe.Building);
+        if (selectedRecipe != null)
+        {
+            selectedBuilding = CodexState.FetchBuilding(selectedRecipe.Building);
+        }
+    }
+
+    public void SetRecipe()
+    {
+        selectedEntry.SelectedRecipe = selectedEntry.GetEntries().First();
     }
 
     public void SetDefaultRecipe(string name)
