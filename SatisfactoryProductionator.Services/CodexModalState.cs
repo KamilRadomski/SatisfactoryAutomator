@@ -156,7 +156,11 @@ namespace SatisfactoryProductionator.Services
             NotifyStateChanged();
         }
 
-        
+        public void SetSelectedRecipe(string name)
+        {
+            SelectedEntry.SelectedRecipe = name;
+            NotifyStateChanged();
+        }
 
         private int GetPageCount()
         {
@@ -173,8 +177,6 @@ namespace SatisfactoryProductionator.Services
                 Index = 0,
             };
         }
-
-
 
         private void NotifyStateChanged() => OnStateChange?.Invoke();
     }
