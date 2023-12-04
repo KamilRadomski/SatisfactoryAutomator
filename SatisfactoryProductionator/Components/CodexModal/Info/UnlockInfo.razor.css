@@ -12,12 +12,41 @@
     --aug-l-extend1: 167px;
     --aug-border-all: 1px;
     --aug-border-bg: var(--sfBlue);
+    padding-right: 10px;
 }
 
 .text {
-    justify-self: center;
+    text-align: center;
+    width: 270px;
+    margin-left:30px;
+}
+
+.button-wrapper {
+    margin-left:30px;
+    overflow-y:auto;
+    flex-direction: column;
 }
 
 .btn-offset {
-    top: -25px;
+    top: 0px;
+    margin-top:10px;
+    margin-bottom:10px;
 }
+
+.button-wrapper::-webkit-scrollbar {
+    width: 3px;
+}
+
+.button-wrapper::-webkit-scrollbar-track {
+    background: var(--sfBlue40);
+    border-radius: 100vh;
+    margin-block: 2em;
+    margin-block-start: 2em;
+}
+
+.button-wrapper::-webkit-scrollbar-thumb {
+    border: 3px solid rgba(255, 255, 255, .15);
+    border-radius: 100vh;
+    background: var(--sfBlue40);
+}
+

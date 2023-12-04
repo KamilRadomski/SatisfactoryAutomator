@@ -10,7 +10,7 @@
 
 @implements IDisposable;
 
-@if (selectedEntry.CodexEntry.CodexItemType is CodexItemType.Ores)
+@if (selectedEntry.CodexEntry.CodexItemType is CodexItemType.Ores || exclusions.Contains(selectedEntry.CodexEntry.ClassName))
 {
     <FillerExtraInfo />
 }
@@ -23,7 +23,7 @@ else
 
     FetchRecipeAndBuilding();
 
-    if (selectedRecipe == null)
+    if (selectedRecipe == null || selectedBuilding == null)
     {
         <FillerExtraInfo />
     }
@@ -83,6 +83,12 @@ else
     public Recipe selectedRecipe { get; set; }
     public Building selectedBuilding { get; set; }
 
+    public List<string> exclusions = new()
+    {
+        "HUBParts",
+
+    };
+
     protected override void OnInitialized()
     {
         base.OnInitialized();
@@ -115,4 +121,6 @@ else
     {
         //TODO Implement when settings are built
     }
+
+
 }
