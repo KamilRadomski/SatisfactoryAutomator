@@ -105,6 +105,8 @@ else
 
     public void FetchRecipeAndBuilding()
     {
+        if (selectedEntry.SelectedRecipe == null) return;
+
         selectedRecipe = CodexState.FetchRecipe(selectedEntry.SelectedRecipe);
         if (selectedRecipe != null)
         {
@@ -114,7 +116,12 @@ else
 
     public void SetRecipe()
     {
-        selectedEntry.SelectedRecipe = selectedEntry.GetEntries().First();
+        var entries = selectedEntry.GetEntries();
+
+        if(entries.Count > 0)
+        {
+            selectedEntry.SelectedRecipe = entries.First();
+        }
     }
 
     public void SetDefaultRecipe(string name)

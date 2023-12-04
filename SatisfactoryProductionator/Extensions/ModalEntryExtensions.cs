@@ -27,7 +27,12 @@ namespace SatisfactoryProductionator.Extensions
         {
             var index = modalEntry.Index;
 
-            return modalEntry.CodexEntry.Pages[index].Entries;
+            if (modalEntry.CodexEntry.Pages.Count > 0)
+            {
+                return modalEntry.CodexEntry.Pages[index].Entries;
+            }
+            else return new List<string>();
+            
         }
 
         public static List<List<KeyValuePair<string, double[]>>> BundleInputs(this ModalEntry modalEntry, List<Recipe> recipes, int rowSplit = 0)
