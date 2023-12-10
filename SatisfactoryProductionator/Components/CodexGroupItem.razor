@@ -11,7 +11,7 @@
 <div data-augmented-ui="tl-clip tr-2-clip-y br-clip bl-2-clip-x border" class="item-wrapper">
     <button class="aug-btn" type="button" @onclick="@(() => CodexModalState.SetSelectedItem(item))">
         <img src=@item.IconPath alt=@item.ClassName />
-        <div class="pos-rel font-16 item-name">
+        <div class="pos-rel item-name @GetFontSize()">
             @item.DisplayName.FormatDisplayName().CondenseDisplayName()
         </div>
     </button>
@@ -31,4 +31,7 @@
     {
         CodexModalState.OnStateChange -= StateHasChanged;
     }
+
+    public string GetFontSize() => item.DisplayName.Length > 28 ? "font-14" : "font-16";
+    
 }
