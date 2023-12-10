@@ -125,6 +125,7 @@ namespace SatisfactoryProductionator.Services
 
             return Codex.CodexItems.Where(x => x.ClassName.StartsWith(baseName))
                 .Select(x => x as Infrastructure)
+                .OrderBy(x => x.MaterialType)
                 .ToList()!;
         }
 
