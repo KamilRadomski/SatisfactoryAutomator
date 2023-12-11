@@ -7,18 +7,30 @@
 
 @implements IDisposable;
 
- <div data-augmented-ui="tr-2-clip-y br-2-clip-x l-clip-y border" class="unlock-wrapper">
-     <div class="font-20 text">Unlocked By</div>
-     <div class="flex button-wrapper">
-         @foreach(var unlock in selectedEntry.CodexEntry.UnlockBy)
-        {
-            <button class="image-button pos-rel btn-offset" type="button" @onclick="@(() => CodexModalState.SetSelectedItem(unlock))">
-                <img class="image-96" src=@CodexState.FetchIconPath(unlock) alt=@unlock />
-                <div class="font-16">@CodexState.FetchDisplayName(unlock).FormatDisplayName()</div>
-            </button>
-        }
-    </div>
- </div>
+<div data-augmented-ui="tr-2-clip-y br-2-clip-x l-clip-y border" class="unlock-wrapper">
+    <div class="font-20 text">Unlocked By</div>
+    @if (HasTextUnlockedBy())
+    {
+        <div class="flex-col font-24">
+            @foreach (var line in GetText())
+            {
+                <div class="text">@line</div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="flex button-wrapper">
+            @foreach (var unlock in selectedEntry.CodexEntry.UnlockBy)
+            {
+                <button class="image-button pos-rel btn-offset" type="button" @onclick="@(() => CodexModalState.SetSelectedItem(unlock))">
+                    <img class="image-96" src=@CodexState.FetchIconPath(unlock) alt=@unlock />
+                    <div class="font-16">@CodexState.FetchDisplayName(unlock).FormatDisplayName()</div>
+                </button>
+            }
+        </div>
+    }
+</div>
 
 @code {
     [CascadingParameter(Name = "SelectedEntry")]
@@ -34,5 +46,53 @@
     public void Dispose()
     {
         CodexModalState.OnStateChange -= StateHasChanged;
+    }
+
+    public bool HasTextUnlockedBy()
+    {
+        var unlockedBy = selectedEntry.CodexEntry.UnlockBy.FirstOrDefault();
+
+        if (unlockedBy == null) return false;
+
+        if (unlockedBy.StartsWith("Text")) return true;
+
+        return false;
+    }
+
+    public List<string> GetText()
+    {
+        var text = selectedEntry.CodexEntry.UnlockBy.First().Split('-').Last();
+
+        if(text == "Start")
+        {
+            return new List<string>()
+            {
+                "Crashing",
+                "Into",
+                "Massage-2(A-B)b!"
+            };
+        }
+
+        if(text == "Xmas Event")
+        {
+            return new List<string>()
+            {
+                "Ficsmas",
+                "Holiday",
+                "Event!"
+            };
+        }
+
+        if(text == "Xmas Day")
+        {
+            return new List<string>()
+            {
+                "Advent",
+                "Calendar",
+                "25th Day!"
+            };
+        }
+
+        return new List<string>();
     }
 }
