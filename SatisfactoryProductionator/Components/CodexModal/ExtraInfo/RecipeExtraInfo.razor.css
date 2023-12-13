@@ -42,6 +42,7 @@
     position: relative;
     height: 148px;
     width: 148px;
+    margin-top: 6px;
 }
 
 .building-name {
@@ -62,6 +63,10 @@ div.default-wrapper {
     margin-top: 8px;
 }
 
+div.default-wrapper:hover {
+    --aug-border-all:2px;
+}
+
 .default-btn {
     font-family: Tomorrow;
     font-variant: small-caps;
@@ -76,11 +81,11 @@ div.default-wrapper {
 }
 
 .default-btn:hover {
-    background: var(--sfBlueBGActive);
-    color: var(--sfBlueHover);
+    background: var(--sfBlue20);
 }
 
-.default-btn:active {
+
+/*.default-btn:active {
     background: var(--sfBlueHover);
     color: var(--sfBlue);
-}
+}*/

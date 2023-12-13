@@ -12,6 +12,7 @@
 .font-14 {font-size: 14px;}
 .font-16 {font-size: 16px;}
 .font-20 {font-size: 20px;}
+.font-24 {font-size: 24px;}
 
 .pos-abs {position: absolute;}
 .pos-rel {position: relative;}
@@ -56,33 +57,33 @@
 }
 
 .image-48 {
-    max-width: 48px;
-    max-height: 48px;
+    width: 48px;
+    height: 48px;
 }
 
 .image-64 {
-    max-width: 64px;
-    max-height: 64px;
+    width: 64px;
+    height: 64px;
 }
 
 .image-80 {
-    max-width: 80px;
-    max-height: 80px;
+    width: 80px;
+    height: 80px;
 }
 
 .image-96 {
-    max-width: 96px;
-    max-height: 96px;
+    width: 96px;
+    height: 96px;
 }
 
 .image-128 {
-    max-width: 128px;
-    max-height: 128px;
+    width: 128px;
+    height: 128px;
 }
 
 .image-256 {
-    max-width: 256px;
-    max-height: 256px;
+    width: 256px;
+    height: 256px;
 }
 
 .no-flow {

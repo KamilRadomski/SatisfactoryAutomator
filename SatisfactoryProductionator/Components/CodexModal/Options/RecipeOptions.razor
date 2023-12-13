@@ -1,15 +1,22 @@
-﻿@using SatisfactoryProductionator.DataModels.Models;
+﻿@using SatisfactoryProductionator.DataModels.Enums;
+@using SatisfactoryProductionator.DataModels.Models;
 @using SatisfactoryProductionator.Services;
 
 @inject CodexModalState CodexModalState;
 
 @implements IDisposable;
 
-<div style="padding:20px; margin:10px;font-size:1.2rem;color: red;">
-    <p> UNDER CONSTRUCTION</p>
-    <p>Grapher and Permutator Options</p>
-</div>
-
+@if(selectedEntry.CodexEntry.CodexItemType is CodexItemType.Ores)
+{
+    <FillerOptions />
+}
+else
+{
+    <div style="padding:20px; margin:10px;font-size:1.2rem;color: red;">
+        <p> UNDER CONSTRUCTION</p>
+        <p>Grapher and Permutator Options</p>
+    </div>
+}
 
 @code {
     [CascadingParameter(Name = "SelectedEntry")]

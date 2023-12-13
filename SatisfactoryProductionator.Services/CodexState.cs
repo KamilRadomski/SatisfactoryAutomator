@@ -107,6 +107,8 @@ namespace SatisfactoryProductionator.Services
 
         public Building FetchBuilding(string name) 
         {
+            if (name == null) return null;
+
             var building = Codex.CodexItems.First(x => x.ClassName == name);
 
             return building as Building;
@@ -123,6 +125,7 @@ namespace SatisfactoryProductionator.Services
 
             return Codex.CodexItems.Where(x => x.ClassName.StartsWith(baseName))
                 .Select(x => x as Infrastructure)
+                .OrderBy(x => x.MaterialType)
                 .ToList()!;
         }
 
