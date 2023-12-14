@@ -7,23 +7,51 @@
 
 <div class="info-buttons-wrapper">
 
-    <div data-augmented-ui="all-hex border" class="info-button">
-        <button type="button" class="btn-clear" @onclick=@CodexModalState.ClearModal>
-            <span class="btn-icon oi-trash" aria-hidden="true"></span>
+    <div data-augmented-ui="all-hex border" class="btn-outer center-content">
+        <div data-augmented-ui-reset></div>
+        <button type="button" class="btn-clear center-content" @onclick=@CodexModalState.ClearModal>
+            <div data-augmented-ui="all-hex border" class="btn-middle center-content">
+                <div data-augmented-ui-reset></div>
+                <div data-augmented-ui="all-hex border" class="btn-inner center-content">
+                    <div data-augmented-ui-reset></div>
+                    <span class="btn-icon oi-trash" aria-hidden="true"></span>
+                </div>
+            </div>
         </button>
     </div>
 
-    <div data-augmented-ui="all-hexangle-left border" class="info-button @IsPrevActiveCss()">
-        <button type="button" disabled=@IsPrevDisabled() class="btn-nav" @onclick=@CodexModalState.DisplayPrevious></button>
+    <div data-augmented-ui="all-hexangle-left border" class="btn-outer center-content @IsPrevActiveCss()">
+        <div data-augmented-ui-reset></div>
+        <button type="button" disabled=@IsPrevDisabled() class="btn-nav center-content" @onclick=@CodexModalState.DisplayPrevious>
+            <div data-augmented-ui="all-hexangle-left border" class="btn-middle center-content @IsPrevActiveCss()">
+                <div data-augmented-ui-reset></div>
+                <div data-augmented-ui="all-hexangle-left border" class="btn-inner center-content @IsPrevActiveCss()">
+                </div>
+            </div>
+        </button>
     </div>
 
-    <div data-augmented-ui="all-hexangle-right border" class="info-button @IsNextActiveCss()">
-        <button type="button" disabled=@IsNextDisabled() class="btn-nav" @onclick=@CodexModalState.DisplayNext></button>
+    <div data-augmented-ui="all-hexangle-right border" class="btn-outer center-content @IsNextActiveCss()">
+        <div data-augmented-ui-reset></div>
+        <button type="button" disabled=@IsNextDisabled() class="btn-nav center-content" @onclick=@CodexModalState.DisplayNext>
+            <div data-augmented-ui="all-hexangle-right border" class="btn-middle center-content @IsNextActiveCss()">
+                <div data-augmented-ui-reset></div>
+                <div data-augmented-ui="all-hexangle-right border" class="btn-inner center-content @IsNextActiveCss()">
+                </div>
+            </div>
+        </button>
     </div>
 
-    <div data-augmented-ui="all-hex border" class="info-button">
-        <button type="button" class="btn-close" @onclick=@CodexModalState.CloseModal>
-            <span class="btn-icon oi-x" aria-hidden="true"></span>
+    <div data-augmented-ui="all-hex border" class="btn-outer center-content">
+        <div data-augmented-ui-reset></div>
+        <button type="button" class="btn-x center-content" @onclick=@CodexModalState.CloseModal>
+            <div data-augmented-ui="all-hex border" class="btn-middle center-content">
+            <div data-augmented-ui-reset></div>
+                <div data-augmented-ui="all-hex border" class="btn-inner center-content">
+                    <div data-augmented-ui-reset></div>
+                    <div class="btn-icon icon-close oi-x" aria-hidden="true"></div>
+                </div>
+            </div>
         </button>
     </div>
 
