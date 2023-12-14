@@ -11,30 +11,32 @@
 
 <div data-augmented-ui-reset></div>
 
-<div data-augmented-ui="tl-2-clip-y tr-2-clip-x br-clip b-clip-x bl-clip border" class="info-panel">
-    <div data-augmented-ui-reset class="info-header">
+<div data-augmented-ui="tl-2-clip-y tr-2-clip-x br-clip bl-clip border" class="info-panel">
+    <div data-augmented-reset></div>
+    <div data-augmented-ui=" br-clip b-clip-x bl-clip border" class="info-panel-inner">
+        <div data-augmented-ui-reset class="info-header">
+            @if (selectedEntry == null)
+            {
+                <div class="header-text">-</div>
+            }
+            else
+            {
+                <div class="header-text">@selectedEntry.CodexEntry.DisplayName.FormatDisplayName()</div>
+            }
+
+            <EntryNavBar />
+        </div>
 
         @if (selectedEntry == null)
         {
-            <div class="header-text">-</div>
+            <div class="header-text">No Item Selected</div>
         }
         else
         {
-            <div class="header-text">@selectedEntry.CodexEntry.DisplayName.FormatDisplayName()</div>
+            <EntryInfo />
+            <UnlockInfo />
         }
-
-        <EntryNavBar />
     </div>
-
-    @if (selectedEntry == null)
-    {
-        <div class="header-text">No Item Selected</div>
-    }
-    else
-    {
-        <EntryInfo />
-        <UnlockInfo />
-    }
 </div>
 
 @code {
