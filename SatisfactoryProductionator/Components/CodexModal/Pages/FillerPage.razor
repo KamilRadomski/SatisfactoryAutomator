@@ -31,6 +31,18 @@
         </div>
     </div>
 
+    <div class="selected-choice">
+        @if(player is not RPS.Ready)
+        {
+            <img class="rps-image-choice" src=@GetRPSImage() />
+        }
+        else
+        {
+            <div class="message">Make Your Choice!</div>
+        }
+
+    </div>
+
     <div class="rps-pioneer">
         <img class="pioneer" src="@GetPioneerIconPath()" />
         <div class="message">@GetPioneerMessage()</div>
@@ -117,5 +129,15 @@
             (player is RPS.Paper && pioneer is RPS.Rock)) return "Paper Beats Rock!";
 
         return "Ready??";
+    }
+
+    public string GetRPSImage()
+    {
+        return player switch
+        {
+            RPS.Rock => "images/icons/h-rock.png",
+            RPS.Scissors => "images/icons/h-scissors.png",
+            RPS.Paper => "images/icons/h-paper.png"
+        };
     }
 }
