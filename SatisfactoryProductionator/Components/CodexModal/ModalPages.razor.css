@@ -24,7 +24,8 @@ div.page-inner {
     --aug-tr: 10px;
     --aug-br: 20px;
     --aug-r: 10px;
-    --aug-r-center: 275px;
+    --aug-r-center: 273px;
+    --aug-r-extend1: 5px;
     --aug-border-all: 2px;
     --aug-border-left: -1px;
     --aug-border-bottom: -1px;

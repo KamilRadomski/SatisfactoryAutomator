@@ -7,23 +7,26 @@
 
 @implements IDisposable;
 
-<div data-augmented-ui="tl-clip tr-clip br-2-clip-y bl-clip border" class="options-wrapper">
-    @if(selectedEntry == null)
-    {
-        <FillerOptions />
-    }
-    else if(selectedEntry.CodexEntry.CodexCategory is CodexCategory.Item)
-    {
-        <RecipeOptions />
-    }
-    else if(selectedEntry.CodexEntry.CodexCategory is CodexCategory.Infrastructure)
-    {
-        <MaterialOptions />
-    }
-    else
-    {
-        <FillerOptions />
-    }
+<div data-augmented-ui="tr-clip br-2-clip-y bl-clip border" class="options-wrapper">
+    <div data-augmented-reset></div>
+    <div data-augmented-ui="tl-clip tr-clip bl-clip border" class="options-inner">
+        @if (selectedEntry == null)
+        {
+            <FillerOptions />
+        }
+        else if (selectedEntry.CodexEntry.CodexCategory is CodexCategory.Item)
+        {
+            <RecipeOptions />
+        }
+        else if (selectedEntry.CodexEntry.CodexCategory is CodexCategory.Infrastructure)
+        {
+            <MaterialOptions />
+        }
+        else
+        {
+            <FillerOptions />
+        }
+    </div>
 </div>
 
 
@@ -47,4 +50,4 @@
 
 
 
-    
+
