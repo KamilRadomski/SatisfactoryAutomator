@@ -23,7 +23,7 @@ div.modal {
     --aug-tr: 30px;
     --aug-br: 30px;
     --aug-bl: 30px;
-    --aug-border-all: 7px;
+    --aug-border-all: 5px;
     background: black;
     display: inline-table;
 }

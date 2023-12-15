@@ -3,17 +3,64 @@
     justify-content: right;
     display: flex;
     width: 90%;
+    background:unset;
 }
 
-div.info-button {
-    --aug-all-width: 60px;
-    --aug-border-all: 4px;
-    --aug-border-bg: var(--sfBlue);
+.center-content {
     display: flex;
     flex-wrap: wrap;
     align-content: center;
     justify-content: center;
+}
+
+div.btn-outer {
+    --aug-all-width: 60px;
+    --aug-border-all: 3px;
+    --aug-border-bg: var(--sfBlue);
+    background: unset;
     margin-left: 10px;
+    transition: .15s;
+}
+
+div.btn-middle {
+    --aug-all-width: 56px;
+    --aug-border-all: 2px;
+    transition: .15s;
+}
+
+div.btn-inner {
+    --aug-all-width: 54px;
+    --aug-border-all: 1px;
+    margin: 1px;
+    transition: .15s;
+}
+
+
+.btn-outer:not(:disabled):hover {
+    /*--aug-border-all: 5px;*/
+    --aug-border-all: 2px;
+    background: var(--sfBlue20);
+    transition: .2s;
+}
+
+    .btn-outer:not(:disabled):hover .btn-middle {
+        --aug-all-width: 48px;
+        --aug-border-all: 1.5px;
+        transition: .2s;
+    }
+
+    .btn-outer:not(:disabled):hover .btn-inner {
+        --aug-all-width: 38px;
+        transition: .2s;
+    }
+
+    .btn-outer:not(:disabled):hover .btn-icon {
+        font-size: 1.5rem;
+        transition: .2s;
+    }
+
+.btn-outer:not(:disabled):active {
+    background: var(--sfBlueHover);
 }
 
 div.inactive {
@@ -22,38 +69,21 @@ div.inactive {
 
 .btn-clear {
     background: unset;
+    border: unset;
+    width: 67px;
+    height: 60px;
+}
+
+.btn-x {
+    background: unset;
+    border: unset;
     width: 60px;
     height: 60px;
 }
 
-.btn-close {
-    background: unset;
-    width: 60px;
-    height: 62px;
-    padding-bottom: 8px;
-}
-
-    .btn-clear:hover > div, .btn-close:hover > div {
-        --aug-border-all: 5px;
-        background: var(--sfBlueHover50);
-        transition: .2s;
-    }
-
-.btn-nav {
-    background: unset;
-    padding: 3px;
-    width: 60px;
-    height: 63px;
-}
-
-.info-button:not(:disabled):hover {
-    --aug-border-all: 5px;
-    background: var(--sfBlueHover50);
-    transition: .2s;
-}
-
-.info-button:not(:disabled):active {
-    background: var(--sfBlueHover);
+.icon-close {
+    padding-bottom: 5px;
+    margin-left: 1px !important;
 }
 
 .btn-icon {
@@ -63,4 +93,13 @@ div.inactive {
     -webkit-font-smoothing: antialiased;
     color: var(--sfBlue);
     font-size: 2rem;
+    transition: .15s;
+    margin-left: 2px;
+}
+
+.btn-nav {
+    background: unset;
+    border: unset;
+    width: 60px;
+    height: 63px;
 }

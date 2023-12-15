@@ -31,10 +31,22 @@
     height: 80px;
 }
 
+.rps-image-choice {
+    width: 96px;
+    height: 96px;
+}
+
 .pioneer {
 }
 
 .message {
     font-size: 24px;
     align-self: center;
+}
+
+.selected-choice {
+    float: left;
+    top: 100px;
+    left: 80px;
+    position: relative;
 }

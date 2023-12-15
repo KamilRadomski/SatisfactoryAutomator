@@ -1,18 +1,36 @@
 ﻿div.page {
     position: relative;
     float: left;
-    height: 460px;
-    width: 793px;
+    height: 455px;
+    width: 807px;
+    --aug-tl: 20px;
+    --aug-br: 20px;
+    --aug-bl: 29px;
+    --aug-border-all: 3px;
+    --aug-border-top: -1px;
+    --aug-border-right: -1px;
+    --aug-border-bg: var(--sfBlue);
+    top: 10px;
+    left: 8px;
+    margin-right: 5px;
+}
+
+div.page-inner {
+    position: relative;
+    float: left;
+    height: 447px;
+    width: 798px;
     --aug-tl: 20px;
     --aug-tr: 10px;
     --aug-br: 20px;
-    --aug-bl: 30px;
     --aug-r: 10px;
-    --aug-r-center: 275px;
-    --aug-border-all: 3px;
+    --aug-r-center: 273px;
+    --aug-r-extend1: 5px;
+    --aug-border-all: 2px;
+    --aug-border-left: -1px;
+    --aug-border-bottom: -1px;
     --aug-border-bg: var(--sfBlue);
-    top: 10px;
-    left: 3px;
+    left: 9px;
 }
 
 .no-page-message {
@@ -25,7 +43,7 @@
 .paging {
     width: 200px;
     height: 30px;
-    bottom: 10px;
+    bottom: 0px;
     right: 25px;
 }
 

@@ -1,14 +1,29 @@
 ﻿div.options-wrapper {
     position: relative;
-    margin-right: 3px;
-    float: right;
-    height: 181px;
-    width: 572px;
-    --aug-tl: 10px;
+    float: left;
+    height: 179px;
+    width: 549px;
     --aug-tr: 20px;
-    --aug-br: 30px;
+    --aug-br: 29px;
     --aug-bl: 20px;
     --aug-border-all: 3px;
+    --aug-border-left: -1px;
+    --aug-border-top: -1px;
     --aug-border-bg: var(--sfBlue);
-    top: 9px;
+    top: 6px;
+    left: 12px;
+}
+
+div.options-inner {
+    position: relative;
+    float: left;
+    height: 171px;
+    width: 541px;
+    --aug-tl: 10px;
+    --aug-tr: 20px;
+    --aug-bl: 20px;
+    --aug-border-all: 2px;
+    --aug-border-bottom: -1px;
+    --aug-border-right: -1px;
+    --aug-border-bg: var(--sfBlue);
 }

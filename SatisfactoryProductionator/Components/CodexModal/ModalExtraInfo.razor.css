@@ -1,16 +1,33 @@
-﻿div.info-panel-details {
+﻿div.details {
+    position: relative;
+    display: flex;
+    float: left;
+    width: 561px;
+    height: 270px;
+    top: 10px;
+    /*margin-right: 4px;*/
+    margin-bottom: 10px;
+    --aug-tr: 20px;
+    --aug-br: 20px;
+    --aug-border-all: -1px;
+    --aug-border-right: 3px;
+    --aug-border-bg: var(--sfBlue);
+}
+
+div.details-inner {
     position: relative;
     display: flex;
     float: right;
-    width: 572px;
+    width: 541px;
     height: 270px;
-    top: 10px;
-    margin-right: 4px;
+    left: 7px;
     margin-bottom: 10px;
+    margin-left: 5px;
     --aug-tl: 10px;
     --aug-tr: 20px;
     --aug-bl: 10px;
     --aug-br: 20px;
-    --aug-border-all: 3px;
+    --aug-border-all: 2px;
+    --aug-border-right: -1px;
     --aug-border-bg: var(--sfBlue);
 }

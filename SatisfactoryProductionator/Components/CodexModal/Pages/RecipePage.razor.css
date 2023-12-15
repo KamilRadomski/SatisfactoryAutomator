@@ -8,13 +8,13 @@
 }
 
     .recipe-btn:hover {
-        background: var(--sfBlueBGActive);
-        color: var(--sfBlueHover);
+        background: var(--sfBlue20);
+        /*color: var(--sfBlueHover);*/
     }
 
     .recipe-btn:active {
-        background: var(--sfBlueHover);
-        color: var(--sfBlue);
+        background: var(--sfBlue40);
+        color: var(--sfBlueHover);
     }
 
 div.recipe {
