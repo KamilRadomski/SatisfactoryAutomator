@@ -65,7 +65,9 @@ else
         </div>
 
         <div class="panel-right">
-            <img class="building-image" src=@selectedBuilding.IconPath alt=@selectedBuilding.DisplayName />
+            <button class="image-button" type="button" @onclick="@(() => CodexModalState.SetSelectedItem(selectedBuilding.ClassName))">
+                <img class="building-image" src=@selectedBuilding.IconPath alt=@selectedBuilding.DisplayName />
+            </button>
             <div class="building-name">@selectedBuilding.DisplayName</div>
             <div class="font-12">@selectedBuilding.PowerRating[0] MW</div>
             <div class="font-12">@selectedRecipe.BuildTime Seconds</div>
@@ -118,7 +120,7 @@ else
     {
         var entries = selectedEntry.GetEntries();
 
-        if(entries.Count > 0)
+        if (entries.Count > 0)
         {
             selectedEntry.SelectedRecipe = entries.First();
         }
