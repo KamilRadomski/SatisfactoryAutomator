@@ -6,7 +6,7 @@
     --aug-br: 70px;
     --aug-bl: 30px;
     --aug-border-bg: var(--sfBlue);
-    --aug-border-x: 0px;
+    --aug-border-x: -1px;
     --aug-border-y: 3px;
     --aug-tr-extend1: 50%;
     transition: .5s;
