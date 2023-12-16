@@ -13,10 +13,10 @@
 
 .main-panel {
     margin-right: 16px;
-    top: 27px;
+    top: 4px;
     left: 20px;
-    height: 100%;
-    overflow: scroll;
+    height: 99.5%;
+    /*overflow: scroll;*/
     overflow-y: auto;
 }
 
