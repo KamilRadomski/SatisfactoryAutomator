@@ -1,8 +1,10 @@
 ﻿div.codex-menu {
-    top: 225px;
+    /*top: 225px;*/
+    top: 300px;
     bottom: 15px;
     left: 15px;
-    width: 250px;
+    /*width: 250px;*/
+    width: 281px;
     padding-bottom: 5px;
     --aug-border-all: 3px;
     --aug-border-bg: var(--sfBlue);
@@ -345,7 +347,8 @@ div.sub-d {
 
 div.nav-wrapper {
     left: 10px;
-    height: calc(100vh - 457px);
+    /*height: calc(100vh - 457px);*/
+    height: calc(100vh - 528px);
     width: 230px;
     --aug-border-y: 2px;
     --aug-border-x: 0px;
@@ -359,7 +362,8 @@ div.nav-wrapper {
 
 .nav-active-offset {
     margin-top: 126px !important;
-    height: calc(100vh - 575px) !important;
+    /*height: calc(100vh - 575px) !important;*/
+    height: calc(100vh - 647px) !important;
 }
 
 .list-wrapper {
@@ -372,11 +376,13 @@ div.nav-wrapper {
 }
 
 .list-full {
-    height: calc(100vh - 459px);
+    /*height: calc(100vh - 459px);*/
+    height: calc(100vh - 528px);
 }
 
 .list-shrank {
-    height: calc(100vh - 577px) !important;
+    /*height: calc(100vh - 577px) !important;*/
+    height: calc(100vh - 647px) !important;
 }
 
 .nav-list {

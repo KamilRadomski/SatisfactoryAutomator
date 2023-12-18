@@ -1,42 +1,54 @@
-﻿<div data-augmented-ui=" tl-clip tr-clip br-clip bl-clip border" class=" pos-abs nav-menu">
-    <nav data-augmented-ui-reset>
+﻿<div data-augmented-ui=" tl-clip tr-clip br-clip bl-2-clip-x border" class=" pos-abs nav-menu">
+    <div data-augmented-reset></div>
+    <div class="pos-abs header">
+        <p class="text">Satisfactory</p>
+        <p class="text">Automator</p>
+    </div>
+    <div data-augmented-ui=" tl-clip tr-clip br-clip bl-clip border" class=" pos-abs nav-menu-inner">
 
-        <div data-augmented-ui="tl-clip tr-clip br-clip-inset bl-clip border" class="pos-abs nav-item ul @navUL" @onmouseover=OnMouseOverUL @onmouseout=OnMouseOut>
-            <NavLink href="codex">
-                <span class="pos-abs icon icon-ul oi-aperture" aria-hidden="true"></span>
-                <div class="pos-abs text-ul">Codex</div>
-            </NavLink>
-        </div>
+        <nav data-augmented-ui-reset>
 
-        <div data-augmented-ui="tl-clip tr-clip br-clip bl-clip-inset border" class="pos-abs nav-item ur @navUR" @onmouseover=OnMouseOverUR @onmouseout=OnMouseOut>
-            <NavLink href="grapher" Match="NavLinkMatch.All">
-                <span class="pos-abs icon icon-ur oi-fork" aria-hidden="true"></span>
-                <div class="pos-abs text-ur">Grapher</div>
-            </NavLink>
-        </div>
+            <div data-augmented-ui="tl-clip tr-clip br-clip-inset bl-clip border" class="pos-abs nav-item ul @navUL" @onmouseover=OnMouseOverUL @onmouseout=OnMouseOut>
+                <NavLink href="codex">
+                    <span class="pos-abs icon icon-ul oi-aperture" aria-hidden="true"></span>
+                    <div class="pos-abs text-ul">Codex</div>
+                </NavLink>
+            </div>
 
-        <div data-augmented-ui="tl-clip tr-clip br-clip bl-clip border" class="pos-abs nav-item c @navC" @onmouseover=OnMouseOverCenter @onmouseout=OnMouseOut>
-            <NavLink href="" Match="NavLinkMatch.All">
-                <span class="pos-abs icon icon-c oi-home" aria-hidden="true"></span>
-                <div class="pos-abs text-c">Home</div>
-            </NavLink>
-        </div>
+            <div data-augmented-ui="tl-clip tr-clip br-clip bl-clip-inset border" class="pos-abs nav-item ur @navUR" @onmouseover=OnMouseOverUR @onmouseout=OnMouseOut>
+                <NavLink href="grapher" Match="NavLinkMatch.All">
+                    <span class="pos-abs icon icon-ur oi-fork" aria-hidden="true"></span>
+                    <div class="pos-abs text-ur">Grapher</div>
+                </NavLink>
+            </div>
 
-        <div data-augmented-ui="tl-clip tr-clip-inset br-clip bl-clip border" class="pos-abs nav-item bl @navBL" @onmouseover=OnMouseOverBL @onmouseout=OnMouseOut>
-            <NavLink href="permutator" Match="NavLinkMatch.All">
-                <span class="pos-abs icon icon-bl oi-spreadsheet" aria-hidden="true"></span>
-                <div class="pos-abs text-bl">Permutator</div>
-            </NavLink>
-        </div>
+            <div data-augmented-ui="tl-clip tr-clip br-clip bl-clip border" class="pos-abs nav-item c @navC" @onmouseover=OnMouseOverCenter @onmouseout=OnMouseOut>
+                <NavLink href="" Match="NavLinkMatch.All">
+                    <span class="pos-abs icon icon-c oi-home" aria-hidden="true"></span>
+                    <div class="pos-abs text-c">Home</div>
+                </NavLink>
+            </div>
 
-        <div data-augmented-ui="tl-clip-inset tr-clip br-clip bl-clip border" class="pos-abs nav-item br @navBR" @onmouseover=OnMouseOverBR @onmouseout=OnMouseOut>
-            <NavLink href="settings">
-                <span class="pos-abs icon icon-br oi-cog" aria-hidden="true"></span>
-                <div class="pos-abs text-br">Settings</div>
-            </NavLink>
-        </div>
+            <div data-augmented-ui="tl-clip tr-clip-inset br-clip bl-clip border" class="pos-abs nav-item bl @navBL" @onmouseover=OnMouseOverBL @onmouseout=OnMouseOut>
+                <NavLink href="permutator" Match="NavLinkMatch.All">
+                    <span class="pos-abs icon icon-bl oi-spreadsheet" aria-hidden="true"></span>
+                    <div class="pos-abs text-bl">Permutator</div>
+                </NavLink>
+            </div>
 
-    </nav>
+            <div data-augmented-ui="tl-clip-inset tr-clip br-clip bl-clip border" class="pos-abs nav-item br @navBR" @onmouseover=OnMouseOverBR @onmouseout=OnMouseOut>
+                <NavLink href="settings">
+                    <span class="pos-abs icon icon-br oi-cog" aria-hidden="true"></span>
+                    <div class="pos-abs text-br">Settings</div>
+                </NavLink>
+            </div>
+
+        </nav>
+    </div>
+    <div class="pos-abs footer">
+        <p class="footer-text">Jank Sauce Industries</p>
+        <p class="footer-text version">v::0.x.x</p>
+    </div>
 </div>
 
 @code {
