@@ -18,6 +18,40 @@
     --aug-r-offset: -340px;
 }
 
+.btn-modal {
+    width: 46px;
+    height: 180px;
+    top: 19px;
+    right: 7px;
+    --aug-border-all: 2px;
+    --aug-border-bg: var(--sfBlue);
+    --aug-tl: 7px;
+    --aug-tr: 12px;
+    --aug-l: 10px;
+    --aug-br: 8px;
+    --aug-bl: 7px;
+    --aug-l-extend1: 116px;
+    --aug-l-center: 94px;
+    --aug-tr-extend2: 7px;
+}
+
+    .btn-modal:hover {
+        --aug-border-all: 3px;
+        background-color: var(--sfBlue20);
+    }
+
+.btn-toggle {
+    width:100%;
+    height:100%;
+}
+
+.modal-text {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    font-size: 20px;
+    margin-left: 7px;
+}
+
 .sub-menu {
     height: 185px;
     width: 220px;
@@ -47,7 +81,8 @@
     }
 
         .sub:hover div,
-        .active div {
+        .active div,
+        .btn-modal:hover div{
             color: var(--sfBlueHover);
         }
 

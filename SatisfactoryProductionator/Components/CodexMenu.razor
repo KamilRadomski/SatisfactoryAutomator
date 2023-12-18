@@ -4,6 +4,7 @@
 
 @inject CodexState CodexState
 @inject CodexMenuState CodexMenuState
+@inject CodexModalState CodexModalState
 
 <div data-augmented-ui-reset></div>
 
@@ -37,6 +38,12 @@
                 </button>
             </div>
         </div>
+    </div>
+
+    <div data-augmented-ui="tl-clip tr-2-clip-y br-2-clip-y bl-clip l-clip-y border" class="pos-abs btn-modal">
+        <button type="button" class="image-button btn-toggle" @onclick=ToggleModal>
+            <div class="modal-text">Info</div>
+        </button>
     </div>
 
     <div data-augmented-ui="tl-clip tr-2-clip-y br-2-clip-x bl-clip border" class="pos-abs infra-sub-menu @GetInfraMenuActiveCss()">
@@ -147,6 +154,7 @@
         base.OnInitialized();
 
         CodexState.OnStateChange += StateHasChanged;
+        CodexModalState.OnStateChange += StateHasChanged;
 
         if (CodexState.Codex == null)
         {
@@ -163,6 +171,7 @@
     public void Dispose()
     {
         CodexState.OnStateChange -= StateHasChanged;
+        CodexModalState.OnStateChange -= StateHasChanged;
     }
 
     private List<string> GetGroupNames()
@@ -287,6 +296,8 @@
                 break;
         }
     }
+
+    private void ToggleModal() => CodexModalState.ToggleCodexModal();
 
     private string GetListWrapperSizeCss() => (CodexMenuState.SelectedCategory is CodexCategory.Infrastructure || 
                                                CodexMenuState.SelectedCategory is CodexCategory.Unlock) ? "list-shrank" : "list-full";
