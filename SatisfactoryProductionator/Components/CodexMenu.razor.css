@@ -384,7 +384,7 @@ div.nav-wrapper {
     left: 10px;
     /*height: calc(100vh - 457px);*/
     height: calc(100vh - 528px);
-    width: 230px;
+    width: 262px;
     --aug-border-y: 2px;
     --aug-border-x: 0px;
     --aug-border-bg: var(--sfBlue);
@@ -403,7 +403,7 @@ div.nav-wrapper {
 
 .list-wrapper {
     left:0px;
-    width: 230px;
+    width: 262px;
     position: absolute;
     overflow: auto;
     overflow-x: hidden;
@@ -439,7 +439,7 @@ div.nav-wrapper {
 }
 
 .nav {
-    width: 200px;
+    width: 236px;
     height: 46px;
 }
 
@@ -478,7 +478,7 @@ div.nav-mid {
     --aug-bl: 12px;
     --aug-br: 7px;
     --aug-br-extend2: 90px;
-    --aug-tl-extend2: 90px;
+    --aug-tl-extend2: 125px;
     margin-top: -4px;
 }
 
@@ -496,7 +496,7 @@ div.nav-last {
     --aug-tr: 13px;
     --aug-bl: 12px;
     --aug-br: 10px;
-    --aug-tl-extend2: 90px;
+    --aug-tl-extend2: 125px;
     margin-top: -4px;
 }
 
