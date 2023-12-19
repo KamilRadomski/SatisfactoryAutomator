@@ -20,18 +20,18 @@
 
 .btn-modal {
     width: 46px;
-    height: 180px;
-    top: 19px;
+    height: 144px;
+    top: 40px;
     right: 7px;
     --aug-border-all: 2px;
     --aug-border-bg: var(--sfBlue);
-    --aug-tl: 7px;
-    --aug-tr: 12px;
+    --aug-tl: 12px;
+    --aug-tr: 11px;
     --aug-l: 10px;
     --aug-br: 8px;
-    --aug-bl: 7px;
-    --aug-l-extend1: 116px;
-    --aug-l-center: 94px;
+    --aug-bl: 19px;
+    --aug-l-extend1: 120px;
+    --aug-l-center: 72px;
     --aug-tr-extend2: 7px;
 }
 
