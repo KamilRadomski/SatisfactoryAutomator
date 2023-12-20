@@ -441,6 +441,8 @@ div.nav-wrapper {
 .nav {
     width: 236px;
     height: 46px;
+    --aug-border-all: 2px;
+    --aug-border-bg: var(--sfBlue);
 }
 
     .nav:hover .nav-text {
@@ -452,27 +454,27 @@ div.nav-wrapper {
     }
 
 div.nav-0 {
-    --aug-border-bottom: 1px;
+   /* --aug-border-bottom: 1px;
     --aug-border-top: 2px;
-    --aug-border-x: 2px;
-    --aug-border-bg: var(--sfBlue);
-    --aug-tl: 7px;
-    --aug-tr: 13px;
+    --aug-border-x: 2px;*/
+    /*--aug-border-bg: var(--sfBlue);*/
+    /*--aug-tl: 7px;
+    --aug-tr: 13px;*/
     --aug-bl: 12px;
     --aug-br: 7px;
     --aug-br-extend2: 90px;
 }
 
-    div.nav-0:hover {
+    /*div.nav-0:hover {
         --aug-border-bottom: 2px;
         --aug-border-top: 3px;
         --aug-border-x: 3px;
-    }
+    }*/
 
 div.nav-mid {
-    --aug-border-y: 1px;
-    --aug-border-x: 2px;
-    --aug-border-bg: var(--sfBlue);
+   /* --aug-border-y: 1px;
+    --aug-border-x: 2px;*/
+    /*--aug-border-bg: var(--sfBlue);*/
     --aug-tl: 7px;
     --aug-tr: 13px;
     --aug-bl: 12px;
@@ -482,29 +484,207 @@ div.nav-mid {
     margin-top: -4px;
 }
 
-    div.nav-mid:hover {
+    /*div.nav-mid:hover {
         --aug-border-y: 2px;
         --aug-border-x: 3px;
-    }
+    }*/
 
 div.nav-last {
-    --aug-border-bottom: 2px;
+   /* --aug-border-bottom: 2px;
     --aug-border-top: 1px;
-    --aug-border-x: 2px;
-    --aug-border-bg: var(--sfBlue);
+    --aug-border-x: 2px;*/
+    /*--aug-border-bg: var(--sfBlue);*/
     --aug-tl: 7px;
     --aug-tr: 13px;
-    --aug-bl: 12px;
-    --aug-br: 10px;
+    /*--aug-bl: 12px;
+    --aug-br: 10px;*/
     --aug-tl-extend2: 125px;
     margin-top: -4px;
 }
 
-    div.nav-last:hover {
+/* div.nav-last:hover {
         --aug-border-bottom: 3px;
         --aug-border-top: 2px;
         --aug-border-x: 3px;
-    }
+    }*/
+
+
+
+.t0 {
+    --aug-border-bottom: 1px;
+    --aug-tl: 7px;
+    --aug-tr: 13px;
+}
+
+.b0 {
+    --aug-border-top: 1px;
+    --aug-bl: 12px;
+    --aug-br: 10px;
+}
+
+.t1 {
+    --aug-border-y: 1px;
+    --aug-tl: 7px;
+    --aug-tr: 13px;
+    --aug-tl-extend2: 125px;
+    margin-top: -4px;
+}
+
+.b1 {
+    --aug-bl: 12px;
+    --aug-br: 7px;
+    --aug-br-extend2: 90px;
+}
+
+.t2 {
+    --aug-border-y: 1px;
+    --aug-tl: 13px;
+    --aug-tr: 7px;
+    --aug-tr-extend1: 150px;
+    margin-top: -4px;
+}
+
+.b2 {
+    --aug-bl: 7px;
+    --aug-br: 14px;
+    --aug-bl-extend1: 65px;
+}
+
+.t3 {
+    --aug-border-y: 1px;
+    --aug-border-y: 1px;
+    --aug-tl: 15px;
+    --aug-tr: 7px;
+    --aug-tr-extend1: 66px;
+    margin-top: -4px;
+}
+
+.b3 {
+    --aug-bl: 7px;
+    --aug-br: 10px;
+    --aug-bl-extend1: 150px;
+}
+
+
+.t4 {
+    --aug-border-y: 1px;
+    --aug-tl: 7px;
+    --aug-tr: 10px;
+    --aug-tl-extend2: 35px;
+    margin-top: -4px;
+}
+
+.b4 {
+    --aug-bl: 7px;
+    --aug-br: 7px;
+    --aug-br-extend2: 180px;
+}
+
+.t5 {
+    --aug-border-y: 1px;
+    --aug-tl: 7px;
+    --aug-tr: 7px;
+    --aug-tl-extend2: 59px;
+    --aug-tr-extend1: 73px;
+    margin-top: -4px;
+}
+
+.b5 {
+    --aug-bl: 9px;
+    --aug-br: 10px;
+    --aug-b: 7px;
+    --aug-b-center: 111px;
+    --aug-b-extend1: 75px;
+}
+
+.t6 {
+    --aug-border-y: 1px;
+    --aug-tl: 7px;
+    --aug-tr: 7px;
+    --aug-tl-extend2: 79px;
+    --aug-tr-extend1: 30px;
+    margin-top: -4px;
+}
+
+.b6 {
+    --aug-bl: 12px;
+    --aug-br: 9px;
+    --aug-b: 7px;
+    --aug-b-center: 143px;
+    --aug-b-extend1: 100px;
+}
+
+.t7 {
+    --aug-border-y: 1px;
+    --aug-tl: 7px;
+    --aug-tr: 7px;
+    --aug-tl-extend2: 15px;
+    --aug-tr-extend1: 142px;
+    margin-top: -4px;
+}
+
+.b7 {
+    --aug-bl: 11px;
+    --aug-br: 8px;
+    --aug-b: 7px;
+    --aug-b-center: 55px;
+    --aug-b-extend1: 50px;
+}
+
+
+
+.t8 {
+    --aug-border-y: 1px;
+    --aug-tl: 9px;
+    --aug-tr: 14px;
+    --aug-t: 7px;
+    --aug-t-center: 131px;
+    --aug-t-extend1: 45px;
+    margin-top: -4px;
+}
+
+.b8 {
+    --aug-bl: 7px;
+    --aug-br: 7px;
+    --aug-bl-extend1: 96px;
+    --aug-br-extend2: 70px;
+}
+
+.t9 {
+    --aug-border-y: 1px;
+    --aug-tl: 5px;
+    --aug-tr: 9px;
+    --aug-t: 7px;
+    --aug-t-center: 59px;
+    --aug-t-extend1: 60px;
+    margin-top: -4px;
+}
+
+.b9 {
+    --aug-bl: 7px;
+    --aug-br: 7px;
+    --aug-bl-extend1: 15px;
+    --aug-br-extend2: 134px;
+}
+
+.t10 {
+    --aug-border-y: 1px;
+    --aug-tl: 9px;
+    --aug-tr: 5px;
+    --aug-t: 7px;
+    --aug-t-center: 160px;
+    --aug-t-extend1: 85px;
+    margin-top: -4px;
+}
+
+.b10 {
+    --aug-bl: 7px;
+    --aug-br: 7px;
+    --aug-bl-extend1: 104px;
+    --aug-br-extend2: 20px;
+}
+
+  
 
 .nav-btn {
     font-size: 1.3rem;
