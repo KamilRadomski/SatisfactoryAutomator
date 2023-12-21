@@ -17,7 +17,16 @@ namespace SatisfactoryProductionator.Services
 
         public void SetPage(Page page)
         {
+            if(page == CurrentPage) return;
+
             CurrentPage = page;
+
+            NotifyStateChanged();
+        }
+
+        public Page GetPage()
+        {
+            return CurrentPage;
         }
 
         public void SetCategory(CodexCategory category)

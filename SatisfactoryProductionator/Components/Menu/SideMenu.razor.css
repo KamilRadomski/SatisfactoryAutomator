@@ -1,0 +1,17 @@
+﻿div.menu {
+    top: 300px;
+    bottom: 15px;
+    left: 15px;
+    width: 281px;
+    padding-bottom: 5px;
+    --aug-border-all: 3px;
+    --aug-border-bg: var(--sfBlue);
+    --aug-tl: 15px;
+    --aug-tr: 12px;
+    --aug-br: 15px;
+    --aug-bl: 30px;
+    --aug-l: 10px;
+    --aug-r: 10px;
+    --aug-l-offset: -340px;
+    --aug-r-offset: -340px;
+}

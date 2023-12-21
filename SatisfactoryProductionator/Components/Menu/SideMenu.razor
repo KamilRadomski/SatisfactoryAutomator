@@ -1,0 +1,49 @@
+﻿@using SatisfactoryProductionator.DataModels.Enums;
+@using SatisfactoryProductionator.Extensions;
+@using SatisfactoryProductionator.Services;
+
+@inject MenuState MenuState
+
+<div data-augmented-ui-reset></div>
+
+<div data-augmented-ui="tl-clip tr-2-clip-y br-clip bl-clip border" class="pos-abs menu">
+    @{
+        var page = MenuState.GetPage();
+    }
+
+    @if(page is Page.Home)
+    {
+        <HomeMenu />
+    }
+    else if (page is Page.Codex)
+    {
+        <CodexMenu />
+    }
+    else if (page is Page.Settings)
+    {
+        <SettingsMenu />
+    }
+    else if (page is Page.Perm)
+    {
+        <PermutatorMenu />
+    }
+    else if (page is Page.Graph)
+    {
+        <GrapherMenu />
+    }
+
+</div>
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        base.OnInitialized();
+
+        MenuState.OnStateChange += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        MenuState.OnStateChange -= StateHasChanged;
+    }
+}
