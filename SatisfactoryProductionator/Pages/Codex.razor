@@ -14,47 +14,44 @@
 @implements IDisposable
 
 <div data-augmented-ui-reset></div>
-@{MenuState.SetPage(Page.Codex);}
+@{
+    MenuState.SetPage(Page.Codex);
+}
 
-@* <CodexMenu /> *@
-
-<div data-augmented-ui="tl-2-clip-x tr-clip br-clip bl-2-clip-y border" class="pos-abs panel-wrapper">
-
-    <div class="pos-abs main-panel">
-        @if (CodexState.Codex == null)
-        {
-            <div>Loading.....</div>
-        }
-        else
-        {
-            <table>
-                @if (MenuState.SelectedCategory is CodexCategory.Infrastructure)
+<div class="pos-abs main-panel">
+    @if (CodexState.Codex == null)
+    {
+        <div>Loading.....</div>
+    }
+    else
+    {
+        <table>
+            @if (MenuState.SelectedCategory is CodexCategory.Infrastructure)
+            {
+                @foreach (var group in GetInfrastructureCategorySubItems())
                 {
-                    @foreach (var group in GetInfrastructureCategorySubItems())
-                    {
-                        <CodexGroup subItemGroup="group"
-                                    category=CodexCategory.Infrastructure />
-                    }
+                    <CodexGroup subItemGroup="group"
+                                category=CodexCategory.Infrastructure />
                 }
-                else if (MenuState.SelectedCategory is CodexCategory.Unlock)
+            }
+            else if (MenuState.SelectedCategory is CodexCategory.Unlock)
+            {
+                @foreach (var group in GetUnlockCategorySubItems())
                 {
-                    @foreach (var group in GetUnlockCategorySubItems())
-                    {
-                        <CodexGroup subItemGroup="group"
-                                    category=CodexCategory.Unlock />
-                    }
+                    <CodexGroup subItemGroup="group"
+                                category=CodexCategory.Unlock />
                 }
-                else
+            }
+            else
+            {
+                @foreach (var group in GetCategoryItems())
                 {
-                    @foreach (var group in GetCategoryItems())
-                    {
-                        <CodexGroup itemGroup="group"
-                                    category=CodexCategory.Default />
-                    }
+                    <CodexGroup itemGroup="group"
+                                category=CodexCategory.Default />
                 }
-            </table>
-        }
-    </div>
+            }
+        </table>
+    }
 </div>
 
 <CodexModal />
@@ -145,8 +142,8 @@
         return unlockCategory switch
         {
             UnlockSubCategory.Milestone => new List<CodexItemType> { CodexItemType.Milestones },
-            UnlockSubCategory.Mam => new List<CodexItemType> { CodexItemType.Mam},
-            UnlockSubCategory.Shop => new List<CodexItemType> {CodexItemType.AwesomeShop}
+            UnlockSubCategory.Mam => new List<CodexItemType> { CodexItemType.Mam },
+            UnlockSubCategory.Shop => new List<CodexItemType> { CodexItemType.AwesomeShop }
         };
     }
 }
