@@ -445,6 +445,13 @@ div.nav-wrapper {
     --aug-border-bg: var(--sfBlue);
 }
 
+div.nav:hover {
+    --aug-border-top: 2px !important;
+    --aug-border-bottom: 2px !important;
+    --aug-border-left: 2px !important;
+    --aug-border-right: 2px !important;
+}
+
     .nav:hover .nav-text {
         color: var(--sfBlueHover);
     }
@@ -452,63 +459,6 @@ div.nav-wrapper {
     .nav:hover .nav-btn {
         background: var(--sfBlue20);
     }
-
-div.nav-0 {
-   /* --aug-border-bottom: 1px;
-    --aug-border-top: 2px;
-    --aug-border-x: 2px;*/
-    /*--aug-border-bg: var(--sfBlue);*/
-    /*--aug-tl: 7px;
-    --aug-tr: 13px;*/
-    --aug-bl: 12px;
-    --aug-br: 7px;
-    --aug-br-extend2: 90px;
-}
-
-    /*div.nav-0:hover {
-        --aug-border-bottom: 2px;
-        --aug-border-top: 3px;
-        --aug-border-x: 3px;
-    }*/
-
-div.nav-mid {
-   /* --aug-border-y: 1px;
-    --aug-border-x: 2px;*/
-    /*--aug-border-bg: var(--sfBlue);*/
-    --aug-tl: 7px;
-    --aug-tr: 13px;
-    --aug-bl: 12px;
-    --aug-br: 7px;
-    --aug-br-extend2: 90px;
-    --aug-tl-extend2: 125px;
-    margin-top: -4px;
-}
-
-    /*div.nav-mid:hover {
-        --aug-border-y: 2px;
-        --aug-border-x: 3px;
-    }*/
-
-div.nav-last {
-   /* --aug-border-bottom: 2px;
-    --aug-border-top: 1px;
-    --aug-border-x: 2px;*/
-    /*--aug-border-bg: var(--sfBlue);*/
-    --aug-tl: 7px;
-    --aug-tr: 13px;
-    /*--aug-bl: 12px;
-    --aug-br: 10px;*/
-    --aug-tl-extend2: 125px;
-    margin-top: -4px;
-}
-
-/* div.nav-last:hover {
-        --aug-border-bottom: 3px;
-        --aug-border-top: 2px;
-        --aug-border-x: 3px;
-    }*/
-
-
 
 .t0 {
     --aug-border-bottom: 1px;
@@ -564,7 +514,6 @@ div.nav-last {
     --aug-br: 10px;
     --aug-bl-extend1: 150px;
 }
-
 
 .t4 {
     --aug-border-y: 1px;
@@ -631,8 +580,6 @@ div.nav-last {
     --aug-b-extend1: 50px;
 }
 
-
-
 .t8 {
     --aug-border-y: 1px;
     --aug-tl: 9px;
@@ -683,8 +630,6 @@ div.nav-last {
     --aug-bl-extend1: 104px;
     --aug-br-extend2: 20px;
 }
-
-  
 
 .nav-btn {
     font-size: 1.3rem;

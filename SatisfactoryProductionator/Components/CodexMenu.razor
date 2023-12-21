@@ -96,43 +96,18 @@
 
                 @{
                     var names = GetGroupNames();
-                    InitializeList(names.Count);
+                    CodexMenuState.SetMenuButtons(names.Count);
                 }
                 <ul class="nav-list">
 
                     @for (int i = 0; i < names.Count; i++)
                     {
                         <li class="nav-li">
-                            <div data-augmented-ui="@GetTopButton() @GetBottomButton() border" class="nav @GetButtonCss()">
+                            <div data-augmented-ui="@CodexMenuState.GetAugDefinition(i) border" class="nav @CodexMenuState.GetAugCss(i)">
                                 <button type="button" class="nav-btn" onclick="document.getElementById('@names[i]').scrollIntoView({behavior:'smooth'})">
                                     <div class="pos-rel nav-text">@names[i].FormatCategoryName()</div>
                                 </button>
                             </div>
-                            
-                           @*  @if (i == 0)
-                            {
-                                <div data-augmented-ui="tl-clip tr-clip br-2-clip-x bl-clip border" class="nav nav-0">
-                                    <button type="button" class="nav-btn" onclick="document.getElementById('@names[i]').scrollIntoView({behavior:'smooth'})">
-                                        <div class="pos-rel nav-text">@names[i].FormatCategoryName()</div>
-                                    </button>
-                                </div>
-                            }
-                            else if (i != names.Count - 1)
-                            {
-                                <div data-augmented-ui="tl-2-clip-x tr-clip br-2-clip-x bl-clip border" class="nav nav-mid">
-                                    <button type="button" class="nav-btn" onclick="document.getElementById('@names[i]').scrollIntoView({behavior:'smooth'})">
-                                        <div class="pos-rel nav-text">@names[i].FormatCategoryName()</div>
-                                    </button>
-                                </div>
-                            }
-                            else
-                            {
-                                <div data-augmented-ui=" tl-2-clip-x tr-clip br-clip bl-clip border" class="nav nav-last">
-                                    <button type="button" class="nav-btn" onclick="document.getElementById('@names[i]').scrollIntoView({behavior:'smooth'})">
-                                        <div class="pos-rel nav-text">@names[i].FormatCategoryName()</div>
-                                    </button>
-                                </div>
-                            } *@
                         </li>
                     }
 
@@ -308,105 +283,6 @@
                 break;
         }
     }
-
-    private void InitializeList(int count)
-    {
-        listCount = count;
-        index = 0;
-        topIndex = 0;
-        bottomIndex = new Random().Next(1, 11);
-    }
-
-    private string GetTopButton()
-    {
-        return topIndex switch
-        {
-            0 => "tl-clip tr-clip",
-            1 => "tl-2-clip-x tr-clip",
-            2 => "tl-clip tr-2-clip-x",
-            3 => "tl-clip tr-2-clip-x",
-            4 => "tl-2-clip-x tr-clip",
-            5 => "tl-2-clip-x tr-2-clip-x",
-            6 => "tl-2-clip-x tr-2-clip-x",
-            7 => "tl-2-clip-x tr-2-clip-x",
-            8 => "tl-clip t-clip-x tr-clip",
-            9 => "tl-clip t-clip-x tr-clip",
-            10 => "tl-clip t-clip-x tr-clip",
-
-        };
-    }
-
-    private string GetBottomButton()
-    {
-        if (index == listCount - 1)
-        {
-            bottomIndex = 0;
-        }
-
-        return bottomIndex switch
-        {
-            0 => "br-clip bl-clip",
-            1 => "br-2-clip-x bl-clip",
-            2 => "br-clip bl-2-clip-x",
-            3 => "br-clip bl-2-clip-x",
-            4 => "br-2-clip-x bl-clip",
-            5 => "br-clip b-clip-x bl-clip",
-            6 => "br-clip b-clip-x bl-clip",
-            7 => "br-clip b-clip-x bl-clip",
-            8 => "br-2-clip-x bl-2-clip-x",
-            9 => "br-2-clip-x bl-2-clip-x",
-            10 => "br-2-clip-x bl-2-clip-x",
-
-        };
-    }
-
-    private string GetButtonCss()
-    {
-        var css = string.Empty;
-
-        css += topIndex switch
-        {
-            0 => "t0",
-            1 => "t1",
-            2 => "t2",
-            3 => "t3",
-            4 => "t4",
-            5 => "t5",
-            6 => "t6",
-            7 => "t7",
-            8 => "t8",
-            9 => "t9",
-            10 => "t10"
-        };
-
-        if (index == listCount - 1)
-        {
-            bottomIndex = 0;
-        }
-
-        css += bottomIndex switch
-        {
-            0 => " b0",
-            1 => " b1",
-            2 => " b2",
-            3 => " b3",
-            4 => " b4",
-            5 => " b5",
-            6 => " b6",
-            7 => " b7",
-            8 => " b8",
-            9 => " b9",
-            10 => " b10"
-        };
-
-        topIndex = bottomIndex;
-        bottomIndex = bottomIndex = new Random().Next(1, 11);
-        index++;
-
-        return css;
-    }
-
-
 
     private void ToggleModal() => CodexModalState.ToggleCodexModal();
 
