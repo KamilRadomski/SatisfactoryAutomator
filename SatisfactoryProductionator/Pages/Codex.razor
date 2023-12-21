@@ -8,11 +8,13 @@
 @using SatisfactoryProductionator.Components.CodexModal;
 
 @inject CodexState CodexState
-@inject CodexMenuState CodexMenuState
+@inject MenuState MenuState
 
 @implements IDisposable
 
 <div data-augmented-ui-reset></div>
+@{MenuState.SetPage(Page.Codex);}
+
 <CodexMenu />
 
 <div data-augmented-ui="tl-2-clip-x tr-clip br-clip bl-2-clip-y border" class="pos-abs panel-wrapper">
@@ -25,7 +27,7 @@
         else
         {
             <table>
-                @if (CodexMenuState.SelectedCategory is CodexCategory.Infrastructure)
+                @if (MenuState.SelectedCategory is CodexCategory.Infrastructure)
                 {
                     @foreach (var group in GetInfrastructureCategorySubItems())
                     {
@@ -33,7 +35,7 @@
                                     category=CodexCategory.Infrastructure />
                     }
                 }
-                else if (CodexMenuState.SelectedCategory is CodexCategory.Unlock)
+                else if (MenuState.SelectedCategory is CodexCategory.Unlock)
                 {
                     @foreach (var group in GetUnlockCategorySubItems())
                     {
@@ -64,7 +66,7 @@
     {
         base.OnInitialized();
         CodexState.OnStateChange += StateHasChanged;
-        CodexMenuState.OnStateChange += StateHasChanged;
+        MenuState.OnStateChange += StateHasChanged;
 
         if (CodexState.Codex == null)
         {
@@ -75,12 +77,12 @@
     public void Dispose()
     {
         CodexState.OnStateChange -= StateHasChanged;
-        CodexMenuState.OnStateChange -= StateHasChanged;
+        MenuState.OnStateChange -= StateHasChanged;
     }
 
     private List<IGrouping<CodexItemType, CodexEntry>> GetCategoryItems()
     {
-        var category = CodexMenuState.SelectedCategory;
+        var category = MenuState.SelectedCategory;
 
         var items = CodexState.Codex.CodexItems.Where(x => x.CodexCategory == category).OrderBy(x => x.CodexItemType).GroupBy(x => x.CodexItemType).ToList();
 
@@ -89,7 +91,7 @@
 
     private List<IGrouping<CodexSubItemType, CodexEntry>> GetInfrastructureCategorySubItems()
     {
-        var infraCategory = CodexMenuState.SelectedInfrastructure;
+        var infraCategory = MenuState.SelectedInfrastructure;
         var subCategoryList = GetInfrastructureSubCategories(infraCategory);
 
         var items = CodexState.Codex.CodexItems.Where(x => x.CodexCategory is CodexCategory.Infrastructure &&
@@ -127,7 +129,7 @@
 
     private List<IGrouping<CodexSubItemType, CodexEntry>> GetUnlockCategorySubItems()
     {
-        var unlockCategory = CodexMenuState.SelectedUnlock;
+        var unlockCategory = MenuState.SelectedUnlock;
         var subCategoryList = GetUnlockSubCategories(unlockCategory);
 
         var items = CodexState.Codex.CodexItems.Where(x => x.CodexCategory is CodexCategory.Unlock &&

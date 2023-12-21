@@ -8,10 +8,14 @@
 @using SatisfactoryProductionator.Components.CodexModal;
 
 @inject CodexState CodexState
-@inject CodexMenuState CodexMenuState
+@inject MenuState MenuState
 
 @implements IDisposable
 
+<div data-augmented-ui-reset></div>
+@{
+    MenuState.SetPage(Page.Settings);
+}
 
 @code {
 
@@ -21,7 +25,7 @@
     {
         base.OnInitialized();
         CodexState.OnStateChange += StateHasChanged;
-        CodexMenuState.OnStateChange += StateHasChanged;
+        MenuState.OnStateChange += StateHasChanged;
 
         if (CodexState.Codex == null)
         {
@@ -32,7 +36,7 @@
     public void Dispose()
     {
         CodexState.OnStateChange -= StateHasChanged;
-        CodexMenuState.OnStateChange -= StateHasChanged;
+        MenuState.OnStateChange -= StateHasChanged;
     }
 
 }

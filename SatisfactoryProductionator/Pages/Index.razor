@@ -1,10 +1,19 @@
 ﻿@page "/"
+@using SatisfactoryProductionator.DataModels.Enums;
 @using SatisfactoryProductionator.DataModels.Models
 @using SatisfactoryProductionator.Services;
 @inject HttpClient Http
 @inject CodexState CodexState
 
+@inject MenuState MenuState
+
 @implements IDisposable
+
+<div data-augmented-ui-reset></div>
+@{
+    MenuState.SetPage(Page.Codex);
+}
+
 
 <PageTitle>Index</PageTitle>
 
@@ -157,6 +166,7 @@
     protected override async Task OnInitializedAsync()
     {
         CodexState.OnStateChange += StateHasChanged;
+        MenuState.OnStateChange += StateHasChanged;
 
         if (CodexState.Codex == null)
         {
@@ -167,5 +177,6 @@
     public void Dispose()
     {
         CodexState.OnStateChange -= StateHasChanged;
+        MenuState.OnStateChange -= StateHasChanged;
     }
 }

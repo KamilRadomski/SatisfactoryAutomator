@@ -3,7 +3,7 @@
 @using SatisfactoryProductionator.Services;
 
 @inject CodexState CodexState
-@inject CodexMenuState CodexMenuState
+@inject MenuState CodexMenuState
 @inject CodexModalState CodexModalState
 
 <div data-augmented-ui-reset></div>
@@ -148,11 +148,11 @@
             await CodexState.InitializeCodexAsync();
         }
 
-        SetSelectedCategory(CodexMenuState.SelectedCategory);
+        SetSelectedCategory(MenuState.SelectedCategory);
 
-        SetSelectedInfrastructure(CodexMenuState.SelectedInfrastructure);
+        SetSelectedInfrastructure(MenuState.SelectedInfrastructure);
 
-        SetSelectedUnlock(CodexMenuState.SelectedUnlock);
+        SetSelectedUnlock(MenuState.SelectedUnlock);
     }
 
     public void Dispose()
@@ -163,11 +163,11 @@
 
     private List<string> GetGroupNames()
     {
-        var category = CodexMenuState.SelectedCategory;
+        var category = MenuState.SelectedCategory;
 
         if(category is CodexCategory.Infrastructure)
         {
-            var infraCategory = CodexMenuState.SelectedInfrastructure;
+            var infraCategory = MenuState.SelectedInfrastructure;
             var infraItems = CodexState.Codex.CodexItems.Where(x => x.CodexCategory == CodexCategory.Infrastructure).ToList();
 
             var categoryNames = infraCategory switch
@@ -189,7 +189,7 @@
         }
         else if(category is CodexCategory.Unlock)
         {
-            var unlockCategory = CodexMenuState.SelectedUnlock;
+            var unlockCategory = MenuState.SelectedUnlock;
             var unlockItems = CodexState.Codex.CodexItems.Where(x => x.CodexCategory == CodexCategory.Unlock).ToList();
 
             var categoryNames = unlockCategory switch
@@ -286,13 +286,13 @@
 
     private void ToggleModal() => CodexModalState.ToggleCodexModal();
 
-    private string GetListWrapperSizeCss() => (CodexMenuState.SelectedCategory is CodexCategory.Infrastructure || 
-                                               CodexMenuState.SelectedCategory is CodexCategory.Unlock) ? "list-shrank" : "list-full";
+    private string GetListWrapperSizeCss() => (MenuState.SelectedCategory is CodexCategory.Infrastructure || 
+                                               MenuState.SelectedCategory is CodexCategory.Unlock) ? "list-shrank" : "list-full";
 
-    private string GetQuickNavOffsetCss() => (CodexMenuState.SelectedCategory is CodexCategory.Infrastructure ||
-                                              CodexMenuState.SelectedCategory is CodexCategory.Unlock) ? "nav-active-offset" : "";
+    private string GetQuickNavOffsetCss() => (MenuState.SelectedCategory is CodexCategory.Infrastructure ||
+                                              MenuState.SelectedCategory is CodexCategory.Unlock) ? "nav-active-offset" : "";
    
-    private string GetInfraMenuActiveCss() => (CodexMenuState.SelectedCategory is CodexCategory.Infrastructure) ? "infra-active" : "";
+    private string GetInfraMenuActiveCss() => (MenuState.SelectedCategory is CodexCategory.Infrastructure) ? "infra-active" : "";
 
-    private string GetUnlockMenuActiveCss() => (CodexMenuState.SelectedCategory is CodexCategory.Unlock) ? "unlock-active" : "";
+    private string GetUnlockMenuActiveCss() => (MenuState.SelectedCategory is CodexCategory.Unlock) ? "unlock-active" : "";
 }
