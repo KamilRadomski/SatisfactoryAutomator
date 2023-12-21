@@ -1,13 +1,58 @@
 div.nav-menu {
-    width: 250px;
-    height: 200px;
+    width: 282px;
+    height: 282px;
     top: 15px;
     left: 15px;
     --aug-tl: 30px;
     --aug-tr: 30px;
-    --aug-bl: 30px;
+    --aug-bl: 12px;
     --aug-br: 30px;
     --aug-border-all: 3px;
+    --aug-bl-extend1: 176px;
+}
+
+div.nav-menu-inner {
+    width: 250px;
+    height: 200px;
+    top: 40px;
+    left: 17px;
+    --aug-tl: 30px;
+    --aug-tr: 30px;
+    --aug-bl: 30px;
+    --aug-br: 30px;
+    --aug-border-all: -1px;
+}
+
+.header {
+    width: 90%;
+    left: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.text {
+    padding: 0;
+    margin: 0;
+    font-size: 24px;
+    margin-top: 10px;
+}
+
+.footer {
+    left: 28px;
+    bottom: 4px;
+    width: 76%;
+}
+
+.footer-text {
+    padding: 0;
+    margin: 0;
+}
+
+.version {
+    font-size: 10px;
+    position: relative;
+    float: right;
 }
 
 .nav-item {

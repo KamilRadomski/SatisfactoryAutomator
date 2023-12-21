@@ -4,6 +4,7 @@
 
 @inject CodexState CodexState
 @inject CodexMenuState CodexMenuState
+@inject CodexModalState CodexModalState
 
 <div data-augmented-ui-reset></div>
 
@@ -38,6 +39,13 @@
             </div>
         </div>
     </div>
+
+    <div data-augmented-ui="tr-clip br-2-clip-y l-clip-y border" class="pos-abs btn-modal">
+        <button type="button" class="image-button btn-toggle" @onclick=ToggleModal>
+            <div class="modal-text">Info</div>
+        </button>
+    </div>
+
     <div data-augmented-ui="tl-clip tr-2-clip-y br-2-clip-x bl-clip border" class="pos-abs infra-sub-menu @GetInfraMenuActiveCss()">
         <div data-augmented-ui-reset></div>
         <div data-augmented-ui="tl-clip-x tr-clip br-clip-x bl-clip-x border" class="pos-abs infra infra-foundation">
@@ -88,36 +96,18 @@
 
                 @{
                     var names = GetGroupNames();
+                    CodexMenuState.SetMenuButtons(names.Count);
                 }
                 <ul class="nav-list">
 
                     @for (int i = 0; i < names.Count; i++)
                     {
                         <li class="nav-li">
-                            @if (i == 0)
-                            {
-                                <div data-augmented-ui="tl-clip tr-clip br-2-clip-x bl-clip border" class="nav nav-0">
-                                    <button type="button" class="nav-btn" onclick="document.getElementById('@names[i]').scrollIntoView({behavior:'smooth'})">
-                                        <div class="pos-rel nav-text">@names[i].FormatCategoryName()</div>
-                                    </button>
-                                </div>
-                            }
-                            else if (i != names.Count - 1)
-                            {
-                                <div data-augmented-ui=" tl-2-clip-x tr-clip br-2-clip-x bl-clip border" class="nav nav-mid">
-                                    <button type="button" class="nav-btn" onclick="document.getElementById('@names[i]').scrollIntoView({behavior:'smooth'})">
-                                        <div class="pos-rel nav-text">@names[i].FormatCategoryName()</div>
-                                    </button>
-                                </div>
-                            }
-                            else
-                            {
-                                <div data-augmented-ui=" tl-2-clip-x tr-clip br-clip bl-clip border" class="nav nav-last">
-                                    <button type="button" class="nav-btn" onclick="document.getElementById('@names[i]').scrollIntoView({behavior:'smooth'})">
-                                        <div class="pos-rel nav-text">@names[i].FormatCategoryName()</div>
-                                    </button>
-                                </div>
-                            }
+                            <div data-augmented-ui="@CodexMenuState.GetAugDefinition(i) border" class="nav @CodexMenuState.GetAugCss(i)">
+                                <button type="button" class="nav-btn" onclick="document.getElementById('@names[i]').scrollIntoView({behavior:'smooth'})">
+                                    <div class="pos-rel nav-text">@names[i].FormatCategoryName()</div>
+                                </button>
+                            </div>
                         </li>
                     }
 
@@ -140,12 +130,18 @@
     private static string activeMam;
     private static string activeShop;
 
+    private static int listCount;
+    private static int index;
+    private static int topIndex;
+    private static int bottomIndex;
+
 
     protected override async Task OnInitializedAsync()
     {
         base.OnInitialized();
 
         CodexState.OnStateChange += StateHasChanged;
+        CodexModalState.OnStateChange += StateHasChanged;
 
         if (CodexState.Codex == null)
         {
@@ -162,6 +158,7 @@
     public void Dispose()
     {
         CodexState.OnStateChange -= StateHasChanged;
+        CodexModalState.OnStateChange -= StateHasChanged;
     }
 
     private List<string> GetGroupNames()
@@ -286,6 +283,8 @@
                 break;
         }
     }
+
+    private void ToggleModal() => CodexModalState.ToggleCodexModal();
 
     private string GetListWrapperSizeCss() => (CodexMenuState.SelectedCategory is CodexCategory.Infrastructure || 
                                                CodexMenuState.SelectedCategory is CodexCategory.Unlock) ? "list-shrank" : "list-full";
