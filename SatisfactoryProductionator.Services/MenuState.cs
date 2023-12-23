@@ -2,8 +2,9 @@
 
 namespace SatisfactoryProductionator.Services
 {
-    public class CodexMenuState
+    public class MenuState
     {
+        public static Page CurrentPage { get; set; } = Page.Home;
         public static CodexCategory SelectedCategory { get; set; } = CodexCategory.Item;
 
         public static InfrastructureSubCategory SelectedInfrastructure { get; set; } = InfrastructureSubCategory.Foundations;
@@ -13,6 +14,20 @@ namespace SatisfactoryProductionator.Services
         public static Dictionary<string, List<string>> ButtonConfig { get; set; } = new Dictionary<string, List<string>>();
 
         public event Action OnStateChange;
+
+        public void SetPage(Page page)
+        {
+            if(page == CurrentPage) return;
+
+            CurrentPage = page;
+
+            NotifyStateChanged();
+        }
+
+        public Page GetPage()
+        {
+            return CurrentPage;
+        }
 
         public void SetCategory(CodexCategory category)
         {

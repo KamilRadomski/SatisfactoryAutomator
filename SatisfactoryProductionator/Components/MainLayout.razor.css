@@ -6,3 +6,16 @@ div.outer-panel {
     --aug-bl: 40px;
     --aug-border-all: 7px;
 }
+
+div.panel-wrapper {
+    top: 14px;
+    left: 300px;
+    right: 14px;
+    bottom: 14px;
+    --aug-border-all: 3px;
+    --aug-border-bg: var(--sfBlue);
+    --aug-tl: 15px;
+    --aug-tr: 33px;
+    --aug-br: 33px;
+    --aug-bl: 20px;
+}

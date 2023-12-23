@@ -1,0 +1,49 @@
+﻿@using SatisfactoryProductionator.Components.CodexModal
+@using SatisfactoryProductionator.DataModels.Enums;
+@using SatisfactoryProductionator.DataModels.Models;
+@using SatisfactoryProductionator.Services;
+
+@inject CodexModalState CodexModalState;
+@inject AppModalState AppModalState;
+
+@implements IDisposable;
+
+<div data-augmented-ui-reset class="pos-abs modal-wrapper @IsModalActiveCss()">
+    <div data-augmented-ui="tl-2-clip-y tr-2-clip-x br-2-clip-y bl-2-clip-x border" class="modal">
+        @if(AppModalState.GetModalType() is ModalType.Codex)
+        {
+            <CodexModal />
+        }
+        
+    </div>
+</div>
+
+<div class="backer @IsBackerActiveCss()"></div>
+
+
+@code {
+    public ModalType modalType { get; set; }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        CodexModalState.OnStateChange += StateHasChanged;
+        AppModalState.OnStateChange += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        CodexModalState.OnStateChange -= StateHasChanged;
+        AppModalState.OnStateChange -= StateHasChanged;
+    }
+
+    private string IsModalActiveCss() => IsActive() ? "modal-on" : "modal-off";
+
+    private string IsBackerActiveCss() => IsActive() ? "backer-on" : "";
+
+    private bool IsActive()
+    {
+        return (CodexModalState.Active);
+    }
+}

@@ -1,6 +1,27 @@
 ﻿@page "/grapher"
-<h3>Grapher</h3>
+@using SatisfactoryProductionator.DataModels.Enums;
+@using SatisfactoryProductionator.Services;
+
+@inject MenuState MenuState
+
+@implements IDisposable
+
+<div data-augmented-ui-reset></div>
+@{
+    MenuState.SetPage(Page.Graph);
+}
+
 
 @code {
 
+    protected override async Task OnInitializedAsync()
+    {
+        base.OnInitialized();
+        MenuState.OnStateChange += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        MenuState.OnStateChange -= StateHasChanged;
+    }
 }

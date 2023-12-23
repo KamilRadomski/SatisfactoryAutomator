@@ -11,7 +11,6 @@
 }
 
 .modal-off {
-    z-index: 0;
     z-index: -1;
     transition: .4s;
     opacity: 0;
@@ -26,4 +25,19 @@ div.modal {
     --aug-border-all: 5px;
     background: black;
     display: inline-table;
+}
+
+.backer {
+    width: 197vh;
+    height: 100vh;
+    background-color: black;
+    opacity: 0.5;
+    z-index: -1;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.backer-on {
+    z-index: 1;
 }

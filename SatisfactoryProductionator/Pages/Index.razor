@@ -1,10 +1,20 @@
 ﻿@page "/"
+@using SatisfactoryProductionator.DataModels.Enums;
 @using SatisfactoryProductionator.DataModels.Models
 @using SatisfactoryProductionator.Services;
+
 @inject HttpClient Http
 @inject CodexState CodexState
 
+@inject MenuState MenuState
+
 @implements IDisposable
+
+<div data-augmented-ui-reset></div>
+@{
+    MenuState.SetPage(Page.Home);
+}
+
 
 <PageTitle>Index</PageTitle>
 
@@ -29,19 +39,21 @@
         <h2>MVP Items Left</h2>
         <ul>
             <li>Grapher Page - Cytoscape.js implemented for graph</li>
-            <li>Item Page converted to Codex that houses items, recipes, buildings</li>
             <li>Permutations Page</li>
             <li>AppSettings page that will hold preferred Recipes to use in Grapher</li>
         </ul>
 
         <h2>Current Tasks</h2>
         <ul>
-            <li class="c">Refactor Outer Container styling</li>
+            <li class="c"> Permutator Page</li>
             <li>
                 <ul>
-                    <li>Make side menu active on all screens</li>
-                    <li>Turn Codex Side menu into a subcomponent of a parent side menu component</li>
-                    <li>Make Codex main page wrapper, wrap all pages</li>
+                    <li>Permutator library(may be combined with grapher library or split with a shared utility library)</li>
+                    <li>Permutator state container that other pages can work with</li>
+                    <li>Ability to select permutation to stick on top to compare while scrolling - collapsible</li>
+                    <li>Filtering on top - collapsible</li>
+                    <li>QNav area will house sorting</li>
+                    <li>Option to set all recipes in a permutation as defaults</li>
                 </ul>
             </li>
         </ul>
@@ -73,18 +85,6 @@
                             <li>Add reset to defaults button which will set min recycle to 30 and set all recipes back to basic</li>
                         </ul>
                     </li>
-                </ul>
-            </li>
-
-            <li>Permutator Page</li>
-            <li>
-                <ul>
-                    <li>Permutator library(may be combined with grapher library or split with a shared utility library)</li>
-                    <li>Permutator state container that other pages can work with</li>
-                    <li>Ability to select permutation to stick on top to compare while scrolling - collapsible</li>
-                    <li>Filtering on top - collapsible</li>
-                    <li>QNav area will house sorting</li>
-                    <li>Option to set all recipes in a permutation as defaults</li>
                 </ul>
             </li>
 
@@ -157,6 +157,7 @@
     protected override async Task OnInitializedAsync()
     {
         CodexState.OnStateChange += StateHasChanged;
+        MenuState.OnStateChange += StateHasChanged;
 
         if (CodexState.Codex == null)
         {
@@ -167,5 +168,6 @@
     public void Dispose()
     {
         CodexState.OnStateChange -= StateHasChanged;
+        MenuState.OnStateChange -= StateHasChanged;
     }
 }
