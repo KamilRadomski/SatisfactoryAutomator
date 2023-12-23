@@ -10,12 +10,14 @@
 
 @inject CodexState CodexState
 @inject MenuState MenuState
+@inject AppModalState AppModalState
 
 @implements IDisposable
 
 <div data-augmented-ui-reset></div>
 @{
     MenuState.SetPage(Page.Codex);
+    AppModalState.SetModal(ModalType.Codex);
 }
 
 <div class="pos-abs main-panel">
@@ -54,8 +56,6 @@
     }
 </div>
 
-<CodexModal />
-
 @code {
 
     private static AppSettings _settings = new AppSettings();
@@ -65,6 +65,7 @@
         base.OnInitialized();
         CodexState.OnStateChange += StateHasChanged;
         MenuState.OnStateChange += StateHasChanged;
+        AppModalState.OnStateChange += StateHasChanged;
 
         if (CodexState.Codex == null)
         {
@@ -76,6 +77,7 @@
     {
         CodexState.OnStateChange -= StateHasChanged;
         MenuState.OnStateChange -= StateHasChanged;
+        AppModalState.OnStateChange -= StateHasChanged;
     }
 
     private List<IGrouping<CodexItemType, CodexEntry>> GetCategoryItems()
