@@ -38,6 +38,8 @@
   <ItemGroup>
     <Folder Include="Components\GraphModal\" />
     <Folder Include="Components\Grapher\" />
+    <Folder Include="Components\Home\" />
+    <Folder Include="Components\Settings\" />
     <Folder Include="Components\Permutator\" />
     <Folder Include="Components\PermModal\" />
   </ItemGroup>

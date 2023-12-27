@@ -1,3 +1,30 @@
-﻿@code {
+﻿@using SatisfactoryProductionator.DataModels.Models;
+@using SatisfactoryProductionator.Services;
 
+@inject PermModalState PermModalState;
+@inject PermState PermState;
+@inject CodexState CodexState;
+
+@implements IDisposable;
+
+<div>
+</div>
+
+
+@code {
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        PermModalState.OnStateChange += StateHasChanged;
+        PermState.OnStateChange += StateHasChanged;
+        CodexState.OnStateChange += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        PermModalState.OnStateChange -= StateHasChanged;
+        PermState.OnStateChange -= StateHasChanged;
+        CodexState.OnStateChange -= StateHasChanged;
+    }
 }

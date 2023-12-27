@@ -15,6 +15,9 @@ namespace SatisfactoryProductionator.Services
 
         public event Action OnStateChange;
 
+        private void NotifyStateChanged() => OnStateChange?.Invoke();
+
+        #region General 
         public void SetPage(Page page)
         {
             if(page == CurrentPage) return;
@@ -28,6 +31,10 @@ namespace SatisfactoryProductionator.Services
         {
             return CurrentPage;
         }
+
+        #endregion
+
+        #region Codex
 
         public void SetCategory(CodexCategory category)
         {
@@ -49,6 +56,16 @@ namespace SatisfactoryProductionator.Services
 
             NotifyStateChanged();
         }
+
+        #endregion
+
+        #region Permutator
+
+
+
+        #endregion
+
+        #region Buttons
 
         public void SetMenuButtons(int count)
         {
@@ -139,6 +156,8 @@ namespace SatisfactoryProductionator.Services
             }
         }
 
-        private void NotifyStateChanged() => OnStateChange?.Invoke();
+        #endregion
+
+        
     }
 }
