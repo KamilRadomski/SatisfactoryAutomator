@@ -35,6 +35,13 @@
     </Content>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Components\GraphModal\" />
+    <Folder Include="Components\Grapher\" />
+    <Folder Include="Components\Permutator\" />
+    <Folder Include="Components\PermModal\" />
+  </ItemGroup>
+
   <ProjectExtensions><VisualStudio><UserProperties wwwroot_4css_4bootstrap_4bootstrap_1min_1css_1map__JsonSchema="" /></VisualStudio></ProjectExtensions>
 
 </Project>
