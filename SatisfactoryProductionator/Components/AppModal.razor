@@ -5,6 +5,7 @@
 
 @inject CodexModalState CodexModalState;
 @inject AppModalState AppModalState;
+@inject PermModalState PermModalState;
 
 @implements IDisposable;
 
@@ -30,12 +31,14 @@
 
         CodexModalState.OnStateChange += StateHasChanged;
         AppModalState.OnStateChange += StateHasChanged;
+        PermModalState.OnStateChange += StateHasChanged;
     }
 
     public void Dispose()
     {
         CodexModalState.OnStateChange -= StateHasChanged;
         AppModalState.OnStateChange -= StateHasChanged;
+        PermModalState.OnStateChange -= StateHasChanged;
     }
 
     private string IsModalActiveCss() => IsActive() ? "modal-on" : "modal-off";
@@ -44,6 +47,6 @@
 
     private bool IsActive()
     {
-        return (CodexModalState.Active);
+        return (CodexModalState.Active || PermModalState.Active);
     }
 }

@@ -3,12 +3,14 @@
 @using SatisfactoryProductionator.Services;
 
 @inject MenuState MenuState
+@inject AppModalState AppModalState
 
 @implements IDisposable
 
 <div data-augmented-ui-reset></div>
 @{
     MenuState.SetPage(Page.Perm);
+    AppModalState.SetModal(ModalType.Perm);
 }
 
 
