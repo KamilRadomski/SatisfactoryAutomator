@@ -1,4 +1,5 @@
 ﻿@using SatisfactoryProductionator.Components.CodexModal
+@using SatisfactoryProductionator.Components.PermModal
 @using SatisfactoryProductionator.DataModels.Enums;
 @using SatisfactoryProductionator.DataModels.Models;
 @using SatisfactoryProductionator.Services;
@@ -14,6 +15,10 @@
         @if(AppModalState.GetModalType() is ModalType.Codex)
         {
             <CodexModal />
+        }
+        else if(AppModalState.GetModalType() is ModalType.Perm) 
+        {
+            <PermModal />
         }
         
     </div>

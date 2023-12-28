@@ -7,7 +7,12 @@
 
 @implements IDisposable;
 
-<div>
+<div data-augmented-ui-reset></div>
+
+<div data-augmented-ui="tl-clip tr-clip br-2-clip-x bl-2-clip-y border" class="add-btn">
+    <button type="button" class="btn-full" @onclick="@(() => PermModalState.ToggleModal())">
+        <span class="btn-icon oi-plus" aria-hidden="true"></span>
+    </button>
 </div>
 
 
@@ -27,4 +32,5 @@
         PermState.OnStateChange -= StateHasChanged;
         CodexState.OnStateChange -= StateHasChanged;
     }
+
 }

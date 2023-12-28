@@ -1,0 +1,21 @@
+﻿@using SatisfactoryProductionator.Services;
+
+@inject PermModalState PermModalState;
+
+@implements IDisposable;
+
+<div>Perm Modal loaded</div>
+
+@code {
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        PermModalState.OnStateChange += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        PermModalState.OnStateChange -= StateHasChanged;
+    }
+}
