@@ -36,11 +36,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Components\GraphModal\" />
-    <Folder Include="Components\Grapher\" />
-    <Folder Include="Components\Home\" />
-    <Folder Include="Components\Settings\" />
-    <Folder Include="Components\Permutator\" />
+    <Folder Include="Components\Modal\GraphModal\" />
+    <Folder Include="Components\Pages\Grapher\" />
+    <Folder Include="Components\Pages\Settings\" />
+    <Folder Include="Components\Pages\Permutator\" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties wwwroot_4css_4bootstrap_4bootstrap_1min_1css_1map__JsonSchema="" /></VisualStudio></ProjectExtensions>
