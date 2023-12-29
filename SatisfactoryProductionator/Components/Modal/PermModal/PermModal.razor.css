@@ -1,0 +1,57 @@
+﻿div.top-panel {
+    position: relative;
+    height: 371px;
+    width: 1365px;
+    --aug-tl: 30px;
+    --aug-tr: 29px;
+    --aug-br: 20px;
+    --aug-bl: 20px;
+    --aug-border-all: 3px;
+    --aug-border-bottom: -1px;
+    --aug-border-bg: var(--sfBlue);
+    --aug-tr-extend1: 58px;
+    --aug-tr-inset2: -1px;
+    --aug-tl-extend1: 57px;
+    left: 8px;
+    top: 8px;
+    margin-bottom: 5px;
+}
+
+div.top-panel-inner {
+    --aug-br: 20px;
+    --aug-bl: 20px;
+    --aug-border-all: -1px;
+    --aug-border-bottom: 2px;
+    --aug-border-bg: var(--sfBlue);
+    width: 1347px;
+    left: 9px;
+    height: 372px;
+}
+
+div.bottom-panel {
+    position: relative;
+    float: left;
+    height: 455px;
+    width: 1365px;
+    --aug-tl: 20px;
+    --aug-tr: 20px;
+    --aug-br: 29px;
+    --aug-bl: 29px;
+    --aug-border-all: 3px;
+    --aug-border-top: -1px;
+    --aug-border-bg: var(--sfBlue);
+    top: 10px;
+    left: 8px;
+    margin-right: 5px;
+}
+
+div.bottom-panel-inner {
+    height: 447px;
+    width: 1347px;
+    --aug-tl: 20px;
+    --aug-tr: 20px;
+    --aug-border-all: -1px;
+    --aug-border-top: 2px;
+    --aug-border-bg: var(--sfBlue);
+    left: 9px;
+}
