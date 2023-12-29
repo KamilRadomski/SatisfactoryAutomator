@@ -1,6 +1,8 @@
-﻿@using SatisfactoryProductionator.Services;
+﻿@using SatisfactoryProductionator.DataModels.Models.Codex;
+@using SatisfactoryProductionator.Services;
 
 @inject PermModalState PermModalState;
+@inject CodexState CodexState;
 
 @implements IDisposable;
 
@@ -13,8 +15,22 @@
 <div data-augmented-ui="tl-clip tr-clip br-2-clip-y bl-2-clip-x border" class="bottom-panel">
     <div data-augmented-reset></div>
     <div data-augmented-ui="tl-clip tr-clip border" class="bottom-panel-inner">
-    
-    
+
+        @if (CodexState.Codex == null)
+        {
+            <div class="loading">Loading...</div>
+        }
+        else
+        {
+            <div class="selection">
+                @foreach (var item in GetItems())
+                {
+                    <button class="image-button" type="button" @onclick="@(() => PermModalState.SetSelectedItem(item))">
+                        <img class="image-64" src=@CodexState.FetchIconPath(item.ClassName) alt=@item.ClassName />
+                    </button>
+                }
+            </div>
+        }
     </div>
 </div>
 
@@ -24,10 +40,19 @@
         base.OnInitialized();
 
         PermModalState.OnStateChange += StateHasChanged;
+        CodexState.OnStateChange += StateHasChanged;
     }
 
     public void Dispose()
     {
         PermModalState.OnStateChange -= StateHasChanged;
+        CodexState.OnStateChange -= StateHasChanged;
+    }
+
+    public List<Item> GetItems()
+    {
+        var items = CodexState.GetAutomatableItems();
+
+        return items;
     }
 }

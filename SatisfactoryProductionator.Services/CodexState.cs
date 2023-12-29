@@ -129,5 +129,17 @@ namespace SatisfactoryProductionator.Services
                 .ToList()!;
         }
 
+        public List<Item> GetAutomatableItems()
+        {
+            var items = Codex.CodexItems.Where(x => x.CodexCategory is CodexCategory.Item)
+                .Select(x => x as Item).ToList();
+
+            return items;
+
+            //TODO filter on automatable, check modals between jsconverter and this
+
+            //return items.Where(x => x.)
+        }
+
     }
 }

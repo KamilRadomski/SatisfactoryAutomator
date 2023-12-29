@@ -1,4 +1,6 @@
-﻿namespace SatisfactoryProductionator.Services
+﻿using SatisfactoryProductionator.DataModels.Models.Codex;
+
+namespace SatisfactoryProductionator.Services
 {
     public class PermModalState
     {
@@ -8,6 +10,8 @@
 
         private readonly CodexState _codexState;
 
+        private Item SelectedItem { get; set; }
+
         public PermModalState(CodexState codexState)
         {
             if (codexState.Codex == null)
@@ -16,6 +20,11 @@
             }
 
             _codexState = codexState;
+        }
+
+        public void SetSelectedItem(Item item) 
+        { 
+            SelectedItem = item;
         }
 
         private void NotifyStateChanged() => OnStateChange?.Invoke();
