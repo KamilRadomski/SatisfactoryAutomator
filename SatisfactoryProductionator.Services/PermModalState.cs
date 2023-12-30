@@ -22,8 +22,15 @@ namespace SatisfactoryProductionator.Services
             _codexState = codexState;
         }
 
+        public void SetSelectedItem(string className)
+        {
+            var item = _codexState.FetchItem(className) as Item;
+            SetSelectedItem(item);
+        }
+
         public void SetSelectedItem(Item item) 
         { 
+            Active = true;
             SelectedItem = item;
         }
 

@@ -55,3 +55,87 @@ div.bottom-panel-inner {
     --aug-border-bg: var(--sfBlue);
     left: 9px;
 }
+
+
+.perm-close{
+    top:40px;
+    right:10px;
+}
+
+.center-content {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+}
+
+div.btn-outer {
+    --aug-all-width: 60px;
+    --aug-border-all: 3px;
+    --aug-border-bg: var(--sfBlue);
+    background: unset;
+    transition: .15s;
+}
+
+div.btn-middle {
+    --aug-all-width: 56px;
+    --aug-border-all: 2px;
+    transition: .15s;
+}
+
+div.btn-inner {
+    --aug-all-width: 54px;
+    --aug-border-all: 1px;
+    margin: 1px;
+    transition: .15s;
+}
+
+.btn-x {
+    background: unset;
+    border: unset;
+    width: 60px;
+    height: 60px;
+}
+
+.btn-outer:not(:disabled):hover {
+    /*--aug-border-all: 5px;*/
+    --aug-border-all: 2px;
+    background: var(--sfBlue20);
+    transition: .2s;
+}
+
+    .btn-outer:not(:disabled):hover .btn-middle {
+        --aug-all-width: 48px;
+        --aug-border-all: 1.5px;
+        transition: .2s;
+    }
+
+    .btn-outer:not(:disabled):hover .btn-inner {
+        --aug-all-width: 38px;
+        transition: .2s;
+    }
+
+    .btn-outer:not(:disabled):hover .btn-icon {
+        font-size: 1.5rem;
+        transition: .2s;
+    }
+
+.btn-outer:not(:disabled):active {
+    background: var(--sfBlueHover);
+}
+
+.icon-close {
+    padding-bottom: 5px;
+    margin-left: 1px !important;
+}
+
+.btn-icon {
+    font-family: Icons;
+    font-style: normal;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    color: var(--sfBlue);
+    font-size: 2rem;
+    transition: .15s;
+    margin-left: 2px;
+}
