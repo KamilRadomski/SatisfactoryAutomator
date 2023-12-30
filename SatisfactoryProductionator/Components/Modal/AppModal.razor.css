@@ -28,8 +28,8 @@ div.modal {
 }
 
 .backer {
-    width: 197vh;
-    height: 100vh;
+    width: 300vh;
+    height: 200vh;
     background-color: black;
     opacity: 0.5;
     z-index: -1;
