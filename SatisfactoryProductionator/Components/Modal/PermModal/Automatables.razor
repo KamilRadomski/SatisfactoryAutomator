@@ -6,18 +6,22 @@
 
 @implements IDisposable;
 
-<div data-augmented-ui="tl-2-clip-y tr-2-clip-x br-clip bl-clip border" class="top-panel">
-    <div data-augmented-reset></div>
-    <div data-augmented-ui="br-clip bl-clip border" class="top-panel-inner">
+@if (CodexState.Codex == null)
+{
+    <div class="loading">Loading...</div>
+}
+else
+{
+    <div class="selection">
+        @foreach (var item in GetItems())
+        {
+            <button class="image-button select-btn" type="button" @onclick="@(() => PermModalState.SetSelectedItem(item))">
+                <img class="image-80" src=@CodexState.FetchIconPath(item.ClassName) alt=@item.ClassName />
+                <div class="text">@item.DisplayName</div>
+            </button>
+        }
     </div>
-</div>
-
-<div data-augmented-ui="tl-clip tr-clip br-2-clip-y bl-2-clip-x border" class="bottom-panel">
-    <div data-augmented-reset></div>
-    <div data-augmented-ui="tl-clip tr-clip border" class="bottom-panel-inner">
-        <Automatables />
-    </div>
-</div>
+}
 
 @code {
     protected override void OnInitialized()
