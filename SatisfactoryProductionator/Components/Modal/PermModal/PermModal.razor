@@ -25,8 +25,9 @@
             <div class="selection">
                 @foreach (var item in GetItems())
                 {
-                    <button class="image-button" type="button" @onclick="@(() => PermModalState.SetSelectedItem(item))">
-                        <img class="image-64" src=@CodexState.FetchIconPath(item.ClassName) alt=@item.ClassName />
+                    <button class="image-button select-btn" type="button" @onclick="@(() => PermModalState.SetSelectedItem(item))">
+                        <img class="image-80" src=@CodexState.FetchIconPath(item.ClassName) alt=@item.ClassName />
+                        <div class="text">@item.DisplayName</div>
                     </button>
                 }
             </div>

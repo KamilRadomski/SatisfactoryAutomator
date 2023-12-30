@@ -1,6 +1,6 @@
 ﻿div.top-panel {
     position: relative;
-    height: 371px;
+    height: 250px;
     width: 1365px;
     --aug-tl: 30px;
     --aug-tr: 29px;
@@ -25,13 +25,13 @@ div.top-panel-inner {
     --aug-border-bg: var(--sfBlue);
     width: 1347px;
     left: 9px;
-    height: 372px;
+    height: 251px;
 }
 
 div.bottom-panel {
     position: relative;
     float: left;
-    height: 455px;
+    height: 576px;
     width: 1365px;
     --aug-tl: 20px;
     --aug-tr: 20px;
@@ -46,7 +46,7 @@ div.bottom-panel {
 }
 
 div.bottom-panel-inner {
-    height: 447px;
+    height: 568px;
     width: 1347px;
     --aug-tl: 20px;
     --aug-tr: 20px;
@@ -54,4 +54,33 @@ div.bottom-panel-inner {
     --aug-border-top: 2px;
     --aug-border-bg: var(--sfBlue);
     left: 9px;
+}
+
+.selection {
+    overflow-y: auto;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    height: inherit;
+    padding: 10px 10px 20px 10px;
+}
+
+.select-btn {
+    margin: 12px;
+}
+
+.selection::-webkit-scrollbar {
+    width: 1em;
+}
+
+.selection::-webkit-scrollbar-track {
+    background: var(--sfBlue40);
+    border-radius: 16px;
+    margin-block: 7em;
+    margin-block-start: 2em;
+}
+
+.selection::-webkit-scrollbar-thumb {
+    border-radius: 100vh;
+    background: var(--sfBlue40);
 }
