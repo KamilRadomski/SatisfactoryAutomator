@@ -10,8 +10,18 @@
     <div data-augmented-reset></div>
     <div data-augmented-ui="br-clip bl-clip border" class="top-panel-inner">
 
+        <div data-augmented-ui="tl-2-clip-y tr-clip br-2-clip-y bl-clip border" class="selected-list">
 
-        <div data-augmented-ui="all-hex border" class="pos-abs perm-close btn-outer center-content">
+
+        </div>
+
+        <div data-augmented-ui="tl-2-clip-y tr-clip br-clip bl-2-clip-x border" class="selected-perm">
+
+
+        </div>
+
+        <div data-augmented-ui="tl-clip tr-clip br-clip bl-clip border" class="btn-bar">
+        <div data-augmented-ui="all-hex border" class="perm-close btn-outer center-content">
             <div data-augmented-ui-reset></div>
             <button type="button" class="btn-x center-content" @onclick=@PermModalState.CloseModal>
                 <div data-augmented-ui="all-hex border" class="btn-middle center-content">
@@ -22,6 +32,7 @@
                     </div>
                 </div>
             </button>
+        </div>
         </div>
     </div>
 </div>

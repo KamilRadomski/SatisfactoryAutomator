@@ -26,6 +26,8 @@ div.top-panel-inner {
     width: 1347px;
     left: 9px;
     height: 251px;
+    display: flex;
+    padding-top: 12px;
 }
 
 div.bottom-panel {
@@ -56,10 +58,26 @@ div.bottom-panel-inner {
     left: 9px;
 }
 
+.btn-bar {
+    position: relative;
+    height: 200px;
+    width: 81px;
+    --aug-tl: 20px;
+    --aug-tr: 20px;
+    --aug-br: 20px;
+    --aug-bl: 20px;
+    --aug-border-all: 2.5px;
+    --aug-border-x: -1px;
+    --aug-border-bg: var(--sfBlue);
+    top: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
 .perm-close{
-    top:40px;
-    right:10px;
+    /*top:40px;*/
+    /*right:10px;*/
 }
 
 .center-content {
@@ -138,4 +156,34 @@ div.btn-inner {
     font-size: 2rem;
     transition: .15s;
     margin-left: 2px;
+}
+
+
+div.selected-list {
+    position: relative;
+    height: 229px;
+    width: 940px;
+    --aug-tl: 27px;
+    --aug-tr: 20px;
+    --aug-br: 20px;
+    --aug-bl: 20px;
+    --aug-border-all: 2.5px;
+    --aug-border-y: -1px;
+    --aug-border-bg: var(--sfBlue);
+    margin-left: 5px;
+    margin-right: 10px;
+}
+
+div.selected-perm {
+    position: relative;
+    height: 229px;
+    width: 300px;
+    --aug-tl: 20px;
+    --aug-tr: 20px;
+    --aug-br: 20px;
+    --aug-bl: 20px;
+    --aug-border-all: 2.5px;
+    --aug-border-y: -1px;
+    --aug-border-bg: var(--sfBlue);
+    margin-right: 10px;
 }
