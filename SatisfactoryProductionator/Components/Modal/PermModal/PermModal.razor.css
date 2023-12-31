@@ -181,9 +181,92 @@ div.selected-perm {
     --aug-tl: 20px;
     --aug-tr: 20px;
     --aug-br: 20px;
-    --aug-bl: 20px;
+    --aug-bl: 35px;
     --aug-border-all: 2.5px;
     --aug-border-y: -1px;
     --aug-border-bg: var(--sfBlue);
     margin-right: 10px;
 }
+
+.select-item-text {
+    font-size: 40px;
+    margin-top: 100px;
+}
+
+.selected-text {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.selector-bar {
+    margin-top: 60px;
+}
+
+.sub-100 {
+    height: 30px;
+    width: 60px;
+}
+
+.sub-10 {
+    height: 30px;
+    width: 50px;
+}
+
+.sub-1 {
+    height: 30px;
+    width: 40px;
+    margin-right: 1px;
+}
+
+.sub-btn {
+    --aug-tl: 15px;
+    --aug-bl: 15px;
+    --aug-r: 15px;
+    --aug-border-all: 1px;
+    --aug-border-bg: var(--sfBlue);
+    margin-left: -12px;
+}
+
+.sub-btn span {
+    margin-left: -5px;
+}
+
+.add-100 {
+    height: 30px;
+    width: 60px;
+}
+
+.add-10 {
+    height: 30px;
+    width: 50px;
+}
+
+.add-1 {
+    height: 30px;
+    width: 40px;
+    margin-left: 1px;
+}
+
+.add-btn {
+    --aug-tr: 15px;
+    --aug-br: 15px;
+    --aug-l: 15px;
+    --aug-border-all: 1px;
+    --aug-border-bg: var(--sfBlue);
+    margin-right: -12px;
+}
+
+.add-btn span {
+    margin-right: -5px;
+}
+
+    .add-btn:hover,
+    .sub-btn:hover {
+        background-color: var(--sfBlue20);
+        --aug-border-all: 1.5px;
+    }
+
+        .add-btn:hover span,
+        .sub-btn:hover span {
+            color: var(--sfBlueHover);
+        }

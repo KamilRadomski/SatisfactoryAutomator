@@ -31,6 +31,17 @@
     display: flex;
 }
 
+.flex-center {
+    display: flex;
+    justify-content: center;
+}
+
+.flex-middle {
+    display: flex;
+    align-items: center;
+    justify-content : center;
+}
+
 .flex-even {
     display: flex;
     justify-content: space-evenly;

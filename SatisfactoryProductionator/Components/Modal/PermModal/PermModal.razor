@@ -11,28 +11,72 @@
     <div data-augmented-ui="br-clip bl-clip border" class="top-panel-inner">
 
         <div data-augmented-ui="tl-2-clip-y tr-clip br-2-clip-y bl-clip border" class="selected-list">
-
-
         </div>
 
-        <div data-augmented-ui="tl-2-clip-y tr-clip br-clip bl-2-clip-x border" class="selected-perm">
+        <div data-augmented-ui="tl-2-clip-y tr-clip br-clip bl-clip border" class="selected-perm flex-center">
+            @if (PermModalState.SelectedItem == null)
+            {
+                <div class="select-item-text">Select Item</div>
+            }
+            else
+            {
+                <div class="selected-options">
+                    <div class="selected-text">@PermModalState.SelectedItem.DisplayName</div>
+                    <img class="image-80" src=@PermModalState.SelectedItem.IconPath alt=@PermModalState.SelectedItem.ClassName />
+                    <div class="flex-middle selector-bar">
+                        <div data-augmented-reset></div>
+                        <div data-augmented-ui="tl-clip r-clip bl-clip border" class="flex-middle sub-btn sub-100">
+                            <button type="button" class="btn-full">
+                                <span>100</span>
+                            </button>
+                            
+                        </div>
+                        <div data-augmented-ui="tl-clip r-clip bl-clip border" class="flex-middle sub-btn sub-10">
+                            <button type="button" class="btn-full">
+                                <span>10</span>
+                            </button>
+                        </div>
+                        <div data-augmented-ui="tl-clip r-clip bl-clip border" class="flex-middle sub-btn sub-1">
+                            <button type="button" class="btn-full">
+                                <span>1</span>
+                            </button>
+                        </div>
+                        
+                        <div data-augmented-ui="tr-clip l-clip br-clip border" class="flex-middle add-btn add-1">
+                            <button type="button" class="btn-full">
+                                <span>1</span>
+                            </button>
+                        </div>
+                        <div data-augmented-ui="tr-clip l-clip br-clip border" class="flex-middle add-btn add-10">
+                            <button type="button" class="btn-full">
+                                <span>10</span>
+                            </button>
+                        </div>
+                        <div data-augmented-ui="tr-clip l-clip br-clip border" class="flex-middle add-btn add-100">
+                            <button type="button" class="btn-full">
+                                <span>100</span>
+                            </button>
+                        </div>
+                    </div>
 
+                </div>
+            }
 
         </div>
 
         <div data-augmented-ui="tl-clip tr-clip br-clip bl-clip border" class="btn-bar">
-        <div data-augmented-ui="all-hex border" class="perm-close btn-outer center-content">
-            <div data-augmented-ui-reset></div>
-            <button type="button" class="btn-x center-content" @onclick=@PermModalState.CloseModal>
-                <div data-augmented-ui="all-hex border" class="btn-middle center-content">
-                    <div data-augmented-ui-reset></div>
-                    <div data-augmented-ui="all-hex border" class="btn-inner center-content">
+            <div data-augmented-ui="all-hex border" class="perm-close btn-outer center-content">
+                <div data-augmented-ui-reset></div>
+                <button type="button" class="btn-x center-content" @onclick=@PermModalState.CloseModal>
+                    <div data-augmented-ui="all-hex border" class="btn-middle center-content">
                         <div data-augmented-ui-reset></div>
-                        <div class="btn-icon icon-close oi-x" aria-hidden="true"></div>
+                        <div data-augmented-ui="all-hex border" class="btn-inner center-content">
+                            <div data-augmented-ui-reset></div>
+                            <div class="btn-icon icon-close oi-x" aria-hidden="true"></div>
+                        </div>
                     </div>
-                </div>
-            </button>
-        </div>
+                </button>
+            </div>
         </div>
     </div>
 </div>
@@ -65,4 +109,4 @@
 
         return items;
     }
-}
+    }

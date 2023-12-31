@@ -10,7 +10,7 @@ namespace SatisfactoryProductionator.Services
 
         private readonly CodexState _codexState;
 
-        private Item SelectedItem { get; set; }
+        public Item SelectedItem { get; set; }
 
         public PermModalState(CodexState codexState)
         {
@@ -32,6 +32,7 @@ namespace SatisfactoryProductionator.Services
         { 
             Active = true;
             SelectedItem = item;
+            NotifyStateChanged();
         }
 
         private void NotifyStateChanged() => OnStateChange?.Invoke();
