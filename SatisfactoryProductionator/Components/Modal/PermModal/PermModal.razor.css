@@ -188,8 +188,8 @@ div.selected-perm {
     margin-right: 10px;
 }
 
-.select-options {
-
+.selected-options {
+    margin-left:12px;
 }
 
 
@@ -205,7 +205,7 @@ div.selected-perm {
 }
 
 .selector-bar {
-    margin-top: 30px;
+    margin-top: 4px;
 }
 
 .sub-100 {
@@ -278,5 +278,31 @@ div.selected-perm {
         }
 
 .num-input {
+    margin-top: 6px;
+    width: 58px;
+    color: var(--sfBlueHover);
+    background: black;
+    border-style: ridge;
+    border-color: var(--sfBlue);
+    text-align: center;
+}
 
+.input-range {
+    width: 261px;
+    height: 76px;
+    --aug-tl: 24px;
+    --aug-tr: 24px;
+    --aug-bl: 18px;
+    --aug-br: 18px;
+    --aug-border-all: -1px;
+    --aug-border-y: 2px;
+    --aug-border-bg: var(--sfBlue);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.num-input:focus-visible {
+    outline-color: var(--sfBlueHover);
+    border-color: var(--sfBlueHover);
 }

@@ -26,48 +26,51 @@
                     <div class="selected-text self-center">@PermModalState.SelectedItem.DisplayName</div>
                     <img class="image-80" src=@PermModalState.SelectedItem.IconPath alt=@PermModalState.SelectedItem.ClassName />
 
-                    @{
-                        Amount = PermModalState.SelectAmount;
-                    }
 
-                    <input type="text" maxlength="5" @bind="Amount" @oninput="UpdateAmount"  @onblur="SetAmount" class="num-input no-spin" />
+                    <div data-augmented-ui="tl-2-clip-x tr-2-clip-x bl-clip br-clip border" class="input-range">
+                        @{
+                            Amount = PermModalState.SelectAmount;
+                        }
 
-                    <div class="flex-middle selector-bar">
-                        <div data-augmented-reset></div>
-                        <div data-augmented-ui="tl-clip r-clip bl-clip border" class="flex-middle sub-btn sub-100">
-                            <button type="button" class="btn-full" @onclick="@(() => PermModalState.AddAmount(-100))">
-                                <span>100</span>
-                            </button>
+                        <input type="text" maxlength="5" @bind="Amount" @oninput="UpdateAmount" @onblur="SetAmount" class="num-input no-spin" />
 
-                        </div>
-                        <div data-augmented-ui="tl-clip r-clip bl-clip border" class="flex-middle sub-btn sub-10">
-                            <button type="button" class="btn-full" @onclick="@(() => PermModalState.AddAmount(-10))">
-                                <span>10</span>
-                            </button>
-                        </div>
-                        <div data-augmented-ui="tl-clip r-clip bl-clip border" class="flex-middle sub-btn sub-1">
-                            <button type="button" class="btn-full" @onclick="@(() => PermModalState.AddAmount(-1))">
-                                <span>1</span>
-                            </button>
+                        <div class="flex-middle selector-bar">
+                            <div data-augmented-reset></div>
+                            <div data-augmented-ui="tl-clip r-clip bl-clip border" class="flex-middle sub-btn sub-100">
+                                <button type="button" class="btn-full" @onclick="@(() => PermModalState.AddAmount(-100))">
+                                    <span>100</span>
+                                </button>
+
+                            </div>
+                            <div data-augmented-ui="tl-clip r-clip bl-clip border" class="flex-middle sub-btn sub-10">
+                                <button type="button" class="btn-full" @onclick="@(() => PermModalState.AddAmount(-10))">
+                                    <span>10</span>
+                                </button>
+                            </div>
+                            <div data-augmented-ui="tl-clip r-clip bl-clip border" class="flex-middle sub-btn sub-1">
+                                <button type="button" class="btn-full" @onclick="@(() => PermModalState.AddAmount(-1))">
+                                    <span>1</span>
+                                </button>
+                            </div>
+
+                            <div data-augmented-ui="tr-clip l-clip br-clip border" class="flex-middle add-btn add-1">
+                                <button type="button" class="btn-full" @onclick="@(() => PermModalState.AddAmount(1))">
+                                    <span>1</span>
+                                </button>
+                            </div>
+                            <div data-augmented-ui="tr-clip l-clip br-clip border" class="flex-middle add-btn add-10">
+                                <button type="button" class="btn-full" @onclick="@(() => PermModalState.AddAmount(10))">
+                                    <span>10</span>
+                                </button>
+                            </div>
+                            <div data-augmented-ui="tr-clip l-clip br-clip border" class="flex-middle add-btn add-100">
+                                <button type="button" class="btn-full" @onclick="@(() => PermModalState.AddAmount(100))">
+                                    <span>100</span>
+                                </button>
+                            </div>
                         </div>
 
-                        <div data-augmented-ui="tr-clip l-clip br-clip border" class="flex-middle add-btn add-1">
-                            <button type="button" class="btn-full" @onclick="@(() => PermModalState.AddAmount(1))">
-                                <span>1</span>
-                            </button>
-                        </div>
-                        <div data-augmented-ui="tr-clip l-clip br-clip border" class="flex-middle add-btn add-10">
-                            <button type="button" class="btn-full" @onclick="@(() => PermModalState.AddAmount(10))">
-                                <span>10</span>
-                            </button>
-                        </div>
-                        <div data-augmented-ui="tr-clip l-clip br-clip border" class="flex-middle add-btn add-100">
-                            <button type="button" class="btn-full" @onclick="@(() => PermModalState.AddAmount(100))">
-                                <span>100</span>
-                            </button>
-                        </div>
                     </div>
-
                 </div>
             }
 
@@ -134,7 +137,7 @@
 
         if (int.TryParse(e.Value.ToString(), out int result))
         {
-            if(input.Length <= 5 && result <= 10000)
+            if (input.Length <= 5 && result <= 10000)
             {
                 Amount = result;
             }
@@ -143,7 +146,7 @@
                 Amount = 10000;
             }
         }
-       
+
         SetAmount();
     }
 }
