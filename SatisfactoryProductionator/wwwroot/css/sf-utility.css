@@ -27,6 +27,14 @@
     display: block;
 }
 
+.grid {
+    display: grid;
+}
+
+.self-center {
+    justify-self: center;
+}
+
 .flex {
     display: flex;
 }

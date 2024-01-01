@@ -6,6 +6,8 @@
 
 @implements IDisposable;
 
+
+
 <div data-augmented-ui="tl-2-clip-y tr-2-clip-x br-clip bl-clip border" class="top-panel">
     <div data-augmented-reset></div>
     <div data-augmented-ui="br-clip bl-clip border" class="top-panel-inner">
@@ -20,40 +22,47 @@
             }
             else
             {
-                <div class="selected-options">
-                    <div class="selected-text">@PermModalState.SelectedItem.DisplayName</div>
+                <div class="selected-options grid">
+                    <div class="selected-text self-center">@PermModalState.SelectedItem.DisplayName</div>
                     <img class="image-80" src=@PermModalState.SelectedItem.IconPath alt=@PermModalState.SelectedItem.ClassName />
+
+                    @{
+                        Amount = PermModalState.SelectAmount;
+                    }
+
+                    <input type="text" maxlength="5" @bind="Amount" @oninput="UpdateAmount"  @onblur="SetAmount" class="num-input no-spin" />
+
                     <div class="flex-middle selector-bar">
                         <div data-augmented-reset></div>
                         <div data-augmented-ui="tl-clip r-clip bl-clip border" class="flex-middle sub-btn sub-100">
-                            <button type="button" class="btn-full">
+                            <button type="button" class="btn-full" @onclick="@(() => PermModalState.AddAmount(-100))">
                                 <span>100</span>
                             </button>
-                            
+
                         </div>
                         <div data-augmented-ui="tl-clip r-clip bl-clip border" class="flex-middle sub-btn sub-10">
-                            <button type="button" class="btn-full">
+                            <button type="button" class="btn-full" @onclick="@(() => PermModalState.AddAmount(-10))">
                                 <span>10</span>
                             </button>
                         </div>
                         <div data-augmented-ui="tl-clip r-clip bl-clip border" class="flex-middle sub-btn sub-1">
-                            <button type="button" class="btn-full">
+                            <button type="button" class="btn-full" @onclick="@(() => PermModalState.AddAmount(-1))">
                                 <span>1</span>
                             </button>
                         </div>
-                        
+
                         <div data-augmented-ui="tr-clip l-clip br-clip border" class="flex-middle add-btn add-1">
-                            <button type="button" class="btn-full">
+                            <button type="button" class="btn-full" @onclick="@(() => PermModalState.AddAmount(1))">
                                 <span>1</span>
                             </button>
                         </div>
                         <div data-augmented-ui="tr-clip l-clip br-clip border" class="flex-middle add-btn add-10">
-                            <button type="button" class="btn-full">
+                            <button type="button" class="btn-full" @onclick="@(() => PermModalState.AddAmount(10))">
                                 <span>10</span>
                             </button>
                         </div>
                         <div data-augmented-ui="tr-clip l-clip br-clip border" class="flex-middle add-btn add-100">
-                            <button type="button" class="btn-full">
+                            <button type="button" class="btn-full" @onclick="@(() => PermModalState.AddAmount(100))">
                                 <span>100</span>
                             </button>
                         </div>
@@ -61,6 +70,8 @@
 
                 </div>
             }
+
+
 
         </div>
 
@@ -89,6 +100,8 @@
 </div>
 
 @code {
+    private static int Amount;
+
     protected override void OnInitialized()
     {
         base.OnInitialized();
@@ -109,4 +122,28 @@
 
         return items;
     }
+
+    public void SetAmount()
+    {
+        PermModalState.SetAmount(Amount);
     }
+
+    public void UpdateAmount(ChangeEventArgs e)
+    {
+        var input = e.Value.ToString();
+
+        if (int.TryParse(e.Value.ToString(), out int result))
+        {
+            if(input.Length <= 5 && result <= 10000)
+            {
+                Amount = result;
+            }
+            else
+            {
+                Amount = 10000;
+            }
+        }
+       
+        SetAmount();
+    }
+}

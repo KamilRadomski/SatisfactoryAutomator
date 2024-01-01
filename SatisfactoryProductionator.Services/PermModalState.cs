@@ -12,6 +12,8 @@ namespace SatisfactoryProductionator.Services
 
         public Item SelectedItem { get; set; }
 
+        public int SelectAmount { get; set; }
+
         public PermModalState(CodexState codexState)
         {
             if (codexState.Codex == null)
@@ -33,6 +35,31 @@ namespace SatisfactoryProductionator.Services
             Active = true;
             SelectedItem = item;
             NotifyStateChanged();
+        }
+
+        public void AddAmount(int amount)
+        {
+            if (SelectAmount + amount < 0)
+            {
+                SelectAmount = 0;
+            }
+            else if (SelectAmount + amount > 10000)
+            {
+                SelectAmount = 10000;
+            }
+            else 
+            { 
+                SelectAmount += amount;  
+            }
+
+            NotifyStateChanged();
+        }
+
+        public void SetAmount(int amount)
+        {
+            SelectAmount = 0;
+
+            AddAmount(amount);
         }
 
         private void NotifyStateChanged() => OnStateChange?.Invoke();

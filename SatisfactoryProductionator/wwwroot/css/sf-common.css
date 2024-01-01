@@ -40,3 +40,8 @@
     top: 10px;
     left: 20px;
 }
+
+.no-spin::-webkit-outer-spin-button,
+.no-spin::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
