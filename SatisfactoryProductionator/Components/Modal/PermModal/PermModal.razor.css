@@ -189,10 +189,17 @@ div.selected-perm {
 }
 
 .selected-options {
-    margin-left:12px;
+    margin-left: 20px;
+    width: 274px;
 }
 
+.selected-image {
+    left: 110px;
+}
 
+.center-bar {
+    height: 100px;
+}
 
 .select-item-text {
     font-size: 40px;
@@ -200,8 +207,8 @@ div.selected-perm {
 }
 
 .selected-text {
-    font-size: 16px;
-    margin-bottom: 10px;
+    font-size: 18px;
+    text-align: center;
 }
 
 .selector-bar {
@@ -267,13 +274,17 @@ div.selected-perm {
 }
 
     .add-btn:hover,
-    .sub-btn:hover {
+    .sub-btn:hover,
+    .remove-btn:hover,
+    .add-update-btn:hover {
         background-color: var(--sfBlue20);
         --aug-border-all: 1.5px;
     }
 
         .add-btn:hover span,
-        .sub-btn:hover span {
+        .sub-btn:hover span,
+        .remove-btn:hover span,
+        .add-update-btn:hover span {
             color: var(--sfBlueHover);
         }
 
@@ -300,9 +311,48 @@ div.selected-perm {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-left: 3px;
 }
 
 .num-input:focus-visible {
     outline-color: var(--sfBlueHover);
     border-color: var(--sfBlueHover);
 }
+
+.option-btns {
+    width: 60px;
+    height: 60px;
+}
+
+div.remove-btn {
+    width: 77px;
+    height: 47px;
+    --aug-tl: 9px;
+    --aug-tr: 11px;
+    --aug-bl: 14px;
+    --aug-br: 18px;
+    --aug-border-all: 1.25px;
+    --aug-border-bg: var(--sfBlue);
+    top: 120px;
+    left: 40px;
+}
+
+div.add-update-btn {
+    width: 77px;
+    height: 47px;
+    --aug-tl: 11px;
+    --aug-tr: 11px;
+    --aug-bl: 18px;
+    --aug-br: 14px;
+    --aug-border-all: 1.25px;
+    --aug-border-bg: var(--sfBlue);
+    left: 197px;
+    top: 120px;
+}
+
+.add-update-btn span {
+    margin-left:7px;
+}
+
+
+

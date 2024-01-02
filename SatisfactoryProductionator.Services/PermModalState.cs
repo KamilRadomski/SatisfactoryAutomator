@@ -62,6 +62,16 @@ namespace SatisfactoryProductionator.Services
             AddAmount(amount);
         }
 
+        public void RemoveSelected()
+        {
+
+        }
+
+        public void AddUpdateSelected()
+        {
+
+        }
+
         private void NotifyStateChanged() => OnStateChange?.Invoke();
 
         public void ToggleModal()
