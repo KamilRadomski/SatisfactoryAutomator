@@ -312,6 +312,7 @@ div.selected-perm {
     flex-direction: column;
     align-items: center;
     margin-left: 3px;
+    background: black;
 }
 
 .num-input:focus-visible {
@@ -326,28 +327,32 @@ div.selected-perm {
 
 div.remove-btn {
     width: 77px;
-    height: 47px;
-    --aug-tl: 9px;
-    --aug-tr: 11px;
+    height: 35px;
+    --aug-tl: 11px;
+    --aug-tr: 14px;
     --aug-bl: 14px;
     --aug-br: 18px;
     --aug-border-all: 1.25px;
+    --aug-border-right: -.5px;
+    --aug-border-bottom: -.5px;
     --aug-border-bg: var(--sfBlue);
-    top: 120px;
+    top: 140px;
     left: 40px;
 }
 
 div.add-update-btn {
     width: 77px;
-    height: 47px;
-    --aug-tl: 11px;
+    height: 35px;
+    --aug-tl: 14px;
     --aug-tr: 11px;
     --aug-bl: 18px;
     --aug-br: 14px;
     --aug-border-all: 1.25px;
+    --aug-border-left: -.5px;
+    --aug-border-bottom: -.5px;
     --aug-border-bg: var(--sfBlue);
-    left: 197px;
-    top: 120px;
+    left: 195px;
+    top: 140px;
 }
 
 .add-update-btn span {

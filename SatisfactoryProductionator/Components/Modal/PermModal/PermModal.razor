@@ -31,17 +31,17 @@
                     <tr>
                         <td>
                             <div class="center-bar">
-                                <div data-augmented-ui="tl-clip tr-2-clip-x br-clip bl-clip border" class="pos-abs remove-btn">
+                                <div data-augmented-ui="tl-clip tr-clip br-clip bl-clip border" class="pos-abs remove-btn">
                                     <button type="button" class="btn-full" @onclick="@(() => PermModalState.RemoveSelected())">
-                                        <span>Remove</span>
+                                        <span class="font-14">Delete</span>
                                     </button>
                                 </div>
 
                                 <img class="image-96 pos-abs selected-image" src=@PermModalState.SelectedItem.IconPath alt=@PermModalState.SelectedItem.ClassName />
 
-                                <div data-augmented-ui="tl-2-clip-x tr-clip br-clip bl-clip border" class="pos-abs add-update-btn">
+                                <div data-augmented-ui="tl-clip tr-clip br-clip bl-clip border" class="pos-abs add-update-btn">
                                     <button type="button" class="btn-full" @onclick="@(() => PermModalState.AddUpdateSelected())">
-                                        <span>Add</span>
+                                        <span class="font-14">Add</span>
                                     </button>
                                 </div>
                             </div>
