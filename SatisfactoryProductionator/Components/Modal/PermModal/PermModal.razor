@@ -2,6 +2,7 @@
 @using SatisfactoryProductionator.Services;
 
 @inject PermModalState PermModalState;
+@inject PermState PermState;
 @inject CodexState CodexState;
 
 @implements IDisposable;
@@ -13,26 +14,37 @@
     <div data-augmented-ui="br-clip bl-clip border" class="top-panel-inner">
 
         <div data-augmented-ui="tl-2-clip-y tr-clip br-2-clip-y bl-clip border" class="selected-list">
+
+            @foreach (var item in PermState.Items)
+            {
+                <div>
+                    @item.Key - @item.Value
+                </div>
+            }
+
         </div>
 
         <div data-augmented-ui="tl-2-clip-y tr-clip br-clip bl-clip border" class="selected-perm flex-center">
+
             @if (PermModalState.SelectedItem == null)
             {
                 <div class="select-item-text">Select Item</div>
             }
             else
             {
+                var item = PermModalState.SelectedItem;
+
                 <table class="selected-options">
                     <tr>
                         <td>
-                            <div class="selected-text">@PermModalState.SelectedItem.DisplayName</div>
+                            <div class="selected-text">@item.DisplayName</div>
                         </td>
                     </tr>
                     <tr>
                         <td>
                             <div class="center-bar">
                                 <div data-augmented-ui="tl-clip tr-clip br-clip bl-clip border" class="pos-abs remove-btn">
-                                    <button type="button" class="btn-full" @onclick="@(() => PermModalState.RemoveSelected())">
+                                    <button type="button" class="btn-full" @onclick="@(() => PermModalState.RemoveSelected(item.ClassName))">
                                         <span class="font-14">Delete</span>
                                     </button>
                                 </div>
@@ -40,15 +52,15 @@
                                 <img class="image-96 pos-abs selected-image" src=@PermModalState.SelectedItem.IconPath alt=@PermModalState.SelectedItem.ClassName />
 
                                 <div data-augmented-ui="tl-clip tr-clip br-clip bl-clip border" class="pos-abs add-update-btn">
-                                    <button type="button" class="btn-full" @onclick="@(() => PermModalState.AddUpdateSelected())">
+                                    <button type="button" class="btn-full" @onclick="@(() => PermModalState.AddUpdateSelected(item.ClassName, Amount))">
                                         <span class="font-14">Add</span>
                                     </button>
                                 </div>
                             </div>
                         </td>
                     </tr>
-                      <tr>
-                          <td>
+                    <tr>
+                        <td>
                             <div data-augmented-ui="tl-2-clip-x tr-2-clip-x bl-clip br-clip border" class="input-range">
                                 @{
                                     Amount = PermModalState.SelectAmount;
@@ -93,8 +105,8 @@
                                 </div>
 
                             </div>
-                          </td>
-                      </tr>  
+                        </td>
+                    </tr>
                 </table>
             }
 
@@ -135,12 +147,14 @@
 
         PermModalState.OnStateChange += StateHasChanged;
         CodexState.OnStateChange += StateHasChanged;
+        PermState.OnStateChange += StateHasChanged;
     }
 
     public void Dispose()
     {
         PermModalState.OnStateChange -= StateHasChanged;
         CodexState.OnStateChange -= StateHasChanged;
+        PermState.OnStateChange -= StateHasChanged;
     }
 
     public List<Item> GetItems()

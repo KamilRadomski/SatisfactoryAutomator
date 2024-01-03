@@ -10,11 +10,14 @@ namespace SatisfactoryProductionator.Services
 
         private readonly CodexState _codexState;
 
+        private readonly PermState _permState;
+
         public Item SelectedItem { get; set; }
 
         public int SelectAmount { get; set; }
+        
 
-        public PermModalState(CodexState codexState)
+        public PermModalState(CodexState codexState, PermState permState)
         {
             if (codexState.Codex == null)
             {
@@ -22,6 +25,7 @@ namespace SatisfactoryProductionator.Services
             }
 
             _codexState = codexState;
+            _permState = permState;
         }
 
         public void SetSelectedItem(string className)
@@ -62,14 +66,21 @@ namespace SatisfactoryProductionator.Services
             AddAmount(amount);
         }
 
-        public void RemoveSelected()
+        public void RemoveSelected(string className)
         {
+            SelectAmount = 0;
+            SelectedItem = null;
 
+            _permState.RemoveItem(className);
+
+            NotifyStateChanged();
         }
 
-        public void AddUpdateSelected()
+        public void AddUpdateSelected(string className, int amount)
         {
+            _permState.AddUpdateItem(className, amount);
 
+            NotifyStateChanged();
         }
 
         private void NotifyStateChanged() => OnStateChange?.Invoke();
