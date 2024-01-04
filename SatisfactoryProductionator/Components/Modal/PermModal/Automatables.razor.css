@@ -1,0 +1,29 @@
+﻿
+.selection {
+    overflow-y: auto;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    height: inherit;
+    padding: 10px 10px 20px 10px;
+}
+
+.select-btn {
+    margin: 12px;
+}
+
+.selection::-webkit-scrollbar {
+    width: 1em;
+}
+
+.selection::-webkit-scrollbar-track {
+    background: var(--sfBlue40);
+    border-radius: 16px;
+    margin-block: 7em;
+    margin-block-start: 2em;
+}
+
+.selection::-webkit-scrollbar-thumb {
+    border-radius: 100vh;
+    background: var(--sfBlue40);-
+}

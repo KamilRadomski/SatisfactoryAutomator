@@ -1,10 +1,12 @@
-﻿@using SatisfactoryProductionator.Components.CodexModal
+﻿@using SatisfactoryProductionator.Components.Modal.CodexModal
+@using SatisfactoryProductionator.Components.Modal.PermModal
 @using SatisfactoryProductionator.DataModels.Enums;
 @using SatisfactoryProductionator.DataModels.Models;
 @using SatisfactoryProductionator.Services;
 
 @inject CodexModalState CodexModalState;
 @inject AppModalState AppModalState;
+@inject PermModalState PermModalState;
 
 @implements IDisposable;
 
@@ -13,6 +15,10 @@
         @if(AppModalState.GetModalType() is ModalType.Codex)
         {
             <CodexModal />
+        }
+        else if(AppModalState.GetModalType() is ModalType.Perm) 
+        {
+            <PermModal />
         }
         
     </div>
@@ -30,12 +36,14 @@
 
         CodexModalState.OnStateChange += StateHasChanged;
         AppModalState.OnStateChange += StateHasChanged;
+        PermModalState.OnStateChange += StateHasChanged;
     }
 
     public void Dispose()
     {
         CodexModalState.OnStateChange -= StateHasChanged;
         AppModalState.OnStateChange -= StateHasChanged;
+        PermModalState.OnStateChange -= StateHasChanged;
     }
 
     private string IsModalActiveCss() => IsActive() ? "modal-on" : "modal-off";
@@ -44,6 +52,6 @@
 
     private bool IsActive()
     {
-        return (CodexModalState.Active);
+        return (CodexModalState.Active || PermModalState.Active);
     }
 }

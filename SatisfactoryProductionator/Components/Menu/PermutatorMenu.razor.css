@@ -1,0 +1,32 @@
+﻿.add-btn {
+    height: 55px;
+    width: 238px;
+    margin-left: 15px;
+    margin-top: 15px;
+    background: black;
+    --aug-border-all: 2px;
+    --aug-border-bg: var(--sfBlue);
+    --aug-tl: 10px;
+    --aug-tr: 10px;
+    --aug-bl: 6px;
+    --aug-br: 15px;
+}
+
+.btn-icon {
+    font-family: Icons;
+    font-style: normal;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    color: var(--sfBlue);
+    font-size: 2rem;
+    transition: .15s;
+    margin-left: 2px;
+}
+
+.add-btn:hover {
+    background-color: var(--sfBlue20);
+}
+
+    .add-btn:hover span {
+        color: var(--sfBlueHover);
+    }

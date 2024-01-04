@@ -21,5 +21,7 @@ builder.Services.AddSingleton<CodexState>();
 builder.Services.AddSingleton<MenuState>();
 builder.Services.AddSingleton<CodexModalState>();
 builder.Services.AddSingleton<AppModalState>();
+builder.Services.AddSingleton<PermModalState>();
+builder.Services.AddSingleton<PermState>();
 
 await builder.Build().RunAsync();

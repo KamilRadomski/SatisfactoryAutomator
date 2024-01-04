@@ -3,14 +3,28 @@
 @using SatisfactoryProductionator.Services;
 
 @inject MenuState MenuState
+@inject AppModalState AppModalState
+@inject CodexState CodexState
+@inject PermState PermState
 
 @implements IDisposable
 
 <div data-augmented-ui-reset></div>
 @{
     MenuState.SetPage(Page.Perm);
+    AppModalState.SetModal(ModalType.Perm);
 }
 
+<div class="pos-abs loading">
+    @if (CodexState.Codex == null)
+    {
+        <div>Loading.....</div>
+    }
+    else
+    {
+        <div>Started ...</div>
+    }
+</div>
 
 @code {
 
@@ -18,10 +32,21 @@
     {
         base.OnInitialized();
         MenuState.OnStateChange += StateHasChanged;
+        AppModalState.OnStateChange += StateHasChanged;
+        CodexState.OnStateChange += StateHasChanged;
+        PermState.OnStateChange += StateHasChanged;
+
+        if (CodexState.Codex == null)
+        {
+            await CodexState.InitializeCodexAsync();
+        }
     }
 
     public void Dispose()
     {
         MenuState.OnStateChange -= StateHasChanged;
+        AppModalState.OnStateChange -= StateHasChanged;
+        CodexState.OnStateChange -= StateHasChanged;
+        PermState.OnStateChange -= StateHasChanged;
     }
 }

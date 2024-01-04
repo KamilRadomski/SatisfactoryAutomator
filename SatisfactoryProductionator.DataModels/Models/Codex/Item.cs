@@ -7,6 +7,7 @@ namespace SatisfactoryProductionator.DataModels.Models.Codex
         public int ResourceSinkPoints { get; set; }
         public string StackSize { get; set; }
         public double EnergyValue { get; set; }
+        public List<string> AutoRecipes { get; set; }
         public FormType FormType { get; set; }
     }
 }

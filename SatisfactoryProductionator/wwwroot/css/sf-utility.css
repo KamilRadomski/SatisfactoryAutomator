@@ -8,6 +8,8 @@
 .mt-24 {margin-top: 24px;}
 .mt-48 {margin-top: 48px;}
 
+.m12 {margin: 5px;}
+
 .font-12 {font-size: 12px;}
 .font-14 {font-size: 14px;}
 .font-16 {font-size: 16px;}
@@ -27,8 +29,27 @@
     display: block;
 }
 
+.grid {
+    display: grid;
+}
+
+.self-center {
+    justify-self: center;
+}
+
 .flex {
     display: flex;
+}
+
+.flex-center {
+    display: flex;
+    justify-content: center;
+}
+
+.flex-middle {
+    display: flex;
+    align-items: center;
+    justify-content : center;
 }
 
 .flex-even {
