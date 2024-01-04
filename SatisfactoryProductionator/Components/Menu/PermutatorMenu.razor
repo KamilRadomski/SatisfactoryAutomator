@@ -1,4 +1,5 @@
 ﻿@using SatisfactoryProductionator.DataModels.Models;
+@using SatisfactoryProductionator.Extensions;
 @using SatisfactoryProductionator.Services;
 
 @inject PermModalState PermModalState;
@@ -15,6 +16,27 @@
     </button>
 </div>
 
+@if (CodexState.Codex == null)
+{
+    <div class="pos-rel loading">Loading....</div>
+}
+else
+{
+    <div data-augmented-ui="tl-clip tr-clip br-clip bl-clip border" class="pos-abs mt-8 item-wrapper">
+        <div data-augmented-ui-reset></div>
+        <div class="pos-abs flex-col list-wrapper">
+
+            @foreach (var item in PermState.Items)
+            {
+                <button class="image-button m12" type="button" @onclick="@(() => PermModalState.SetSelectedItem(item.Key, item.Value))">
+                    <img class="image-128" src=@CodexState.FetchIconPath(item.Key) alt=@item.Key />
+                    <div class="text">@CodexState.FetchDisplayName(item.Key).FormatDisplayName()</div>
+                    <div class="amount">@item.Value</div>
+                </button>
+            }
+        </div>
+    </div>
+}
 
 @code {
     protected override void OnInitialized()
