@@ -1,5 +1,6 @@
 ﻿@using SatisfactoryProductionator.DataModels.Models.Codex;
 @using SatisfactoryProductionator.Services;
+@using SatisfactoryProductionator.Extensions;
 
 @inject PermModalState PermModalState;
 @inject PermState PermState;
@@ -15,13 +16,16 @@
 
         <div data-augmented-ui="tl-2-clip-y tr-clip br-2-clip-y bl-clip border" class="selected-list">
 
+            <div class="list-wrapper">
             @foreach (var item in PermState.Items)
             {
-                <div>
-                    @item.Key - @item.Value
-                </div>
+                <button class="image-button m12" type="button" @onclick="@(() => PermModalState.SetSelectedItem(item.Key, item.Value))">
+                    <img class="image-96" src=@CodexState.FetchIconPath(item.Key) alt=@item.Key />
+                    <div class="text">@CodexState.FetchDisplayName(item.Key).FormatDisplayName()</div>
+                    <div class="amount">@item.Value</div>
+                </button>
             }
-
+            </div>
         </div>
 
         <div data-augmented-ui="tl-2-clip-y tr-clip br-clip bl-clip border" class="selected-perm flex-center">
@@ -45,7 +49,7 @@
                             <div class="center-bar">
                                 <div data-augmented-ui="tl-clip tr-clip br-clip bl-clip border" class="pos-abs remove-btn">
                                     <button type="button" class="btn-full" @onclick="@(() => PermModalState.RemoveSelected(item.ClassName))">
-                                        <span class="font-14">Delete</span>
+                                        <span class="font-14">@GetDeleteText()</span>
                                     </button>
                                 </div>
 
@@ -53,7 +57,7 @@
 
                                 <div data-augmented-ui="tl-clip tr-clip br-clip bl-clip border" class="pos-abs add-update-btn">
                                     <button type="button" class="btn-full" @onclick="@(() => PermModalState.AddUpdateSelected(item.ClassName, Amount))">
-                                        <span class="font-14">Add</span>
+                                        <span class="font-14">@GetAddText()</span>
                                     </button>
                                 </div>
                             </div>
@@ -127,6 +131,18 @@
                     </div>
                 </button>
             </div>
+            <div data-augmented-ui="all-hex border" class="btn-outer center-content">
+                <div data-augmented-ui-reset></div>
+                <button type="button" class="btn-clear center-content" @onclick=@PermModalState.ClearItems>
+                    <div data-augmented-ui="all-hex border" class="btn-middle center-content">
+                        <div data-augmented-ui-reset></div>
+                        <div data-augmented-ui="all-hex border" class="btn-inner center-content">
+                            <div data-augmented-ui-reset></div>
+                            <span class="btn-icon oi-trash" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                </button>
+            </div>
         </div>
     </div>
 </div>
@@ -187,4 +203,8 @@
 
         SetAmount();
     }
+
+    public string GetDeleteText() => PermModalState.IsItemAdded() ? "Delete" : "Clear";
+    public string GetAddText() => PermModalState.IsItemAdded() ? "Update" : "Add";
+
 }

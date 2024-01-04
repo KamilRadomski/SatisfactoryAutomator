@@ -25,5 +25,5 @@
 
 .selection::-webkit-scrollbar-thumb {
     border-radius: 100vh;
-    background: var(--sfBlue40);
+    background: var(--sfBlue40);-
 }

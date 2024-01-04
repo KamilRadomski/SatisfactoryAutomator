@@ -21,7 +21,7 @@
                     Items[className] = amount;
                 }
             }
-            else
+            else if(amount > 0)
             {
                 Items.Add(className, amount);
             }
@@ -30,6 +30,11 @@
         public void RemoveItem(string className)
         {
             Items.Remove(className);
+        }
+
+        public void ClearItems()
+        {
+            Items.Clear();
         }
 
         public bool IsItemAdded(string className)

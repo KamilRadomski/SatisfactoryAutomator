@@ -28,14 +28,20 @@ namespace SatisfactoryProductionator.Services
             _permState = permState;
         }
 
-        public void SetSelectedItem(string className)
+        public void SetSelectedItem(string className, int amount = 0)
         {
             var item = _codexState.FetchItem(className) as Item;
-            SetSelectedItem(item);
+            SetSelectedItem(item, amount);
         }
 
-        public void SetSelectedItem(Item item) 
-        { 
+        public void SetSelectedItem(Item item, int amount = 0) 
+        {
+            if(_permState.IsItemAdded(item.ClassName))
+            {
+                amount = _permState.Items[item.ClassName];
+            }
+            
+            SelectAmount = amount;
             Active = true;
             SelectedItem = item;
             NotifyStateChanged();
@@ -83,6 +89,11 @@ namespace SatisfactoryProductionator.Services
             NotifyStateChanged();
         }
 
+        public bool IsItemAdded()
+        {
+            return _permState.IsItemAdded(SelectedItem.ClassName);
+        }
+
         private void NotifyStateChanged() => OnStateChange?.Invoke();
 
         public void ToggleModal()
@@ -95,6 +106,14 @@ namespace SatisfactoryProductionator.Services
         {
             Active = false;
             NotifyStateChanged();
+        }
+
+        public void ClearItems()
+        {
+            _permState.ClearItems();
+            NotifyStateChanged();
+            SelectAmount = 0;
+            SelectedItem = null;
         }
     }
 }

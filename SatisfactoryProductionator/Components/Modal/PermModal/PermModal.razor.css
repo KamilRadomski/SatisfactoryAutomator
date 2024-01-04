@@ -27,7 +27,7 @@ div.top-panel-inner {
     left: 9px;
     height: 251px;
     display: flex;
-    padding-top: 12px;
+    /*padding-top: 12px;*/
 }
 
 div.bottom-panel {
@@ -69,10 +69,11 @@ div.bottom-panel-inner {
     --aug-border-all: 2.5px;
     --aug-border-x: -1px;
     --aug-border-bg: var(--sfBlue);
-    top: 28px;
+    top: 40px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
+    flex-direction: column;
 }
 
 .perm-close{
@@ -158,20 +159,30 @@ div.btn-inner {
     margin-left: 2px;
 }
 
+.btn-clear {
+    background: unset;
+    border: unset;
+    width: 67px;
+    height: 60px;
+}
+
 
 div.selected-list {
     position: relative;
-    height: 229px;
+    height: 253px;
     width: 940px;
-    --aug-tl: 27px;
-    --aug-tr: 20px;
-    --aug-br: 20px;
-    --aug-bl: 20px;
+    --aug-tl: 30px;
+    --aug-tr: 30px;
+    --aug-br: 23px;
+    --aug-bl: 28px;
     --aug-border-all: 2.5px;
-    --aug-border-y: -1px;
+    --aug-border-y: -2.5px;
     --aug-border-bg: var(--sfBlue);
     margin-left: 5px;
     margin-right: 10px;
+    padding-left: 30px;
+    padding-top: 10px;
+    margin-top: 1px;
 }
 
 div.selected-perm {
@@ -186,6 +197,7 @@ div.selected-perm {
     --aug-border-y: -1px;
     --aug-border-bg: var(--sfBlue);
     margin-right: 10px;
+    margin-top: 12px;
 }
 
 .selected-options {
@@ -359,5 +371,43 @@ div.add-update-btn {
     margin-left:7px;
 }
 
+.list-wrapper {
+    overflow-y: auto;
+    overflow-x: hidden;
+    display: flex;
+    width: 898px;
+    height: 254px;
+    padding-bottom: 30px;
+    /*margin-top: 20px;*/
+    padding-left: 10px;
+    flex-wrap: wrap;
+    margin-top: -6px;
+}
+
+
+
+.text {
+  word-wrap:unset;
+}
+
+.list-wrapper::-webkit-scrollbar {
+    width: 10px;
+}
+
+.list-wrapper::-webkit-scrollbar-track {
+    background: var(--sfBlue40);
+    border-radius: 16px;
+    margin-block: 96px;
+    margin-block-start: 24px;
+}
+
+.list-wrapper::-webkit-scrollbar-thumb {
+    border-radius: 100vh;
+    background: var(--sfBlue40);
+}
+
+.test {
+    
+}
 
 

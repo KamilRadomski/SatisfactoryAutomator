@@ -1,5 +1,6 @@
 ﻿@using SatisfactoryProductionator.DataModels.Models.Codex;
 @using SatisfactoryProductionator.Services;
+@using SatisfactoryProductionator.Extensions;
 
 @inject PermModalState PermModalState;
 @inject CodexState CodexState;
@@ -17,7 +18,7 @@ else
         {
             <button class="image-button select-btn" type="button" @onclick="@(() => PermModalState.SetSelectedItem(item))">
                 <img class="image-80" src=@CodexState.FetchIconPath(item.ClassName) alt=@item.ClassName />
-                <div class="text">@item.DisplayName</div>
+                <div class="text">@item.DisplayName.FormatDisplayName()</div>
             </button>
         }
     </div>
