@@ -1,0 +1,39 @@
+﻿.filters-wrapper {
+    width: calc(100vw - 330px);
+    height: 100px;
+    top: -12px;
+    left: -12px;
+    --aug-border-all: 2px;
+    --aug-border-bg: var(--sfBlue);
+    --aug-tl: 14px;
+    --aug-tr: 29px;
+    --aug-bl: 25px;
+    --aug-br: 25px;
+    z-index:2;
+    background:black;
+}
+
+.frozen-wrapper {
+    width: calc(100vw - 335px);
+    height: 40px;
+    top: 19px;
+    left: -7px;
+    --aug-border-all: 2px;
+    --aug-border-bg: var(--sfBlue);
+    --aug-bl: 15px;
+    --aug-br: 15px;
+    z-index: 1;
+}
+
+.perm-wrapper {
+    width: calc(100vw - 330px);
+    height: calc(100vh - 157px);
+    top: 100px;
+    left: -12px;
+    --aug-border-all: 2px;
+    --aug-border-bg: var(--sfBlue);
+    --aug-tl: 15px;
+    --aug-tr: 15px;
+    --aug-bl: 19px;
+    --aug-br: 29px;
+}
