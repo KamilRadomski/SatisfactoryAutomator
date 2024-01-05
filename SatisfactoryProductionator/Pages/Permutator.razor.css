@@ -32,8 +32,8 @@
     left: -12px;
     --aug-border-all: 2px;
     --aug-border-bg: var(--sfBlue);
-    --aug-tl: 15px;
-    --aug-tr: 15px;
+    --aug-tl: 20px;
+    --aug-tr: 18px;
     --aug-bl: 19px;
     --aug-br: 29px;
 }

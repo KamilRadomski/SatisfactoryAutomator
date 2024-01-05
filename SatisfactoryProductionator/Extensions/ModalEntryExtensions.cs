@@ -1,6 +1,6 @@
 ﻿using SatisfactoryProductionator.DataModels.Enums;
-using SatisfactoryProductionator.DataModels.Models;
 using SatisfactoryProductionator.DataModels.Models.Codex;
+using SatisfactoryProductionator.DataModels.Models.Modal;
 
 namespace SatisfactoryProductionator.Extensions
 {

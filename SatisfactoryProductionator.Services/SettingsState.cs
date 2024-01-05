@@ -1,9 +1,9 @@
-﻿using SatisfactoryProductionator.DataModels;
+﻿using SatisfactoryProductionator.DataModels.Models.Settings;
 
 namespace SatisfactoryProductionator.Services
 
 {
-	public class SettingsState
+    public class SettingsState
 	{
 		public AppSettings Value { get; set; }
 		public event Action OnStateChange;
