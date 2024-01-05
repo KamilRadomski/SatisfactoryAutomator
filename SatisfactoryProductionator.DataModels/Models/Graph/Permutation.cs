@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SatisfactoryProductionator.DataModels.Models.Graph
 {
-    internal class Permutation
+    public class Permutation
     {
     }
 }

@@ -1,6 +1,7 @@
 ﻿@page "/permutator"
 @using SatisfactoryProductionator.DataModels.Enums;
 @using SatisfactoryProductionator.Services;
+@using SatisfactoryProductionator.Services.States;
 
 @inject MenuState MenuState
 @inject AppModalState AppModalState
@@ -18,10 +19,13 @@
 <div class="pos-abs">
     @if (CodexState.Codex == null)
     {
-        <div class="pos-abs loading">Loading.....</div>
+        <div class="pos-abs loading">Generating Codex .....</div>
     }
     else
     {
+        PermState.GeneratePermutations();
+
+
         //Filters
         <div data-augmented-ui="tl-2-clip-x tr-clip br-2-clip-x bl-clip border" class="pos-abs filters-wrapper"></div>
 
@@ -57,4 +61,6 @@
         CodexState.OnStateChange -= StateHasChanged;
         PermState.OnStateChange -= StateHasChanged;
     }
+
+   
 }

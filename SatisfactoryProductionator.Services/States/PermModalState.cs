@@ -1,6 +1,6 @@
 ﻿using SatisfactoryProductionator.DataModels.Models.Codex;
 
-namespace SatisfactoryProductionator.Services
+namespace SatisfactoryProductionator.Services.States
 {
     public class PermModalState
     {
@@ -15,7 +15,7 @@ namespace SatisfactoryProductionator.Services
         public Item SelectedItem { get; set; }
 
         public int SelectAmount { get; set; }
-        
+
 
         public PermModalState(CodexState codexState, PermState permState)
         {
@@ -34,13 +34,13 @@ namespace SatisfactoryProductionator.Services
             SetSelectedItem(item, amount);
         }
 
-        public void SetSelectedItem(Item item, int amount = 0) 
+        public void SetSelectedItem(Item item, int amount = 0)
         {
-            if(_permState.IsItemAdded(item.ClassName))
+            if (_permState.IsItemAdded(item.ClassName))
             {
                 amount = _permState.Items[item.ClassName];
             }
-            
+
             SelectAmount = amount;
             Active = true;
             SelectedItem = item;
@@ -57,9 +57,9 @@ namespace SatisfactoryProductionator.Services
             {
                 SelectAmount = 10000;
             }
-            else 
-            { 
-                SelectAmount += amount;  
+            else
+            {
+                SelectAmount += amount;
             }
 
             NotifyStateChanged();

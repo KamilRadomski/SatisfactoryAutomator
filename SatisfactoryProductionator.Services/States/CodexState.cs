@@ -1,18 +1,19 @@
-﻿using SatisfactoryProductionator.DataService;
-using SatisfactoryProductionator.DataModels.Models.Codex;
+﻿using SatisfactoryProductionator.DataModels.Models.Codex;
 using SatisfactoryProductionator.DataModels.Enums;
+using SatisfactoryProductionator.Services.Data;
 
-namespace SatisfactoryProductionator.Services
+namespace SatisfactoryProductionator.Services.States
 {
     public class CodexState
     {
         public Codex Codex { get; private set; }
 
         public event Action OnStateChange;
-        
+
         private readonly IDataService _dataService;
 
-        public CodexState(IDataService dataService) {
+        public CodexState(IDataService dataService)
+        {
             _dataService = dataService;
         }
 
@@ -28,7 +29,7 @@ namespace SatisfactoryProductionator.Services
             var item = FetchItem(className);
 
             //Todo Remove
-            if(item == null)
+            if (item == null)
             {
                 var test = className;
                 return "";
@@ -55,7 +56,7 @@ namespace SatisfactoryProductionator.Services
         {
             var entry = FetchItem(className);
 
-            if(entry.CodexCategory == CodexCategory.Item)
+            if (entry.CodexCategory == CodexCategory.Item)
             {
                 var item = entry as Item;
 
@@ -78,7 +79,7 @@ namespace SatisfactoryProductionator.Services
         {
             var items = new List<CodexEntry>();
 
-            foreach(var className in classNames)
+            foreach (var className in classNames)
             {
                 items.Add(FetchItem(className));
             }
@@ -105,7 +106,7 @@ namespace SatisfactoryProductionator.Services
             return recipes.First();
         }
 
-        public Building FetchBuilding(string name) 
+        public Building FetchBuilding(string name)
         {
             if (name == null) return null;
 

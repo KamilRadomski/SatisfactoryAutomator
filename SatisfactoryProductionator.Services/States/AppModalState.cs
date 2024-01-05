@@ -1,6 +1,6 @@
 ﻿using SatisfactoryProductionator.DataModels.Enums;
 
-namespace SatisfactoryProductionator.Services
+namespace SatisfactoryProductionator.Services.States
 {
     public class AppModalState
     {

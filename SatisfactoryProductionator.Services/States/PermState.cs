@@ -1,4 +1,7 @@
-﻿namespace SatisfactoryProductionator.Services
+﻿using SatisfactoryProductionator.DataModels.Models.Graph;
+using SatisfactoryProductionator.Services.Data;
+
+namespace SatisfactoryProductionator.Services.States
 {
     public class PermState
     {
@@ -6,13 +9,19 @@
 
         public Dictionary<string, int> Items { get; set; } = new Dictionary<string, int>();
 
+        public List<Permutation> Permutations { get; set; }
+
+        public Node HeadNode { get; set; }
+
+
+
         private void NotifyStateChanged() => OnStateChange?.Invoke();
 
         public void AddUpdateItem(string className, int amount)
         {
             if (Items.ContainsKey(className))
             {
-                if(amount == 0)
+                if (amount == 0)
                 {
                     RemoveItem(className);
                 }
@@ -21,7 +30,7 @@
                     Items[className] = amount;
                 }
             }
-            else if(amount > 0)
+            else if (amount > 0)
             {
                 Items.Add(className, amount);
             }
@@ -42,6 +51,11 @@
             return Items.ContainsKey(className);
         }
 
-        
+        public void GeneratePermutations()
+        {
+            Permutations = Grapher.GeneratePermutations(Items);
+
+            NotifyStateChanged();
+        }
     }
 }

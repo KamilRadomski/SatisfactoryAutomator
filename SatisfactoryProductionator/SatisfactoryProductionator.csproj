@@ -15,7 +15,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SatisfactoryProductionator.DataModels\SatisfactoryProductionator.DataModels.csproj" />
-    <ProjectReference Include="..\SatisfactoryProductionator.DataService\SatisfactoryProductionator.DataService.csproj" />
     <ProjectReference Include="..\SatisfactoryProductionator.Services\SatisfactoryProductionator.Services.csproj" />
   </ItemGroup>
 

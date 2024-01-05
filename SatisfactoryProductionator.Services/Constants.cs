@@ -1,4 +1,4 @@
-﻿namespace SatisfactoryProductionator.DataService
+﻿namespace SatisfactoryProductionator.Services
 {
     public static class Constants
 	{

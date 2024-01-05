@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SatisfactoryProductionator.DataService
+namespace SatisfactoryProductionator.Services.Data
 {
-    public class Grapher
+    public interface IGrapher
     {
     }
 }

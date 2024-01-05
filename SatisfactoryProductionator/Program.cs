@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.AspNetCore.Hosting;
 using SatisfactoryProductionator;
-using SatisfactoryProductionator.DataService;
-using SatisfactoryProductionator.Services;
+using SatisfactoryProductionator.Services.States;
+using SatisfactoryProductionator.Services.Data;
 
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);

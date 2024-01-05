@@ -2,7 +2,7 @@
 using SatisfactoryProductionator.DataModels.Models.Codex;
 using SatisfactoryProductionator.DataModels.Models.Modal;
 
-namespace SatisfactoryProductionator.Services
+namespace SatisfactoryProductionator.Services.States
 {
     public class CodexModalState
     {
@@ -22,7 +22,7 @@ namespace SatisfactoryProductionator.Services
 
         public CodexModalState(CodexState codexState)
         {
-            if(codexState.Codex == null)
+            if (codexState.Codex == null)
             {
                 codexState.InitializeCodexAsync();
             }
@@ -63,16 +63,16 @@ namespace SatisfactoryProductionator.Services
             SetSelectedItem(item);
         }
 
-        public void SetSelectedItem(CodexEntry item) 
+        public void SetSelectedItem(CodexEntry item)
         {
-            if (SelectedEntry != null && SelectedEntry.CodexEntry == item) 
+            if (SelectedEntry != null && SelectedEntry.CodexEntry == item)
             {
                 Active = true;
                 NotifyStateChanged();
                 return;
             }
 
-            if (SelectedEntry != null) 
+            if (SelectedEntry != null)
             {
                 BackStack.Push(SelectedEntry);
             }
@@ -112,7 +112,7 @@ namespace SatisfactoryProductionator.Services
             {
                 index = GetPageCount() - 1;
             }
-                
+
             SelectedEntry.Index = index;
             NotifyStateChanged();
         }

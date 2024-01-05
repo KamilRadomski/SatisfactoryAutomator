@@ -1,6 +1,6 @@
 ﻿using SatisfactoryProductionator.DataModels.Enums;
 
-namespace SatisfactoryProductionator.Services
+namespace SatisfactoryProductionator.Services.States
 {
     public class MenuState
     {
@@ -20,7 +20,7 @@ namespace SatisfactoryProductionator.Services
         #region General 
         public void SetPage(Page page)
         {
-            if(page == CurrentPage) return;
+            if (page == CurrentPage) return;
 
             CurrentPage = page;
 
@@ -118,7 +118,7 @@ namespace SatisfactoryProductionator.Services
                 1 or 4 => "tl-2-clip-x tr-clip",
                 2 or 3 => "tl-clip tr-2-clip-x",
                 5 or 6 or 7 => "tl-2-clip-x tr-2-clip-x",
-                8 or 9 or 10=> "tl-clip t-clip-x tr-clip"
+                8 or 9 or 10 => "tl-clip t-clip-x tr-clip"
             };
 
             aug += bottomIndex switch
@@ -158,6 +158,6 @@ namespace SatisfactoryProductionator.Services
 
         #endregion
 
-        
+
     }
 }
