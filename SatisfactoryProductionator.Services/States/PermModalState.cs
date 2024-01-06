@@ -14,7 +14,7 @@ namespace SatisfactoryProductionator.Services.States
 
         public Item SelectedItem { get; set; }
 
-        public int SelectAmount { get; set; }
+        public double SelectAmount { get; set; }
 
 
         public PermModalState(CodexState codexState, PermState permState)
@@ -28,13 +28,13 @@ namespace SatisfactoryProductionator.Services.States
             _permState = permState;
         }
 
-        public void SetSelectedItem(string className, int amount = 0)
+        public void SetSelectedItem(string className, double amount = 0)
         {
             var item = _codexState.FetchItem(className) as Item;
             SetSelectedItem(item, amount);
         }
 
-        public void SetSelectedItem(Item item, int amount = 0)
+        public void SetSelectedItem(Item item, double amount = 0)
         {
             if (_permState.IsItemAdded(item.ClassName))
             {
@@ -47,7 +47,7 @@ namespace SatisfactoryProductionator.Services.States
             NotifyStateChanged();
         }
 
-        public void AddAmount(int amount)
+        public void AddAmount(double amount)
         {
             if (SelectAmount + amount < 0)
             {
@@ -65,7 +65,7 @@ namespace SatisfactoryProductionator.Services.States
             NotifyStateChanged();
         }
 
-        public void SetAmount(int amount)
+        public void SetAmount(double amount)
         {
             SelectAmount = 0;
 
@@ -82,7 +82,7 @@ namespace SatisfactoryProductionator.Services.States
             NotifyStateChanged();
         }
 
-        public void AddUpdateSelected(string className, int amount)
+        public void AddUpdateSelected(string className, double amount)
         {
             _permState.AddUpdateItem(className, amount);
 
@@ -105,6 +105,7 @@ namespace SatisfactoryProductionator.Services.States
         public void CloseModal()
         {
             Active = false;
+            _permState.GeneratePermutations(false);
             NotifyStateChanged();
         }
 

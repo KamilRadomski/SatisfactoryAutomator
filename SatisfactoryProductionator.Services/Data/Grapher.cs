@@ -30,42 +30,42 @@ namespace SatisfactoryProductionator.Services.Data
                 permutations = permutations.Concat(GenerateNode(items, recipeList, usedRecipes)).ToList();
             }
 
-            //Process Permutations for extra data - buildings, power, infracost
-
-            foreach(var permutation in permutations)
-            {
-                permutation.Buildings = CalculateBuildings(permutation.RecipesUsed);
-                permutation.InfraCost = CaluclateInfraCost(permutation.Buildings);
-                permutation.PowerNeeded = CalculatePowerNeeded(permutation.Buildings);
-            }
+            //foreach(var permutation in permutations)
+            //{
+            //    permutation.Buildings = CalculateBuildings(permutation.RecipesUsed);
+            //    permutation.InfraCost = CaluclateInfraCost(permutation.Buildings);
+            //    permutation.PowerNeeded = CalculatePowerNeeded(permutation.Buildings);
+            //}
 
             return permutations;
         }
 
         private Dictionary<string, int> CalculateBuildings(Dictionary<string, double> recipesUsed)
         {
-            throw new NotImplementedException();
+            return new Dictionary<string, int>();
         }
 
         private Dictionary<string, int> CaluclateInfraCost(Dictionary<string, int> buildings)
         {
-            throw new NotImplementedException();
+            return new Dictionary<string, int>();
         }
 
         private double CalculatePowerNeeded(Dictionary<string, int> buildings)
         {
-            throw new NotImplementedException();
+            return 0;
         }
 
         private List<Permutation> GenerateNode(Dictionary<string, double> items, List<string> recipes, List<string> usedRecipes)
         {
             var targetItems = items.Keys.ToList();
 
-            var recipePerms = GenerateRecipePermutations(targetItems, usedRecipes);
+            var recipePerms = GenerateRecipePermutations(targetItems, recipes);
 
             if(!recipePerms.Any())
             {
                 var recipeAmounts = GenerateRecipeAmounts(items, recipes);
+                //check for inputs in generateRecipeAmounts
+                //Add inputs to permutation
 
                 var permutation = new Permutation()
                 {
@@ -224,7 +224,10 @@ namespace SatisfactoryProductionator.Services.Data
 
                 if(!perms.Any())
                 {
-                    perms.Add(recipes);
+                    foreach (var recipe in recipes)
+                    {
+                        perms.Add(new List<string>() { recipe });
+                    }
                 }
                 else
                 {

@@ -1,8 +1,8 @@
 ﻿.filters-wrapper {
     width: calc(100vw - 330px);
     height: 100px;
-    top: -12px;
-    left: -12px;
+    top: 9px;
+    left: 8px;
     --aug-border-all: 2px;
     --aug-border-bg: var(--sfBlue);
     --aug-tl: 14px;
@@ -16,8 +16,8 @@
 .frozen-wrapper {
     width: calc(100vw - 335px);
     height: 40px;
-    top: 19px;
-    left: -7px;
+    top: 33px;
+    left: 17px;
     --aug-border-all: 2px;
     --aug-border-bg: var(--sfBlue);
     --aug-bl: 15px;
@@ -28,8 +28,8 @@
 .perm-wrapper {
     width: calc(100vw - 330px);
     height: calc(100vh - 157px);
-    top: 100px;
-    left: -12px;
+    top: 121px;
+    left: 8px;
     --aug-border-all: 2px;
     --aug-border-bg: var(--sfBlue);
     --aug-tl: 20px;

@@ -1,8 +1,8 @@
 ﻿.modal-wrapper {
     width: 1381px;
     height: 849px;
-    top: 5%;
-    left: 15%;
+    top: calc(50vh - 425px);
+    left: calc(50vw - 690px);
 }
 
 .modal-on {

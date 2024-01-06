@@ -23,8 +23,10 @@
     }
     else
     {
-        PermState.GeneratePermutations();
-
+        @if (PermState.Items.Any())
+        {
+            PermState.GeneratePermutations(AppModalState.Active());
+        }
 
         //Filters
         <div data-augmented-ui="tl-2-clip-x tr-clip br-2-clip-x bl-clip border" class="pos-abs filters-wrapper"></div>

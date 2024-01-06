@@ -29,7 +29,7 @@ namespace SatisfactoryProductionator.Services.States
 
         private void NotifyStateChanged() => OnStateChange?.Invoke();
 
-        public void AddUpdateItem(string className, int amount)
+        public void AddUpdateItem(string className, double amount)
         {
             if (Items.ContainsKey(className))
             {
@@ -63,11 +63,14 @@ namespace SatisfactoryProductionator.Services.States
             return Items.ContainsKey(className);
         }
 
-        public void GeneratePermutations()
+        public void GeneratePermutations(bool isActive)
         {
-            Permutations = _grapher.GetPermutations(Items, _codexState.Codex);
+            if (Items.Any() && !isActive)
+            {
+                Permutations = _grapher.GetPermutations(Items, _codexState.Codex);
 
-            NotifyStateChanged();
+                NotifyStateChanged();
+            }
         }
     }
 }
