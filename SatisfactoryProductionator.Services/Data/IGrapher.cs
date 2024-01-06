@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SatisfactoryProductionator.DataModels.Models.Codex;
+using SatisfactoryProductionator.DataModels.Models.Graph;
 
 namespace SatisfactoryProductionator.Services.Data
 {
     public interface IGrapher
     {
+        List<Permutation> GetPermutations(Dictionary<string, double> targetItems, Codex codex);
     }
 }

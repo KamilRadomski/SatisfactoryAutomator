@@ -5,15 +5,27 @@ namespace SatisfactoryProductionator.Services.States
 {
     public class PermState
     {
+        private CodexState _codexState;
+        private readonly IGrapher _grapher;
+
         public event Action OnStateChange;
 
-        public Dictionary<string, int> Items { get; set; } = new Dictionary<string, int>();
+        public Dictionary<string, double> Items { get; set; } = new Dictionary<string, double>();
 
         public List<Permutation> Permutations { get; set; }
 
         public Node HeadNode { get; set; }
 
+        public PermState(CodexState codexState, IGrapher grapher)
+        {
+            if (codexState.Codex == null)
+            {
+                codexState.InitializeCodexAsync();
+            }
 
+            _codexState = codexState;
+            _grapher = grapher;
+        }
 
         private void NotifyStateChanged() => OnStateChange?.Invoke();
 
@@ -53,7 +65,7 @@ namespace SatisfactoryProductionator.Services.States
 
         public void GeneratePermutations()
         {
-            Permutations = Grapher.GeneratePermutations(Items);
+            Permutations = _grapher.GetPermutations(Items, _codexState.Codex);
 
             NotifyStateChanged();
         }
