@@ -13,6 +13,38 @@ namespace SatisfactoryProductionator.Services.Data
     {
         private Codex _codex;
 
+        private readonly List<string> RawInputs = new List<string>()
+        {
+            "LiquidOil",
+            "Coal",
+            "BauxiteOre",
+            "CopperOre",
+            "CateriumOre",
+            "IronOre",
+            "UraniumOre",
+            "RawQuartz",
+            "Stone",
+            "Sulfur",
+            "Water",
+            "LiquidOil",
+            "NitrogenGas",
+            "HatcherParts",
+            "HogParts",
+            "SpitterParts",
+            "StingerParts",
+            "BlueSlug",
+            "YellowSlug",
+            "PurpleSlug",
+            "Shroom",
+            "Nut",
+            "Berry",
+            "Wood",
+            "Mycelia",
+            "Leaves",
+            "FlowerPetals",
+            "Gift",
+        };
+
         public List<Permutation> GetPermutations(Dictionary<string, double> items, Codex codex)
         {
             _codex = codex;
@@ -37,6 +69,8 @@ namespace SatisfactoryProductionator.Services.Data
             //    permutation.PowerNeeded = CalculatePowerNeeded(permutation.Buildings);
             //}
 
+            //Remove inputs from itemsbuilt
+
             return permutations;
         }
 
@@ -57,21 +91,22 @@ namespace SatisfactoryProductionator.Services.Data
 
         private List<Permutation> GenerateNode(Dictionary<string, double> items, List<string> recipes, List<string> usedRecipes)
         {
-            var targetItems = items.Keys.ToList();
+            var targetItems = items.Keys.Where(x => !RawInputs.Contains(x)).ToList();
+
+            var itemsBuilt = GenerateItemsBuilt(items);
+            var inputsNeeded = GenerateInputsNeeded(items);
 
             var recipePerms = GenerateRecipePermutations(targetItems, recipes);
 
+            //Add Itemsbuilt where I remove inputs
+
             if(!recipePerms.Any())
             {
-                var recipeAmounts = GenerateRecipeAmounts(items, recipes);
-                //check for inputs in generateRecipeAmounts
-                //Add inputs to permutation
-
                 var permutation = new Permutation()
                 {
-                    ItemsBuilt = AddItems(items),
-                    RecipesUsed = AddRecipes(recipeAmounts)
-                
+                    ItemsBuilt = AddItems(itemsBuilt),
+                    RecipesUsed = new Dictionary<string, double>(),
+                    Inputs = AddInputs(inputsNeeded)
                 };
 
                 return new List<Permutation>() { permutation };
@@ -90,14 +125,67 @@ namespace SatisfactoryProductionator.Services.Data
 
                 foreach(var perm in tempPermutations)
                 {
-                    perm.ItemsBuilt = AddItems(perm.ItemsBuilt, items);
+                    perm.ItemsBuilt = AddItems(perm.ItemsBuilt, itemsBuilt);
                     perm.RecipesUsed = AddRecipes(perm.RecipesUsed, recipeAmounts);
+                    perm.Inputs = AddInputs(perm.Inputs, inputsNeeded);
 
                     permutations.Add(perm);
                 }
             }
 
             return permutations;
+        }
+
+        private Dictionary<string, double> GenerateItemsBuilt(Dictionary<string, double> items)
+        {
+            var itemsBuilt = new Dictionary<string, double>();
+
+            foreach (var item in items)
+            {
+                if (!RawInputs.Contains(item.Key))
+                {
+                    itemsBuilt.Add(item.Key, item.Value);
+                }
+            }
+
+            return itemsBuilt;
+        }
+
+        private Dictionary<string, double> AddInputs(Dictionary<string, double> inputsNeeded)
+        {
+            return AddInputs(new Dictionary<string, double>(), inputsNeeded);
+        }
+
+        private Dictionary<string, double> AddInputs(Dictionary<string, double> inputs, Dictionary<string, double> inputsNeeded)
+        {
+            foreach (var input in inputsNeeded)
+            {
+                if (inputs.ContainsKey(input.Key))
+                {
+                    inputs[input.Key] += input.Value;
+                }
+                else
+                {
+                    inputs.Add(input.Key, input.Value);
+                }
+            }
+
+            return inputs;
+        }
+
+        private Dictionary<string, double> GenerateInputsNeeded(Dictionary<string, double> items)
+        {
+            var inputs = new Dictionary<string, double>();
+
+            foreach(var item in items)
+            {
+                if(RawInputs.Contains(item.Key))
+                {
+                    inputs.Add(item.Key, item.Value);
+                }
+            }
+
+            return inputs;
         }
 
         private Dictionary<string, double> AddItems(Dictionary<string, double> items)
@@ -207,6 +295,11 @@ namespace SatisfactoryProductionator.Services.Data
         private List<List<string>> GenerateRecipePermutations(List<string> targetItems, List<string> usedRecipes)
         {
             var perms = new List<List<string>>();
+
+            if(!targetItems.Any())
+            {
+                return perms;
+            }
 
             foreach (var target in targetItems) 
             {
