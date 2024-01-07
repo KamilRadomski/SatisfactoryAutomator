@@ -23,20 +23,23 @@
     }
     else
     {
-        @if (PermState.Items.Any())
+        @if (!PermState.Permutations.Any())
         {
-            PermState.GeneratePermutations(AppModalState.Active());
+            <div class="pos-abs loading">Permutating .....</div>
         }
+        else
+        {
+                    //Filters
+            <div data-augmented-ui="tl-2-clip-x tr-clip br-2-clip-x bl-clip border" class="pos-abs filters-wrapper"></div>
 
-        //Filters
-        <div data-augmented-ui="tl-2-clip-x tr-clip br-2-clip-x bl-clip border" class="pos-abs filters-wrapper"></div>
+                    //FrozenRow
 
-        //FrozenRow
+            <div data-augmented-ui="br-2-clip-y bl-2-clip-x border" class="pos-abs frozen-wrapper"></div>
 
-        <div data-augmented-ui="br-2-clip-y bl-2-clip-x border" class="pos-abs frozen-wrapper"></div>
-
-        //Permutations
-        <div data-augmented-ui=" tl-2-clip-y tr-2-clip-x br-clip bl-2-clip-y border" class="pos-abs perm-wrapper"></div>
+            //Permutations
+            <div data-augmented-ui=" tl-2-clip-y tr-2-clip-x br-clip bl-2-clip-y border" class="pos-abs perm-wrapper"></div>
+        }
+        
     }
 </div>
 

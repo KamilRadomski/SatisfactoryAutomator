@@ -12,7 +12,7 @@ namespace SatisfactoryProductionator.Services.States
 
         public Dictionary<string, double> Items { get; set; } = new Dictionary<string, double>();
 
-        public List<Permutation> Permutations { get; set; }
+        public List<Permutation> Permutations { get; set; } = new List<Permutation>();
 
         public Node HeadNode { get; set; }
 

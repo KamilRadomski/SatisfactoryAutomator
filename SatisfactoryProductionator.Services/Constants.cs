@@ -11,5 +11,37 @@
         public static readonly string RECIPE_FILEPATH = @"/data/recipes.json";
         public static readonly string EXTRACT_FILEPATH = @"/data/extractions.json";
 
+        public static readonly List<string> INPUTS = new List<string>()
+        {
+            "LiquidOil",
+            "Coal",
+            "BauxiteOre",
+            "CopperOre",
+            "CateriumOre",
+            "IronOre",
+            "UraniumOre",
+            "RawQuartz",
+            "Stone",
+            "Sulfur",
+            "Water",
+            "LiquidOil",
+            "NitrogenGas",
+            "HatcherParts",
+            "HogParts",
+            "SpitterParts",
+            "StingerParts",
+            "BlueSlug",
+            "YellowSlug",
+            "PurpleSlug",
+            "Shroom",
+            "Nut",
+            "Berry",
+            "Wood",
+            "Mycelia",
+            "Leaves",
+            "FlowerPetals",
+            "Gift",
+        };
+
     }
 }
