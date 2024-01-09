@@ -1,4 +1,5 @@
-﻿using SatisfactoryProductionator.DataModels.Models.Codex;
+﻿using SatisfactoryProductionator.DataModels.Enums;
+using SatisfactoryProductionator.DataModels.Models.Codex;
 using SatisfactoryProductionator.DataModels.Models.Graph;
 
 namespace SatisfactoryProductionator.Services.Data
@@ -11,9 +12,7 @@ namespace SatisfactoryProductionator.Services.Data
         {
             _codex = codex;
 
-            var targetItems = items.Keys.ToList();
-
-            var recipePerms = GenerateRecipePermutations(targetItems, new List<string>());
+            var recipePerms = GenerateRecipePermutations(items, new List<string>());
 
             var permutations = new List<Permutation>();
 
@@ -21,66 +20,25 @@ namespace SatisfactoryProductionator.Services.Data
             {
                 var usedRecipes = recipeList.ToList();
 
-                permutations = permutations.Concat(GenerateNode(items, recipeList, usedRecipes)).ToList();
+                permutations = permutations.Concat(ProcessBuildPhase(items, recipeList, usedRecipes)).ToList();
             }
 
             foreach (var permutation in permutations)
             {
-                permutation.Buildings = CalculateBuildings(permutation.RecipesUsed, permutation.Inputs);
-                permutation.InfraCost = CaluclateInfraCost(permutation.Buildings);
-                permutation.PowerNeeded = CalculatePowerNeeded(permutation.RecipesUsed, permutation.Inputs);
-            }
-
-            return permutations;
-        }
-
-        private List<Permutation> GenerateNode(Dictionary<string, double> items, List<string> recipes, List<string> usedRecipes)
-        {
-            var targetItems = items.Keys.Where(x => !Constants.INPUTS.Contains(x)).ToList();
-            var recipePerms = GenerateRecipePermutations(targetItems, recipes);
-
-            var itemsBuilt = GenerateItemsBuilt(items);
-            var inputsNeeded = GenerateInputsNeeded(items);
-
-            if (!recipePerms.Any())
-            {
-                var permutation = new Permutation()
+                foreach(var node in permutation.Nodes)
                 {
-                    ItemsBuilt = AddItems(itemsBuilt),
-                    RecipesUsed = new Dictionary<string, double>(),
-                    Inputs = AddInputs(inputsNeeded)
-                };
-
-                return new List<Permutation>() { permutation };
-            }
-
-            var permutations = new List<Permutation>();
-
-            foreach (var recipeList in recipePerms)
-            {
-                var updatedUsedRecipes = usedRecipes.Concat(recipeList).Distinct().ToList();
-
-                var recipeAmounts = GenerateRecipeAmounts(items, recipeList);
-                var itemsNeeded = GenerateItemAmounts(items, recipeAmounts);
-
-                var tempPermutations = GenerateNode(itemsNeeded, recipeList, updatedUsedRecipes);
-
-                foreach (var perm in tempPermutations)
-                {
-                    perm.ItemsBuilt = AddItems(perm.ItemsBuilt, itemsBuilt);
-                    perm.RecipesUsed = AddRecipes(perm.RecipesUsed, recipeAmounts);
-                    perm.Inputs = AddInputs(perm.Inputs, inputsNeeded);
-
-                    permutations.Add(perm);
+                    CalculateBuildingData(node);
                 }
             }
 
             return permutations;
         }
 
-        private List<List<string>> GenerateRecipePermutations(List<string> targetItems, List<string> usedRecipes)
+        private List<List<string>> GenerateRecipePermutations(Dictionary<string, double> items, List<string> usedRecipes)
         {
             var perms = new List<List<string>>();
+
+            var targetItems = items.Keys.Where(x => !Constants.INPUTS.Contains(x)).ToList();
 
             if (!targetItems.Any())
             {
@@ -127,34 +85,132 @@ namespace SatisfactoryProductionator.Services.Data
             return perms;
         }
 
-        private Dictionary<string, double> GenerateItemsBuilt(Dictionary<string, double> items)
+        private List<Permutation> ProcessBuildPhase(Dictionary<string, double> items, List<string> recipes, List<string> usedRecipes)
         {
-            var itemsBuilt = new Dictionary<string, double>();
+            var targetItems = items.Keys.Where(x => !Constants.INPUTS.Contains(x)).ToList();
 
-            foreach (var item in items)
+            var recipePerms = GenerateRecipePermutations(items, recipes);
+            var itemsBuilt = GenerateItemData(items, isInput: false);
+            var inputsNeeded = GenerateItemData(items, isInput: true);
+
+            if (!recipePerms.Any())
             {
-                if (!Constants.INPUTS.Contains(item.Key))
+                var permutation = new Permutation()
                 {
-                    itemsBuilt.Add(item.Key, item.Value);
+                    Active = true,
+                    Nodes = InitializeNodes(inputsNeeded)
+                };
+
+                return new List<Permutation>() { permutation };
+            }
+
+            var permutations = new List<Permutation>();
+
+            foreach (var recipeList in recipePerms)
+            {
+                var updatedUsedRecipes = usedRecipes.Concat(recipeList).Distinct().ToList();
+
+                var recipeAmounts = GenerateRecipeAmounts(items, recipeList);
+                var itemsNeeded = GenerateItemAmounts(items, recipeAmounts);
+
+                var tempPermutations = ProcessBuildPhase(itemsNeeded, recipeList, updatedUsedRecipes);
+
+                foreach (var perm in tempPermutations)
+                {
+                    AddItems(perm, itemsBuilt, recipeAmounts);
+                    AddInputs(perm, inputsNeeded);
+
+                    permutations.Add(perm);
                 }
             }
 
-            return itemsBuilt;
+            return permutations;
         }
 
-        private Dictionary<string, double> GenerateInputsNeeded(Dictionary<string, double> items)
+        private void CalculateBuildingData(Node node)
         {
-            var inputs = new Dictionary<string, double>();
+            if (node.NodeType is NodeType.Import) return;
+
+            var building = _codex.CodexItems.First(x => x.ClassName == node.Building) as Building;
+
+            if (node.NodeType is NodeType.Build)
+            {
+                node.BuildingQuantity = (int)Math.Ceiling(node.RecipeQuantity);
+            }
+            else
+            {
+                var extraction = _codex.Extractions.First(x => x.ClassName == node.Recipe);
+                var rate = extraction.Output == "Ore" ? extraction.Rates[1] : extraction.Rates[0];
+                
+                node.RecipeQuantity = node.ItemQuantity / rate;
+                node.BuildingQuantity = (int)(Math.Ceiling(node.ItemQuantity / rate));
+            }
+
+            node.PowerUsed = building.PowerRating[0] * 60 * node.RecipeQuantity;
+
+            var infraCost = new Dictionary<string, int>();
+            var cost = building.Cost;
+
+            foreach (var item in cost.ItemCost)
+            {
+                var quantity = (int)(item.Value * node.BuildingQuantity);
+
+                infraCost.Add(item.Key, quantity);
+            }
+        }
+
+        private Dictionary<string, double> GenerateItemData(Dictionary<string, double> items, bool isInput)
+        {
+            var itemData = new Dictionary<string, double>();
 
             foreach (var item in items)
             {
-                if (Constants.INPUTS.Contains(item.Key))
+                if (Constants.INPUTS.Contains(item.Key) == isInput)
                 {
-                    inputs.Add(item.Key, item.Value);
+                    itemData.Add(item.Key, item.Value);
                 }
             }
 
-            return inputs;
+            return itemData;
+        }
+
+        private List<Node> InitializeNodes(Dictionary<string, double> inputsNeeded)
+        {
+            var nodes = new List<Node>();
+
+            foreach (var input in inputsNeeded)
+            {
+                var extractionName = GetInputRecipe(input.Key);
+                var buildingName = GetInputBuilding(extractionName);
+
+                nodes.Add(new Node()
+                {
+                    Name = input.Key,
+                    NodeType = NodeType.Input,
+                    ItemQuantity = input.Value,
+                    Recipe = extractionName,
+                    Building = buildingName,
+                });
+            }
+
+            return nodes;
+        }
+
+        private string GetInputRecipe(string className)
+        {
+            var item = _codex.CodexItems.First(x => x.ClassName == className);
+            var page = item.Pages.First(x => x.PageType == PageType.Extraction);
+            var extractClassName = page.Entries.First();
+
+            //TODO Options later to have it pull specific miners and pumps -- default to miner mk1, water extractor and oil pump
+            return extractClassName;
+        }
+
+        private string GetInputBuilding(string className)
+        {
+            var extraction = _codex.Extractions.First(x => x.ClassName == className);
+
+            return extraction.Building;
         }
 
         private Dictionary<string, double> GenerateRecipeAmounts(Dictionary<string, double> items, List<string> recipeList)
@@ -172,15 +228,6 @@ namespace SatisfactoryProductionator.Services.Data
             }
 
             return recipeAmounts;
-        }
-
-        private Recipe GetMatchingRecipe(string key, List<string> recipeList)
-        {
-            var itemRecipes = (_codex.CodexItems.First(x => x.ClassName == key) as Item).AutoRecipes;
-
-            var recipe = recipeList.First(x => itemRecipes.Contains(x));
-
-            return _codex.Recipes.First(x => x.ClassName == recipe);
         }
 
         private Dictionary<string, double> GenerateItemAmounts(Dictionary<string, double> items, Dictionary<string, double> recipeAmounts)
@@ -210,166 +257,79 @@ namespace SatisfactoryProductionator.Services.Data
             return itemsNeeded;
         }
 
-        private Dictionary<string, int> CalculateBuildings(Dictionary<string, double> recipesUsed, Dictionary<string, double> inputs)
+        private void AddItems(Permutation perm, Dictionary<string, double> itemsBuilt, Dictionary<string, double> recipeAmounts)
         {
-            var buildings = new Dictionary<string, int>();
+            var recipeList = recipeAmounts.Keys.ToList();
 
-            foreach(var recipe in recipesUsed)
+            foreach (var item in itemsBuilt)
             {
-                var building = _codex.Recipes.First(x => x.ClassName == recipe.Key).Building;
-                var buildingCount = (int)(Math.Ceiling(recipe.Value));
+                var recipeName = GetMatchingRecipeName(item.Key, recipeList);
 
-                if (buildings.ContainsKey(building))
+                if (perm.Nodes.Any(x => x.Name == item.Key))
                 {
-                    buildings[building] += buildingCount; 
+                    var node = perm.Nodes.First(x => x.Name == item.Key);
+
+                    node.ItemQuantity += item.Value;
+                    node.RecipeQuantity += recipeAmounts[recipeName];
                 }
                 else
                 {
-                    buildings.Add(building, buildingCount);
-                }
-            }
-
-            foreach(var input in inputs)
-            {
-                var item = _codex.CodexItems.First(x => x.ClassName == input.Key);
-                var page = item.Pages.First(x => x.PageType == DataModels.Enums.PageType.Extraction);
-                var extractClassName = page.Entries.First();
-                var extraction = _codex.Extractions.First(x => x.ClassName == extractClassName);
-
-                var building = extraction.Building;
-                var rate = extraction.Output == "Ore" ? extraction.Rates[1] : extraction.Rates[0];
-
-                var buildingCount = (int)(Math.Ceiling(input.Value / rate));
-
-                if (buildings.ContainsKey(building))
-                {
-                    buildings[building] += buildingCount;
-                }
-                else
-                {
-                    buildings.Add(building, buildingCount);
-                }
-            }
-
-            return buildings;
-        }
-
-        private Dictionary<string, int> CaluclateInfraCost(Dictionary<string, int> buildings)
-        {
-            var infraCost = new Dictionary<string, int>();
-
-            foreach(var building in buildings)
-            {
-                var cost = (_codex.CodexItems.First(x => x.ClassName == building.Key) as Building).Cost;
-                var quantifier = building.Value;
-
-                foreach (var item in cost.ItemCost)
-                {
-                    var quantity = (int)(item.Value * quantifier);
-
-                    if (infraCost.ContainsKey(item.Key))
+                    perm.Nodes.Add(new Node()
                     {
-                        infraCost[item.Key] += quantity;
-                    }
-                    else
+                        Name = item.Key,
+                        NodeType = NodeType.Build,
+                        ItemQuantity = item.Value,
+                        Recipe = recipeName,
+                        RecipeQuantity = recipeAmounts[recipeName],
+                        Building = _codex.Recipes.First(x => x.ClassName == recipeName).Building,
+                    });
+                }
+            }
+        }
+
+        private void AddInputs(Permutation perm, Dictionary<string, double> inputsNeeded)
+        {
+            foreach(var input in inputsNeeded)
+            {
+                if(perm.Nodes.Any(x => x.Name == input.Key))
+                {
+                    var node = perm.Nodes.First(x => x.Name == input.Key);
+
+                    node.ItemQuantity += input.Value;
+                }
+                else 
+                {
+                    var extractionName = GetInputRecipe(input.Key);
+                    var buildingName = GetInputBuilding(extractionName);
+                    
+                    perm.Nodes.Add(new Node()
                     {
-                        infraCost.Add(item.Key, quantity);
-                    }
+                        Name = input.Key,
+                        NodeType = NodeType.Input,
+                        ItemQuantity = input.Value,
+                        Recipe = extractionName,
+                        Building = buildingName,
+                    });
                 }
             }
-
-            return infraCost;
         }
 
-        private double CalculatePowerNeeded(Dictionary<string, double> recipesUsed, Dictionary<string, double> inputs)
+        private Recipe GetMatchingRecipe(string key, List<string> recipeList)
         {
-            var powerNeeded = 0.0;
+            var itemRecipes = (_codex.CodexItems.First(x => x.ClassName == key) as Item).AutoRecipes;
 
-            foreach (var recipe in recipesUsed)
-            {
-                var buildingName = _codex.Recipes.First(x => x.ClassName == recipe.Key).Building;
-                var powerUsed = (_codex.CodexItems.First(x => x.ClassName == buildingName) as Building).PowerRating[0] * 60;
+            var recipe = recipeList.First(x => itemRecipes.Contains(x));
 
-                powerNeeded += powerUsed * recipe.Value;
-            }
-
-            foreach(var input in inputs)
-            {
-                var item = _codex.CodexItems.First(x => x.ClassName == input.Key);
-                var page = item.Pages.First(x => x.PageType == DataModels.Enums.PageType.Extraction);
-                var extractClassName = page.Entries.First();
-                var extraction = _codex.Extractions.First(x => x.ClassName == extractClassName);
-
-                var buildingName = extraction.Building;
-                var powerUsed = (_codex.CodexItems.First(x => x.ClassName == buildingName) as Building).PowerRating[0] * 60;
-                var rate = extraction.Output == "Ore" ? extraction.Rates[1] : extraction.Rates[0];
-                var quantifier = input.Value / rate;
-
-                powerNeeded += powerUsed * quantifier;
-            }
-
-            return powerNeeded;
+            return _codex.Recipes.First(x => x.ClassName == recipe);
         }
 
-        private Dictionary<string, double> AddInputs(Dictionary<string, double> inputsNeeded)
+        private string GetMatchingRecipeName(string key, List<string> recipeList)
         {
-            return AddInputs(new Dictionary<string, double>(), inputsNeeded);
-        }
+            var itemRecipes = (_codex.CodexItems.First(x => x.ClassName == key) as Item).AutoRecipes;
 
-        private Dictionary<string, double> AddInputs(Dictionary<string, double> inputs, Dictionary<string, double> inputsNeeded)
-        {
-            foreach (var input in inputsNeeded)
-            {
-                if (inputs.ContainsKey(input.Key))
-                {
-                    inputs[input.Key] += input.Value;
-                }
-                else
-                {
-                    inputs.Add(input.Key, input.Value);
-                }
-            }
+            var recipe = recipeList.First(x => itemRecipes.Contains(x));
 
-            return inputs;
-        }
-        
-        private Dictionary<string, double> AddItems(Dictionary<string, double> items)
-        {
-            return AddItems(new Dictionary<string, double>(), items);
-        }
-
-        private Dictionary<string, double> AddItems(Dictionary<string, double> itemsBuilt, Dictionary<string, double> items)
-        {
-            foreach(var item in items)
-            {
-                if (itemsBuilt.ContainsKey(item.Key))
-                {
-                    itemsBuilt[item.Key] += item.Value;
-                }
-                else
-                {
-                    itemsBuilt.Add(item.Key, item.Value);
-                }
-            }
-
-            return itemsBuilt;
-        }
-
-        private Dictionary<string, double> AddRecipes(Dictionary<string, double> recipesUsed, Dictionary<string, double> recipeAmounts)
-        {
-            foreach(var recipe in recipeAmounts)
-            {
-                if (recipesUsed.ContainsKey(recipe.Key))
-                {
-                    recipesUsed[recipe.Key] += recipe.Value;
-                }
-                else
-                {
-                    recipesUsed.Add(recipe.Key, recipe.Value);
-                }
-            }
-
-            return recipesUsed;
+            return recipe;
         }
     }
 }

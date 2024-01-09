@@ -23,22 +23,31 @@
     }
     else
     {
-        @if (!PermState.Permutations.Any())
-        {
-            <div class="pos-abs loading">Permutating .....</div>
-        }
-        else
-        {
-                    //Filters
-            <div data-augmented-ui="tl-2-clip-x tr-clip br-2-clip-x bl-clip border" class="pos-abs filters-wrapper"></div>
+        <div data-augmented-ui="tl-2-clip-x tr-clip br-2-clip-x bl-clip border" class="pos-abs filters-wrapper"></div>
 
-                    //FrozenRow
+        <div data-augmented-ui="br-2-clip-y bl-2-clip-x border" class="pos-abs frozen-wrapper"></div>
 
-            <div data-augmented-ui="br-2-clip-y bl-2-clip-x border" class="pos-abs frozen-wrapper"></div>
+        <div data-augmented-ui=" tl-2-clip-y tr-2-clip-x br-clip bl-2-clip-y border" class="pos-abs perm-wrapper">
+            @if (!PermState.Permutations.Any())
+            {
+                <div class="pos-abs loading">Permutating .....</div>
+            }
+            else
+            {
+                <table class="perm-table">
+                @* <thead>
+                    <tr></tr>
+                </thead> *@
 
-            //Permutations
-            <div data-augmented-ui=" tl-2-clip-y tr-2-clip-x br-clip bl-2-clip-y border" class="pos-abs perm-wrapper"></div>
-        }
+                @foreach(var permutation in PermState.Permutations)
+                    {
+                                            
+                    }
+                </table>
+            }
+        </div>
+
+        
         
     }
 </div>
