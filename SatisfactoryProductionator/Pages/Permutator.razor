@@ -27,28 +27,43 @@
 
         <div data-augmented-ui="br-2-clip-y bl-2-clip-x border" class="pos-abs frozen-wrapper"></div>
 
-        <div data-augmented-ui=" tl-2-clip-y tr-2-clip-x br-clip bl-2-clip-y border" class="pos-abs perm-wrapper">
+        <div data-augmented-ui="tl-2-clip-y tr-2-clip-x br-clip bl-2-clip-y border" class="pos-abs perm-wrapper">
             @if (!PermState.Permutations.Any())
             {
-                <div class="pos-abs loading">Permutating .....</div>
+                <div class="pos-abs loading">Add Items To Permutate .....</div>
             }
             else
             {
-                <table class="perm-table">
-                @* <thead>
-                    <tr></tr>
-                </thead> *@
+                <div data-augmented-ui-reset></div>
 
-                @foreach(var permutation in PermState.Permutations)
+                <div data-augmented-ui="tl-2-clip-y tr-2-clip-x br-clip bl-2-clip-y border" class="page-wrapper">
+                    @foreach (var permutation in PermState.Permutations)
                     {
-                                            
+                        <div data-augmented-ui-reset></div>
+                        <div data-augmented-ui="tl-clip tr-clip bl-clip br-clip border" class="perm">
+                            @* Options *@
+                            <div data-augmented-ui="tl-clip tr-clip bl-clip br-clip border" class="options"></div>
+
+                            @* Inputs *@
+                            <div data-augmented-ui="tl-clip tr-clip bl-clip br-clip border" class="inputs"></div>
+
+                            @* Items + Recipes *@
+                            <div data-augmented-ui="tl-clip tr-clip bl-clip br-clip border" class="items"></div>
+
+                            @* Buildings + power *@
+                            <div data-augmented-ui="tl-clip tr-clip bl-clip br-clip border" class="buildings"></div>
+
+                            @* InfraCost *@
+                            <div data-augmented-ui="tl-clip tr-clip bl-clip br-clip border" class="infra"></div>
+
+                        </div>
                     }
-                </table>
+                </div>
             }
         </div>
 
-        
-        
+
+
     }
 </div>
 
@@ -76,5 +91,5 @@
         PermState.OnStateChange -= StateHasChanged;
     }
 
-   
+
 }

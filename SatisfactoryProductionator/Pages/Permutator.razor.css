@@ -37,3 +37,84 @@
     --aug-bl: 19px;
     --aug-br: 29px;
 }
+
+.page-wrapper {
+    width: calc(100vw - 334px);
+    height: calc(100vh - 203px);
+    margin-top: 6px;
+    margin-left: 2px;
+    --aug-border-all: 2px;
+    --aug-border-x: -1px;
+    --aug-border-bg: var(--sfBlue);
+    --aug-tl: 21px;
+    --aug-tr: 18px;
+    --aug-bl: 19px;
+    --aug-br: 32px;
+}
+
+.perm {
+    width: 100%;
+    min-width: 300px;
+    height: 200px;
+    --aug-border-all: 1px;
+    --aug-border-bg: var(--sfBlue);
+    --aug-tl: 10px;
+    --aug-tr: 10px;
+    --aug-bl: 10px;
+    --aug-br: 10px;
+}
+
+.options {
+    width: 100px;
+    height: 50px;
+    --aug-border-all: 1px;
+    --aug-border-bg: var(--sfBlue);
+    --aug-tl: 10px;
+    --aug-tr: 10px;
+    --aug-bl: 10px;
+    --aug-br: 10px;
+}
+
+.inputs {
+    width: 100px;
+    height: 50px;
+    --aug-border-all: 1px;
+    --aug-border-bg: var(--sfBlue);
+    --aug-tl: 10px;
+    --aug-tr: 10px;
+    --aug-bl: 10px;
+    --aug-br: 10px;
+}
+
+.items {
+    width: 100px;
+    height: 50px;
+    --aug-border-all: 1px;
+    --aug-border-bg: var(--sfBlue);
+    --aug-tl: 10px;
+    --aug-tr: 10px;
+    --aug-bl: 10px;
+    --aug-br: 10px;
+}
+
+.buildings {
+    width: 100px;
+    height: 50px;
+    --aug-border-all: 1px;
+    --aug-border-bg: var(--sfBlue);
+    --aug-tl: 10px;
+    --aug-tr: 10px;
+    --aug-bl: 10px;
+    --aug-br: 10px;
+}
+
+.infra {
+    width: 100px;
+    height: 50px;
+    --aug-border-all: 1px;
+    --aug-border-bg: var(--sfBlue);
+    --aug-tl: 10px;
+    --aug-tr: 10px;
+    --aug-bl: 10px;
+    --aug-br: 10px;
+}
