@@ -1,5 +1,7 @@
 ﻿@page "/permutator"
 @using SatisfactoryProductionator.DataModels.Enums;
+@using SatisfactoryProductionator.DataModels.Models.Graph;
+@using SatisfactoryProductionator.Extensions;
 @using SatisfactoryProductionator.Services;
 @using SatisfactoryProductionator.Services.States;
 
@@ -27,7 +29,7 @@
 
         <div data-augmented-ui="br-2-clip-y bl-2-clip-x border" class="pos-abs frozen-wrapper"></div>
 
-        <div data-augmented-ui="tl-2-clip-y tr-2-clip-x br-clip bl-2-clip-y border" class="pos-abs perm-wrapper">
+        <div data-augmented-ui="tl-clip tr-clip br-clip bl-2-clip-y border" class="pos-abs perm-wrapper">
             @if (!PermState.Permutations.Any())
             {
                 <div class="pos-abs loading">Add Items To Permutate .....</div>
@@ -36,28 +38,109 @@
             {
                 <div data-augmented-ui-reset></div>
 
-                <div data-augmented-ui="tl-2-clip-y tr-2-clip-x br-clip bl-2-clip-y border" class="page-wrapper">
-                    @foreach (var permutation in PermState.Permutations)
-                    {
-                        <div data-augmented-ui-reset></div>
-                        <div data-augmented-ui="tl-clip tr-clip bl-clip br-clip border" class="perm">
-                            @* Options *@
-                            <div data-augmented-ui="tl-clip tr-clip bl-clip br-clip border" class="options"></div>
+                <div data-augmented-ui="tl-clip tr-clip br-clip bl-clip border" class="page-wrapper">
+                    <div class="table-wrapper">
+                        <table class="perm-table">
+                            <thead class="divider">
+                                <tr>
+                                    <th>Options</th>
+                                    <th>Inputs</th>
+                                    <th>Items</th>
+                                    <th>Buildings</th>
+                                    <th>Building Cost</th>
+                                </tr>
+                            </thead>
+                            @* <tr class="header-row"></tr> *@
 
-                            @* Inputs *@
-                            <div data-augmented-ui="tl-clip tr-clip bl-clip br-clip border" class="inputs"></div>
+                            @foreach (var permutation in PermState.Permutations)
+                            {
+                                <div data-augmented-ui-reset></div>
+                                <tr data-augmented-ui="tl-clip tr-clip bl-clip br-clip border" class="perm-row">
+                                    <td data-augmented-ui="tl-clip tr-clip bl-clip br-clip border" class="options">
+                                        @* <div data-augmented-ui="tl-clip tr-clip bl-clip br-clip border" class="options"> *@
+                                        <div class="text">Power Used</div>
+                                        <div class="text"> @GetPowerTotal(permutation) MW/Min</div>
+                                        @* </div> *@
+                                    </td>
 
-                            @* Items + Recipes *@
-                            <div data-augmented-ui="tl-clip tr-clip bl-clip br-clip border" class="items"></div>
+                                    <td>
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    <div class="flex-wrap item-list">
+                                                        @foreach (var input in permutation.Nodes.Where(x => x.NodeType is NodeType.Input))
+                                                        {
+                                                            <div class="flex-col m5">
+                                                                <img class="image-48" src=@CodexState.FetchIconPath(input.Name) alt=@input.Name />
+                                                                <div class="text">@CodexState.FetchDisplayName(input.Name).FormatDisplayName() - @Math.Round(input.ItemQuantity,2)</div>
+                                                            </div>
+                                                        }
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
 
-                            @* Buildings + power *@
-                            <div data-augmented-ui="tl-clip tr-clip bl-clip br-clip border" class="buildings"></div>
+                                    <td>
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    <div class="flex-wrap item-list">
+                                                        @foreach (var item in permutation.Nodes.Where(x => x.NodeType is NodeType.Build))
+                                                        {
+                                                            <div class="flex-col m5">
+                                                                <img class="image-48" src=@CodexState.FetchIconPath(item.Name) alt=@item.Name />
+                                                                <div class="text">@CodexState.FetchDisplayName(item.Name).FormatDisplayName() - @Math.Round(item.ItemQuantity,2)</div>
+                                                                <div class="text">@CodexState.FetchRecipe(item.Recipe).DisplayName.FormatDisplayName() (@Math.Round(item.RecipeQuantity,2))</div>
+                                                            </div>
+                                                        }
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
 
-                            @* InfraCost *@
-                            <div data-augmented-ui="tl-clip tr-clip bl-clip br-clip border" class="infra"></div>
+                                    <td>
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    <div class="flex-wrap item-list">
 
-                        </div>
-                    }
+                                                        @foreach (var item in GetTotalBuildings(permutation))
+                                                        {
+                                                            <div class="flex-col m5">
+                                                                <img class="image-48" src=@CodexState.FetchIconPath(item.Key) alt=@item.Key />
+                                                                <div class="text">@CodexState.FetchDisplayName(item.Key).FormatDisplayName()</div>
+                                                                <div class="text"> @item.Value</div>
+                                                            </div>
+                                                        }
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+
+                                    <td>
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    <div class="flex-wrap item-list">
+                                                        @foreach (var item in GetTotalInfraCost(permutation))
+                                                        {
+                                                            <div class="flex-col flex-middle m5">
+                                                                <img class="image-48" src=@CodexState.FetchIconPath(item.Key) alt=@item.Key />
+                                                                <div class="text">@CodexState.FetchDisplayName(item.Key).FormatDisplayName() - @Math.Round(item.Value,2)</div>
+                                                            </div>
+                                                        }
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            }
+                        </table>
+                    </div>
                 </div>
             }
         </div>
@@ -91,5 +174,29 @@
         PermState.OnStateChange -= StateHasChanged;
     }
 
+    private double GetPowerTotal(Permutation permutation)
+    {
+        var powerUsed = permutation.Nodes.Sum(x => x.PowerUsed);
 
+        return Math.Round(powerUsed, 2);
+    }
+
+    private Dictionary<string, double> GetTotalInfraCost(Permutation permutation)
+    {
+        var items = permutation.Nodes
+            .SelectMany(node => node.InfraCost)
+            .GroupBy(item => item.Key)
+            .ToDictionary(group => group.Key, group => group.Sum(item => item.Value));
+
+        return items;
+    }
+
+    private Dictionary<string, int> GetTotalBuildings(Permutation permutation)
+    {
+        var buildings = permutation.Nodes
+            .GroupBy(node => node.Building)
+            .ToDictionary(group => group.Key, group => group.Sum(node => node.BuildingQuantity));
+
+        return buildings;
+    }
 }

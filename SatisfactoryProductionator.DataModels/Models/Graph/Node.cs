@@ -11,7 +11,7 @@ namespace SatisfactoryProductionator.DataModels.Models.Graph
         public double RecipeQuantity { get; set; }
         public string Building { get; set; }
         public int BuildingQuantity { get; set; }
-        public Dictionary<string, double> InfraCost { get; set; }
+        public Dictionary<string, double> InfraCost { get; set; } = new Dictionary<string, double>();
         public double PowerUsed { get; set; }
     }
 }

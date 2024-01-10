@@ -148,14 +148,13 @@ namespace SatisfactoryProductionator.Services.Data
 
             node.PowerUsed = building.PowerRating[0] * 60 * node.RecipeQuantity;
 
-            var infraCost = new Dictionary<string, int>();
             var cost = building.Cost;
 
             foreach (var item in cost.ItemCost)
             {
-                var quantity = (int)(item.Value * node.BuildingQuantity);
+                var quantity = item.Value * node.BuildingQuantity;
 
-                infraCost.Add(item.Key, quantity);
+                node.InfraCost.Add(item.Key, quantity);
             }
         }
 

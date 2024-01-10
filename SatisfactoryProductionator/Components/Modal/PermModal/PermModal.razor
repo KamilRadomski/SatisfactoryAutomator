@@ -20,7 +20,7 @@
             <div class="list-wrapper">
             @foreach (var item in PermState.Items)
             {
-                <button class="image-button m12" type="button" @onclick="@(() => PermModalState.SetSelectedItem(item.Key, item.Value))">
+                <button class="image-button m5" type="button" @onclick="@(() => PermModalState.SetSelectedItem(item.Key, item.Value))">
                     <img class="image-96" src=@CodexState.FetchIconPath(item.Key) alt=@item.Key />
                     <div class="text">@CodexState.FetchDisplayName(item.Key).FormatDisplayName()</div>
                     <div class="amount">@item.Value</div>
