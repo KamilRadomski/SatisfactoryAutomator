@@ -8,9 +8,13 @@ namespace SatisfactoryProductionator.Services.Data
     {
         private Codex _codex;
 
+        private static int _count = 0;
+
         public List<Permutation> GetPermutations(Dictionary<string, double> items, Codex codex)
         {
             _codex = codex;
+
+            _count = 0;
 
             var recipePerms = GenerateRecipePermutations(items, new List<string>());
 
@@ -89,6 +93,11 @@ namespace SatisfactoryProductionator.Services.Data
 
         private List<Permutation> ProcessBuildPhase(Dictionary<string, double> items, List<string> recipes, List<string> usedRecipes)
         {
+            if(_count >= 10000)
+            {
+                return new List<Permutation>();
+            }
+
             var targetItems = items.Keys.Where(x => !Constants.INPUTS.Contains(x)).ToList();
 
             var recipePerms = GenerateRecipePermutations(items, recipes);
@@ -102,6 +111,8 @@ namespace SatisfactoryProductionator.Services.Data
                     Active = true,
                     Nodes = InitializeNodes(inputsNeeded)
                 };
+
+                _count++;
 
                 return new List<Permutation>() { permutation };
             }
