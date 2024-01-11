@@ -7,6 +7,8 @@ namespace SatisfactoryProductionator.DataModels.Models.Graph
         public string Name { get; set; }
         public NodeType NodeType { get; set; }
         public double ItemQuantity { get; set; }
+        public string ByProduct { get; set; }
+        public double ByProductQuantity { get; set; }
         public string Recipe { get; set; }
         public double RecipeQuantity { get; set; }
         public string Building { get; set; }

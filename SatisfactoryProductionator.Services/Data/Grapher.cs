@@ -16,18 +16,19 @@ namespace SatisfactoryProductionator.Services.Data
 
             var permutations = new List<Permutation>();
 
-            foreach(var recipeList in recipePerms)
+            foreach (var recipeList in recipePerms)
             {
                 var usedRecipes = recipeList.ToList();
+
 
                 permutations = permutations.Concat(ProcessBuildPhase(items, recipeList, usedRecipes)).ToList();
             }
 
             foreach (var permutation in permutations)
             {
-                foreach(var node in permutation.Nodes)
+                foreach (var node in permutation.Nodes)
                 {
-                    CalculateBuildingData(node);
+                    HydrateData(node);
                 }
             }
 
@@ -49,7 +50,8 @@ namespace SatisfactoryProductionator.Services.Data
             {
                 var item = _codex.CodexItems.First(x => x.ClassName == target) as Item;
 
-                var recipes = item.AutoRecipes;
+                //TODO Fix in jsconverter
+                var recipes = item.AutoRecipes.Where(x => !x.StartsWith("Recipe_Unpackage") && !x.StartsWith("Recipe_Alternate_Recycled")).ToList();
 
                 if (usedRecipes.Any() && usedRecipes.Any(x => recipes.Contains(x)))
                 {
@@ -108,10 +110,13 @@ namespace SatisfactoryProductionator.Services.Data
 
             foreach (var recipeList in recipePerms)
             {
+
                 var updatedUsedRecipes = usedRecipes.Concat(recipeList).Distinct().ToList();
 
-                var recipeAmounts = GenerateRecipeAmounts(items, recipeList);
-                var itemsNeeded = GenerateItemAmounts(items, recipeAmounts);
+                var test = recipeList[0];
+
+                var recipeAmounts = GenerateRecipeAmounts(itemsBuilt, recipeList);
+                var itemsNeeded = GenerateItemAmounts(itemsBuilt, recipeAmounts);
 
                 var tempPermutations = ProcessBuildPhase(itemsNeeded, recipeList, updatedUsedRecipes);
 
@@ -127,7 +132,7 @@ namespace SatisfactoryProductionator.Services.Data
             return permutations;
         }
 
-        private void CalculateBuildingData(Node node)
+        private void HydrateData(Node node)
         {
             if (node.NodeType is NodeType.Import) return;
 
@@ -136,17 +141,18 @@ namespace SatisfactoryProductionator.Services.Data
             if (node.NodeType is NodeType.Build)
             {
                 node.BuildingQuantity = (int)Math.Ceiling(node.RecipeQuantity);
+                node.ByProductQuantity *= node.RecipeQuantity;
             }
             else
             {
                 var extraction = _codex.Extractions.First(x => x.ClassName == node.Recipe);
                 var rate = extraction.Output == "Ore" ? extraction.Rates[1] : extraction.Rates[0];
-                
+
                 node.RecipeQuantity = node.ItemQuantity / rate;
                 node.BuildingQuantity = (int)(Math.Ceiling(node.ItemQuantity / rate));
             }
 
-            node.PowerUsed = building.PowerRating[0] * 60 * node.RecipeQuantity;
+            node.PowerUsed = building.PowerRating[0] * node.RecipeQuantity;
 
             var cost = building.Cost;
 
@@ -262,45 +268,61 @@ namespace SatisfactoryProductionator.Services.Data
 
             foreach (var item in itemsBuilt)
             {
-                var recipeName = GetMatchingRecipeName(item.Key, recipeList);
+                var recipe = GetMatchingRecipe(item.Key, recipeList);
 
                 if (perm.Nodes.Any(x => x.Name == item.Key))
                 {
                     var node = perm.Nodes.First(x => x.Name == item.Key);
 
                     node.ItemQuantity += item.Value;
-                    node.RecipeQuantity += recipeAmounts[recipeName];
+                    node.RecipeQuantity += recipeAmounts[recipe.ClassName];
+
+                    if(recipe.Outputs.Count > 1)
+                    {
+                        var byProduct = recipe.Outputs.Last();
+                        node.ByProduct = byProduct.Key;
+                        node.ByProductQuantity = byProduct.Value[1];
+                    }
                 }
                 else
                 {
-                    perm.Nodes.Add(new Node()
+                    var node = new Node()
                     {
                         Name = item.Key,
                         NodeType = NodeType.Build,
                         ItemQuantity = item.Value,
-                        Recipe = recipeName,
-                        RecipeQuantity = recipeAmounts[recipeName],
-                        Building = _codex.Recipes.First(x => x.ClassName == recipeName).Building,
-                    });
+                        Recipe = recipe.ClassName,
+                        RecipeQuantity = recipeAmounts[recipe.ClassName],
+                        Building = recipe.Building,
+                    };
+
+                    if (recipe.Outputs.Count > 1)
+                    {
+                        var byProduct = recipe.Outputs.Last();
+                        node.ByProduct = byProduct.Key;
+                        node.ByProductQuantity = byProduct.Value[1];
+                    }
+
+                    perm.Nodes.Add(node);
                 }
             }
         }
 
         private void AddInputs(Permutation perm, Dictionary<string, double> inputsNeeded)
         {
-            foreach(var input in inputsNeeded)
+            foreach (var input in inputsNeeded)
             {
-                if(perm.Nodes.Any(x => x.Name == input.Key))
+                if (perm.Nodes.Any(x => x.Name == input.Key))
                 {
                     var node = perm.Nodes.First(x => x.Name == input.Key);
 
                     node.ItemQuantity += input.Value;
                 }
-                else 
+                else
                 {
                     var extractionName = GetInputRecipe(input.Key);
                     var buildingName = GetInputBuilding(extractionName);
-                    
+
                     perm.Nodes.Add(new Node()
                     {
                         Name = input.Key,

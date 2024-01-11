@@ -45,6 +45,8 @@
                                 <tr>
                                     <th>Options</th>
                                     <th>Inputs</th>
+                                    <th>Outputs</th>
+                                    <th>Power</th>
                                     <th>Items</th>
                                     <th>Buildings</th>
                                     <th>Building Cost</th>
@@ -56,19 +58,18 @@
                             {
                                 <div data-augmented-ui-reset></div>
                                 <tr data-augmented-ui="tl-clip tr-clip bl-clip br-clip border" class="perm-row">
-                                    <td data-augmented-ui="tl-clip tr-clip bl-clip br-clip border" class="options">
-                                        @* <div data-augmented-ui="tl-clip tr-clip bl-clip br-clip border" class="options"> *@
-                                        <div class="text">Power Used</div>
-                                        <div class="text"> @GetPowerTotal(permutation) MW/Min</div>
-                                        @* </div> *@
+                                    @* Options *@
+                                    <td>
+                                        <div class="text">Options</div>
                                     </td>
 
+                                    @* Inputs *@
                                     <td>
                                         <table>
                                             <tr>
                                                 <td>
                                                     <div class="flex-wrap item-list">
-                                                        @foreach (var input in permutation.Nodes.Where(x => x.NodeType is NodeType.Input))
+                                                        @foreach (var input in GetInputs(permutation))
                                                         {
                                                             <div class="flex-col m5">
                                                                 <img class="image-48" src=@CodexState.FetchIconPath(input.Name) alt=@input.Name />
@@ -81,12 +82,55 @@
                                         </table>
                                     </td>
 
+                                    @* Outputs *@
                                     <td>
                                         <table>
                                             <tr>
                                                 <td>
                                                     <div class="flex-wrap item-list">
-                                                        @foreach (var item in permutation.Nodes.Where(x => x.NodeType is NodeType.Build))
+                                                        @foreach (var input in GetOutputs(permutation))
+                                                        {
+                                                            <div class="flex-col m5">
+                                                                <img class="image-48" src=@CodexState.FetchIconPath(input.Key) alt=@input.Key />
+                                                                <div class="text">@CodexState.FetchDisplayName(input.Key).FormatDisplayName() - @Math.Round(input.Value,2)</div>
+                                                            </div>
+                                                        }
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+
+                                    @* Power *@
+                                    <td>
+                                        <table>
+                                            <tr>
+                                                <td data-augmented-ui="tl-clip tr-clip bl-clip br-clip border" class="options">
+                                                    @{
+                                                        var power = GetPowerTotal(permutation);
+                                                    }
+                                                    <div class="flex-col m5">
+
+                                                        <img class="image-48" src=@CodexState.FetchIconPath("GeneratorFuel") alt="GeneratorFuel" />
+                                                        <div class="text">@CodexState.FetchDisplayName("GeneratorFuel").FormatDisplayName()</div>
+                                                        <div class="text">@power MW</div>
+                                                        <img class="image-48" src=@CodexState.FetchIconPath("LiquidFuel") alt="GeneratorFuel" />
+                                                        <div class="text">@CodexState.FetchDisplayName("LiquidFuel").FormatDisplayName()</div>
+                                                        <div class="text">@GetFuelConsumption(power) /Min</div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+
+                                    @* Items *@
+                                    <td>
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    <div class="flex-wrap item-list">
+                                                        @foreach (var item in GetItemsBuilt(permutation))
+                                                        @* @foreach (var item in permutation.Nodes.Where(x => x.NodeType is NodeType.Build).OrderBy(x => x.Name)) *@
                                                         {
                                                             <div class="flex-col m5">
                                                                 <img class="image-48" src=@CodexState.FetchIconPath(item.Name) alt=@item.Name />
@@ -100,6 +144,7 @@
                                         </table>
                                     </td>
 
+                                    @* Buildings *@
                                     <td>
                                         <table>
                                             <tr>
@@ -120,6 +165,7 @@
                                         </table>
                                     </td>
 
+                                    @* Infra Cost *@
                                     <td>
                                         <table>
                                             <tr>
@@ -174,17 +220,81 @@
         PermState.OnStateChange -= StateHasChanged;
     }
 
+    private List<Node> GetInputs(Permutation permutation)
+    {
+        return permutation.Nodes.Where(x => x.NodeType is NodeType.Input).OrderBy(x => x.Name).ToList();
+    }
+
+    private Dictionary<string, double> GetOutputs(Permutation permutation)
+    {
+        var targetItems = PermState.Items;
+
+        var byProducts = permutation.Nodes.Where(x => !string.IsNullOrEmpty(x.ByProduct))
+            .GroupBy(node => node.ByProduct)
+            .ToDictionary(group => group.Key, group => group.Sum(node => node.ByProductQuantity));
+
+        var totalItems = targetItems.Concat(byProducts)
+                      .GroupBy(x => x.Key)
+                      .OrderBy(group => group.Key)
+                      .ToDictionary(group => group.Key, group => group.Sum(x => x.Value));
+
+        return totalItems;
+    }
+
+    private List<NodeStruct> GetItemsBuilt(Permutation permutation)
+    {
+        var targetItems = PermState.Items;
+
+        var items = new List<NodeStruct>();
+
+        foreach (var item in permutation.Nodes.Where(x => x.NodeType is NodeType.Build).OrderBy(x => x.Name))
+        {
+            if (targetItems.ContainsKey(item.Name))
+            {
+                var newQuantity = item.ItemQuantity - targetItems[item.Name];
+
+                if (newQuantity > 0)
+                {
+                    var ratio = newQuantity / item.ItemQuantity;
+                    var newRecipeQuantity = item.RecipeQuantity * ratio;
+
+                    items.Add(new NodeStruct
+                        {
+                            Name = item.Name,
+                            ItemQuantity = newQuantity,
+                            Recipe = item.Recipe,
+                            RecipeQuantity = newRecipeQuantity
+                        });
+
+                }
+            }
+            else
+            {
+                items.Add(new NodeStruct
+                    {
+                        Name = item.Name,
+                        ItemQuantity = item.ItemQuantity,
+                        Recipe = item.Recipe,
+                        RecipeQuantity = item.RecipeQuantity
+                    });
+            }
+        }
+
+        return items;
+    }
+
     private double GetPowerTotal(Permutation permutation)
     {
         var powerUsed = permutation.Nodes.Sum(x => x.PowerUsed);
 
-        return Math.Round(powerUsed, 2);
+        return Math.Round(powerUsed, 1);
     }
 
     private Dictionary<string, double> GetTotalInfraCost(Permutation permutation)
     {
         var items = permutation.Nodes
             .SelectMany(node => node.InfraCost)
+            .OrderBy(x => x.Key)
             .GroupBy(item => item.Key)
             .ToDictionary(group => group.Key, group => group.Sum(item => item.Value));
 
@@ -194,9 +304,16 @@
     private Dictionary<string, int> GetTotalBuildings(Permutation permutation)
     {
         var buildings = permutation.Nodes
+            .OrderBy(x => x.Building)
             .GroupBy(node => node.Building)
             .ToDictionary(group => group.Key, group => group.Sum(node => node.BuildingQuantity));
 
         return buildings;
+    }
+
+    private double GetFuelConsumption(double power)
+    {
+        var gensNeeded = power / 150;
+        return Math.Round(gensNeeded * 12, 2);
     }
 }

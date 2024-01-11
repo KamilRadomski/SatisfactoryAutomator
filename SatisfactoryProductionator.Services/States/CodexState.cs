@@ -135,6 +135,11 @@ namespace SatisfactoryProductionator.Services.States
             var items = Codex.CodexItems.Where(x => x.CodexCategory is CodexCategory.Item)
                 .Select(x => x as Item).ToList();
 
+            //TODO temp fix
+            var coal = items.First(x => x.ClassName == "Coal");
+
+            items.Remove(coal);
+
             return items.Where(x => x.AutoRecipes.Any()).ToList();
         }
 
