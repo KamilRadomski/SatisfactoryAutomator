@@ -37,8 +37,9 @@
 }
 
 .loading {
-    top: 10px;
-    left: 20px;
+    top: 20px;
+    left: 35px;
+    font-size: 24px;
 }
 
 .no-spin::-webkit-outer-spin-button,

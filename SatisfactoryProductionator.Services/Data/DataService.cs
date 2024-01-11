@@ -3,7 +3,7 @@ using SatisfactoryProductionator.DataModels.Models.Codex;
 using System.Text.Json;
 
 
-namespace SatisfactoryProductionator.DataService
+namespace SatisfactoryProductionator.Services.Data
 {
     public class DataService : IDataService
     {

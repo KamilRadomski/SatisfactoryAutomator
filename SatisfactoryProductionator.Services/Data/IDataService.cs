@@ -1,6 +1,6 @@
 ﻿using SatisfactoryProductionator.DataModels.Models.Codex;
 
-namespace SatisfactoryProductionator.DataService
+namespace SatisfactoryProductionator.Services.Data
 {
     public interface IDataService
     {

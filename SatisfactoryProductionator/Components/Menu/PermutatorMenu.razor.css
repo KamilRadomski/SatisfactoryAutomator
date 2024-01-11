@@ -30,3 +30,46 @@
     .add-btn:hover span {
         color: var(--sfBlueHover);
     }
+
+
+div.item-wrapper {
+    left: 10px;
+    height: calc(100vh - 402px);
+    width: 262px;
+    --aug-border-y: 2px;
+    --aug-border-x: -1px;
+    --aug-border-bg: var(--sfBlue);
+    --aug-tl: 10px;
+    --aug-tr: 10px;
+    --aug-bl: 23px;
+    --aug-br: 10px;
+}
+
+.list-wrapper {
+    left: 0px;
+    width: 262px;
+    height: calc(100vh - 402px);
+    position: absolute;
+    overflow: auto;
+    overflow-x: hidden;
+    transition: .3s;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+    .list-wrapper::-webkit-scrollbar {
+        width: 3px;
+    }
+
+    .list-wrapper::-webkit-scrollbar-track {
+        background: var(--sfBlue40);
+        border-radius: 100vh;
+        margin-block: 2em;
+        margin-block-start: 2em;
+    }
+
+    .list-wrapper::-webkit-scrollbar-thumb {
+        border: 3px solid rgba(255, 255, 255, .15);
+        border-radius: 100vh;
+        background: var(--sfBlue40);
+    }

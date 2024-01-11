@@ -1,7 +1,9 @@
 ﻿@page "/"
+
 @using SatisfactoryProductionator.DataModels.Enums;
 @using SatisfactoryProductionator.DataModels.Models
 @using SatisfactoryProductionator.Services;
+@using SatisfactoryProductionator.Services.States;
 
 @inject HttpClient Http
 @inject CodexState CodexState
@@ -45,34 +47,25 @@
 
         <h2>Current Tasks</h2>
         <ul>
-            <li>Minor Issues</li>
+            <li>Minor Issues and things</li>
             <li>
                 <ul>
-                    <li>Loading text when refreshing needs to move</li>
-                    <li>Empty Codex panel missing extra info filler</li>
+                    <li>Test each item for recursion loops or auto recipes that need to be removed</li>
                 </ul>
             </li>
             <li class="c"> Permutator Page</li>
             <li>
                 <ul>
-                    <li>Side Menu</li>
+                    <li>General</li>
                     <li>
                         <ul>
-                            <li>List desired items and quantities</li>
-                        </ul>
-                    </li>
-                    <li>Modal</li>
-                    <li>
-                        <ul>
-                            <li>List out possible choices on bottom half - removing what is already selected</li>
-                            <li>top portion will contain what is targeted</li>
-                            <li>Option to clear all or remove one item</li>
-                            <li>some kind of widget to handle quantity easily</li>
+                            <li>Add Byproduct Parameter on node for overflow items</li>
+                            <li>Add Overflow logic into permutations</li>
+                            <li>Add Options for miner level, node purity, and water/oil extraction type</li>
                         </ul>
                     </li>
                     <li>Filters</li>
                     <ul>
-                        <li>Filter section on top</li>
                         <li>Make expandable - default to small</li>
                         <li>List items with their recipes</li>
                         <li>Option to import certain item from storage</li>
@@ -80,25 +73,17 @@
                         <li>reset option</li>
                         <li>raw resource filter</li>
                     </ul>
-                    <li>Perm List</li>
+                    <li class="c">Perm List</li>
                     <li>
                         <ul>
-                            <li>Each row will have aggregated data - no individual steps from POC</li>
-                            <li>Pagination to reduce insance icon load</li>
+                            <li>Pagination to reduce insane icon load</li>
                             <li>Option to freeze row for comparison</li>
                             <li>Option to set all recipes in a permutation as defaults</li>
-                            <li>Option to remove row - restoring will be in filter section</li>
                             <li>Option to send to grapher</li>
-                            <li>Row Data</li>
+                            <li>Option to remove row</li>
                             <li>
                                 <ul>
                                     <li>Option section - remove, freeze, set as defaults, row num</li>
-                                    <li>Targeted item count with overflow items</li>
-                                    <li>Items used with recipe</li>
-                                    <li>Raw materials with imports</li>
-                                    <li>Power used</li>
-                                    <li>Buildings used</li>
-                                    <li>Infra cost</li>
                                 </ul>
                             </li>
                         </ul>
@@ -164,23 +149,17 @@
             </li>
         </ul>
 
-        <h2>Back Burner Items</h2>
-        <li>
-            <ul>
-                <li>Codex</li>
-                <li>
-                    <ul>
-                        <li>nuclear - by products</li>
-                        <li>Add Tier # to Items</li>
-                        <li>Add Handcraftable info for items/equipment with which workbench to use</li>
-                        <li>Add found tapes to boombox</li>
-                    </ul>
-                </li>
-            </ul>
-        </li>
-
         <h2>Stretch Goals</h2>
         <ul>
+            <li>Codex</li>
+            <li>
+                <ul>
+                    <li>nuclear - by products</li>
+                    <li>Add Tier # to Items</li>
+                    <li>Add Handcraftable info for items/equipment with which workbench to use</li>
+                    <li>Add found tapes to boombox</li>
+                </ul>
+            </li>
             <li>Cookies to store preferred Recipes</li>
             <li>option to save/export production lines</li>
             <li>Predefined production lines if saving production lines gets implemented</li>

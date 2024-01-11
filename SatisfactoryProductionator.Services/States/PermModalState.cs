@@ -1,6 +1,6 @@
 ﻿using SatisfactoryProductionator.DataModels.Models.Codex;
 
-namespace SatisfactoryProductionator.Services
+namespace SatisfactoryProductionator.Services.States
 {
     public class PermModalState
     {
@@ -14,8 +14,8 @@ namespace SatisfactoryProductionator.Services
 
         public Item SelectedItem { get; set; }
 
-        public int SelectAmount { get; set; }
-        
+        public double SelectAmount { get; set; }
+
 
         public PermModalState(CodexState codexState, PermState permState)
         {
@@ -28,26 +28,26 @@ namespace SatisfactoryProductionator.Services
             _permState = permState;
         }
 
-        public void SetSelectedItem(string className, int amount = 0)
+        public void SetSelectedItem(string className, double amount = 0)
         {
             var item = _codexState.FetchItem(className) as Item;
             SetSelectedItem(item, amount);
         }
 
-        public void SetSelectedItem(Item item, int amount = 0) 
+        public void SetSelectedItem(Item item, double amount = 0)
         {
-            if(_permState.IsItemAdded(item.ClassName))
+            if (_permState.IsItemAdded(item.ClassName))
             {
                 amount = _permState.Items[item.ClassName];
             }
-            
+
             SelectAmount = amount;
             Active = true;
             SelectedItem = item;
             NotifyStateChanged();
         }
 
-        public void AddAmount(int amount)
+        public void AddAmount(double amount)
         {
             if (SelectAmount + amount < 0)
             {
@@ -57,15 +57,15 @@ namespace SatisfactoryProductionator.Services
             {
                 SelectAmount = 10000;
             }
-            else 
-            { 
-                SelectAmount += amount;  
+            else
+            {
+                SelectAmount += amount;
             }
 
             NotifyStateChanged();
         }
 
-        public void SetAmount(int amount)
+        public void SetAmount(double amount)
         {
             SelectAmount = 0;
 
@@ -82,7 +82,7 @@ namespace SatisfactoryProductionator.Services
             NotifyStateChanged();
         }
 
-        public void AddUpdateSelected(string className, int amount)
+        public void AddUpdateSelected(string className, double amount)
         {
             _permState.AddUpdateItem(className, amount);
 
@@ -105,6 +105,7 @@ namespace SatisfactoryProductionator.Services
         public void CloseModal()
         {
             Active = false;
+            _permState.GeneratePermutations(false);
             NotifyStateChanged();
         }
 

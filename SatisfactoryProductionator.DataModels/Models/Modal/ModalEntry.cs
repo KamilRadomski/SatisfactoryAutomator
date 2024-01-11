@@ -1,6 +1,6 @@
 ﻿using SatisfactoryProductionator.DataModels.Models.Codex;
 
-namespace SatisfactoryProductionator.DataModels.Models
+namespace SatisfactoryProductionator.DataModels.Models.Modal
 {
     public class ModalEntry
     {

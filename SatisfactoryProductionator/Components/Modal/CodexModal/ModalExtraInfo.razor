@@ -1,7 +1,8 @@
 ﻿@using SatisfactoryProductionator.Components.Modal.CodexModal.ExtraInfo
 @using SatisfactoryProductionator.DataModels.Enums;
-@using SatisfactoryProductionator.DataModels.Models;
-@using SatisfactoryProductionator.Services;
+@using SatisfactoryProductionator.DataModels.Models.Codex;
+@using SatisfactoryProductionator.DataModels.Models.Modal;
+@using SatisfactoryProductionator.Services.States;
 
 @inject CodexModalState CodexModalState;
 
@@ -10,17 +11,21 @@
 <div data-augmented-ui="tr-clip br-clip border" class="details">
     <div data-augmented-reset></div>
     <div data-augmented-ui="tl-clip tr-clip br-clip bl-clip border" class="details-inner">
-        @if(selectedEntry != null)
-    {
-        if(selectedEntry.CodexEntry.CodexCategory is CodexCategory.Item)
+        @if (selectedEntry != null)
         {
-            <RecipeExtraInfo />
+            if (selectedEntry.CodexEntry.CodexCategory is CodexCategory.Item)
+            {
+                <RecipeExtraInfo />
+            }
+            else
+            {
+                <CostExtraInfo />
+            }
         }
         else
         {
-            <CostExtraInfo />
-        }       
-    }
+            <FillerExtraInfo />
+        }
     </div>
 </div>
 
