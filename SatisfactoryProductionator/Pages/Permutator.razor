@@ -43,7 +43,7 @@
                         <table class="perm-table">
                             <thead class="divider">
                                 <tr>
-                                    <th>Options</th>
+                                    <th>@PermState.Permutations.Count()</th>
                                     <th>Inputs</th>
                                     <th>Outputs</th>
                                     <th>Power</th>
@@ -54,7 +54,7 @@
                             </thead>
                             @* <tr class="header-row"></tr> *@
 
-                            @foreach (var permutation in PermState.Permutations)
+                            @foreach (var permutation in PermState.Permutations.Take(20))
                             {
                                 <div data-augmented-ui-reset></div>
                                 <tr data-augmented-ui="tl-clip tr-clip bl-clip br-clip border" class="perm-row">
