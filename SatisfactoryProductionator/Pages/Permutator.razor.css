@@ -135,6 +135,8 @@
 .text {
     white-space: nowrap;
     font-size: 12px;
+    text-align: left;
+    margin-left: 2px;
 }
 
 .section {
@@ -153,12 +155,12 @@
     min-width: 300px;
     min-height: 100px;
     --aug-border-x: 1.5px;
-    --aug-border-y: -.5px;
+    --aug-border-y: .5px;
     --aug-border-bg: var(--sfBlue);
-    --aug-tl: 10px;
+    --aug-tl: 15px;
     --aug-tr: 10px;
-    --aug-bl: 10px;
-    --aug-br: 10px;
+    --aug-bl: 20px;
+    --aug-br: 15px;
 }
 
 .perm-cell {
@@ -166,9 +168,9 @@
 }
 
 thead th {
-    text-align: left;
+    text-align: center;
     position: sticky;
-    top: 0; /* Set the top edge of the sticky header */
+    top: 0; 
     z-index: 100;
     padding-left: 15px;
     background: black;
@@ -185,8 +187,9 @@ divider {
 
 .table-wrapper {
     overflow-y: auto;
-    height: calc(100vh - 203px);
+    height: calc(100vh - 210px);
     padding-right: 10px;
+    padding-bottom: 12px;
 }
 
     .table-wrapper::-webkit-scrollbar {
@@ -203,4 +206,65 @@ divider {
     .table-wrapper::-webkit-scrollbar-thumb {
         border-radius: 100vh;
         background: var(--sfBlue40);
+    }
+
+
+.nav-btn {
+    height: 30px;
+    width: 20px;
+    background: unset;
+    border: unset;
+}
+
+.nav-icon {
+    color: var(--sfBlue40);
+    font-family: Icons;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 28px;
+}
+
+    .nav-icon:hover {
+        color: var(--sfBlue70);
+    }
+
+    .nav-icon:active {
+        color: var(--sfBlue);
+    }
+
+.pagination-wrapper {
+    display: flex;
+    margin-left: 48px;
+    margin-right: 48px;
+    height: 38px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.pagination-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.pages {
+    margin-right: 10px;
+}
+
+.divider {
+    position: relative;
+}
+
+    .divider:before {
+        content: '';
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: linear-gradient( to bottom, black 0%, var(--sfBlue40) 40%, var(--sfBlue40) 60%, black 100% );
+    }
+
+    .content-wrapper {
+        display: flex;
     }

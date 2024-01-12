@@ -14,7 +14,8 @@ namespace SatisfactoryProductionator.Services.States
 
         public List<Permutation> Permutations { get; set; } = new List<Permutation>();
 
-        public Node HeadNode { get; set; }
+        public int PageSize { get; set; } = 20;
+        public int Index { get; set; } = 0;
 
         public PermState(CodexState codexState, IGrapher grapher)
         {
@@ -71,6 +72,39 @@ namespace SatisfactoryProductionator.Services.States
 
                 NotifyStateChanged();
             }
+        }
+
+        public void SetPageLeft()
+        {
+            if(Index == 0)
+            {
+                Index = GetPageCount() - 1;
+            }
+            else 
+            { 
+                Index--; 
+            }
+
+            NotifyStateChanged();
+        }
+
+        public void SetPageRight()
+        {
+            if(Index == GetPageCount() - 1)
+            {
+                Index = 0;
+            }
+            else
+            {
+                Index++;
+            }
+
+            NotifyStateChanged();
+        }
+
+        public int GetPageCount()
+        {
+            return Permutations.Count / PageSize + 1;
         }
     }
 }

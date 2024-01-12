@@ -9,6 +9,7 @@
 .mt-48 {margin-top: 48px;}
 
 .m5 {margin: 5px;}
+.m10 {margin: 10px;}
 
 .font-12 {font-size: 12px;}
 .font-14 {font-size: 14px;}
@@ -19,6 +20,7 @@
 .pos-abs {position: absolute;}
 .pos-rel {position: relative;}
 
+.w100 {width: 100%;}
 .w99 {width: 99%;}
 .w97 {width: 97%;}
 
@@ -35,6 +37,10 @@
 
 .self-center {
     justify-self: center;
+}
+
+.self-align {
+    align-self: center;
 }
 
 .flex {
@@ -70,6 +76,11 @@
 .flex-right {
     display: flex;
     justify-content: right;
+}
+
+.flex-left {
+    display: flex;
+    justify-content: left;
 }
 
 .flex-end {
@@ -110,4 +121,16 @@
 .no-flow {
     overflow-y: hidden;
     overflow-x: hidden;
+}
+
+.img-down {
+    position: relative;
+    top: 24px;
+}
+
+.temp {
+    font-size: 16px;
+    top: 24px;
+    position: relative;
+    left: 24px;
 }

@@ -55,7 +55,7 @@ namespace SatisfactoryProductionator.Services.Data
                 var item = _codex.CodexItems.First(x => x.ClassName == target) as Item;
 
                 //TODO Fix in jsconverter
-                var recipes = item.AutoRecipes.Where(x => !x.StartsWith("Recipe_Unpackage") && !x.StartsWith("Recipe_Alternate_Recycled")).ToList();
+                var recipes = item.AutoRecipes.Where(x => !x.StartsWith("Recipe_Unpackage") && !x.StartsWith("Recipe_Alternate_RecycledRubber") && !x.StartsWith("Recipe_Alternate_Plastic")).ToList();
 
                 if (usedRecipes.Any() && usedRecipes.Any(x => recipes.Contains(x)))
                 {
@@ -93,7 +93,7 @@ namespace SatisfactoryProductionator.Services.Data
 
         private List<Permutation> ProcessBuildPhase(Dictionary<string, double> items, List<string> recipes, List<string> usedRecipes)
         {
-            if(_count >= 10000)
+            if(_count >= 100000)
             {
                 return new List<Permutation>();
             }
