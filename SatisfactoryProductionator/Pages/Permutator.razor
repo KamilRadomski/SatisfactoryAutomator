@@ -43,7 +43,7 @@
                         <table class="perm-table">
                             <thead class="divider">
                                 <tr>
-                                    <th>@PermState.Permutations.Count()</th>
+                                    <th>Options</th>
                                     <th>Inputs</th>
                                     <th>Outputs</th>
                                     <th>Power</th>
@@ -54,7 +54,7 @@
                             </thead>
                             @* <tr class="header-row"></tr> *@
 
-                            @foreach (var permutation in PermState.Permutations.Take(20))
+                            @foreach (var permutation in GetCurrentPage())
                             {
                                 <div data-augmented-ui-reset></div>
                                 <tr data-augmented-ui="tl-clip tr-clip bl-clip br-clip border" class="perm-row">
@@ -188,6 +188,21 @@
                         </table>
                     </div>
                 </div>
+
+                <div class="pagination-wrapper">
+                    <div class="stats">@GetPermStat()</div>
+                    <div class="pagination-box">
+                        <div class="pages">@GetPageStat()</div>
+                        <div class="page-nav">
+                            <button type="button" class="nav-btn" @onclick=@(() => PermState.SetPageLeft())>
+                                <span class="nav-icon oi-caret-left" aria-hidden="true"></span>
+                            </button>
+                            <button type="button" class="nav-btn" @onclick=@(() => PermState.SetPageRight())>
+                                <span class="nav-icon oi-caret-right" aria-hidden="true"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
             }
         </div>
 
@@ -315,5 +330,26 @@
     {
         var gensNeeded = power / 150;
         return Math.Round(gensNeeded * 12, 2);
+    }
+
+    private List<Permutation> GetCurrentPage()
+    {
+        var index = PermState.Index;
+        var pageSize = PermState.PageSize;
+
+        return PermState.Permutations.Skip(index * pageSize).Take(pageSize).ToList();
+    }
+
+    private string GetPermStat()
+    {
+        var active = PermState.Permutations.Where(x => x.Active).Count();
+        var total = PermState.Permutations.Count();
+
+        return $"{active} / {total} Active";
+    }
+
+    private string GetPageStat()
+    {
+        return $"Page {PermState.Index + 1} / {PermState.GetPageCount()}";
     }
 }

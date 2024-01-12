@@ -204,3 +204,46 @@ divider {
         border-radius: 100vh;
         background: var(--sfBlue40);
     }
+
+
+.nav-btn {
+    height: 30px;
+    width: 20px;
+    background: unset;
+    border: unset;
+}
+
+.nav-icon {
+    color: var(--sfBlue40);
+    font-family: Icons;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 28px;
+}
+
+    .nav-icon:hover {
+        color: var(--sfBlue70);
+    }
+
+    .nav-icon:active {
+        color: var(--sfBlue);
+    }
+
+.pagination-wrapper {
+    display: flex;
+    margin-left: 48px;
+    margin-right: 48px;
+    height: 38px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.pagination-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.pages {
+    margin-right: 10px;
+}
