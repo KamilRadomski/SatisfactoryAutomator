@@ -52,6 +52,13 @@ namespace SatisfactoryProductionator.Services.States
             return item.DisplayName;
         }
 
+        public string FetchRecipeDisplayName(string className)
+        {
+            var recipe = Codex.Recipes.FirstOrDefault(x => x.ClassName == className);
+
+            return recipe.DisplayName;
+        }
+
         public string FetchRSP(string className)
         {
             var entry = FetchItem(className);
