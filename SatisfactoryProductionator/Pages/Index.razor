@@ -50,9 +50,20 @@
             <li>Minor Issues and things</li>
             <li>
                 <ul>
-                    <li>Test each item for recursion loops or auto recipes that need to be removed</li>
+                    <li></li>
                 </ul>
             </li>
+            <li class="c">Permutation Refactor</li>
+            <li>
+                <ul>
+                    <li>Rework logic to just stub in item and recipe</li>
+                    <li>Change Node to hold objects vs strings for memory opt</li>
+                    <li>Add PermStatus Enum to handle state - initialized, hydrated, Graphed</li>
+                    <li>Pulling perms for current page will check status and hydrate if needed</li>
+                    <li>hydrate will rerun second perm logic to add values</li>
+                </ul>
+            </li>
+
             <li class="c"> Permutator Page</li>
             <li>
                 <ul>
@@ -65,25 +76,26 @@
                         </ul>
                     </li>
                     <li>Filters</li>
-                    <ul>
-                        <li>Make expandable - default to small</li>
-                        <li>List items with their recipes</li>
-                        <li>Option to import certain item from storage</li>
-                        <li>Building filter</li>
-                        <li>reset option</li>
-                        <li>raw resource filter</li>
-                    </ul>
+                    <li>
+                        <ul>
+                            <li>Make expandable - default to small</li>
+                            <li>List items with their recipes</li>
+                            <li>Option to import certain item from storage</li>
+                            <li>Building filter</li>
+                            <li>reset option</li>
+                            <li>raw resource filter</li>
+                        </ul>
+                    </li>
                     <li class="c">Perm List</li>
                     <li>
                         <ul>
-                            <li>Pagination to reduce insane icon load</li>
-                            <li>Option to freeze row for comparison</li>
+                            
                             <li>Option to set all recipes in a permutation as defaults</li>
                             <li>Option to send to grapher</li>
                             <li>Option to remove row</li>
                             <li>
                                 <ul>
-                                    <li>Option section - remove, freeze, set as defaults, row num</li>
+                                    <li>Option section - Details, Graph, Remove</li>
                                 </ul>
                             </li>
                         </ul>
@@ -158,6 +170,13 @@
                     <li>Add Tier # to Items</li>
                     <li>Add Handcraftable info for items/equipment with which workbench to use</li>
                     <li>Add found tapes to boombox</li>
+                </ul>
+            </li>
+            <li>Permutator</li>
+            <li>
+                <ul>
+                    <li>Option to freeze row for comparison</li>
+                    <li></li>
                 </ul>
             </li>
             <li>Cookies to store preferred Recipes</li>
