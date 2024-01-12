@@ -59,12 +59,12 @@
                                 <div data-augmented-ui-reset></div>
                                 <tr data-augmented-ui="tl-clip tr-clip bl-clip br-clip border" class="perm-row">
                                     @* Options *@
-                                    <td>
+                                    <td class="divider">
                                         <div class="text">Options</div>
                                     </td>
 
                                     @* Inputs *@
-                                    <td>
+                                    <td class="divider">
                                         <table>
                                             <tr>
                                                 <td>
@@ -83,7 +83,7 @@
                                     </td>
 
                                     @* Outputs *@
-                                    <td>
+                                    <td class="divider">
                                         <table>
                                             <tr>
                                                 <td>
@@ -102,10 +102,11 @@
                                     </td>
 
                                     @* Power *@
-                                    <td>
+                                    <td class="divider">
                                         <table>
                                             <tr>
-                                                <td data-augmented-ui="tl-clip tr-clip bl-clip br-clip border" class="options">
+                                                @* <td data-augmented-ui="tl-clip tr-clip bl-clip br-clip border" class="item-list"> *@
+                                                <td>
                                                     @{
                                                         var power = GetPowerTotal(permutation);
                                                     }
@@ -124,7 +125,7 @@
                                     </td>
 
                                     @* Items *@
-                                    <td>
+                                    <td class="divider">
                                         <table>
                                             <tr>
                                                 <td>
@@ -145,7 +146,7 @@
                                     </td>
 
                                     @* Buildings *@
-                                    <td>
+                                    <td class="divider">
                                         <table>
                                             <tr>
                                                 <td>

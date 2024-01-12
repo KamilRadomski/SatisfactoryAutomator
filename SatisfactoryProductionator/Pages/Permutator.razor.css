@@ -153,12 +153,12 @@
     min-width: 300px;
     min-height: 100px;
     --aug-border-x: 1.5px;
-    --aug-border-y: -.5px;
+    --aug-border-y: .5px;
     --aug-border-bg: var(--sfBlue);
-    --aug-tl: 10px;
+    --aug-tl: 15px;
     --aug-tr: 10px;
-    --aug-bl: 10px;
-    --aug-br: 10px;
+    --aug-bl: 20px;
+    --aug-br: 15px;
 }
 
 .perm-cell {
@@ -166,9 +166,9 @@
 }
 
 thead th {
-    text-align: left;
+    text-align: center;
     position: sticky;
-    top: 0; /* Set the top edge of the sticky header */
+    top: 0; 
     z-index: 100;
     padding-left: 15px;
     background: black;
@@ -187,6 +187,7 @@ divider {
     overflow-y: auto;
     height: calc(100vh - 203px);
     padding-right: 10px;
+    padding-bottom: 20px;
 }
 
     .table-wrapper::-webkit-scrollbar {
@@ -247,3 +248,17 @@ divider {
 .pages {
     margin-right: 10px;
 }
+
+.divider {
+    position: relative;
+}
+
+    .divider:before {
+        content: '';
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: linear-gradient( to bottom, black 0%, var(--sfBlue40) 40%, var(--sfBlue40) 60%, black 100% );
+    }
