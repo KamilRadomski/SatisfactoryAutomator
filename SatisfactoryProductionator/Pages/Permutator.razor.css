@@ -172,10 +172,12 @@ thead th {
     position: sticky;
     top: 0; 
     z-index: 100;
-    padding-left: 15px;
     background: black;
     border-bottom: 1px solid var(--sfBlue40);
+}
 
+thead tr th:first-child {
+    padding-left: 15px;
 }
 
 divider {

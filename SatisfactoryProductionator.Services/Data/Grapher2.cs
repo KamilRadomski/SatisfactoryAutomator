@@ -1,6 +1,14 @@
 ﻿using SatisfactoryProductionator.DataModels.Enums;
 using SatisfactoryProductionator.DataModels.Models.Codex;
 using SatisfactoryProductionator.DataModels.Models.Graph;
+using System.Xml.Linq;
+
+
+//V2
+//Faster than V1
+//Caching attempt failed due to caching things that are suppressed in other branches that dirties results
+//Oscillators return
+//RIP are faster
 
 namespace SatisfactoryProductionator.Services.Data
 {
@@ -27,7 +35,7 @@ namespace SatisfactoryProductionator.Services.Data
 
         private List<PermData> ProcessBuildPhase(List<string> items, List<string> usedRecipes)
         {
-            //if (_count >= 10000)
+            //if (_count >= 60000)
             //{
             //    Completed = false;
 
@@ -162,7 +170,7 @@ namespace SatisfactoryProductionator.Services.Data
                 var permutation = new NewPermutation();
 
                 HydrateItemData(permutation, items, perm.Recipes, initial: true);
-                //HydrateBuildingData(permutation);
+                HydrateBuildingData(permutation, items);
 
                 permutations.Add(permutation);
             }
@@ -323,19 +331,84 @@ namespace SatisfactoryProductionator.Services.Data
             return itemsNeeded;
         }
 
-        private void HydrateBuildingData(object permutation)
+        private void HydrateBuildingData(NewPermutation permutation, Dictionary<string, double> items)
         {
-            throw new NotImplementedException();
+            //Inputs - skip imports once implemented
+            foreach(var (input, data) in permutation.Inputs)
+            {
+                var extraction = GetExtraction(input);
+                var building = (Building)_codex.CodexItems.First(x => x.ClassName == extraction.Building);
+                var rate = extraction.Output == "Ore" ? extraction.Rates[1] : extraction.Rates[0];
+
+                var quantifier = data.Quantity / rate;
+                var buildingCount = (int)(Math.Ceiling(quantifier));
+
+                permutation.Power += building.PowerRating[0] * quantifier;
+
+                AddBuilding(permutation, building, buildingCount);
+            }
+
+            //Outputs - do just target items, by products will be calculated in Items
+            foreach(var (output, data) in permutation.Outputs.Where(x => items.Keys.Contains(x.Key.ClassName)))
+            {
+                AddBuildingsFromItemData(permutation, data);
+            }
+
+            //Items
+            foreach (var (item, data) in permutation.Items)
+            {
+                AddBuildingsFromItemData(permutation, data);
+            }
+
+            //buildingCost -- has to be string due to equipment like portable miners or codexEntry
+            foreach (var (building, buildingCount) in permutation.Buildings)
+            {
+                foreach(var (cost, amount) in building.Cost.ItemCost)
+                {
+                    var quantity = buildingCount * amount;
+                    var item = _codex.CodexItems.First(x => x.ClassName == cost);
+
+                    if(permutation.Cost.ContainsKey(item))
+                    {
+                        permutation.Cost[item] += quantity;
+                    }
+                    else
+                    {
+                        permutation.Cost.Add(item, quantity);
+                    }
+                }
+            }
         }
 
-        private string GetInputRecipe(string className)
+        private Extraction GetExtraction(Item item)
         {
-            var item = _codex.CodexItems.First(x => x.ClassName == className);
             var page = item.Pages.First(x => x.PageType == PageType.Extraction);
             var extractClassName = page.Entries.First();
 
             //TODO Options later to have it pull specific miners and pumps -- default to miner mk1, water extractor and oil pump
-            return extractClassName;
+            return _codex.Extractions.First(x => x.ClassName == extractClassName); ;
+        }
+
+        private void AddBuildingsFromItemData(NewPermutation permutation, ItemData data)
+        {
+            var building = (Building)_codex.CodexItems.First(x => x.ClassName == data.Recipe.Building);
+            var buildingCount = (int)Math.Ceiling(data.RecipeQuantity);
+
+            permutation.Power += building.PowerRating[0] * data.RecipeQuantity;
+
+            AddBuilding(permutation, building, buildingCount);
+        }
+
+        private void AddBuilding(NewPermutation permutation, Building building, int  buildingCount)
+        {
+            if (permutation.Buildings.ContainsKey(building))
+            {
+                permutation.Buildings[building] += buildingCount;
+            }
+            else
+            {
+                permutation.Buildings.Add(building, buildingCount);
+            }
         }
 
         private string GetInputBuilding(string className)

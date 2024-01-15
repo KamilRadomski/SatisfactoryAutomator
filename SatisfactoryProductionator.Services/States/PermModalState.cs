@@ -113,8 +113,6 @@ namespace SatisfactoryProductionator.Services.States
         {
             _permState.ClearItems();
             NotifyStateChanged();
-            SelectAmount = 0;
-            SelectedItem = null;
         }
     }
 }

@@ -20,11 +20,10 @@
 }
 
 .item-name {
-    padding: 0px 16px 0px 0px;
-    text-align: right;
+    text-align: center;
 }
 
-.aug-btn img {
-    padding-right:20px;
+.img-wrapper {
+    margin: 5px 10px;
 }
 

@@ -8,7 +8,7 @@ namespace SatisfactoryProductionator.DataModels.Models.Graph
         public Dictionary<Item, ItemData> Outputs { get; set; } = new Dictionary<Item, ItemData>();
         public Dictionary<Item, ItemData> Items { get; set; } = new Dictionary<Item, ItemData>();
         public Dictionary<Building, double> Buildings { get; set; } = new Dictionary<Building,  double>();
-        public Dictionary<Item, double> Cost { get; set; } = new Dictionary<Item, double>();
+        public Dictionary<CodexEntry, double> Cost { get; set; } = new Dictionary<CodexEntry, double>();
         public double Power { get; set; }
     }
 }
