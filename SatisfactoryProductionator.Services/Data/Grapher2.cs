@@ -16,7 +16,7 @@ namespace SatisfactoryProductionator.Services.Data
     {
         private Codex _codex;
 
-        //private static int _count = 0;
+        private static int _count = 0;
 
         public static bool Completed { get; set; }
 
@@ -24,7 +24,7 @@ namespace SatisfactoryProductionator.Services.Data
         {
             _codex = codex;
 
-            //_count = 0;
+            _count = 0;
 
             Completed = true;
 
@@ -35,12 +35,12 @@ namespace SatisfactoryProductionator.Services.Data
 
         private List<PermData> ProcessBuildPhase(List<string> items, List<string> usedRecipes)
         {
-            //if (_count >= 60000)
-            //{
-            //    Completed = false;
+            if (_count >= 60000)
+            {
+                Completed = false;
 
-            //    return new List<PermData>();
-            //}
+                return new List<PermData>();
+            }
 
             var itemsBuilt = items.Where(x => !Constants.INPUTS.Contains(x)).ToList();
             var recipePerms = GenerateRecipePermutations(itemsBuilt, usedRecipes);
@@ -55,7 +55,7 @@ namespace SatisfactoryProductionator.Services.Data
                     Recipes = usedRecipes,
                 };
 
-                //_count++;
+                _count++;
 
                 return new List<PermData>() { permutation };
             }
