@@ -27,6 +27,8 @@
     {
         <div data-augmented-ui="tl-2-clip-x tr-clip br-2-clip-x bl-clip border" class="pos-abs filters-wrapper">
             <div class="temp">Filters + Options - TBD</div>
+
+            <button type="button" @onclick=@(() => PermState.GeneratePermutations(false))>Go</button>
         </div>
 
         <div data-augmented-ui="br-2-clip-y bl-2-clip-x border" class="pos-abs frozen-wrapper"></div>
@@ -56,7 +58,7 @@
                             </thead>
                             @* <tr class="header-row"></tr> *@
 
-                            @foreach (var permutation in GetCurrentPage())
+                            @foreach (var permutation in PermState.GetView())
                             {
                                 <div data-augmented-ui-reset></div>
                                 <tr data-augmented-ui="tl-clip tr-clip bl-clip br-clip border" class="perm-row">
@@ -72,14 +74,14 @@
                                                 <tr>
                                                     <td>
                                                         <div class="flex-wrap flex-center item-list">
-                                                            @foreach (var input in GetInputs(permutation))
+                                                            @foreach (var (input, data) in permutation.Inputs)
                                                             {
                                                                 <div class="flex-col flex-left m10">
                                                                     <div class="flex self-align">
-                                                                        <img class="image-48" src=@CodexState.FetchIconPath(input.Name) alt=@input.Name />
-                                                                        <div class="text">@Math.Round(input.ItemQuantity,2)</div>
+                                                                        <img class="image-48" src=@input.IconPath alt=@input.DisplayName />
+                                                                        <div class="text">@Math.Round(data.Quantity,2)</div>
                                                                     </div>
-                                                                    <div class="text">@CodexState.FetchDisplayName(input.Name).FormatDisplayName()</div>
+                                                                    <div class="text">@input.DisplayName.FormatDisplayName()</div>
                                                                 </div>
                                                             }
                                                         </div>
@@ -94,18 +96,19 @@
                                         <table class="w100">
                                             <tr>
                                                 <td>
-                                                    <div class="flex-wrap flex-center item-list">
-                                                        @foreach (var output in GetOutputs(permutation))
+                                                    <div class="flex-wrap flex-center flex-col item-list">
+                                                        @foreach (var (output, data) in permutation.Outputs)
                                                         {
                                                             <div class="flex-col flex-middle m10">
                                                                 <div class="flex self-align">
-                                                                    <img class="image-48" src=@CodexState.FetchIconPath(output.Name) alt=@output.Name />
-                                                                    <div class="text">@Math.Round(output.ItemQuantity,2)</div>
+                                                                    <img class="image-48" src=@output.IconPath alt=@output.DisplayName />
+                                                                    <div class="text">@Math.Round(data.Quantity,2)</div>
                                                                 </div>
-                                                                <div class="text">@CodexState.FetchRecipeDisplayName(output.Recipe).FormatDisplayName()</div>
-                                                                <div class="text">x @Math.Round(output.RecipeQuantity,2)</div>
+                                                                <div class="text">@data.Recipe.DisplayName.FormatDisplayName()</div>
+                                                                <div class="text">x @Math.Round(data.RecipeQuantity,2)</div>
                                                             </div>
                                                         }
+
                                                     </div>
                                                 </td>
                                             </tr>
@@ -117,17 +120,17 @@
                                         <table class="w100">
                                             <tr>
                                                 <td>
-                                                    @{
-                                                        var power = GetPowerTotal(permutation);
-                                                    }
-                                                    <div class="flex-col flex-middle m10 item-list">
-                                                        <div class="flex self-align">
-                                                            <img class="image-80" src=@CodexState.FetchIconPath("GeneratorFuel") alt="GeneratorFuel" />
-                                                            <img class="image-48 img-down" src=@CodexState.FetchIconPath("LiquidFuel") alt="GeneratorFuel" />
-                                                        </div>
-                                                        <div class="text">@power MW</div>
-                                                        <div class="text">@GetFuelConsumption(power) /Min</div>
-                                                    </div>
+                                                    @*  @{
+                                        var power = GetPowerTotal(permutation);
+                                        }
+                                        <div class="flex-col flex-middle m10 item-list">
+                                        <div class="flex self-align">
+                                        <img class="image-80" src=@CodexState.FetchIconPath("GeneratorFuel") alt="GeneratorFuel" />
+                                        <img class="image-48 img-down" src=@CodexState.FetchIconPath("LiquidFuel") alt="GeneratorFuel" />
+                                        </div>
+                                        <div class="text">@power MW</div>
+                                        <div class="text">@GetFuelConsumption(power) /Min</div>
+                                        </div> *@
                                                 </td>
                                             </tr>
                                         </table>
@@ -139,16 +142,15 @@
                                             <tr>
                                                 <td>
                                                     <div class="flex-wrap flex-center item-list">
-                                                        @foreach (var item in GetItemsBuilt(permutation))
-                                                        @* @foreach (var item in permutation.Nodes.Where(x => x.NodeType is NodeType.Build).OrderBy(x => x.Name)) *@
+                                                        @foreach (var (item, data) in permutation.Items)
                                                         {
                                                             <div class="flex-col flex-middle m10">
                                                                 <div class="flex self-align">
-                                                                    <img class="image-48" src=@CodexState.FetchIconPath(item.Name) alt=@item.Name />
-                                                                    <div class="text">@Math.Round(item.ItemQuantity,2)</div>
+                                                                    <img class="image-48" src=@item.IconPath alt=@item.DisplayName />
+                                                                    <div class="text">@Math.Round(data.Quantity,2)</div>
                                                                 </div>
-                                                                <div class="text">@CodexState.FetchRecipeDisplayName(item.Recipe).FormatDisplayName()</div>
-                                                                <div class="text">x @Math.Round(item.RecipeQuantity,2)</div>
+                                                                <div class="text">@data.Recipe.DisplayName.FormatDisplayName()</div>
+                                                                <div class="text">x @Math.Round(data.RecipeQuantity,2)</div>
                                                             </div>
                                                         }
                                                     </div>
@@ -157,72 +159,75 @@
                                         </table>
                                     </td>
 
-                                    @* Buildings *@
-                                    <td class="divider">
-                                        <table class="w100">
-                                            <tr>
-                                                <td>
-                                                    <div class="flex-wrap flex-center item-list">
-                                                        @foreach (var item in GetTotalBuildings(permutation))
-                                                        {
-                                                            <div class="flex-col flex-middle m10">
-                                                                <div class="flex self-align">
-                                                                    <img class="image-48" src=@CodexState.FetchIconPath(item.Key) alt=@item.Key />
-                                                                    <div class="text"> @item.Value</div>
-                                                                </div>
-                                                                <div class="text">@CodexState.FetchDisplayName(item.Key).FormatDisplayName()</div>
+                                    Buildings
+                        <td class="divider">
+                        <table class="w100">
+                        <tr>
+                        <td>
+                        @* <div class="flex-wrap flex-center item-list">
+                        @foreach (var item in GetTotalBuildings(permutation))
+                        {
+                        <div class="flex-col flex-middle m10">
+                        <div class="flex self-align">
+                        <img class="image-48" src=@CodexState.FetchIconPath(item.Key) alt=@item.Key />
+                        <div class="text"> @item.Value</div>
+                        </div>
+                        <div class="text">@CodexState.FetchDisplayName(item.Key).FormatDisplayName()</div>
 
-                                                            </div>
-                                                        }
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </td>
+                        </div>
+                        }
+                        </div> *@
+                        </td>
+                        </tr>
+                        </table>
+                        </td>
 
-                                    @* Infra Cost *@
+                                @* Infra Cost *@
+                        <td>
+                            <table class="w100">
+                                <tr>
                                     <td>
-                                        <table class="w100">
-                                            <tr>
-                                                <td>
-                                                    <div class="flex-wrap flex-center item-list">
-                                                        @foreach (var item in GetTotalInfraCost(permutation))
-                                                        {
-                                                            <div class="flex-col flex-left m10">
-                                                                <div class="flex self-align">
-                                                                    <img class="image-48" src=@CodexState.FetchIconPath(item.Key) alt=@item.Key />
-                                                                    <div class="text">@Math.Round(item.Value,2)</div>
-                                                                </div>
-                                                                <div class="text">@CodexState.FetchDisplayName(item.Key).FormatDisplayName()</div>
-                                                            </div>
-                                                        }
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        </table>
+                                        <div class="flex-wrap flex-center item-list">
+                                                    @* @foreach (var item in GetTotalInfraCost(permutation))
+                                {
+                                <div class="flex-col flex-left m10">
+                                <div class="flex self-align">
+                                <img class="image-48" src=@CodexState.FetchIconPath(item.Key) alt=@item.Key />
+                                <div class="text">@Math.Round(item.Value,2)</div>
+                                </div>
+                                <div class="text">@CodexState.FetchDisplayName(item.Key).FormatDisplayName()</div>
+                                </div>
+                                } *@
+                                        </div>
                                     </td>
                                 </tr>
+                            </table>
+                        </td>
+                        </tr>
                             }
-                        </table>
-                    </div>
+                    </table>
                 </div>
+            </div>
 
-                <div class="pagination-wrapper">
+            <div class="footer-wrapper">
+                <div class="stats-box">
                     <div class="stats">@GetPermStat()</div>
-                    <div class="pagination-box">
-                        <div class="pages">@GetPageStat()</div>
-                        <div class="page-nav">
-                            <button type="button" class="nav-btn" @onclick=@(() => PermState.SetPageLeft())>
-                                <span class="nav-icon oi-caret-left" aria-hidden="true"></span>
-                            </button>
-                            <button type="button" class="nav-btn" @onclick=@(() => PermState.SetPageRight())>
-                                <span class="nav-icon oi-caret-right" aria-hidden="true"></span>
-                            </button>
-                        </div>
+                    <div class="incomplete @IsComplete()">Incomplete Permutations! - Please import items or exclude recipes</div>
+                </div>
+                <div class="pagination-box">
+                    <div class="pages">@GetPageStat()</div>
+                    <div class="page-nav">
+                        <button type="button" class="nav-btn" @onclick=@(() => PermState.SetPageLeft())>
+                            <span class="nav-icon oi-caret-left" aria-hidden="true"></span>
+                        </button>
+                        <button type="button" class="nav-btn" @onclick=@(() => PermState.SetPageRight())>
+                            <span class="nav-icon oi-caret-right" aria-hidden="true"></span>
+                        </button>
                     </div>
                 </div>
+            </div>
             }
-        </div>
+    </div>
 
 
 
@@ -251,6 +256,13 @@
         AppModalState.OnStateChange -= StateHasChanged;
         CodexState.OnStateChange -= StateHasChanged;
         PermState.OnStateChange -= StateHasChanged;
+    }
+
+    private string IsComplete()
+    {
+        var completed = PermState.IsComplete();
+
+        return completed ? "hidden" : "";
     }
 
     private List<Node> GetInputs(Permutation permutation)
@@ -409,7 +421,7 @@
         return Math.Round(gensNeeded * 12, 2);
     }
 
-    private List<Permutation>
+    private List<PermData>
         GetCurrentPage()
     {
         var index = PermState.Index;

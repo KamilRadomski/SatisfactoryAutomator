@@ -232,7 +232,7 @@ divider {
         color: var(--sfBlue);
     }
 
-.pagination-wrapper {
+.footer-wrapper {
     display: flex;
     margin-left: 48px;
     margin-right: 48px;
@@ -267,4 +267,20 @@ divider {
 
     .content-wrapper {
         display: flex;
+    }
+
+    .stats-box {
+        display: flex;
+        align-items: center;
+        
+    }
+
+    .incomplete {
+        font-size: 16px;
+        color: orangered;
+        margin-left: 20px;
+    }
+
+    .hidden {
+        display: none;
     }
