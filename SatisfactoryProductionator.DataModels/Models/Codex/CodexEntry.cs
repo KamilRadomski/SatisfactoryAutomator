@@ -13,5 +13,19 @@ namespace SatisfactoryProductionator.DataModels.Models.Codex
         public CodexItemType CodexItemType { get; set; }
         public CodexSubItemType CodexSubItemType { get; set; }    
         public List<CodexPage> Pages { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+                return false;
+
+            var other = (CodexEntry)obj;
+            return ClassName == other.ClassName;
+        }
+
+        public override int GetHashCode()
+        {
+            return ClassName.GetHashCode();
+        }
     }
 }

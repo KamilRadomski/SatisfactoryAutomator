@@ -4,7 +4,15 @@ using SatisfactoryProductionator.DataModels.Models.Graph;
 
 namespace SatisfactoryProductionator.Services.Data
 {
-    public class Grapher : IGrapher
+    //V1
+    //Worked fine data wise
+    //Slow since all permutations were being hydrated on larger sets
+    //Oscillators seemed to hang
+    //RIPs ran but took a few seconds
+    //known combos worked fine - ie ingots and rods => 15
+
+
+    public class GrapherLeg
     {
         private Codex _codex;
 

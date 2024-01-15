@@ -1,4 +1,5 @@
-﻿using SatisfactoryProductionator.DataModels.Models.Graph;
+﻿using SatisfactoryProductionator.DataModels.Models.Codex;
+using SatisfactoryProductionator.DataModels.Models.Graph;
 using SatisfactoryProductionator.Services.Data;
 
 namespace SatisfactoryProductionator.Services.States
@@ -12,7 +13,11 @@ namespace SatisfactoryProductionator.Services.States
 
         public Dictionary<string, double> Items { get; set; } = new Dictionary<string, double>();
 
-        public List<Permutation> Permutations { get; set; } = new List<Permutation>();
+        public List<PermData> Permutations { get; set; } = new List<PermData>();
+
+        public FilterSet FilterSet { get; set; } = new FilterSet();
+
+        public List<NewPermutation> GetView() => HydrateView();
 
         public int PageSize { get; set; } = 20;
         public int Index { get; set; } = 0;
@@ -68,21 +73,78 @@ namespace SatisfactoryProductionator.Services.States
         {
             if (Items.Any() && !isActive)
             {
-                Permutations = _grapher.GetPermutations(Items, _codexState.Codex);
+                //var newItems = ConvertItemsToHashSet(Items);
+
+                Permutations.Clear();
+
+                //Pass in newItems
+                Permutations = _grapher.GetPermutations(Items.Keys.ToList(), _codexState.Codex);
+                Index = 0;
+
+                NotifyStateChanged();
+            }
+            else if(!Items.Any() && !isActive)
+            {
+                Permutations.Clear();
+                Index = 0;
 
                 NotifyStateChanged();
             }
         }
 
+
+
+        public List<NewPermutation> HydrateView()
+        {
+            var permDatas = GetCurrentPage();
+
+            //var newItems = ConvertItems(Items);
+
+            return _grapher.HydrateView(permDatas, Items);
+        }
+
+        private List<PermData> GetCurrentPage()
+        {
+            var index = Index;
+            var pageSize = PageSize;
+
+            return Permutations.Skip(index * pageSize).Take(pageSize).ToList();
+        }
+
+        private HashSet<Item> ConvertItemsToHashSet(Dictionary<string, double> items)
+        {
+            var newItems = new HashSet<Item>();
+
+            foreach(var item in items)
+            {
+                newItems.Add((Item)_codexState.FetchItem(item.Key));
+            }
+
+            return newItems;
+        }
+
+        private Dictionary<Item, double> ConvertItems(Dictionary<string, double> items)
+        {
+            var newItems = new Dictionary<Item, double>();
+
+            foreach (var item in items)
+            {
+                newItems.Add((Item)_codexState.FetchItem(item.Key), item.Value);
+            }
+
+            return newItems;
+        }
+
+
         public void SetPageLeft()
         {
-            if(Index == 0)
+            if (Index == 0)
             {
                 Index = GetPageCount() - 1;
             }
-            else 
-            { 
-                Index--; 
+            else
+            {
+                Index--;
             }
 
             NotifyStateChanged();
@@ -90,7 +152,7 @@ namespace SatisfactoryProductionator.Services.States
 
         public void SetPageRight()
         {
-            if(Index == GetPageCount() - 1)
+            if (Index == GetPageCount() - 1)
             {
                 Index = 0;
             }
@@ -104,7 +166,14 @@ namespace SatisfactoryProductionator.Services.States
 
         public int GetPageCount()
         {
-            return Permutations.Count / PageSize + 1;
+            var modifier = Permutations.Count == 10000 ? 0 : 1;
+
+            return Permutations.Count / PageSize + modifier;
+        }
+
+        public bool IsComplete()
+        {
+            return _grapher.IsComplete();
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using SatisfactoryProductionator.DataModels.Enums;
+using System.Xml.Linq;
 
 namespace SatisfactoryProductionator.DataModels.Models.Codex
 {

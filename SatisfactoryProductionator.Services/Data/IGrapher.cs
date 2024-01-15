@@ -5,6 +5,10 @@ namespace SatisfactoryProductionator.Services.Data
 {
     public interface IGrapher
     {
-        List<Permutation> GetPermutations(Dictionary<string, double> targetItems, Codex codex);
+        List<PermData> GetPermutations(List<string> targetItems, Codex codex);
+
+        List<NewPermutation> HydrateView(List<PermData> permDatas, Dictionary<string, double> items);
+
+        bool IsComplete();
     }
 }

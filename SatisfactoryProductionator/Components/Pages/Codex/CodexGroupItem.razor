@@ -8,14 +8,17 @@
 
 <div data-augmented-ui-reset></div>
 
-<div data-augmented-ui="tl-clip tr-2-clip-y br-clip bl-2-clip-x border" class="item-wrapper">
-    <button class="aug-btn" type="button" @onclick="@(() => CodexModalState.SetSelectedItem(item))">
-        <img src=@item.IconPath alt=@item.ClassName />
-        <div class="pos-rel item-name @GetFontSize()">
-            @item.DisplayName.FormatDisplayName().CondenseDisplayName()
-        </div>
-    </button>
+@* <div data-augmented-ui="tl-clip tr-2-clip-y br-clip bl-2-clip-x border" class="item-wrapper"> *@
+    <div class="img-wrapper">
+    <button class="image-button" type="button" @onclick="@(() => CodexModalState.SetSelectedItem(item))">
+        <img class="image-192" src=@item.IconPath alt=@item.ClassName />
+            </button>
+    <div class="pos-rel item-name font-16">
+        @item.DisplayName.FormatDisplayName().CondenseDisplayName()
+    </div>
+
 </div>
+@* </div> *@
 
 @code {
     [Parameter]
