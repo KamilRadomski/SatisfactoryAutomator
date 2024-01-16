@@ -13,6 +13,8 @@ namespace SatisfactoryProductionator.Services.States
 
         public Dictionary<string, double> Items { get; set; } = new Dictionary<string, double>();
 
+        public List<string> Imports { get; set; } = new List<string>();
+
         public List<PermData> Permutations { get; set; } = new List<PermData>();
 
         public FilterSet FilterSet { get; set; } = new FilterSet();
@@ -52,16 +54,32 @@ namespace SatisfactoryProductionator.Services.States
             {
                 Items.Add(className, amount);
             }
+
+            Imports.Remove(className);
+        }
+
+        public void AddImport(string className)
+        {
+            if(!Imports.Contains(className))
+            {
+                Imports.Add(className);
+            }
+
+            Items.Remove(className);
+
+            NotifyStateChanged();
         }
 
         public void RemoveItem(string className)
         {
             Items.Remove(className);
+            Imports.Remove(className);
         }
 
         public void ClearItems()
         {
             Items.Clear();
+            Imports.Clear();
         }
 
         public bool IsItemAdded(string className)
@@ -78,7 +96,7 @@ namespace SatisfactoryProductionator.Services.States
                 Permutations.Clear();
 
                 //Pass in newItems
-                Permutations = _grapher.GetPermutations(Items.Keys.ToList(), _codexState.Codex);
+                Permutations = _grapher.GetPermutations(Items.Keys.ToList(), _codexState.Codex, Imports);
                 Index = 0;
 
                 NotifyStateChanged();
@@ -100,7 +118,7 @@ namespace SatisfactoryProductionator.Services.States
 
             //var newItems = ConvertItems(Items);
 
-            return _grapher.HydrateView(permDatas, Items);
+            return _grapher.HydrateView(permDatas, Items, Imports);
         }
 
         private List<PermData> GetCurrentPage()

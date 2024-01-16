@@ -12,7 +12,7 @@ namespace SatisfactoryProductionator.Services.Data
     //known combos worked fine - ie ingots and rods => 15
 
 
-    public class GrapherLeg
+    public class Grapher1
     {
         private Codex _codex;
 

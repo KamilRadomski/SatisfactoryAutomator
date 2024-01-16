@@ -124,8 +124,8 @@
                                                             <img class="image-80" src=@CodexState.FetchIconPath("GeneratorFuel") alt="GeneratorFuel" />
                                                             <img class="image-48 img-down" src=@CodexState.FetchIconPath("LiquidFuel") alt="GeneratorFuel" />
                                                         </div>
-                                                        <div class="text">@permutation.Power MW</div>
-                                                        <div class="text">@GetFuelConsumption(permutation.Power) /Min</div>
+                                                        <div class="text">@Math.Round(permutation.Power, 2) MW</div>
+                                                        <div class="text">@Math.Round(GetFuelConsumption(permutation.Power), 2) /Min</div>
                                                     </div>
                                                 </td>
                                             </tr>

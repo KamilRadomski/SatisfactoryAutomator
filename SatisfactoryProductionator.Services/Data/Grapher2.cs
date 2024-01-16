@@ -12,7 +12,7 @@ using System.Xml.Linq;
 
 namespace SatisfactoryProductionator.Services.Data
 {
-    public class Grapher : IGrapher
+    public class Grapher2 
     {
         private Codex _codex;
 

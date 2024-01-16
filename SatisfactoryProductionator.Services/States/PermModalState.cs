@@ -89,6 +89,13 @@ namespace SatisfactoryProductionator.Services.States
             NotifyStateChanged();
         }
 
+        public void ImportSelected(string className)
+        {
+            _permState.AddImport(className);
+
+            NotifyStateChanged();
+        }
+
         public bool IsItemAdded()
         {
             return _permState.IsItemAdded(SelectedItem.ClassName);
