@@ -400,10 +400,23 @@ div.add-update-btn {
 }
 
 .hor-line {
-    height:2px;
-    width: 100%;
+    height: 2px;
+    width: 95%;
+    border: 1px solid;
+    margin-top: 11px;
+    margin-left: 23px;
+    margin-bottom: 5px;
     color: var(--sfBlue40);
 }
+
+    .hor-line span {
+        position: relative;
+        top: -13px;
+        left: 16px;
+        background: black;
+        padding: 0 5px;
+        color: var(--sfBlue70);
+    }
 
 .list-wrapper {
     overflow-y: auto;

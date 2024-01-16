@@ -17,28 +17,36 @@
 
         <div data-augmented-ui="tl-2-clip-y tr-clip br-2-clip-y bl-clip border" class="selected-list">
             <div class="list-wrapper">
-                <div class="item-wrapper">
-                    @foreach (var item in PermState.Items)
-                    {
-                        <button class="image-button m5" type="button" @onclick="@(() => PermModalState.SetSelectedItem(item.Key, item.Value))">
-                            <img class="image-96" src=@CodexState.FetchIconPath(item.Key) alt=@item.Key />
-                            <div class="text">@CodexState.FetchDisplayName(item.Key).FormatDisplayName()</div>
-                            <div class="amount">@item.Value</div>
-                        </button>
-                    }
-                </div>
+                @if (PermState.Items.Any())
+                {
+                    <div class="item-wrapper">
+                        <div class="hor-line">
+                            <span>Items</span>
+                        </div>
+                        @foreach (var item in PermState.Items)
+                        {
+                            <button class="image-button m5" type="button" @onclick="@(() => PermModalState.SetSelectedItem(item.Key, item.Value))">
+                                <img class="image-96" src=@CodexState.FetchIconPath(item.Key) alt=@item.Key />
+                                <div class="text">@CodexState.FetchDisplayName(item.Key).FormatDisplayName()</div>
+                                <div class="amount">@item.Value</div>
+                            </button>
+                        }
+                    </div>
+                }
                 @if (PermState.Imports.Any())
                 {
                     <div class="imports-wrapper">
-                        <div class="hor-line"></div>
-                            @foreach (var item in PermState.Imports)
-                            {
-                                <button class="image-button m5" type="button" @onclick="@(() => PermModalState.SetSelectedItem(item, 0))">
-                                    <img class="image-96" src=@CodexState.FetchIconPath(item) alt=@item />
-                                    <div class="text">@CodexState.FetchDisplayName(item).FormatDisplayName()</div>
-                                </button>
-                            }
-                        
+                        <div class="hor-line">
+                            <span>Imports</span>
+                        </div>
+                        @foreach (var item in PermState.Imports)
+                        {
+                            <button class="image-button m5" type="button" @onclick="@(() => PermModalState.SetSelectedItem(item, 0))">
+                                <img class="image-96" src=@CodexState.FetchIconPath(item) alt=@item />
+                                <div class="text">@CodexState.FetchDisplayName(item).FormatDisplayName()</div>
+                            </button>
+                        }
+
                     </div>
                 }
             </div>
