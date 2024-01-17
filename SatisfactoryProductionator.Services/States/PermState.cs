@@ -98,7 +98,7 @@ namespace SatisfactoryProductionator.Services.States
                 Permutations.Clear();
 
                 //Pass in newItems
-                Permutations = _grapher.GetPermutations(Items.Keys.ToList(), _codexState.Codex, Imports);
+                Permutations = _grapher.GetPermutations(Items.Keys.ToList(), _codexState.Codex, Imports, ExcludedRecipes);
                 Index = 0;
 
                 NotifyStateChanged();

@@ -1,11 +1,9 @@
 ﻿using SatisfactoryProductionator.DataModels.Enums;
 using SatisfactoryProductionator.DataModels.Models.Codex;
 using SatisfactoryProductionator.DataModels.Models.Graph;
-using System.Xml.Linq;
-
 
 //V3
-
+//Includes imports and exclusions
 
 namespace SatisfactoryProductionator.Services.Data
 {
@@ -19,7 +17,9 @@ namespace SatisfactoryProductionator.Services.Data
 
         private static List<string> _imports;
 
-        public List<PermData> GetPermutations(List<string> items, Codex codex, List<string> imports)
+        private static List<string> _excludedRecipes;
+
+        public List<PermData> GetPermutations(List<string> items, Codex codex, List<string> imports, List<string> excludedRecipes)
         {
             _codex = codex;
 
@@ -27,12 +27,15 @@ namespace SatisfactoryProductionator.Services.Data
 
             Completed = true;
 
-            var permutations = ProcessBuildPhase(items, new List<string>(), imports);
+            _imports = imports;
+            _excludedRecipes = excludedRecipes;
+
+            var permutations = ProcessBuildPhase(items, new List<string>());
 
             return permutations;
         }
 
-        private List<PermData> ProcessBuildPhase(List<string> items, List<string> usedRecipes, List<string> imports)
+        private List<PermData> ProcessBuildPhase(List<string> items, List<string> usedRecipes)
         {
             if (_count >= 60000)
             {
@@ -41,10 +44,10 @@ namespace SatisfactoryProductionator.Services.Data
                 return new List<PermData>();
             }
 
-            var itemsBuilt = items.Where(x => !Constants.INPUTS.Contains(x) && !imports.Contains(x)).ToList();
+            var itemsBuilt = items.Where(x => !Constants.INPUTS.Contains(x) && !_imports.Contains(x)).ToList();
             var recipePerms = GenerateRecipePermutations(itemsBuilt, usedRecipes);
 
-            var inputsNeeded = items.Where(x => Constants.INPUTS.Contains(x) || imports.Contains(x)).ToList();
+            var inputsNeeded = items.Where(x => Constants.INPUTS.Contains(x) || _imports.Contains(x)).ToList();
 
             if (!recipePerms.Any())
             {
@@ -69,7 +72,7 @@ namespace SatisfactoryProductionator.Services.Data
 
                 var itemsNeeded = GenerateItemsNeeded(recipeList);
 
-                var tempPermutations = ProcessBuildPhase(itemsNeeded, updatedUsedRecipes, imports);
+                var tempPermutations = ProcessBuildPhase(itemsNeeded, updatedUsedRecipes);
 
                 foreach (var perm in tempPermutations)
                 {
@@ -98,7 +101,10 @@ namespace SatisfactoryProductionator.Services.Data
             {
                 var item = (Item)_codex.CodexItems.First(x => x.ClassName == targetItem);
 
-                var recipes = item.AutoRecipes.Where(x => !x.StartsWith("Recipe_Unpackage") && !x.StartsWith("Recipe_Alternate_RecycledRubber") && !x.StartsWith("Recipe_Alternate_Plastic")).ToList();
+                var recipes = item.AutoRecipes.Where(x => !x.StartsWith("Recipe_Unpackage") && 
+                                                          !x.StartsWith("Recipe_Alternate_RecycledRubber") && 
+                                                          !x.StartsWith("Recipe_Alternate_Plastic") && 
+                                                          !_excludedRecipes.Contains(x)).ToList();
 
                 //Pull single recipe if already used
                 if (usedRecipes.Any() && usedRecipes.Any(x => recipes.Contains(x)))
