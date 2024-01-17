@@ -15,6 +15,8 @@ namespace SatisfactoryProductionator.Services.States
 
         public List<string> Imports { get; set; } = new List<string>();
 
+        public List<string> ExcludedRecipes { get; set; } = new List<string>();
+
         public List<PermData> Permutations { get; set; } = new List<PermData>();
 
         public FilterSet FilterSet { get; set; } = new FilterSet();
@@ -192,6 +194,23 @@ namespace SatisfactoryProductionator.Services.States
         public bool IsComplete()
         {
             return _grapher.IsComplete();
+        }
+
+        public void ToggleExcluded(string recipeName)
+        {
+            if(ExcludedRecipes.Contains(recipeName))
+            {
+                ExcludedRecipes.Remove(recipeName);
+            }
+            else
+            {
+                ExcludedRecipes.Add(recipeName);
+            }
+        }
+
+        public bool IsExcludedRecipe(string recipeName)
+        {
+            return ExcludedRecipes.Contains(recipeName);
         }
     }
 }

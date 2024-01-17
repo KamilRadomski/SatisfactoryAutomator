@@ -1,6 +1,7 @@
 ﻿div.top-panel {
     position: relative;
-    height: 250px;
+    /*height: 250px;*/
+    height: 340px;
     width: 1365px;
     --aug-tl: 30px;
     --aug-tr: 29px;
@@ -25,7 +26,7 @@ div.top-panel-inner {
     --aug-border-bg: var(--sfBlue);
     width: 1347px;
     left: 9px;
-    height: 251px;
+    height: 340px;
     display: flex;
     /*padding-top: 12px;*/
 }
@@ -33,7 +34,8 @@ div.top-panel-inner {
 div.bottom-panel {
     position: relative;
     float: left;
-    height: 576px;
+    /*height: 576px;*/
+    height: 486px;
     width: 1365px;
     --aug-tl: 20px;
     --aug-tr: 20px;
@@ -48,7 +50,7 @@ div.bottom-panel {
 }
 
 div.bottom-panel-inner {
-    height: 568px;
+    height: 478px;
     width: 1347px;
     --aug-tl: 20px;
     --aug-tr: 20px;
@@ -169,7 +171,7 @@ div.btn-inner {
 
 div.selected-list {
     position: relative;
-    height: 253px;
+    height: 343px;
     width: 940px;
     --aug-tl: 30px;
     --aug-tr: 30px;
@@ -187,7 +189,7 @@ div.selected-list {
 
 div.selected-perm {
     position: relative;
-    height: 229px;
+    height: 319px;
     width: 300px;
     --aug-tl: 20px;
     --aug-tr: 20px;
@@ -205,9 +207,7 @@ div.selected-perm {
     width: 274px;
 }
 
-.selected-image {
-    left: 110px;
-}
+
 
 .center-bar {
     height: 100px;
@@ -221,6 +221,7 @@ div.selected-perm {
 .selected-text {
     font-size: 18px;
     text-align: center;
+    left: 70px;
 }
 
 .selector-bar {
@@ -289,7 +290,8 @@ div.selected-perm {
     .sub-btn:hover,
     .remove-btn:hover,
     .add-update-btn:hover,
-    .import-btn:hover {
+    .import-btn:hover,
+    .recipe:hover {
         background-color: var(--sfBlue20);
         --aug-border-all: 1.5px;
     }
@@ -298,7 +300,8 @@ div.selected-perm {
         .sub-btn:hover span,
         .remove-btn:hover span,
         .add-update-btn:hover span,
-        .import-btn:hover span {
+        .import-btn:hover span,
+        .recipe:hover span {
             color: var(--sfBlueHover);
         }
 
@@ -315,6 +318,8 @@ div.selected-perm {
 .input-range {
     width: 261px;
     height: 76px;
+    top: 28px;
+
     --aug-tl: 24px;
     --aug-tr: 24px;
     --aug-bl: 18px;
@@ -350,8 +355,8 @@ div.remove-btn {
     --aug-border-right: -.5px;
     --aug-border-bottom: -.5px;
     --aug-border-bg: var(--sfBlue);
-    top: 140px;
-    left: 40px;
+    top: 20px;
+    left: 20px;
 }
 
 div.add-update-btn {
@@ -365,8 +370,8 @@ div.add-update-btn {
     --aug-border-left: -.5px;
     --aug-border-bottom: -.5px;
     --aug-border-bg: var(--sfBlue);
-    left: 195px;
-    top: 140px;
+    left: 170px;
+    top: 20px;
 }
 
 .add-update-btn span {
@@ -384,8 +389,8 @@ div.add-update-btn {
     --aug-border-x: -.5px;
     --aug-border-bottom: -.5px;
     --aug-border-bg: var(--sfBlue);
-    left: 109px;
-    top: 125px;
+    left: 86px;
+    top: 2px;
 }
 
     .import-btn span {
@@ -396,7 +401,7 @@ div.add-update-btn {
 .imports-wrapper {
     display: flex;
     flex-wrap: wrap;
-    padding-bottom: 30px;
+    /*padding-bottom: 30px;*/
 }
 
 .hor-line {
@@ -423,7 +428,7 @@ div.add-update-btn {
     overflow-x: hidden;
     display: flex;
     width: 898px;
-    height: 254px;
+    height: 354px;
     padding-bottom: 30px;
     /*margin-top: 20px;*/
     padding-left: 10px;
@@ -445,7 +450,7 @@ div.add-update-btn {
 .list-wrapper::-webkit-scrollbar-track {
     background: var(--sfBlue40);
     border-radius: 16px;
-    margin-block: 96px;
+    margin-block: 104px;
     margin-block-start: 24px;
 }
 
@@ -454,8 +459,41 @@ div.add-update-btn {
     background: var(--sfBlue40);
 }
 
-.test {
-    
+.img-container {
+    top: 70px;
+    left: 20px;
 }
 
+.input-container {
+    top: 210px;
+    left: 24px;
+}
 
+.recipe-container {
+    width: 168px;
+    height: 170px;
+    right: 10px;
+    top: 34px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+div.recipe {
+    width: 168px;
+    height: 37px;
+    --aug-border-all: 1px;
+    --aug-border-bg: var(--sfBlue);
+    --aug-tl: 11px;
+    --aug-tr: 8px;
+    --aug-bl: 8px;
+    --aug-br: 11px;
+}
+
+.excluded {
+    opacity: .5;
+}
+
+.recipe span {
+    font-size: 12px;
+}

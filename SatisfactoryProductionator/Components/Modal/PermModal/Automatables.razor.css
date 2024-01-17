@@ -19,7 +19,7 @@
 .selection::-webkit-scrollbar-track {
     background: var(--sfBlue40);
     border-radius: 16px;
-    margin-block: 7em;
+    margin-block: 7.5em;
     margin-block-start: 2em;
 }
 
