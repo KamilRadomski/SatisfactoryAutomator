@@ -60,6 +60,7 @@
                             {
                                 <div data-augmented-ui-reset></div>
                                 <tr data-augmented-ui="tl-clip tr-clip bl-clip br-clip border" class="perm-row">
+
                                     @* Options *@
                                     <td class="divider">
                                         <div class="text">Options</div>
@@ -142,14 +143,16 @@
                                                     <div class="flex-wrap flex-center item-list">
                                                         @foreach (var (item, data) in permutation.Items)
                                                         {
-                                                            <div class="flex-col flex-middle m10">
-                                                                <div class="flex self-align">
-                                                                    <img class="image-48" src=@item.IconPath alt=@item.DisplayName />
-                                                                    <div class="text">@Math.Round(data.Quantity,2)</div>
+                                                            <button class="image-button" type="button" @onclick="@(e => OnClickItems(e, item.ClassName, data.Recipe.ClassName))">
+                                                                <div class="flex-col flex-middle m10">
+                                                                    <div class="flex self-align">
+                                                                        <img class="image-48" src=@item.IconPath alt=@item.DisplayName />
+                                                                        <div class="text">@Math.Round(data.Quantity,2)</div>
+                                                                    </div>
+                                                                    <div class="text">@data.Recipe.DisplayName.FormatDisplayName()</div>
+                                                                    <div class="text">x @Math.Round(data.RecipeQuantity,2)</div>
                                                                 </div>
-                                                                <div class="text">@data.Recipe.DisplayName.FormatDisplayName()</div>
-                                                                <div class="text">x @Math.Round(data.RecipeQuantity,2)</div>
-                                                            </div>
+                                                            </button>
                                                         }
                                                     </div>
                                                 </td>
@@ -165,6 +168,7 @@
                                                     <div class="flex-wrap flex-center item-list">
                                                         @foreach (var (building, quantity) in permutation.Buildings)
                                                         {
+                                                             <button class="image-button" type="button" @onclick="@(e => OnClickBuildings(e, building.ClassName))">
                                                             <div class="flex-col flex-middle m10">
                                                                 <div class="flex self-align">
                                                                     <img class="image-48" src=@building.IconPath alt=@building.ClassName />
@@ -173,6 +177,7 @@
                                                                 <div class="text">@building.DisplayName.FormatDisplayName()</div>
 
                                                             </div>
+                                                            </button>
                                                         }
                                                     </div>
                                                 </td>
@@ -188,6 +193,7 @@
                                                     <div class="flex-wrap flex-center item-list">
                                                         @foreach (var (item, quantity) in permutation.Cost)
                                                         {
+                                                             <button class="image-button" type="button" @onclick="@(e => OnClickInfra(e, item.ClassName))">
                                                             <div class="flex-col flex-left m10">
                                                                 <div class="flex self-align">
                                                                     <img class="image-48" src=@item.IconPath alt=@item.ClassName />
@@ -195,6 +201,7 @@
                                                                 </div>
                                                                 <div class="text">@item.DisplayName.FormatDisplayName()</div>
                                                             </div>
+                                                            </button>
                                                         }
                                                     </div>
                                                 </td>
@@ -289,46 +296,74 @@
 
     }
 
-    private void OnClickItems(MouseEventArgs e, string className)
+    private void OnClickItems(MouseEventArgs e, string className, string recipeName)
     {
-        if (PermState.Filters.Items.Contains(className))
+        if (e.ShiftKey)
         {
-            PermState.Filters.Items.Remove(className);
+            if (PermState.Imports.Contains(className))
+            {
+                PermState.Imports.Remove(className);
+                PermState.GeneratePermutations(false);
+            }
+            else
+            {
+                PermState.Imports.Add(className);
+                PermState.GeneratePermutations(false);
+            }
+        }
+        else if(e.CtrlKey)
+        {
+            if (PermState.Filters.Items.Contains(className))
+            {
+                PermState.Filters.Items.Remove(className);
+                PermState.RemoveFilter(FilterType.Item);
+            }
+            else
+            {
+                PermState.ApplyFilter(FilterType.Item, className);
+            }
         }
         else
         {
-            PermState.Filters.Items.Add(className);
+            if (PermState.Filters.Recipes.Contains(recipeName))
+            {
+                PermState.Filters.Recipes.Remove(recipeName);
+                PermState.RemoveFilter(FilterType.Recipe);
+            }
+            else
+            {
+                PermState.ApplyFilter(FilterType.Recipe, recipeName);
+            }
         }
-
-        // PermState.ApplyFilter(FilterType.Recipe);
     }
 
     private void OnClickBuildings(MouseEventArgs e, string className)
     {
+
         if (PermState.Filters.Buildings.Contains(className))
         {
             PermState.Filters.Buildings.Remove(className);
+            PermState.RemoveFilter(FilterType.Building);
         }
         else
         {
-            PermState.Filters.Buildings.Add(className);
+            PermState.ApplyFilter(FilterType.Building, className);
         }
-
-        // PermState.ApplyFilter(FilterType.Building);
     }
 
     private void OnClickInfra(MouseEventArgs e, string className)
     {
+
         if (PermState.Filters.Costs.Contains(className))
         {
             PermState.Filters.Costs.Remove(className);
+            PermState.RemoveFilter(FilterType.Cost);
         }
         else
         {
-            PermState.Filters.Costs.Add(className);
+            PermState.ApplyFilter(FilterType.Cost, className);
         }
 
-        // PermState.ApplyFilter(FilterType.Cost);
     }
 
     private string IsComplete()
@@ -520,7 +555,7 @@
     {
         var name = item.DisplayName.FormatDisplayName();
 
-        if(PermState.Imports.Contains(item.ClassName))
+        if (PermState.Imports.Contains(item.ClassName))
         {
             return $"({name})";
         }

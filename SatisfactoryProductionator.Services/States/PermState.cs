@@ -65,7 +65,7 @@ namespace SatisfactoryProductionator.Services.States
 
         public void AddImport(string className)
         {
-            if(!Imports.Contains(className))
+            if (!Imports.Contains(className))
             {
                 Imports.Add(className);
             }
@@ -169,7 +169,7 @@ namespace SatisfactoryProductionator.Services.States
 
         public void ToggleExcluded(string recipeName)
         {
-            if(ExcludedRecipes.Contains(recipeName))
+            if (ExcludedRecipes.Contains(recipeName))
             {
                 ExcludedRecipes.Remove(recipeName);
             }
@@ -181,13 +181,54 @@ namespace SatisfactoryProductionator.Services.States
 
         public void ApplyFilter(FilterType filterType, string className)
         {
-            switch(filterType)
+            switch (filterType)
             {
                 case FilterType.Input:
                     {
                         Filters.Inputs.Add(className);
 
                         foreach (var perm in Permutations.Where(x => x.Active && x.Inputs.Contains(className)))
+                        {
+                            perm.Active = false;
+                        }
+                        break;
+                    }
+                case FilterType.Recipe:
+                    {
+                        Filters.Recipes.Add(className);
+
+                        foreach (var perm in Permutations.Where(x => x.Active && x.Recipes.Contains(className)))
+                        {
+                            perm.Active = false;
+                        }
+                        break;
+                    }
+                case FilterType.Item:
+                    {
+                        Filters.Items.Add(className);
+
+                        foreach (var perm in Permutations.Where(x => x.Active && x.Items.Contains(className)))
+                        {
+                            perm.Active = false;
+                        }
+                        break;
+
+                    }
+                case FilterType.Building:
+                    {
+                        Filters.Buildings.Add(className);
+
+                        foreach (var perm in Permutations.Where(x => x.Active && x.Buildings.Contains(className)))
+                        {
+                            perm.Active = false;
+                        }
+                        break;
+                    }
+                case FilterType.Cost:
+                    {
+                        Filters.Costs.Add(className);
+
+                        foreach (var perm in Permutations.Where(x => x.Active && x.Costs.Contains(className)))
                         {
                             perm.Active = false;
                         }
