@@ -71,6 +71,8 @@ namespace SatisfactoryProductionator.Services.Data
                 var updatedUsedRecipes = usedRecipes.Concat(recipeList).ToList();
 
                 var itemsNeeded = GenerateItemsNeeded(recipeList);
+                var buildingsNeeded = GenerateBuildingsNeeded(recipeList, inputsNeeded);
+                var buildingCost = GenerateBuildingCost(buildingsNeeded);
 
                 var tempPermutations = ProcessBuildPhase(itemsNeeded, updatedUsedRecipes);
 
@@ -79,11 +81,45 @@ namespace SatisfactoryProductionator.Services.Data
                     perm.Inputs = perm.Inputs.Concat(inputsNeeded).Distinct().ToList();
                     perm.Items = perm.Items.Concat(itemsBuilt).Distinct().ToList();
                     perm.Recipes = perm.Recipes.Concat(recipeList).Distinct().ToList();
+                    perm.Buildings = perm.Buildings.Concat(buildingsNeeded).Distinct().ToList();
+                    perm.Costs = perm.Costs.Concat(buildingCost).Distinct().ToList();
+
                     permutations.Add(perm);
                 }
             }
 
             return permutations;
+        }
+
+        private List<string> GenerateBuildingCost(List<string> buildingsNeeded)
+        {
+            var items = new List<string>();
+
+            foreach(var buildingNeed in buildingsNeeded)
+            {
+                var costs = ((Building)_codex.CodexItems.First(x => x.ClassName == buildingNeed)).Cost.ItemCost.Keys.ToList();
+                items = items.Concat(costs).ToList();
+            }
+
+            return items.Distinct().ToList();
+        }
+
+        private List<string> GenerateBuildingsNeeded(List<string> recipeList, List<string> inputsNeeded)
+        {
+            var buildings = new List<string>();
+
+            foreach(var recipe in recipeList)
+            {
+                buildings.Add(_codex.Recipes.First(x => x.ClassName == recipe).Building);
+            }
+
+            foreach (var input in inputsNeeded.Where(x => Constants.INPUTS.Contains(x)))
+            {
+                var item = (Item)_codex.CodexItems.First(x => x.ClassName == input);
+                buildings.Add(GetExtraction(item).Building);
+            }
+
+            return buildings.Distinct().ToList();
         }
 
         private List<List<string>> GenerateRecipePermutations(List<string> items, List<string> usedRecipes)
@@ -435,7 +471,12 @@ namespace SatisfactoryProductionator.Services.Data
 
         private string GetInputBuilding(string className)
         {
-            var extraction = _codex.Extractions.First(x => x.ClassName == className);
+            var extraction = _codex.Extractions.FirstOrDefault(x => x.ClassName == className);
+
+            if(extraction == null)
+            {
+                var test = className;
+            }
 
             return extraction.Building;
         }
