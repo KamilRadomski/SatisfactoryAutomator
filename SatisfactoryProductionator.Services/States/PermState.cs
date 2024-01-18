@@ -1,4 +1,5 @@
-﻿using SatisfactoryProductionator.DataModels.Models.Codex;
+﻿using SatisfactoryProductionator.DataModels.Enums;
+using SatisfactoryProductionator.DataModels.Models.Codex;
 using SatisfactoryProductionator.DataModels.Models.Graph;
 using SatisfactoryProductionator.Services.Data;
 
@@ -20,6 +21,8 @@ namespace SatisfactoryProductionator.Services.States
         public List<PermData> Permutations { get; set; } = new List<PermData>();
 
         public FilterSet FilterSet { get; set; } = new FilterSet();
+
+        public Filters Filters { get; set; } = new Filters();
 
         public List<NewPermutation> GetView() => HydrateView();
 
@@ -91,25 +94,20 @@ namespace SatisfactoryProductionator.Services.States
 
         public void GeneratePermutations(bool isActive)
         {
+            Permutations.Clear();
+            Filters = new Filters();
+            Index = 0;
+
             if (Items.Any() && !isActive)
             {
-                //var newItems = ConvertItemsToHashSet(Items);
-
                 Permutations.Clear();
+                Filters = new Filters();
+                Index = 0;
 
-                //Pass in newItems
                 Permutations = _grapher.GetPermutations(Items.Keys.ToList(), _codexState.Codex, Imports, ExcludedRecipes);
-                Index = 0;
-
-                NotifyStateChanged();
             }
-            else if(!Items.Any() && !isActive)
-            {
-                Permutations.Clear();
-                Index = 0;
 
-                NotifyStateChanged();
-            }
+            NotifyStateChanged();
         }
 
 
@@ -118,43 +116,17 @@ namespace SatisfactoryProductionator.Services.States
         {
             var permDatas = GetCurrentPage();
 
-            //var newItems = ConvertItems(Items);
-
             return _grapher.HydrateView(permDatas, Items, Imports);
         }
 
         private List<PermData> GetCurrentPage()
         {
-            var index = Index;
-            var pageSize = PageSize;
+            var pageCount = GetPageCount();
+            Index = (Index >= pageCount) ? pageCount - 1 : Index;
 
-            return Permutations.Skip(index * pageSize).Take(pageSize).ToList();
+            var skip = Index * PageSize;
+            return Permutations.Where(x => x.Active).Skip(skip).Take(PageSize).ToList();
         }
-
-        private HashSet<Item> ConvertItemsToHashSet(Dictionary<string, double> items)
-        {
-            var newItems = new HashSet<Item>();
-
-            foreach(var item in items)
-            {
-                newItems.Add((Item)_codexState.FetchItem(item.Key));
-            }
-
-            return newItems;
-        }
-
-        private Dictionary<Item, double> ConvertItems(Dictionary<string, double> items)
-        {
-            var newItems = new Dictionary<Item, double>();
-
-            foreach (var item in items)
-            {
-                newItems.Add((Item)_codexState.FetchItem(item.Key), item.Value);
-            }
-
-            return newItems;
-        }
-
 
         public void SetPageLeft()
         {
@@ -186,9 +158,8 @@ namespace SatisfactoryProductionator.Services.States
 
         public int GetPageCount()
         {
-            var modifier = Permutations.Count == 10000 ? 0 : 1;
-
-            return Permutations.Count / PageSize + modifier;
+            var count = Permutations.Count(x => x.Active) / (double)PageSize;
+            return (int)Math.Ceiling(count);
         }
 
         public bool IsComplete()
@@ -206,6 +177,30 @@ namespace SatisfactoryProductionator.Services.States
             {
                 ExcludedRecipes.Add(recipeName);
             }
+        }
+
+        public void ApplyFilter(FilterType filterType, string className)
+        {
+            switch(filterType)
+            {
+                case FilterType.Input:
+                    {
+                        Filters.Inputs.Add(className);
+
+                        foreach (var perm in Permutations.Where(x => x.Active && x.Inputs.Contains(className)))
+                        {
+                            perm.Active = false;
+                        }
+                        break;
+                    }
+            }
+
+            NotifyStateChanged();
+        }
+
+        public void RemoveFilter(FilterType filterType)
+        {
+
         }
 
         public bool IsExcludedRecipe(string recipeName)

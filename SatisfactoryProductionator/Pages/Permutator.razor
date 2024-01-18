@@ -54,7 +54,6 @@
                                     <th>Building Cost</th>
                                 </tr>
                             </thead>
-                            @* <tr class="header-row"></tr> *@
 
                             @foreach (var permutation in PermState.GetView())
                             {
@@ -74,6 +73,7 @@
                                                         <div class="flex-wrap flex-center item-list">
                                                             @foreach (var (input, data) in permutation.Inputs)
                                                             {
+                                                                <button class="image-button" type="button" @onclick="@(e => OnClickInputs(e, input.ClassName))">
                                                                 <div class="flex-col flex-left m10">
                                                                     <div class="flex self-align">
                                                                         <img class="image-48" src=@input.IconPath alt=@input.DisplayName />
@@ -81,6 +81,7 @@
                                                                     </div>
                                                                     <div class="text">@input.DisplayName.FormatDisplayName()</div>
                                                                 </div>
+                                                                </button>
                                                             }
                                                         </div>
                                                     </td>
@@ -252,6 +253,63 @@
         AppModalState.OnStateChange -= StateHasChanged;
         CodexState.OnStateChange -= StateHasChanged;
         PermState.OnStateChange -= StateHasChanged;
+    }
+
+    private void OnClickInputs(MouseEventArgs e, string className)
+    {
+        if(PermState.Filters.Inputs.Contains(className))
+        {
+            PermState.Filters.Inputs.Remove(className);
+            PermState.RemoveFilter(FilterType.Input);
+        }
+        else
+        {
+            PermState.ApplyFilter(FilterType.Input, className);
+        }
+
+        
+    }
+
+    private void OnClickItems(MouseEventArgs e, string className)
+    {
+        if (PermState.Filters.Items.Contains(className))
+        {
+            PermState.Filters.Items.Remove(className);
+        }
+        else
+        {
+            PermState.Filters.Items.Add(className);
+        }
+
+        // PermState.ApplyFilter(FilterType.Recipe);
+    }
+
+    private void OnClickBuildings(MouseEventArgs e, string className)
+    {
+        if (PermState.Filters.Buildings.Contains(className))
+        {
+            PermState.Filters.Buildings.Remove(className);
+        }
+        else
+        {
+            PermState.Filters.Buildings.Add(className);
+        }
+
+        // PermState.ApplyFilter(FilterType.Building);
+    }
+
+    private void OnClickInfra(MouseEventArgs e, string className)
+    {
+        if (PermState.Filters.Costs.Contains(className))
+        {
+            PermState.Filters.Costs.Remove(className);
+        }
+        else
+        {
+            PermState.Filters.Costs.Add(className);
+        }
+
+        // PermState.ApplyFilter(FilterType.Cost);
     }
 
     private string IsComplete()
