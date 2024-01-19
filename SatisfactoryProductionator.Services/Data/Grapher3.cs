@@ -245,7 +245,7 @@ namespace SatisfactoryProductionator.Services.Data
 
         private void ProcessInputs(NewPermutation permutation, Dictionary<string, double> items)
         {
-            foreach (var (itemName, amountNeeded) in items.Where(x => Constants.INPUTS.Contains(x.Key)))
+            foreach (var (itemName, amountNeeded) in items.Where(x => Constants.INPUTS.Contains(x.Key) && !_imports.Contains(x.Key)))
             {
                 var item = (Item)_codex.CodexItems.First(x => x.ClassName == itemName);
                 if (permutation.Inputs.ContainsKey(item))
