@@ -29,7 +29,7 @@
                         </div>
                         @foreach (var item in PermState.Items)
                         {
-                            <button class="image-button m5" type="button" @onclick="@(() => PermModalState.SetSelectedItem(item.Key, item.Value))">
+                            <button class="image-button m5" type="button" @onclick="@(e => OnClickItems(e, item.Key, item.Value))">
                                 <img class="image-96" src=@CodexState.FetchIconPath(item.Key) alt=@item.Key />
                                 <div class="text">@CodexState.FetchDisplayName(item.Key).FormatDisplayName()</div>
                                 <div class="amount">@item.Value</div>
@@ -45,7 +45,7 @@
                         </div>
                         @foreach (var item in PermState.Imports)
                         {
-                            <button class="image-button m5" type="button" @onclick="@(() => PermModalState.SetSelectedItem(item))">
+                            <button class="image-button m5" type="button" @onclick="@(e => OnClickImports(e, item))">
                                 <img class="image-96" src=@CodexState.FetchIconPath(item) alt=@item />
                                 <div class="text">@CodexState.FetchDisplayName(item).FormatDisplayName()</div>
                             </button>
@@ -259,6 +259,38 @@
     {
         return PermModalState.SelectedItem.AutoRecipes
             .Where(x => !x.StartsWith("Recipe_Unpackage") && !x.StartsWith("Recipe_Alternate_RecycledRubber") && !x.StartsWith("Recipe_Alternate_Plastic")).ToList();
+    }
+
+    public void OnClickItems(MouseEventArgs e, string name, double value)
+    {
+        if (e.ShiftKey)
+        {
+            PermModalState.MoveItemToImport(name);
+        }
+        else if (e.CtrlKey)
+        {
+            PermModalState.RemoveItem(name);
+        }
+        else
+        {
+            PermModalState.SetSelectedItem(name, value);
+        }
+    }
+
+    public void OnClickImports(MouseEventArgs e, string name)
+    {
+        if (e.ShiftKey)
+        {
+            PermModalState.MoveImportToItem(name);
+        }
+        else if (e.CtrlKey)
+        {
+            PermModalState.RemoveItem(name);
+        }
+        else
+        {
+            PermModalState.SetSelectedItem(name);
+        }
     }
 
     public string GetDeleteText() => PermModalState.IsItemAdded() ? "Delete" : "Clear";

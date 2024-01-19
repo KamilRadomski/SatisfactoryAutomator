@@ -82,6 +82,25 @@ namespace SatisfactoryProductionator.Services.States
             NotifyStateChanged();
         }
 
+        public void MoveItemToImport(string className)
+        {
+            _permState.RemoveItem(className);
+            ImportSelected(className);
+        }
+
+        public void MoveImportToItem(string className)
+        {
+            _permState.RemoveItem(className);
+            AddUpdateSelected(className, 30);
+        }
+
+        public void RemoveItem(string className)
+        {
+            _permState.RemoveItem(className);
+
+            NotifyStateChanged();
+        }
+
         public void AddUpdateSelected(string className, double amount)
         {
             _permState.AddUpdateItem(className, amount);
