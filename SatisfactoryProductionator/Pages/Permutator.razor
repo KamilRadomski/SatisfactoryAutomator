@@ -555,7 +555,7 @@
     {
         var name = item.DisplayName.FormatDisplayName();
 
-        if (PermState.Imports.Contains(item.ClassName))
+        if (PermState.TotalImports.Contains(item.ClassName))
         {
             return $"({name})";
         }

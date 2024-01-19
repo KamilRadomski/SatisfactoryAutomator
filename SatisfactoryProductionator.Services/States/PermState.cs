@@ -16,6 +16,8 @@ namespace SatisfactoryProductionator.Services.States
 
         public List<string> Imports { get; set; } = new List<string>();
 
+        public List<string> TotalImports { get; set; } = new List<string>();
+
         public List<string> ExcludedRecipes { get; set; } = new List<string>();
 
         public List<PermData> Permutations { get; set; } = new List<PermData>();
@@ -104,19 +106,38 @@ namespace SatisfactoryProductionator.Services.States
                 Filters = new Filters();
                 Index = 0;
 
-                Permutations = _grapher.GetPermutations(Items.Keys.ToList(), _codexState.Codex, Imports, ExcludedRecipes);
+                TotalImports = AddFullExclusionsAsImports(ExcludedRecipes).Concat(Imports).Distinct().ToList();
+
+                Permutations = _grapher.GetPermutations(Items.Keys.ToList(), _codexState.Codex, TotalImports, ExcludedRecipes);
             }
 
             NotifyStateChanged();
         }
 
+        List<string> AddFullExclusionsAsImports(List<string> recipes)
+        {
+            var items = new List<string>();
 
+            foreach(var recipe in recipes)
+            {
+                var itemName = _codexState.Codex.Recipes.First(x => x.ClassName == recipe).Outputs.First().Key;
+                var item = (Item)_codexState.Codex.CodexItems.First(x => x.ClassName == itemName);
+                var recipeNames = item.AutoRecipes.ToList();
+
+                if(recipeNames.All(x => recipes.Contains(x)))
+                {
+                    items.Add(itemName);
+                }
+            }
+
+            return items.Distinct().ToList();
+        }
 
         public List<NewPermutation> HydrateView()
         {
             var permDatas = GetCurrentPage();
 
-            return _grapher.HydrateView(permDatas, Items, Imports);
+            return _grapher.HydrateView(permDatas, Items, TotalImports);
         }
 
         private List<PermData> GetCurrentPage()

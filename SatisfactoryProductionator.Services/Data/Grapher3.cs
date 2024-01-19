@@ -142,6 +142,8 @@ namespace SatisfactoryProductionator.Services.Data
                                                           !x.StartsWith("Recipe_Alternate_Plastic") && 
                                                           !_excludedRecipes.Contains(x)).ToList();
 
+                if (!recipes.Any()) continue;
+
                 //Pull single recipe if already used
                 if (usedRecipes.Any() && usedRecipes.Any(x => recipes.Contains(x)))
                 {
