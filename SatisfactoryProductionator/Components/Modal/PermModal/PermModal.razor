@@ -45,7 +45,7 @@
                         </div>
                         @foreach (var item in PermState.Imports)
                         {
-                            <button class="image-button m5" type="button" @onclick="@(() => PermModalState.SetSelectedItem(item, 0))">
+                            <button class="image-button m5" type="button" @onclick="@(() => PermModalState.SetSelectedItem(item))">
                                 <img class="image-96" src=@CodexState.FetchIconPath(item) alt=@item />
                                 <div class="text">@CodexState.FetchDisplayName(item).FormatDisplayName()</div>
                             </button>
@@ -147,36 +147,53 @@
                     </div>
                 </div>
             }
-
-
-
         </div>
-
         <div data-augmented-ui="tl-clip tr-clip br-clip bl-clip border" class="btn-bar">
+
             <div data-augmented-ui="all-hex border" class="perm-close btn-outer center-content">
                 <div data-augmented-ui-reset></div>
                 <button type="button" class="btn-x center-content" @onclick=@PermModalState.CloseModal>
                     <div data-augmented-ui="all-hex border" class="btn-middle center-content">
                         <div data-augmented-ui-reset></div>
-                        <div data-augmented-ui="all-hex border" class="btn-inner center-content">
                             <div data-augmented-ui-reset></div>
                             <div class="btn-icon icon-close oi-x" aria-hidden="true"></div>
-                        </div>
                     </div>
                 </button>
             </div>
+
             <div data-augmented-ui="all-hex border" class="btn-outer center-content">
                 <div data-augmented-ui-reset></div>
-                <button type="button" class="btn-clear center-content" @onclick=@PermModalState.ClearItems>
+                <button type="button" class="btn-x center-content" @onclick=@PermModalState.ClearItems>
                     <div data-augmented-ui="all-hex border" class="btn-middle center-content">
                         <div data-augmented-ui-reset></div>
-                        <div data-augmented-ui="all-hex border" class="btn-inner center-content">
                             <div data-augmented-ui-reset></div>
-                            <span class="btn-icon oi-trash" aria-hidden="true"></span>
-                        </div>
+                            <span class="btn-icon oi-delete" aria-hidden="true"></span>
                     </div>
                 </button>
             </div>
+
+            <div data-augmented-ui="all-hex border" class="btn-outer center-content">
+                <div data-augmented-ui-reset></div>
+                <button type="button" class="btn-x center-content" @onclick=@PermModalState.ResetExclusions>
+                    <div data-augmented-ui="all-hex border" class="btn-middle center-content">
+                        <div data-augmented-ui-reset></div>
+                        <div data-augmented-ui-reset></div>
+                        <span class="btn-icon oi-reload" aria-hidden="true"></span>
+                    </div>
+                </button>
+            </div>
+
+            <div data-augmented-ui="all-hex border" class="btn-outer center-content">
+                <div data-augmented-ui-reset></div>
+                <button type="button" class="btn-x center-content" @onclick=@PermModalState.GeneratePermutations>
+                    <div data-augmented-ui="all-hex border" class="btn-middle center-content">
+                        <div data-augmented-ui-reset></div>
+                        <div data-augmented-ui-reset></div>
+                        <span class="btn-icon icon-bolt oi-bolt" aria-hidden="true"></span>
+                    </div>
+                </button>
+            </div>
+
         </div>
     </div>
 </div>

@@ -47,6 +47,8 @@ namespace SatisfactoryProductionator.Services.States
 
         public void AddUpdateItem(string className, double amount)
         {
+            if (IsRawInput(className)) return;
+
             if (Items.ContainsKey(className))
             {
                 if (amount == 0)
@@ -64,6 +66,11 @@ namespace SatisfactoryProductionator.Services.States
             }
 
             Imports.Remove(className);
+        }
+
+        private bool IsRawInput(string className)
+        {
+            return Constants.INPUTS.Contains(className);
         }
 
         public void AddImport(string className)

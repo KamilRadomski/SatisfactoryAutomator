@@ -28,13 +28,13 @@ namespace SatisfactoryProductionator.Services.States
             _permState = permState;
         }
 
-        public void SetSelectedItem(string className, double amount = 0)
+        public void SetSelectedItem(string className, double amount = 30)
         {
             var item = _codexState.FetchItem(className) as Item;
             SetSelectedItem(item, amount);
         }
 
-        public void SetSelectedItem(Item item, double amount = 0)
+        public void SetSelectedItem(Item item, double amount = 30)
         {
             if (_permState.IsItemAdded(item.ClassName))
             {
@@ -112,13 +112,25 @@ namespace SatisfactoryProductionator.Services.States
         public void CloseModal()
         {
             Active = false;
-            _permState.GeneratePermutations(false, true);
             NotifyStateChanged();
         }
 
         public void ClearItems()
         {
             _permState.ClearItems();
+            NotifyStateChanged();
+        }
+
+        public void ResetExclusions()
+        {
+            _permState.ExcludedRecipes.Clear();
+            NotifyStateChanged();
+        }
+
+        public void GeneratePermutations()
+        {
+            Active = false;
+            _permState.GeneratePermutations(false, true);
             NotifyStateChanged();
         }
     }

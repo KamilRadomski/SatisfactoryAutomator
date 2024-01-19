@@ -62,7 +62,7 @@ div.bottom-panel-inner {
 
 .btn-bar {
     position: relative;
-    height: 200px;
+    height: 290px;
     width: 81px;
     --aug-tl: 20px;
     --aug-tr: 20px;
@@ -91,7 +91,7 @@ div.bottom-panel-inner {
 }
 
 div.btn-outer {
-    --aug-all-width: 60px;
+    --aug-all-width: 50px;
     --aug-border-all: 3px;
     --aug-border-bg: var(--sfBlue);
     background: unset;
@@ -99,23 +99,23 @@ div.btn-outer {
 }
 
 div.btn-middle {
-    --aug-all-width: 56px;
+    --aug-all-width: 46px;
     --aug-border-all: 2px;
     transition: .15s;
 }
 
-div.btn-inner {
+/*div.btn-inner {
     --aug-all-width: 54px;
     --aug-border-all: 1px;
     margin: 1px;
     transition: .15s;
-}
+}*/
 
 .btn-x {
     background: unset;
     border: unset;
-    width: 60px;
-    height: 60px;
+    width: 58px;
+    height: 50px;
 }
 
 .btn-outer:not(:disabled):hover {
@@ -126,18 +126,13 @@ div.btn-inner {
 }
 
     .btn-outer:not(:disabled):hover .btn-middle {
-        --aug-all-width: 48px;
+        --aug-all-width: 40px;
         --aug-border-all: 1.5px;
         transition: .2s;
     }
 
-    .btn-outer:not(:disabled):hover .btn-inner {
-        --aug-all-width: 38px;
-        transition: .2s;
-    }
-
     .btn-outer:not(:disabled):hover .btn-icon {
-        font-size: 1.5rem;
+        font-size: 24px;
         transition: .2s;
     }
 
@@ -150,23 +145,27 @@ div.btn-inner {
     margin-left: 1px !important;
 }
 
+.icon-bolt {
+    margin-left: 3px !important;
+}
+
 .btn-icon {
     font-family: Icons;
     font-style: normal;
     font-weight: 400;
     -webkit-font-smoothing: antialiased;
     color: var(--sfBlue);
-    font-size: 2rem;
+    font-size: 28px;
     transition: .15s;
-    margin-left: 2px;
+    margin-left: -2px;
 }
 
-.btn-clear {
+/*.btn-clear {
     background: unset;
     border: unset;
-    width: 67px;
+    width: 68px;
     height: 60px;
-}
+}*/
 
 
 div.selected-list {
@@ -222,7 +221,8 @@ div.selected-perm {
 .selected-text {
     font-size: 18px;
     text-align: center;
-    left: 70px;
+    width: 100%;
+    left: 10px;
 }
 
 .selector-bar {
