@@ -273,12 +273,12 @@
             if (PermState.Imports.Contains(className))
             {
                 PermState.Imports.Remove(className);
-                PermState.GeneratePermutations(false);
+                PermState.GeneratePermutations(false, false);
             }
             else
             {
                 PermState.Imports.Add(className);
-                PermState.GeneratePermutations(false);
+                PermState.GeneratePermutations(false, false);
             }
         }
         else
@@ -303,12 +303,12 @@
             if (PermState.Imports.Contains(className))
             {
                 PermState.Imports.Remove(className);
-                PermState.GeneratePermutations(false);
+                PermState.GeneratePermutations(false, false);
             }
             else
             {
                 PermState.Imports.Add(className);
-                PermState.GeneratePermutations(false);
+                PermState.GeneratePermutations(false, false);
             }
         }
         else if(e.CtrlKey)

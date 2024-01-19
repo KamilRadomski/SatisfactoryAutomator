@@ -2,6 +2,7 @@
 using SatisfactoryProductionator.DataModels.Models.Codex;
 using SatisfactoryProductionator.DataModels.Models.Graph;
 using SatisfactoryProductionator.Services.Data;
+using System.Runtime.CompilerServices;
 
 namespace SatisfactoryProductionator.Services.States
 {
@@ -94,27 +95,49 @@ namespace SatisfactoryProductionator.Services.States
             return Items.ContainsKey(className);
         }
 
-        public void GeneratePermutations(bool isActive)
+        public void GeneratePermutations(bool isActive, bool clearFilters)
         {
             Permutations.Clear();
-            Filters = new Filters();
             Index = 0;
+
+            
 
             if (Items.Any() && !isActive)
             {
-                Permutations.Clear();
-                Filters = new Filters();
-                Index = 0;
-
                 TotalImports = AddFullExclusionsAsImports(ExcludedRecipes).Concat(Imports).Distinct().ToList();
 
                 Permutations = _grapher.GetPermutations(Items.Keys.ToList(), _codexState.Codex, TotalImports, ExcludedRecipes);
             }
 
+            if (clearFilters)
+            {
+                Filters = new Filters();
+            }
+            else
+            {
+                ApplyFilters();
+            }
+
             NotifyStateChanged();
         }
 
-        List<string> AddFullExclusionsAsImports(List<string> recipes)
+        private void ApplyFilters()
+        {
+            foreach(var perm in Permutations.Where(x => x.Active))
+            {
+                if(perm.Inputs.Any(x => Filters.Inputs.Contains(x)) ||
+                    perm.Costs.Any(x => Filters.Costs.Contains(x)) ||
+                    perm.Items.Any(x => Filters.Items.Contains(x)) ||
+                    perm.Recipes.Any(x => Filters.Recipes.Contains(x)) ||
+                    perm.Buildings.Any(x => Filters.Buildings.Contains(x)))
+                {
+                    perm.Active = false;
+                }
+            }
+        }
+        
+
+        private List<string> AddFullExclusionsAsImports(List<string> recipes)
         {
             var items = new List<string>();
 

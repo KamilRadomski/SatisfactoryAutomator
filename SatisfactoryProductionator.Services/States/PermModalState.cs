@@ -112,7 +112,7 @@ namespace SatisfactoryProductionator.Services.States
         public void CloseModal()
         {
             Active = false;
-            _permState.GeneratePermutations(false);
+            _permState.GeneratePermutations(false, true);
             NotifyStateChanged();
         }
 
