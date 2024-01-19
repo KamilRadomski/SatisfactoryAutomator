@@ -26,6 +26,11 @@
             "Water",
             "LiquidOil",
             "NitrogenGas",
+            
+        };
+
+        public static readonly List<string> MANUAL_INPUTS = new List<string>()
+        {
             "HatcherParts",
             "HogParts",
             "SpitterParts",

@@ -1,6 +1,7 @@
 ﻿using SatisfactoryProductionator.DataModels.Enums;
 using SatisfactoryProductionator.DataModels.Models.Codex;
 using SatisfactoryProductionator.DataModels.Models.Graph;
+using System.Linq;
 
 namespace SatisfactoryProductionator.Services.Data
 {
@@ -41,10 +42,10 @@ namespace SatisfactoryProductionator.Services.Data
                 return new List<PermData>();
             }
 
-            var itemsBuilt = items.Where(x => !Constants.INPUTS.Contains(x) && !_imports.Contains(x)).ToList();
+            var itemsBuilt = items.Where(x => !Constants.INPUTS.Contains(x) && !Constants.MANUAL_INPUTS.Contains(x) && !_imports.Contains(x)).ToList();
             var recipePerms = GenerateRecipePermutations(itemsBuilt, usedRecipes);
 
-            var inputsNeeded = items.Where(x => Constants.INPUTS.Contains(x) || _imports.Contains(x)).ToList();
+            var inputsNeeded = items.Where(x => Constants.INPUTS.Contains(x) || Constants.MANUAL_INPUTS.Contains(x) || _imports.Contains(x)).ToList();
 
             if (!recipePerms.Any())
             {
@@ -110,7 +111,7 @@ namespace SatisfactoryProductionator.Services.Data
                 buildings.Add(_codex.Recipes.First(x => x.ClassName == recipe).Building);
             }
 
-            foreach (var input in inputsNeeded.Where(x => Constants.INPUTS.Contains(x)))
+            foreach (var input in inputsNeeded.Where(x => Constants.INPUTS.Contains(x) && !Constants.MANUAL_INPUTS.Contains(x)))
             {
                 var item = (Item)_codex.CodexItems.First(x => x.ClassName == input);
                 buildings.Add(GetExtraction(item).Building);
@@ -123,7 +124,7 @@ namespace SatisfactoryProductionator.Services.Data
         {
             var perms = new List<List<string>>();
 
-            var targetItems = items.Where(x => !Constants.INPUTS.Contains(x)).ToList();
+            var targetItems = items.Where(x => !Constants.INPUTS.Contains(x) && !Constants.MANUAL_INPUTS.Contains(x)).ToList();
 
             if (!targetItems.Any())
             {
@@ -228,7 +229,9 @@ namespace SatisfactoryProductionator.Services.Data
 
             var itemsNeeded = GenerateItemAmounts(recipes);
 
-            if (itemsNeeded.All(x => Constants.INPUTS.Contains(x.Key)))
+            var test = itemsNeeded.All((x => Constants.INPUTS.Contains(x.Key) || Constants.MANUAL_INPUTS.Contains(x.Key)));
+
+            if (itemsNeeded.All( (x => Constants.INPUTS.Contains(x.Key) || Constants.MANUAL_INPUTS.Contains(x.Key)) ))
             {
                 ProcessInputs(permutation, itemsNeeded);
             }
@@ -242,7 +245,7 @@ namespace SatisfactoryProductionator.Services.Data
 
         private void ProcessInputs(NewPermutation permutation, Dictionary<string, double> items)
         {
-            foreach (var (itemName, amountNeeded) in items.Where(x => Constants.INPUTS.Contains(x.Key) && !_imports.Contains(x.Key)))
+            foreach (var (itemName, amountNeeded) in items.Where(x => Constants.INPUTS.Contains(x.Key)))
             {
                 var item = (Item)_codex.CodexItems.First(x => x.ClassName == itemName);
                 if (permutation.Inputs.ContainsKey(item))
@@ -265,7 +268,7 @@ namespace SatisfactoryProductionator.Services.Data
                 }
             }
 
-            foreach(var (itemName, amountNeeded) in items.Where(x => _imports.Contains(x.Key)))
+            foreach(var (itemName, amountNeeded) in items.Where(x => _imports.Contains(x.Key) || Constants.MANUAL_INPUTS.Contains(x.Key)))
             {
                 var item = (Item)_codex.CodexItems.First(x => x.ClassName == itemName);
                 if (permutation.Inputs.ContainsKey(item))
@@ -284,7 +287,7 @@ namespace SatisfactoryProductionator.Services.Data
         {
             var recipes = new Dictionary<string, double>();
 
-            foreach (var (itemName, amountNeeded) in items.Where(x => !Constants.INPUTS.Contains(x.Key) && !_imports.Contains(x.Key)))
+            foreach (var (itemName, amountNeeded) in items.Where(x => !Constants.INPUTS.Contains(x.Key) && !Constants.MANUAL_INPUTS.Contains(x.Key) && !_imports.Contains(x.Key)))
             {
                 var item = (Item)_codex.CodexItems.First(x => x.ClassName == itemName);
                 var recipeNames = item.AutoRecipes.Where(x => !x.StartsWith("Recipe_Unpackage") && !x.StartsWith("Recipe_Alternate_RecycledRubber") && !x.StartsWith("Recipe_Alternate_Plastic")).ToList();
@@ -390,8 +393,7 @@ namespace SatisfactoryProductionator.Services.Data
 
         private void HydrateBuildingData(NewPermutation permutation, Dictionary<string, double> items)
         {
-            //Inputs - skip imports once implemented
-            foreach (var (input, data) in permutation.Inputs.Where(x => !_imports.Contains(x.Key.ClassName)))
+            foreach (var (input, data) in permutation.Inputs.Where(x => !_imports.Contains(x.Key.ClassName) && !Constants.MANUAL_INPUTS.Contains(x.Key.ClassName)))
             {
                 var extraction = GetExtraction(input);
                 var building = (Building)_codex.CodexItems.First(x => x.ClassName == extraction.Building);
@@ -439,6 +441,7 @@ namespace SatisfactoryProductionator.Services.Data
 
         private Extraction GetExtraction(Item item)
         {
+
             var page = item.Pages.First(x => x.PageType == PageType.Extraction);
             var extractClassName = page.Entries.First();
 
@@ -466,18 +469,6 @@ namespace SatisfactoryProductionator.Services.Data
             {
                 permutation.Buildings.Add(building, buildingCount);
             }
-        }
-
-        private string GetInputBuilding(string className)
-        {
-            var extraction = _codex.Extractions.FirstOrDefault(x => x.ClassName == className);
-
-            if(extraction == null)
-            {
-                var test = className;
-            }
-
-            return extraction.Building;
         }
     }
 }
