@@ -100,14 +100,16 @@
                                                     <div class="flex-wrap flex-center flex-col item-list">
                                                         @foreach (var (output, data) in permutation.Outputs)
                                                         {
-                                                            <div class="flex-col flex-middle m10">
-                                                                <div class="flex self-align">
-                                                                    <img class="image-48" src=@output.IconPath alt=@output.DisplayName />
-                                                                    <div class="text">@Math.Round(data.Quantity,2)</div>
+                                                            <button class="image-button" type="button" @onclick="@(e => OnClickOutputs(e, data.Recipe.ClassName))">
+                                                                <div class="flex-col flex-middle m10">
+                                                                    <div class="flex self-align">
+                                                                        <img class="image-48" src=@output.IconPath alt=@output.DisplayName />
+                                                                        <div class="text">@Math.Round(data.Quantity,2)</div>
+                                                                    </div>
+                                                                    <div class="text">@data.Recipe.DisplayName.FormatDisplayName()</div>
+                                                                    <div class="text">x @Math.Round(data.RecipeQuantity,2)</div>
                                                                 </div>
-                                                                <div class="text">@data.Recipe.DisplayName.FormatDisplayName()</div>
-                                                                <div class="text">x @Math.Round(data.RecipeQuantity,2)</div>
-                                                            </div>
+                                                            </button>
                                                         }
 
                                                     </div>
@@ -168,15 +170,15 @@
                                                     <div class="flex-wrap flex-center item-list">
                                                         @foreach (var (building, quantity) in permutation.Buildings)
                                                         {
-                                                             <button class="image-button" type="button" @onclick="@(e => OnClickBuildings(e, building.ClassName))">
-                                                            <div class="flex-col flex-middle m10">
-                                                                <div class="flex self-align">
-                                                                    <img class="image-48" src=@building.IconPath alt=@building.ClassName />
-                                                                    <div class="text"> @quantity</div>
-                                                                </div>
-                                                                <div class="text">@building.DisplayName.FormatDisplayName()</div>
+                                                            <button class="image-button" type="button" @onclick="@(e => OnClickBuildings(e, building.ClassName))">
+                                                                <div class="flex-col flex-middle m10">
+                                                                    <div class="flex self-align">
+                                                                        <img class="image-48" src=@building.IconPath alt=@building.ClassName />
+                                                                        <div class="text"> @quantity</div>
+                                                                    </div>
+                                                                    <div class="text">@building.DisplayName.FormatDisplayName()</div>
 
-                                                            </div>
+                                                                </div>
                                                             </button>
                                                         }
                                                     </div>
@@ -193,14 +195,14 @@
                                                     <div class="flex-wrap flex-center item-list">
                                                         @foreach (var (item, quantity) in permutation.Cost)
                                                         {
-                                                             <button class="image-button" type="button" @onclick="@(e => OnClickInfra(e, item.ClassName))">
-                                                            <div class="flex-col flex-left m10">
-                                                                <div class="flex self-align">
-                                                                    <img class="image-48" src=@item.IconPath alt=@item.ClassName />
-                                                                    <div class="text">@Math.Round(quantity,2)</div>
+                                                            <button class="image-button" type="button" @onclick="@(e => OnClickInfra(e, item.ClassName))">
+                                                                <div class="flex-col flex-left m10">
+                                                                    <div class="flex self-align">
+                                                                        <img class="image-48" src=@item.IconPath alt=@item.ClassName />
+                                                                        <div class="text">@Math.Round(quantity,2)</div>
+                                                                    </div>
+                                                                    <div class="text">@item.DisplayName.FormatDisplayName()</div>
                                                                 </div>
-                                                                <div class="text">@item.DisplayName.FormatDisplayName()</div>
-                                                            </div>
                                                             </button>
                                                         }
                                                     </div>
@@ -296,6 +298,19 @@
 
     }
 
+    private void OnClickOutputs(MouseEventArgs e, string recipeName)
+    {
+        if (PermState.Filters.Recipes.Contains(recipeName))
+        {
+            PermState.Filters.Recipes.Remove(recipeName);
+            PermState.RemoveFilter(FilterType.Recipe);
+        }
+        else
+        {
+            PermState.ApplyFilter(FilterType.Recipe, recipeName);
+        }
+    }
+
     private void OnClickItems(MouseEventArgs e, string className, string recipeName)
     {
         if (e.ShiftKey)
@@ -311,7 +326,7 @@
                 PermState.GeneratePermutations(false, false);
             }
         }
-        else if(e.CtrlKey)
+        else if (e.CtrlKey)
         {
             if (PermState.Filters.Items.Contains(className))
             {
