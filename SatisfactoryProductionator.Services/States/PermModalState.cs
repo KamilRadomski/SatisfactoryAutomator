@@ -149,7 +149,7 @@ namespace SatisfactoryProductionator.Services.States
         public void GeneratePermutations()
         {
             Active = false;
-            _permState.GeneratePermutations(false, true);
+            _permState.GeneratePermutations(Active, true);
             NotifyStateChanged();
         }
     }
