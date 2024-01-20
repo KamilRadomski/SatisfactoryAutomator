@@ -299,5 +299,12 @@ namespace SatisfactoryProductionator.Services.States
         {
             return ExcludedRecipes.Contains(recipeName);
         }
+
+        public void RemoveRow(NewPermutation permutation)
+        {
+            Permutations.First(x => x.Id == permutation.Id).Active = false;
+
+            NotifyStateChanged();
+        }
     }
 }

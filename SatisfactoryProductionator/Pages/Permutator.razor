@@ -63,8 +63,24 @@
 
                                     @* Options *@
                                     <td class="divider">
-                                        <div class="text">Options</div>
+                                        <div class="options-btns flex-col">
+                                            <button type="button" class="icon-button btn-x center-content" @onclick="@(() => PermState.RemoveRow(permutation))">
+                                                <div class="btn-icon icon-close oi-x" aria-hidden="true"></div>
+                                            </button>
+
+                                            <button type="button" class="icon-button btn-x center-content" @onclick="@(() => SetDetailsPane(permutation))">
+                                                <div class="btn-icon oi-eye" aria-hidden="true"></div>
+                                            </button>
+
+                                            <button type="button" class="icon-button btn-x center-content" @onclick="@(() => SendToGrapher(permutation))">
+                                                <div class="btn-icon oi-fork" aria-hidden="true"></div>
+                                            </button>
+                                        </div>
                                     </td>
+
+
+
+
 
                                     @* Inputs *@
                                     <td class="divider">
@@ -268,6 +284,16 @@
         PermState.OnStateChange -= StateHasChanged;
     }
 
+    private void SetDetailsPane(NewPermutation permutation)
+    {
+
+    }
+
+    private void SendToGrapher(NewPermutation permutation)
+    {
+
+    }
+
     private void OnClickInputs(MouseEventArgs e, string className)
     {
         if (e.ShiftKey)
@@ -386,126 +412,6 @@
         var completed = PermState.IsComplete();
 
         return completed ? "hidden" : "";
-    }
-
-    private List<Node> GetInputs(Permutation permutation)
-    {
-        return permutation.Nodes.Where(x => x.NodeType is NodeType.Input).OrderBy(x => x.Name).ToList();
-    }
-
-    private List<NodeStruct> GetOutputs(Permutation permutation)
-    {
-        var targetItems = PermState.Items;
-        var items = new List<NodeStruct>();
-
-        var byProducts = permutation.Nodes.Where(x => !string.IsNullOrEmpty(x.ByProduct))
-        .GroupBy(node => node.ByProduct);
-
-        foreach (var group in byProducts)
-        {
-            foreach (var node in group)
-            {
-                if (items.Any(x => x.Name == node.ByProduct))
-                {
-                    var nodeStruct = items.First(x => x.Name == node.ByProduct);
-                    nodeStruct.ItemQuantity += node.ByProductQuantity;
-                    nodeStruct.RecipeQuantity += node.RecipeQuantity;
-                }
-                else
-                {
-                    items.Add(new NodeStruct
-                        {
-                            Name = node.ByProduct,
-                            ItemQuantity = node.ByProductQuantity,
-                            Recipe = node.Recipe,
-                            RecipeQuantity = node.RecipeQuantity
-                        });
-                }
-
-            }
-        }
-
-        foreach (var item in targetItems)
-        {
-            var node = permutation.Nodes.First(x => x.Name == item.Key);
-
-            var newQuantity = node.ItemQuantity - targetItems[item.Key];
-
-            double recipeQuantity = 0;
-
-            if (newQuantity == 0)
-            {
-                recipeQuantity = node.RecipeQuantity;
-            }
-            else
-            {
-                var ratio = targetItems[item.Key] / node.ItemQuantity;
-                recipeQuantity = node.RecipeQuantity * ratio;
-            }
-
-            if (items.Any(x => x.Name == item.Key))
-            {
-                var nodeStruct = items.First(x => x.Name == item.Key);
-                nodeStruct.ItemQuantity += targetItems[item.Key];
-                nodeStruct.RecipeQuantity += recipeQuantity;
-            }
-            else
-            {
-                items.Add(new NodeStruct
-                    {
-                        Name = item.Key,
-                        ItemQuantity = item.Value,
-                        Recipe = node.Recipe,
-                        RecipeQuantity = recipeQuantity
-                    });
-            }
-        }
-
-        return items;
-    }
-
-    private List<NodeStruct>
-    GetItemsBuilt(Permutation permutation)
-    {
-        var targetItems = PermState.Items;
-
-        var items = new List<NodeStruct>
-            ();
-
-        foreach (var item in permutation.Nodes.Where(x => x.NodeType is NodeType.Build).OrderBy(x => x.Name))
-        {
-            if (targetItems.ContainsKey(item.Name))
-            {
-                var newQuantity = item.ItemQuantity - targetItems[item.Name];
-
-                if (newQuantity > 0)
-                {
-                    var ratio = newQuantity / item.ItemQuantity;
-                    var newRecipeQuantity = item.RecipeQuantity * ratio;
-
-                    items.Add(new NodeStruct
-                        {
-                            Name = item.Name,
-                            ItemQuantity = newQuantity,
-                            Recipe = item.Recipe,
-                            RecipeQuantity = newRecipeQuantity
-                        });
-
-                }
-            }
-            else
-            {
-                items.Add(new NodeStruct
-                    {
-                        Name = item.Name,
-                        ItemQuantity = item.ItemQuantity,
-                        Recipe = item.Recipe,
-                        RecipeQuantity = item.RecipeQuantity
-                    });
-            }
-        }
-
-        return items;
     }
 
     private double GetPowerTotal(Permutation permutation)

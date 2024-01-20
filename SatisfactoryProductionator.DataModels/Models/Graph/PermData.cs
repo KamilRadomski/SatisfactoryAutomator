@@ -2,6 +2,7 @@
 {
     public class PermData
     {
+        public int Id;
         public bool Active = true;
 
         public List<string> Inputs = new List<string>();

@@ -10,7 +10,8 @@
     padding-top: 0px;
 }
 
-.image-button {
+.image-button,
+.icon-button {
     background: unset;
     border: unset;
 }
@@ -22,9 +23,15 @@
     background: unset;
 }
 
-    .image-button:hover img {
+    .image-button:hover img,
+    .icon-button:hover div {
         transition: .3s;
         filter: drop-shadow(0px 0px 5px var(--sfBlue)) drop-shadow(0px 0px 10px var(--sfBlue));
+    }
+
+    .icon-button:hover div {
+        /*color: var(--sfBlue40);*/
+        /*opacity: .5;*/
     }
 
 .image-button:focus-visible {

@@ -286,3 +286,95 @@ divider {
     .hidden {
         display: none;
     }
+
+
+div.btn-outer {
+    --aug-all-width: 50px;
+    --aug-border-all: 3px;
+    --aug-border-bg: var(--sfBlue);
+    background: unset;
+    transition: .15s;
+}
+
+div.btn-middle {
+    --aug-all-width: 46px;
+    --aug-border-all: 2px;
+    transition: .15s;
+}
+
+/*div.btn-inner {
+    --aug-all-width: 54px;
+    --aug-border-all: 1px;
+    margin: 1px;
+    transition: .15s;
+}*/
+
+.btn-x {
+    background: unset;
+    border: unset;
+    width: 44px;
+    height: 44px;
+}
+
+.btn-outer:not(:disabled):hover {
+    /*--aug-border-all: 5px;*/
+    --aug-border-all: 2px;
+    background: var(--sfBlue20);
+    transition: .2s;
+}
+
+    .btn-outer:not(:disabled):hover .btn-middle {
+        --aug-all-width: 40px;
+        --aug-border-all: 1.5px;
+        transition: .2s;
+    }
+
+    .btn-outer:not(:disabled):hover .btn-icon {
+        font-size: 24px;
+        transition: .2s;
+    }
+
+.btn-outer:not(:disabled):active {
+    background: var(--sfBlueHover);
+}
+
+.icon-close {
+    padding-bottom: 5px;
+    margin-left: 1px !important;
+}
+
+.icon-bolt {
+    margin-left: 3px !important;
+}
+
+.btn-icon {
+    font-family: Icons;
+    font-style: normal;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    color: var(--sfBlue);
+    font-size: 28px;
+    transition: .15s;
+    margin-left: -2px;
+}
+
+.options-btns {
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 150px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.btn-remove {
+
+}
+
+.btn-details {
+
+}
+
+.btn-graph {
+
+}

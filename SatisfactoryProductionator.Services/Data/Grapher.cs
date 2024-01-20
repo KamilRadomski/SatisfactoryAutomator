@@ -10,7 +10,7 @@ namespace SatisfactoryProductionator.Services.Data
         private Codex _codex;
 
         private static int _count = 0;
-
+        private static int _id;
         public static bool Completed { get; set; }
 
         private static List<string> _imports;
@@ -21,8 +21,9 @@ namespace SatisfactoryProductionator.Services.Data
         {
             _codex = codex;
 
+            _id = 0;
             _count = 0;
-
+            
             Completed = true;
 
             _imports = imports;
@@ -51,6 +52,7 @@ namespace SatisfactoryProductionator.Services.Data
             {
                 var permutation = new PermData()
                 {
+                    Id = _id++,
                     Active = true,
                     Inputs = inputsNeeded,
                     Recipes = usedRecipes,
@@ -211,7 +213,7 @@ namespace SatisfactoryProductionator.Services.Data
 
             foreach (var perm in permDatas)
             {
-                var permutation = new NewPermutation();
+                var permutation = new NewPermutation() { Id = perm.Id};
 
                 HydrateItemData(permutation, items, perm.Recipes, initial: true);
                 HydrateBuildingData(permutation, items);
