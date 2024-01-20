@@ -26,21 +26,24 @@
     }
     else
     {
-        <div data-augmented-ui="tl-2-clip-x tr-clip br-2-clip-x bl-clip border" class="pos-abs filters-wrapper">
-            <div class="temp">Filters + Options - TBD</div>
+        <div data-augmented-ui="tl-2-clip-x tr-clip br-2-clip-x bl-clip border" class="pos-abs filters-wrapper @IsFilterOpen()">
+            @* <div class="temp">Filters + Options - TBD</div> *@
+            <div data-augmented-ui="t-clip br-clip bl-clip border" class="aug-btn filter-toggle @ToggleClass">
+                <button type="button" class="aug-btn" @onclick=@ToggleFilters></button>
+            </div>
+
         </div>
 
         <div data-augmented-ui="br-2-clip-y bl-2-clip-x border" class="pos-abs frozen-wrapper"></div>
 
-        <div data-augmented-ui="tl-clip tr-clip br-clip bl-2-clip-y border" class="pos-abs perm-wrapper">
+        <div data-augmented-ui="tl-clip tr-clip br-clip bl-2-clip-y border" class="pos-abs perm-wrapper @GetPermSizing()">
+            <div data-augmented-ui-reset></div>
             @if (!PermState.Permutations.Any())
             {
                 <div class="pos-abs loading">Add Items To Permutate .....</div>
             }
             else
             {
-                <div data-augmented-ui-reset></div>
-
                 <div data-augmented-ui="tl-clip tr-clip br-clip bl-clip border" class="page-wrapper">
                     <div class="table-wrapper">
                         <table class="perm-table">
@@ -261,6 +264,8 @@
 </div>
 
 @code {
+    public bool FiltersOpen = false;
+    public string ToggleClass = "";
 
     protected override async Task OnInitializedAsync()
     {
@@ -282,6 +287,29 @@
         AppModalState.OnStateChange -= StateHasChanged;
         CodexState.OnStateChange -= StateHasChanged;
         PermState.OnStateChange -= StateHasChanged;
+    }
+
+    private string IsFilterOpen() => FiltersOpen ? "filters-open" : "";
+
+    private string GetPermSizing()
+    {
+        if (FiltersOpen) return "perm-wrapper-toggle";
+
+        return string.Empty;
+    }
+
+    private void ToggleFilters()
+    {
+        FiltersOpen = !FiltersOpen;
+
+        if(FiltersOpen)
+        {
+            ToggleClass = "filter-up";
+        }
+        else
+        {
+            ToggleClass = "filter-down";
+        }
     }
 
     private void SetDetailsPane(NewPermutation permutation)

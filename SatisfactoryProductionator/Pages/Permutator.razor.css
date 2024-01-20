@@ -1,17 +1,4 @@
-﻿.filters-wrapper {
-    width: calc(100vw - 330px);
-    height: 100px;
-    top: 9px;
-    left: 8px;
-    --aug-border-all: 2px;
-    --aug-border-bg: var(--sfBlue);
-    --aug-tl: 14px;
-    --aug-tr: 29px;
-    --aug-bl: 25px;
-    --aug-br: 25px;
-    z-index:2;
-    background:black;
-}
+﻿
 
 .frozen-wrapper {
     width: calc(100vw - 335px);
@@ -36,7 +23,13 @@
     --aug-tr: 18px;
     --aug-bl: 19px;
     --aug-br: 29px;
-    
+    transition: .2s;
+}
+
+.perm-wrapper-toggle {
+    height: calc(100vh - 457px);
+    top: 421px;
+    transition: .2s;
 }
 
 .page-wrapper {
@@ -54,6 +47,7 @@
     padding-top: 5px;
     padding-left: 5px;
     padding-right: 5px;
+    
     
 }
 
@@ -365,6 +359,62 @@ div.btn-middle {
     height: 150px;
     margin-top: 10px;
     margin-bottom: 10px;
+}
+
+.filter-toggle {
+    --aug-border-all: 1px;
+    --aug-border-bg: var(--sfBlue);
+    height: 45px;
+    width: 40px;
+    left: 14px;
+    top: 35px;
+    --aug-t: 20px;
+    --aug-bl: 20px;
+    --aug-br: 20px;
+}
+
+.filter-up {
+    transform: rotate(-180deg);
+    transition: .2s;
+}
+
+.filter-down {
+    transform: rotate(0deg);
+    transition: .2s;
+}
+
+.rotate-clockwise {
+    animation: rotateClockwise 0.5s forwards;
+}
+
+.rotate-counterclockwise {
+    animation: rotateCounterClockwise 0.5s forwards;
+}
+
+.aug-btn:hover {
+    --aug-border-all: 1.5px;
+    background: var(--sfBlue20);
+}
+
+.filters-wrapper {
+    width: calc(100vw - 330px);
+    height: 100px;
+    top: 9px;
+    left: 8px;
+    --aug-border-all: 2px;
+    --aug-border-bg: var(--sfBlue);
+    --aug-tl: 14px;
+    --aug-tr: 29px;
+    --aug-bl: 25px;
+    --aug-br: 25px;
+    z-index: 2;
+    background: black;
+    transition: .2s;
+}
+
+.filters-open {
+    transition: .2s;
+    height: 400px;
 }
 
 .btn-remove {
