@@ -9,6 +9,7 @@
 
 @implements IDisposable;
 
+@* oi:info info icon *@
 
 
 <div data-augmented-ui="tl-2-clip-y tr-2-clip-x br-clip bl-clip border" class="top-panel">
@@ -16,21 +17,44 @@
     <div data-augmented-ui="br-clip bl-clip border" class="top-panel-inner">
 
         <div data-augmented-ui="tl-2-clip-y tr-clip br-2-clip-y bl-clip border" class="selected-list">
-
             <div class="list-wrapper">
-            @foreach (var item in PermState.Items)
-            {
-                <button class="image-button m5" type="button" @onclick="@(() => PermModalState.SetSelectedItem(item.Key, item.Value))">
-                    <img class="image-96" src=@CodexState.FetchIconPath(item.Key) alt=@item.Key />
-                    <div class="text">@CodexState.FetchDisplayName(item.Key).FormatDisplayName()</div>
-                    <div class="amount">@item.Value</div>
-                </button>
-            }
+                @if (PermState.Items.Any())
+                {
+                    <div class="item-wrapper">
+                        <div class="hor-line">
+                            <span>Items</span>
+                        </div>
+                        @foreach (var item in PermState.Items)
+                        {
+                            <button class="image-button m5" type="button" @onclick="@(e => OnClickItems(e, item.Key, item.Value))">
+                                <img class="image-96" src=@CodexState.FetchIconPath(item.Key) alt=@item.Key />
+                                <div class="text">@CodexState.FetchDisplayName(item.Key).FormatDisplayName()</div>
+                                <div class="amount">@item.Value</div>
+                            </button>
+                        }
+                    </div>
+                }
+                @if (PermState.Imports.Any())
+                {
+                    <div class="imports-wrapper">
+                        <div class="hor-line">
+                            <span>Imports</span>
+                        </div>
+                        @foreach (var item in PermState.Imports)
+                        {
+                            <button class="image-button m5" type="button" @onclick="@(e => OnClickImports(e, item))">
+                                <img class="image-96" src=@CodexState.FetchIconPath(item) alt=@item />
+                                <div class="text">@CodexState.FetchDisplayName(item).FormatDisplayName()</div>
+                            </button>
+                        }
+
+                    </div>
+                }
             </div>
         </div>
 
-        <div data-augmented-ui="tl-2-clip-y tr-clip br-clip bl-clip border" class="selected-perm flex-center">
-
+        <div data-augmented-ui="tl-2-clip-y tr-clip br-clip bl-clip border" class="selected-perm">
+            <div data-augmented-reset></div>
             @if (PermModalState.SelectedItem == null)
             {
                 <div class="select-item-text">Select Item</div>
@@ -39,111 +63,134 @@
             {
                 var item = PermModalState.SelectedItem;
 
-                <table class="selected-options">
-                    <tr>
-                        <td>
-                            <div class="selected-text">@item.DisplayName</div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="center-bar">
-                                <div data-augmented-ui="tl-clip tr-clip br-clip bl-clip border" class="pos-abs remove-btn">
-                                    <button type="button" class="btn-full" @onclick="@(() => PermModalState.RemoveSelected(item.ClassName))">
-                                        <span class="font-14">@GetDeleteText()</span>
-                                    </button>
-                                </div>
+                <div class="pos-abs selected-text">@item.DisplayName</div>
 
-                                <img class="image-96 pos-abs selected-image" src=@PermModalState.SelectedItem.IconPath alt=@PermModalState.SelectedItem.ClassName />
+                <div class="pos-abs img-container">
+                    <img class="image-96 pos-abs selected-image" src=@PermModalState.SelectedItem.IconPath alt=@PermModalState.SelectedItem.ClassName />
+                </div>
 
-                                <div data-augmented-ui="tl-clip tr-clip br-clip bl-clip border" class="pos-abs add-update-btn">
-                                    <button type="button" class="btn-full" @onclick="@(() => PermModalState.AddUpdateSelected(item.ClassName, Amount))">
-                                        <span class="font-14">@GetAddText()</span>
-                                    </button>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div data-augmented-ui="tl-2-clip-x tr-2-clip-x bl-clip br-clip border" class="input-range">
-                                @{
-                                    Amount = PermModalState.SelectAmount;
-                                }
+                <div class="pos-abs recipe-container">
+                    @foreach(var recipe in GetSelectedRecipes())
+                    {
+                        <div data-augmented-ui="tl-clip tr-clip br-clip bl-clip border" class="recipe @IsExcluded(recipe)">
+                            <button type="button" class="aug-btn" @onclick="@(() => PermState.ToggleExcluded(recipe))">
+                                <span>@CodexState.FetchRecipe(recipe).DisplayName.FormatDisplayName()</span>
+                            </button>
+                        </div>
+                    }
+                </div>
 
-                                <input type="text" maxlength="5" @bind="Amount" @oninput="UpdateAmount" @onblur="SetAmount" class="num-input no-spin" />
+                <div class="pos-abs input-container">
 
-                                <div class="flex-middle selector-bar">
-                                    <div data-augmented-reset></div>
-                                    <div data-augmented-ui="tl-clip r-clip bl-clip border" class="flex-middle sub-btn sub-100">
-                                        <button type="button" class="btn-full" @onclick="@(() => PermModalState.AddAmount(-100))">
-                                            <span>100</span>
-                                        </button>
+                    <div data-augmented-ui="tl-clip tr-clip br-clip bl-clip border" class="pos-abs remove-btn">
+                        <button type="button" class="btn-full" @onclick="@(() => PermModalState.RemoveSelected(item.ClassName))">
+                            <span class="font-14">@GetDeleteText()</span>
+                        </button>
+                    </div>
+                    <div data-augmented-ui="tl-clip tr-clip br-clip bl-clip border" class="pos-abs import-btn">
+                        <button type="button" class="btn-full" @onclick="@(() => PermModalState.ImportSelected(item.ClassName))">
+                            <span class="font-14">Import</span>
+                        </button>
+                    </div>
+                    <div data-augmented-ui="tl-clip tr-clip br-clip bl-clip border" class="pos-abs add-update-btn">
+                        <button type="button" class="btn-full" @onclick="@(() => PermModalState.AddUpdateSelected(item.ClassName, Amount))">
+                            <span class="font-14">@GetAddText()</span>
+                        </button>
+                    </div>
 
-                                    </div>
-                                    <div data-augmented-ui="tl-clip r-clip bl-clip border" class="flex-middle sub-btn sub-10">
-                                        <button type="button" class="btn-full" @onclick="@(() => PermModalState.AddAmount(-10))">
-                                            <span>10</span>
-                                        </button>
-                                    </div>
-                                    <div data-augmented-ui="tl-clip r-clip bl-clip border" class="flex-middle sub-btn sub-1">
-                                        <button type="button" class="btn-full" @onclick="@(() => PermModalState.AddAmount(-1))">
-                                            <span>1</span>
-                                        </button>
-                                    </div>
+                    <div data-augmented-ui="tl-2-clip-x tr-2-clip-x bl-clip br-clip border" class="pos-abs input-range">
+                        @{
+                            Amount = PermModalState.SelectAmount;
+                        }
+                       
+                        <input type="text" maxlength="5" @bind="Amount" @oninput="UpdateAmount" @onblur="SetAmount" class="num-input no-spin" />
 
-                                    <div data-augmented-ui="tr-clip l-clip br-clip border" class="flex-middle add-btn add-1">
-                                        <button type="button" class="btn-full" @onclick="@(() => PermModalState.AddAmount(1))">
-                                            <span>1</span>
-                                        </button>
-                                    </div>
-                                    <div data-augmented-ui="tr-clip l-clip br-clip border" class="flex-middle add-btn add-10">
-                                        <button type="button" class="btn-full" @onclick="@(() => PermModalState.AddAmount(10))">
-                                            <span>10</span>
-                                        </button>
-                                    </div>
-                                    <div data-augmented-ui="tr-clip l-clip br-clip border" class="flex-middle add-btn add-100">
-                                        <button type="button" class="btn-full" @onclick="@(() => PermModalState.AddAmount(100))">
-                                            <span>100</span>
-                                        </button>
-                                    </div>
-                                </div>
+                        <div class="flex-middle selector-bar">
+                            <div data-augmented-reset></div>
+                            <div data-augmented-ui="tl-clip r-clip bl-clip border" class="flex-middle sub-btn sub-100">
+                                <button type="button" class="btn-full" @onclick="@(() => PermModalState.AddAmount(-100))">
+                                    <span>100</span>
+                                </button>
 
                             </div>
-                        </td>
-                    </tr>
-                </table>
+                            <div data-augmented-ui="tl-clip r-clip bl-clip border" class="flex-middle sub-btn sub-10">
+                                <button type="button" class="btn-full" @onclick="@(() => PermModalState.AddAmount(-10))">
+                                    <span>10</span>
+                                </button>
+                            </div>
+                            <div data-augmented-ui="tl-clip r-clip bl-clip border" class="flex-middle sub-btn sub-1">
+                                <button type="button" class="btn-full" @onclick="@(() => PermModalState.AddAmount(-1))">
+                                    <span>1</span>
+                                </button>
+                            </div>
+
+                            <div data-augmented-ui="tr-clip l-clip br-clip border" class="flex-middle add-btn add-1">
+                                <button type="button" class="btn-full" @onclick="@(() => PermModalState.AddAmount(1))">
+                                    <span>1</span>
+                                </button>
+                            </div>
+                            <div data-augmented-ui="tr-clip l-clip br-clip border" class="flex-middle add-btn add-10">
+                                <button type="button" class="btn-full" @onclick="@(() => PermModalState.AddAmount(10))">
+                                    <span>10</span>
+                                </button>
+                            </div>
+                            <div data-augmented-ui="tr-clip l-clip br-clip border" class="flex-middle add-btn add-100">
+                                <button type="button" class="btn-full" @onclick="@(() => PermModalState.AddAmount(100))">
+                                    <span>100</span>
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
             }
-
-
-
         </div>
-
         <div data-augmented-ui="tl-clip tr-clip br-clip bl-clip border" class="btn-bar">
+
             <div data-augmented-ui="all-hex border" class="perm-close btn-outer center-content">
                 <div data-augmented-ui-reset></div>
                 <button type="button" class="btn-x center-content" @onclick=@PermModalState.CloseModal>
                     <div data-augmented-ui="all-hex border" class="btn-middle center-content">
                         <div data-augmented-ui-reset></div>
-                        <div data-augmented-ui="all-hex border" class="btn-inner center-content">
                             <div data-augmented-ui-reset></div>
                             <div class="btn-icon icon-close oi-x" aria-hidden="true"></div>
-                        </div>
                     </div>
                 </button>
             </div>
+
             <div data-augmented-ui="all-hex border" class="btn-outer center-content">
                 <div data-augmented-ui-reset></div>
-                <button type="button" class="btn-clear center-content" @onclick=@PermModalState.ClearItems>
+                <button type="button" class="btn-x center-content" @onclick=@PermModalState.ClearItems>
                     <div data-augmented-ui="all-hex border" class="btn-middle center-content">
                         <div data-augmented-ui-reset></div>
-                        <div data-augmented-ui="all-hex border" class="btn-inner center-content">
                             <div data-augmented-ui-reset></div>
-                            <span class="btn-icon oi-trash" aria-hidden="true"></span>
-                        </div>
+                            <span class="btn-icon oi-delete" aria-hidden="true"></span>
                     </div>
                 </button>
             </div>
+
+            <div data-augmented-ui="all-hex border" class="btn-outer center-content">
+                <div data-augmented-ui-reset></div>
+                <button type="button" class="btn-x center-content" @onclick=@PermModalState.ResetExclusions>
+                    <div data-augmented-ui="all-hex border" class="btn-middle center-content">
+                        <div data-augmented-ui-reset></div>
+                        <div data-augmented-ui-reset></div>
+                        <span class="btn-icon oi-reload" aria-hidden="true"></span>
+                    </div>
+                </button>
+            </div>
+
+            <div data-augmented-ui="all-hex border" class="btn-outer center-content">
+                <div data-augmented-ui-reset></div>
+                <button type="button" class="btn-x center-content" @onclick=@PermModalState.GeneratePermutations>
+                    <div data-augmented-ui="all-hex border" class="btn-middle center-content">
+                        <div data-augmented-ui-reset></div>
+                        <div data-augmented-ui-reset></div>
+                        <span class="btn-icon icon-bolt oi-bolt" aria-hidden="true"></span>
+                    </div>
+                </button>
+            </div>
+
         </div>
     </div>
 </div>
@@ -205,7 +252,45 @@
         SetAmount();
     }
 
+    private List<string> GetSelectedRecipes()
+    {
+        return PermModalState.SelectedItem.AutoRecipes
+            .Where(x => !x.StartsWith("Recipe_Unpackage") && !x.StartsWith("Recipe_Alternate_RecycledRubber") && !x.StartsWith("Recipe_Alternate_Plastic")).ToList();
+    }
+
+    public void OnClickItems(MouseEventArgs e, string name, double value)
+    {
+        if (e.ShiftKey)
+        {
+            PermModalState.MoveItemToImport(name);
+        }
+        else if (e.CtrlKey)
+        {
+            PermModalState.RemoveItem(name);
+        }
+        else
+        {
+            PermModalState.SetSelectedItem(name, value);
+        }
+    }
+
+    public void OnClickImports(MouseEventArgs e, string name)
+    {
+        if (e.ShiftKey)
+        {
+            PermModalState.MoveImportToItem(name);
+        }
+        else if (e.CtrlKey)
+        {
+            PermModalState.RemoveItem(name);
+        }
+        else
+        {
+            PermModalState.SetSelectedItem(name);
+        }
+    }
+
     public string GetDeleteText() => PermModalState.IsItemAdded() ? "Delete" : "Clear";
     public string GetAddText() => PermModalState.IsItemAdded() ? "Update" : "Add";
-
+    public string IsExcluded(string recipeName) => PermState.IsExcludedRecipe(recipeName) ? "excluded" : "";
 }

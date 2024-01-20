@@ -27,6 +27,10 @@
         filter: drop-shadow(0px 0px 5px var(--sfBlue)) drop-shadow(0px 0px 10px var(--sfBlue));
     }
 
+.image-button:focus-visible {
+    outline: -webkit-focus-ring-color auto 0px;
+}
+
 .aug-btn {
     padding: 0;
     margin: 0;

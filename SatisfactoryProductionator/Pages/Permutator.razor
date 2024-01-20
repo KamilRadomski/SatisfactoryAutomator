@@ -1,5 +1,6 @@
 ﻿@page "/permutator"
 @using SatisfactoryProductionator.DataModels.Enums;
+@using SatisfactoryProductionator.DataModels.Models.Codex;
 @using SatisfactoryProductionator.DataModels.Models.Graph;
 @using SatisfactoryProductionator.Extensions;
 @using SatisfactoryProductionator.Services;
@@ -54,12 +55,12 @@
                                     <th>Building Cost</th>
                                 </tr>
                             </thead>
-                            @* <tr class="header-row"></tr> *@
 
                             @foreach (var permutation in PermState.GetView())
                             {
                                 <div data-augmented-ui-reset></div>
                                 <tr data-augmented-ui="tl-clip tr-clip bl-clip br-clip border" class="perm-row">
+
                                     @* Options *@
                                     <td class="divider">
                                         <div class="text">Options</div>
@@ -74,13 +75,15 @@
                                                         <div class="flex-wrap flex-center item-list">
                                                             @foreach (var (input, data) in permutation.Inputs)
                                                             {
-                                                                <div class="flex-col flex-left m10">
-                                                                    <div class="flex self-align">
-                                                                        <img class="image-48" src=@input.IconPath alt=@input.DisplayName />
-                                                                        <div class="text">@Math.Round(data.Quantity,2)</div>
+                                                                <button class="image-button" type="button" @onclick="@(e => OnClickInputs(e, input.ClassName))">
+                                                                    <div class="flex-col flex-left m10">
+                                                                        <div class="flex self-align">
+                                                                            <img class="image-48" src=@input.IconPath alt=@input.DisplayName />
+                                                                            <div class="text">@Math.Round(data.Quantity,2)</div>
+                                                                        </div>
+                                                                        <div class="text">@GetInputText(input)</div>
                                                                     </div>
-                                                                    <div class="text">@input.DisplayName.FormatDisplayName()</div>
-                                                                </div>
+                                                                </button>
                                                             }
                                                         </div>
                                                     </td>
@@ -97,14 +100,16 @@
                                                     <div class="flex-wrap flex-center flex-col item-list">
                                                         @foreach (var (output, data) in permutation.Outputs)
                                                         {
-                                                            <div class="flex-col flex-middle m10">
-                                                                <div class="flex self-align">
-                                                                    <img class="image-48" src=@output.IconPath alt=@output.DisplayName />
-                                                                    <div class="text">@Math.Round(data.Quantity,2)</div>
+                                                            <button class="image-button" type="button" @onclick="@(e => OnClickOutputs(e, data.Recipe.ClassName))">
+                                                                <div class="flex-col flex-middle m10">
+                                                                    <div class="flex self-align">
+                                                                        <img class="image-48" src=@output.IconPath alt=@output.DisplayName />
+                                                                        <div class="text">@Math.Round(data.Quantity,2)</div>
+                                                                    </div>
+                                                                    <div class="text">@data.Recipe.DisplayName.FormatDisplayName()</div>
+                                                                    <div class="text">x @Math.Round(data.RecipeQuantity,2)</div>
                                                                 </div>
-                                                                <div class="text">@data.Recipe.DisplayName.FormatDisplayName()</div>
-                                                                <div class="text">x @Math.Round(data.RecipeQuantity,2)</div>
-                                                            </div>
+                                                            </button>
                                                         }
 
                                                     </div>
@@ -124,8 +129,8 @@
                                                             <img class="image-80" src=@CodexState.FetchIconPath("GeneratorFuel") alt="GeneratorFuel" />
                                                             <img class="image-48 img-down" src=@CodexState.FetchIconPath("LiquidFuel") alt="GeneratorFuel" />
                                                         </div>
-                                                        <div class="text">@permutation.Power MW</div>
-                                                        <div class="text">@GetFuelConsumption(permutation.Power) /Min</div>
+                                                        <div class="text">@Math.Round(permutation.Power, 2) MW</div>
+                                                        <div class="text">@Math.Round(GetFuelConsumption(permutation.Power), 2) /Min</div>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -140,14 +145,16 @@
                                                     <div class="flex-wrap flex-center item-list">
                                                         @foreach (var (item, data) in permutation.Items)
                                                         {
-                                                            <div class="flex-col flex-middle m10">
-                                                                <div class="flex self-align">
-                                                                    <img class="image-48" src=@item.IconPath alt=@item.DisplayName />
-                                                                    <div class="text">@Math.Round(data.Quantity,2)</div>
+                                                            <button class="image-button" type="button" @onclick="@(e => OnClickItems(e, item.ClassName, data.Recipe.ClassName))">
+                                                                <div class="flex-col flex-middle m10">
+                                                                    <div class="flex self-align">
+                                                                        <img class="image-48" src=@item.IconPath alt=@item.DisplayName />
+                                                                        <div class="text">@Math.Round(data.Quantity,2)</div>
+                                                                    </div>
+                                                                    <div class="text">@data.Recipe.DisplayName.FormatDisplayName()</div>
+                                                                    <div class="text">x @Math.Round(data.RecipeQuantity,2)</div>
                                                                 </div>
-                                                                <div class="text">@data.Recipe.DisplayName.FormatDisplayName()</div>
-                                                                <div class="text">x @Math.Round(data.RecipeQuantity,2)</div>
-                                                            </div>
+                                                            </button>
                                                         }
                                                     </div>
                                                 </td>
@@ -163,14 +170,16 @@
                                                     <div class="flex-wrap flex-center item-list">
                                                         @foreach (var (building, quantity) in permutation.Buildings)
                                                         {
-                                                            <div class="flex-col flex-middle m10">
-                                                                <div class="flex self-align">
-                                                                    <img class="image-48" src=@building.IconPath alt=@building.ClassName />
-                                                                    <div class="text"> @quantity</div>
-                                                                </div>
-                                                                <div class="text">@building.DisplayName.FormatDisplayName()</div>
+                                                            <button class="image-button" type="button" @onclick="@(e => OnClickBuildings(e, building.ClassName))">
+                                                                <div class="flex-col flex-middle m10">
+                                                                    <div class="flex self-align">
+                                                                        <img class="image-48" src=@building.IconPath alt=@building.ClassName />
+                                                                        <div class="text"> @quantity</div>
+                                                                    </div>
+                                                                    <div class="text">@building.DisplayName.FormatDisplayName()</div>
 
-                                                            </div>
+                                                                </div>
+                                                            </button>
                                                         }
                                                     </div>
                                                 </td>
@@ -186,13 +195,15 @@
                                                     <div class="flex-wrap flex-center item-list">
                                                         @foreach (var (item, quantity) in permutation.Cost)
                                                         {
-                                                            <div class="flex-col flex-left m10">
-                                                                <div class="flex self-align">
-                                                                    <img class="image-48" src=@item.IconPath alt=@item.ClassName />
-                                                                    <div class="text">@Math.Round(quantity,2)</div>
+                                                            <button class="image-button" type="button" @onclick="@(e => OnClickInfra(e, item.ClassName))">
+                                                                <div class="flex-col flex-left m10">
+                                                                    <div class="flex self-align">
+                                                                        <img class="image-48" src=@item.IconPath alt=@item.ClassName />
+                                                                        <div class="text">@Math.Round(quantity,2)</div>
+                                                                    </div>
+                                                                    <div class="text">@item.DisplayName.FormatDisplayName()</div>
                                                                 </div>
-                                                                <div class="text">@item.DisplayName.FormatDisplayName()</div>
-                                                            </div>
+                                                            </button>
                                                         }
                                                     </div>
                                                 </td>
@@ -210,17 +221,20 @@
                         <div class="stats">@GetPermStat()</div>
                         <div class="incomplete @IsComplete()">Incomplete Permutations! - Please import items or exclude recipes</div>
                     </div>
-                    <div class="pagination-box">
-                        <div class="pages">@GetPageStat()</div>
-                        <div class="page-nav">
-                            <button type="button" class="nav-btn" @onclick=@(() => PermState.SetPageLeft())>
-                                <span class="nav-icon oi-caret-left" aria-hidden="true"></span>
-                            </button>
-                            <button type="button" class="nav-btn" @onclick=@(() => PermState.SetPageRight())>
-                                <span class="nav-icon oi-caret-right" aria-hidden="true"></span>
-                            </button>
+                    @if (PermState.GetPageCount() > 1)
+                    {
+                        <div class="pagination-box">
+                            <div class="pages">@GetPageStat()</div>
+                            <div class="page-nav">
+                                <button type="button" class="nav-btn" @onclick=@(() => PermState.SetPageLeft())>
+                                    <span class="nav-icon oi-caret-left" aria-hidden="true"></span>
+                                </button>
+                                <button type="button" class="nav-btn" @onclick=@(() => PermState.SetPageRight())>
+                                    <span class="nav-icon oi-caret-right" aria-hidden="true"></span>
+                                </button>
+                            </div>
                         </div>
-                    </div>
+                    }
                 </div>
             }
         </div>
@@ -252,6 +266,119 @@
         AppModalState.OnStateChange -= StateHasChanged;
         CodexState.OnStateChange -= StateHasChanged;
         PermState.OnStateChange -= StateHasChanged;
+    }
+
+    private void OnClickInputs(MouseEventArgs e, string className)
+    {
+        if (e.ShiftKey)
+        {
+            if (PermState.Imports.Contains(className))
+            {
+                PermState.Imports.Remove(className);
+                PermState.GeneratePermutations(false, false);
+            }
+            else
+            {
+                PermState.Imports.Add(className);
+                PermState.GeneratePermutations(false, false);
+            }
+        }
+        else
+        {
+            if (PermState.Filters.Inputs.Contains(className))
+            {
+                PermState.Filters.Inputs.Remove(className);
+                PermState.RemoveFilter(FilterType.Input);
+            }
+            else
+            {
+                PermState.ApplyFilter(FilterType.Input, className);
+            }
+        }
+
+    }
+
+    private void OnClickOutputs(MouseEventArgs e, string recipeName)
+    {
+        if (PermState.Filters.Recipes.Contains(recipeName))
+        {
+            PermState.Filters.Recipes.Remove(recipeName);
+            PermState.RemoveFilter(FilterType.Recipe);
+        }
+        else
+        {
+            PermState.ApplyFilter(FilterType.Recipe, recipeName);
+        }
+    }
+
+    private void OnClickItems(MouseEventArgs e, string className, string recipeName)
+    {
+        if (e.ShiftKey)
+        {
+            if (PermState.Imports.Contains(className))
+            {
+                PermState.Imports.Remove(className);
+                PermState.GeneratePermutations(false, false);
+            }
+            else
+            {
+                PermState.Imports.Add(className);
+                PermState.GeneratePermutations(false, false);
+            }
+        }
+        else if (e.CtrlKey)
+        {
+            if (PermState.Filters.Items.Contains(className))
+            {
+                PermState.Filters.Items.Remove(className);
+                PermState.RemoveFilter(FilterType.Item);
+            }
+            else
+            {
+                PermState.ApplyFilter(FilterType.Item, className);
+            }
+        }
+        else
+        {
+            if (PermState.Filters.Recipes.Contains(recipeName))
+            {
+                PermState.Filters.Recipes.Remove(recipeName);
+                PermState.RemoveFilter(FilterType.Recipe);
+            }
+            else
+            {
+                PermState.ApplyFilter(FilterType.Recipe, recipeName);
+            }
+        }
+    }
+
+    private void OnClickBuildings(MouseEventArgs e, string className)
+    {
+
+        if (PermState.Filters.Buildings.Contains(className))
+        {
+            PermState.Filters.Buildings.Remove(className);
+            PermState.RemoveFilter(FilterType.Building);
+        }
+        else
+        {
+            PermState.ApplyFilter(FilterType.Building, className);
+        }
+    }
+
+    private void OnClickInfra(MouseEventArgs e, string className)
+    {
+
+        if (PermState.Filters.Costs.Contains(className))
+        {
+            PermState.Filters.Costs.Remove(className);
+            PermState.RemoveFilter(FilterType.Cost);
+        }
+        else
+        {
+            PermState.ApplyFilter(FilterType.Cost, className);
+        }
+
     }
 
     private string IsComplete()
@@ -438,4 +565,19 @@
     {
         return $"Page {PermState.Index + 1} / {PermState.GetPageCount()}";
     }
+
+    private string GetInputText(Item item)
+    {
+        var name = item.DisplayName.FormatDisplayName();
+
+        if (PermState.TotalImports.Contains(item.ClassName))
+        {
+            return $"({name})";
+        }
+        else
+        {
+            return name;
+        }
+    }
+
 }

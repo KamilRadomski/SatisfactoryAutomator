@@ -28,13 +28,13 @@ namespace SatisfactoryProductionator.Services.States
             _permState = permState;
         }
 
-        public void SetSelectedItem(string className, double amount = 0)
+        public void SetSelectedItem(string className, double amount = 30)
         {
             var item = _codexState.FetchItem(className) as Item;
             SetSelectedItem(item, amount);
         }
 
-        public void SetSelectedItem(Item item, double amount = 0)
+        public void SetSelectedItem(Item item, double amount = 30)
         {
             if (_permState.IsItemAdded(item.ClassName))
             {
@@ -82,9 +82,35 @@ namespace SatisfactoryProductionator.Services.States
             NotifyStateChanged();
         }
 
+        public void MoveItemToImport(string className)
+        {
+            _permState.RemoveItem(className);
+            ImportSelected(className);
+        }
+
+        public void MoveImportToItem(string className)
+        {
+            _permState.RemoveItem(className);
+            AddUpdateSelected(className, 30);
+        }
+
+        public void RemoveItem(string className)
+        {
+            _permState.RemoveItem(className);
+
+            NotifyStateChanged();
+        }
+
         public void AddUpdateSelected(string className, double amount)
         {
             _permState.AddUpdateItem(className, amount);
+
+            NotifyStateChanged();
+        }
+
+        public void ImportSelected(string className)
+        {
+            _permState.AddImport(className);
 
             NotifyStateChanged();
         }
@@ -105,13 +131,25 @@ namespace SatisfactoryProductionator.Services.States
         public void CloseModal()
         {
             Active = false;
-            _permState.GeneratePermutations(false);
             NotifyStateChanged();
         }
 
         public void ClearItems()
         {
             _permState.ClearItems();
+            NotifyStateChanged();
+        }
+
+        public void ResetExclusions()
+        {
+            _permState.ExcludedRecipes.Clear();
+            NotifyStateChanged();
+        }
+
+        public void GeneratePermutations()
+        {
+            Active = false;
+            _permState.GeneratePermutations(Active, true);
             NotifyStateChanged();
         }
     }

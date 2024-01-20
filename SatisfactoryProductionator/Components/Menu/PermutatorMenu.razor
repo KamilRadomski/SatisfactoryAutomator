@@ -25,14 +25,32 @@ else
     <div data-augmented-ui="tl-clip tr-clip br-clip bl-clip border" class="pos-abs mt-8 item-wrapper">
         <div data-augmented-ui-reset></div>
         <div class="pos-abs flex-col list-wrapper">
-
-            @foreach (var item in PermState.Items)
+            @if (PermState.Items.Any())
             {
-                <button class="image-button m12" type="button" @onclick="@(() => PermModalState.SetSelectedItem(item.Key, item.Value))">
-                    <img class="image-128" src=@CodexState.FetchIconPath(item.Key) alt=@item.Key />
-                    <div class="text">@CodexState.FetchDisplayName(item.Key).FormatDisplayName()</div>
-                    <div class="amount">@item.Value</div>
-                </button>
+                <div class="hor-line">
+                    <span>Items</span>
+                </div>
+                @foreach (var item in PermState.Items)
+                {
+                    <button class="image-button m12" type="button" @onclick="@(e => OnClickItem(e, item.Key, item.Value))">
+                        <img class="image-128" src=@CodexState.FetchIconPath(item.Key) alt=@item.Key />
+                        <div class="text">@CodexState.FetchDisplayName(item.Key).FormatDisplayName()</div>
+                        <div class="amount">@item.Value</div>
+                    </button>
+                }
+            }
+            @if (PermState.Imports.Any())
+            {
+                <div class="hor-line">
+                    <span>Imports</span>
+                </div>
+                @foreach (var item in PermState.Imports)
+                {
+                    <button class="image-button m12" type="button" @onclick="@(e => OnClickImport(e, item))">
+                        <img class="image-128" src=@CodexState.FetchIconPath(item) alt=@item />
+                        <div class="text">@CodexState.FetchDisplayName(item).FormatDisplayName()</div>
+                    </button>
+                }
             }
         </div>
     </div>
@@ -55,4 +73,35 @@ else
         CodexState.OnStateChange -= StateHasChanged;
     }
 
+    private void OnClickItem(MouseEventArgs e, string name, double value)
+    {
+        if(e.ShiftKey)
+        {
+            PermModalState.MoveItemToImport(name);
+        }
+        else if(e.CtrlKey)
+        {
+            PermModalState.RemoveItem(name);
+        }
+        else
+        {
+            PermModalState.SetSelectedItem(name, value);
+        }
+    }
+
+    private void OnClickImport(MouseEventArgs e, string name)
+    {
+        if (e.ShiftKey)
+        {
+            PermModalState.MoveImportToItem(name);
+        }
+        else if (e.CtrlKey)
+        {
+            PermModalState.RemoveItem(name);
+        }
+        else
+        {
+            PermModalState.SetSelectedItem(name);
+        }
+    }
 }
