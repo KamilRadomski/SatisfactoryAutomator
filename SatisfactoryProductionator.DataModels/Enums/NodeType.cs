@@ -3,7 +3,8 @@
     public enum NodeType
     {
         Default = 0,
-        Build = 1,
+        Output = 1,
+        Item = 1,
         Input = 2,
         Import = 3,
     }

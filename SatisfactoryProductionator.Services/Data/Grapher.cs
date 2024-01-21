@@ -224,6 +224,16 @@ namespace SatisfactoryProductionator.Services.Data
             return permutations;
         }
 
+        public Graph GenerateGraphNodes(NewPermutation permutation, Dictionary<string, double> items, List<string> totalImports)
+        {
+            var graph = new Graph();
+
+
+
+
+            return graph;
+        }
+
         private void HydrateItemData(NewPermutation permutation, Dictionary<string, double> items, List<string> recipeList, bool initial = false)
         {
             var recipes = ProcessItems(permutation, items, recipeList, initial);
@@ -472,5 +482,7 @@ namespace SatisfactoryProductionator.Services.Data
                 permutation.Buildings.Add(building, buildingCount);
             }
         }
+
+        
     }
 }

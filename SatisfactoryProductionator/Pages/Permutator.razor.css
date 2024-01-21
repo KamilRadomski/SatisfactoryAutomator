@@ -1,7 +1,7 @@
 ﻿
 
 .frozen-wrapper {
-    width: calc(100vw - 335px);
+    width: calc(100vw - 347px);
     height: 40px;
     top: 33px;
     left: 17px;
@@ -10,6 +10,16 @@
     --aug-bl: 15px;
     --aug-br: 15px;
     z-index: 1;
+    background:black;
+}
+
+.frozen-small {
+    height: 300px;
+    transition: .2s;
+}
+
+.frozen-large {
+
 }
 
 .perm-wrapper {

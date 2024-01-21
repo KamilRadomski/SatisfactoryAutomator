@@ -170,6 +170,14 @@ namespace SatisfactoryProductionator.Services.States
             return _grapher.HydrateView(permDatas, Items, TotalImports);
         }
 
+        public Graph GenerateGraphNodes(NewPermutation permutation)
+        {
+            var graph = _grapher.GenerateGraphNodes(permutation, Items, TotalImports);
+
+            return graph;
+        }
+
+
         private List<PermData> GetCurrentPage()
         {
             var pageCount = GetPageCount();
