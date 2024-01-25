@@ -27,7 +27,20 @@ namespace SatisfactoryProductionator.Services.States
 
         public Filters Filters { get; set; } = new Filters();
 
+        public NewPermutation? DetailRow { get; set; }
+
         public List<NewPermutation> GetView() => HydrateView();
+
+        public string PageCss { get; set; }
+        public string FilterCss { get; set; }
+        public string DetailCss { get; set; }
+
+        public bool FiltersActive { get; set; } = false;
+        public bool DetailActive { get; set; } = false;
+        public bool DetailsExpanded { get; set; } = false;
+
+
+
 
         public int PageSize { get; set; } = 20;
         public int Index { get; set; } = 0;
@@ -44,6 +57,13 @@ namespace SatisfactoryProductionator.Services.States
         }
 
         private void NotifyStateChanged() => OnStateChange?.Invoke();
+
+        public void SetRowDetail(NewPermutation permutation)
+        {
+            DetailRow = permutation;
+
+            NotifyStateChanged();
+        }
 
         public void AddUpdateItem(string className, double amount)
         {

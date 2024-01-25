@@ -1,0 +1,124 @@
+﻿.page-wrapper {
+    width: calc(100vw - 342px);
+    height: calc(100vh - 203px);
+    margin-top: 6px;
+    margin-left: 6px;
+    --aug-border-all: 2px;
+    --aug-border-x: -1.5px;
+    --aug-border-bg: var(--sfBlue);
+    --aug-tl: 17px;
+    --aug-tr: 15px;
+    --aug-bl: 41px;
+    --aug-br: 32px;
+    padding-top: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.table-wrapper {
+    overflow-y: auto;
+    height: calc(100vh - 210px);
+    padding-right: 10px;
+    padding-bottom: 12px;
+}
+
+    .table-wrapper::-webkit-scrollbar {
+        width: 12px;
+    }
+
+    .table-wrapper::-webkit-scrollbar-track {
+        background: var(--sfBlue40);
+        border-radius: 16px;
+        margin-block: 40px;
+        margin-block-start: 20px;
+    }
+
+    .table-wrapper::-webkit-scrollbar-thumb {
+        border-radius: 100vh;
+        background: var(--sfBlue40);
+    }
+
+.perm-table {
+    width: 100%;
+    margin-top: 5px;
+    border-collapse: separate;
+    border-spacing: 0 10px;
+}
+
+thead th {
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: black;
+    border-bottom: 1px solid var(--sfBlue40);
+}
+
+thead tr th:first-child {
+    padding-left: 15px;
+}
+.perm-row {
+    width: 100%;
+    min-width: 300px;
+    min-height: 100px;
+    --aug-border-x: 1.5px;
+    --aug-border-y: .5px;
+    --aug-border-bg: var(--sfBlue);
+    --aug-tl: 15px;
+    --aug-tr: 10px;
+    --aug-bl: 20px;
+    --aug-br: 15px;
+}
+
+.divider {
+    position: relative;
+}
+
+    .divider:before {
+        content: '';
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: linear-gradient( to bottom, black 0%, var(--sfBlue40) 40%, var(--sfBlue40) 60%, black 100% );
+    }
+
+.options-btns {
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 150px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.btn-x {
+    background: unset;
+    border: unset;
+    width: 44px;
+    height: 44px;
+}
+
+.btn-icon {
+    font-family: Icons;
+    font-style: normal;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    color: var(--sfBlue);
+    font-size: 28px;
+    transition: .15s;
+    margin-left: -2px;
+}
+
+.item-list {
+    min-width: 150px;
+    min-height: 100px;
+}
+
+.text {
+    white-space: nowrap;
+    font-size: 12px;
+    text-align: left;
+    margin-left: 2px;
+}

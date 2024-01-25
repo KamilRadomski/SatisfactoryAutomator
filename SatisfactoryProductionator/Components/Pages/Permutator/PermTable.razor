@@ -12,45 +12,62 @@
 <div data-augmented-ui="tl-clip tr-clip br-clip bl-clip border" class="page-wrapper">
     <div class="table-wrapper">
         <table class="perm-table">
-            @if (!SuppressHeader)
-            {
-                <thead class="divider">
-                    <tr>
+            <thead class="divider">
+                <tr>
+                    @if (!IsDetailRow)
+                    {
                         <th>Options</th>
-                        <th>Inputs</th>
-                        <th>Outputs</th>
-                        <th>Power</th>
-                        <th>Items</th>
-                        <th>Buildings</th>
-                        <th>Building Cost</th>
-                    </tr>
-                </thead>
+                    }
+
+                    <th>Inputs</th>
+                    <th>Outputs</th>
+                    <th>Power</th>
+                    <th>Items</th>
+                    <th>Buildings</th>
+                    <th>Building Cost</th>
+                </tr>
+            </thead>
+            @{
+                var permutations = new List<NewPermutation>();
+
+                if (IsDetailRow)
+                {
+                    permutations.Add(PermState.DetailRow);
+                }
+                else
+                {
+                    permutations = PermState.GetView();
+                }
             }
-            @foreach (var permutation in PermState.GetView())
+
+            @foreach (var permutation in permutations)
             {
                 <div data-augmented-ui-reset></div>
                 <tr data-augmented-ui="tl-clip tr-clip bl-clip br-clip border" class="perm-row">
 
-                    @* Options *@
-                    <td class="divider">
-                        <div class="options-btns flex-col">
-                            <button type="button" class="icon-button btn-x center-content" @onclick="@(() => PermState.RemoveRow(permutation))">
-                                <div class="btn-icon icon-close oi-x" aria-hidden="true"></div>
-                            </button>
+                    @if (!IsDetailRow)
+                    {
+                        @* Options *@
+                        <td class="divider">
+                            <div class="options-btns flex-col">
+                                <button type="button" class="icon-button btn-x center-content" @onclick="@(() => PermState.RemoveRow(permutation))">
+                                    <div class="btn-icon icon-close oi-x" aria-hidden="true"></div>
+                                </button>
 
-                            <button type="button" class="icon-button btn-x center-content" @onclick="@(() => SetDetailsPane(permutation))">
-                                <div class="btn-icon oi-eye" aria-hidden="true"></div>
-                            </button>
+                                <button type="button" class="icon-button btn-x center-content" @onclick="@(() => SetDetailsPane(permutation))">
+                                    <div class="btn-icon oi-eye" aria-hidden="true"></div>
+                                </button>
 
-                            <button type="button" class="icon-button btn-x center-content" @onclick="@(() => SendToGrapher(permutation))">
-                                <div class="btn-icon oi-fork" aria-hidden="true"></div>
-                            </button>
-                        </div>
-                    </td>
+                                <button type="button" class="icon-button btn-x center-content" @onclick="@(() => SendToGrapher(permutation))">
+                                    <div class="btn-icon oi-fork" aria-hidden="true"></div>
+                                </button>
+                            </div>
+                        </td>
+                    }
 
                     @* Inputs *@
                     <td class="divider">
-                        <div class="content-wrapper">
+                        <div class="flex">
                             <table class="w100">
                                 <tr>
                                     <td>
@@ -79,7 +96,7 @@
                         <table class="w100">
                             <tr>
                                 <td>
-                                    <div class="flex-wrap flex-center flex-col item-list">
+                                    <div class="flex-wrap flex-center item-list">
                                         @foreach (var (output, data) in permutation.Outputs)
                                         {
                                             <button class="image-button" type="button" @onclick="@(e => OnClickOutputs(e, data.Recipe.ClassName))">
@@ -109,7 +126,7 @@
                                     <div class="flex-col flex-middle m10 item-list">
                                         <div class="flex self-align">
                                             <img class="image-80" src=@CodexState.FetchIconPath("GeneratorFuel") alt="GeneratorFuel" />
-                                            <img class="image-48 img-down" src=@CodexState.FetchIconPath("LiquidFuel") alt="GeneratorFuel" />
+                                            <img class="image-48" src=@CodexState.FetchIconPath("LiquidFuel") alt="GeneratorFuel" />
                                         </div>
                                         <div class="text">@Math.Round(permutation.Power, 2) MW</div>
                                         <div class="text">@Math.Round(GetFuelConsumption(permutation.Power), 2) /Min</div>
@@ -202,21 +219,17 @@
 
 @code {
     [Parameter]
-    public bool SuppressHeader { get; set; }
+    public bool IsDetailRow { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         base.OnInitialized();
-        // MenuState.OnStateChange += StateHasChanged;
-        // AppModalState.OnStateChange += StateHasChanged;
         CodexState.OnStateChange += StateHasChanged;
         PermState.OnStateChange += StateHasChanged;
     }
 
     public void Dispose()
     {
-        // MenuState.OnStateChange -= StateHasChanged;
-        // AppModalState.OnStateChange -= StateHasChanged;
         CodexState.OnStateChange -= StateHasChanged;
         PermState.OnStateChange -= StateHasChanged;
     }
@@ -224,6 +237,10 @@
     private void SetDetailsPane(NewPermutation permutation)
     {
         //Have PermState hold css vars
+        PermState.DetailActive = true;
+        PermState.DetailsExpanded = false;
+
+        PermState.SetRowDetail(permutation);
 
         // DetailsClass = "frozen-small";
         // DetailsOpen = true;
