@@ -53,26 +53,7 @@
             {
                 <PermTable IsDetailRow=false />
 
-                <div class="footer-wrapper">
-                    <div class="stats-box">
-                        <div class="stats">@GetPermStat()</div>
-                        <div class="incomplete @IsComplete()">Incomplete Permutations! - Please import items or exclude recipes</div>
-                    </div>
-                    @if (PermState.GetPageCount() > 1)
-                    {
-                        <div class="pagination-box">
-                            <div class="pages">@GetPageStat()</div>
-                            <div class="page-nav">
-                                <button type="button" class="nav-btn" @onclick=@(() => PermState.SetPageLeft())>
-                                    <span class="nav-icon oi-caret-left" aria-hidden="true"></span>
-                                </button>
-                                <button type="button" class="nav-btn" @onclick=@(() => PermState.SetPageRight())>
-                                    <span class="nav-icon oi-caret-right" aria-hidden="true"></span>
-                                </button>
-                            </div>
-                        </div>
-                    }
-                </div>
+                <PermutatorFooter />
             }
         </div>
 
@@ -210,25 +191,5 @@
         {
             FilterCss = "filter-down";
         }
-    }
-
-    private string IsComplete()
-    {
-        var completed = PermState.IsComplete();
-
-        return completed ? "hidden" : "";
-    }
-
-    private string GetPermStat()
-    {
-        var active = PermState.Permutations.Where(x => x.Active).Count();
-        var total = PermState.Permutations.Count();
-
-        return $"{active} / {total} Active";
-    }
-
-    private string GetPageStat()
-    {
-        return $"Page {PermState.Index + 1} / {PermState.GetPageCount()}";
     }
 }

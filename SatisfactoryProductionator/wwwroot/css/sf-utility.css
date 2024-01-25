@@ -133,6 +133,10 @@
     top: 24px;
 }
 
+.hidden {
+    display: none;
+}
+
 .temp {
     font-size: 16px;
     top: 24px;
