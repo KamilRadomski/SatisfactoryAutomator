@@ -9,9 +9,9 @@
 
 @implements IDisposable
 
-<div data-augmented-ui="tl-clip tr-clip br-clip bl-clip border" class="page-wrapper">
-    <div class="table-wrapper">
-        <table class="perm-table">
+<div data-augmented-ui="tl-clip tr-clip br-clip bl-clip border" class="page-wrapper @GetPageSizing()">
+    <div class="table-wrapper @GetTableSizing()">
+        <table class="@GetTableCss()">
             <thead class="divider">
                 <tr>
                     @if (!IsDetailRow)
@@ -247,9 +247,49 @@
 
     }
 
+    private string GetTableCss() => IsDetailRow ? "detail-table" : "perm-table";
 
+    private string GetPageSizing()
+    {
+        var permToggle = PermState.GetPermToggles();
 
+        if (!IsDetailRow)
+        {
+            return permToggle switch
+            {
+                PermToggles.Default => string.Empty,
+                PermToggles.Filter => "page-wrapper-f",
+                PermToggles.FilterDetail => "page-wrapper-fd",
+                PermToggles.FilterDetailExpanded => "page-wrapper-fde",
+                PermToggles.Detail => "page-wrapper-d",
+                PermToggles.DetailExpanded => "page-wrapper-de",
+                _ => string.Empty
+            };
+        }
 
+        return string.Empty;
+    }
+
+    private string GetTableSizing()
+    {
+        var permToggle = PermState.GetPermToggles();
+
+        if (!IsDetailRow)
+        {
+            return permToggle switch
+            {
+                PermToggles.Default => string.Empty,
+                PermToggles.Filter => "table-wrapper-f",
+                PermToggles.FilterDetail => "table-wrapper-fd",
+                PermToggles.FilterDetailExpanded => "table-wrapper-fde",
+                PermToggles.Detail => "table-wrapper-d",
+                PermToggles.DetailExpanded => "table-wrapper-de",
+                _ => string.Empty
+            };
+        }
+
+        return string.Empty;
+    }
 
     private void OnClickInputs(MouseEventArgs e, string className)
     {

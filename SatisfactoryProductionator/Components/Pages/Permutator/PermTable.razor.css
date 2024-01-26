@@ -15,6 +15,26 @@
     padding-right: 5px;
 }
 
+.page-wrapper-f {
+    height: calc(100vh - 503px);
+}
+
+.page-wrapper-fd {
+    height: calc(100vh - 203px);
+}
+
+.page-wrapper-fde {
+    height: calc(100vh - 203px);
+}
+
+.page-wrapper-d {
+    height: calc(100vh - 203px);
+}
+
+.page-wrapper-de {
+    height: calc(100vh - 203px);
+}
+
 .table-wrapper {
     overflow-y: auto;
     height: calc(100vh - 210px);
@@ -38,7 +58,34 @@
         background: var(--sfBlue40);
     }
 
+.table-wrapper-f {
+    height: calc(100vh - 510px);
+}
+
+.table-wrapper-fd {
+    height: calc(100vh - 203px);
+}
+
+.table-wrapper-fde {
+    height: calc(100vh - 203px);
+}
+
+.table-wrapper-d {
+    height: calc(100vh - 203px);
+}
+
+.table-wrapper-de {
+    height: calc(100vh - 203px);
+}
+
 .perm-table {
+    width: 100%;
+    margin-top: 5px;
+    border-collapse: separate;
+    border-spacing: 0 10px;
+}
+
+.detail-table {
     width: 100%;
     margin-top: 5px;
     border-collapse: separate;
