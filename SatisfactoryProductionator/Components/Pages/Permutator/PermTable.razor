@@ -236,21 +236,20 @@
 
     private void SetDetailsPane(NewPermutation permutation)
     {
-        //Have PermState hold css vars
         PermState.DetailActive = true;
         PermState.DetailsExpanded = false;
 
         PermState.SetRowDetail(permutation);
-
-        // DetailsClass = "frozen-small";
-        // DetailsOpen = true;
-        // PermState.GenerateGraphNodes(permutation);
     }
 
     private void SendToGrapher(NewPermutation permutation)
     {
 
     }
+
+
+
+
 
     private void OnClickInputs(MouseEventArgs e, string className)
     {
