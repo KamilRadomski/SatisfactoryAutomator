@@ -334,5 +334,41 @@ namespace SatisfactoryProductionator.Services.States
 
             NotifyStateChanged();
         }
+
+        public PermToggles GetPermToggles()
+        {
+            if (!FiltersActive && !DetailActive)
+            {
+                return PermToggles.Default;
+            }
+            else if (FiltersActive)
+            {
+                if (!DetailActive)
+                {
+                    return PermToggles.Filter;
+                }
+                if (DetailActive && !DetailsExpanded)
+                {
+                    return PermToggles.FilterDetail;
+                }
+                if (DetailActive && DetailsExpanded)
+                {
+                    return PermToggles.FilterDetailExpanded;
+                }
+            }
+            else
+            {
+                if (DetailActive && !DetailsExpanded)
+                {
+                    return PermToggles.Detail;
+                }
+                else
+                {
+                    return PermToggles.DetailExpanded;
+                }
+            }
+
+            return PermToggles.Default;
+        }
     }
 }

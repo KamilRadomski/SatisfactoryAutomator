@@ -28,7 +28,7 @@
     else
     {
         <div data-augmented-ui="tl-2-clip-x tr-clip br-2-clip-x bl-clip border" class="pos-abs filters-wrapper @IsFilterOpen()">
-            <div data-augmented-ui="t-clip br-clip bl-clip border" class="aug-btn filter-toggle @FilterCss">
+            <div data-augmented-ui="t-clip br-clip bl-clip border" class="aug-btn filter-toggle @FilterButtonCss">
                 <button type="button" class="aug-btn" @onclick=@ToggleFilters></button>
             </div>
 
@@ -63,7 +63,7 @@
 </div>
 
 @code {
-    public string FilterCss = "";
+    public string FilterButtonCss = "";
 
     protected override async Task OnInitializedAsync()
     {
@@ -89,84 +89,25 @@
 
     private string IsFilterOpen() => PermState.FiltersActive ? "filters-open" : "";
 
-    private PermToggles GetPermToggles()
-    {
-        var filters = PermState.FiltersActive;
-        var details = PermState.DetailActive;
-        var expandedDetail = PermState.DetailsExpanded;
-
-        if (!filters && !details)
-        {
-            return PermToggles.Default;
-        }
-        else if (filters)
-        {
-            if (!details)
-            {
-                return PermToggles.Filter;
-            }
-            if (details && !expandedDetail)
-            {
-                return PermToggles.FilterDetail;
-            }
-            if (details && expandedDetail)
-            {
-                return PermToggles.FilterDetailExpanded;
-            }
-        }
-        else
-        {
-            if (details && !expandedDetail)
-            {
-                return PermToggles.Detail;
-            }
-            else
-            {
-                return PermToggles.DetailExpanded;
-            }
-        }
-
-        return PermToggles.Default;
-    }
-
     private string GetDetailSizing()
     {
-        var filters = PermState.FiltersActive;
-        var details = PermState.DetailActive;
-        var expandedDetail = PermState.DetailsExpanded;
+        var permToggle = PermState.GetPermToggles();
 
-        if (!details)
+        return permToggle switch
         {
-            return string.Empty;
-        }
-
-        if (filters)
-        {
-            if (expandedDetail)
-            {
-                return "filter-details-expanded";
-            }
-            else
-            {
-                return "filter-details-open";
-            }
-        }
-        else
-        {
-            if (expandedDetail)
-            {
-                return "details-expanded";
-            }
-            else
-            {
-                return "details-open";
-            }
-        }
+            PermToggles.Default => string.Empty,
+            PermToggles.Filter => string.Empty,
+            PermToggles.FilterDetail => "filter-details-open",
+            PermToggles.FilterDetailExpanded => "filter-details-expanded",
+            PermToggles.Detail => "details-open",
+            PermToggles.DetailExpanded => "details-expanded",
+            _ => string.Empty
+        };
     }
 
     private string GetPermSizing()
     {
-        var permToggle = GetPermToggles();
+        var permToggle = PermState.GetPermToggles();
 
         return permToggle switch
         {
@@ -175,7 +116,8 @@
             PermToggles.FilterDetail => "perm-filter-details-on",
             PermToggles.FilterDetailExpanded => "perm-filter-expanded-on",
             PermToggles.Detail => "perm-details-on",
-            PermToggles.DetailExpanded => "perm-expanded-on"
+            PermToggles.DetailExpanded => "perm-expanded-on",
+            _ => string.Empty
         };
     }
 
@@ -185,11 +127,11 @@
 
         if (PermState.FiltersActive)
         {
-            FilterCss = "filter-up";
+            FilterButtonCss = "filter-up";
         }
         else
         {
-            FilterCss = "filter-down";
+            FilterButtonCss = "filter-down";
         }
     }
 }
