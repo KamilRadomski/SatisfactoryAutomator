@@ -1,6 +1,6 @@
 ﻿.page-wrapper {
     width: calc(100vw - 342px);
-    height: calc(100vh - 203px);
+    /*height: calc(100vh - 203px);*/
     margin-top: 6px;
     margin-left: 6px;
     --aug-border-all: 2px;
@@ -13,6 +13,10 @@
     padding-top: 5px;
     padding-left: 5px;
     padding-right: 5px;
+}
+
+.page-wrapper-def {
+    height: calc(100vh - 203px);
 }
 
 .page-wrapper-f {
@@ -37,7 +41,7 @@
 
 .table-wrapper {
     overflow-y: auto;
-    height: calc(100vh - 210px);
+    /*height: calc(100vh - 210px);*/
     padding-right: 10px;
     padding-bottom: 12px;
 }
@@ -57,6 +61,10 @@
         border-radius: 100vh;
         background: var(--sfBlue40);
     }
+
+.table-wrapper-def {
+    height: calc(100vh - 210px);
+}
 
 .table-wrapper-f {
     height: calc(100vh - 510px);

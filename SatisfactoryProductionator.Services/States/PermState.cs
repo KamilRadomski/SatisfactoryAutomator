@@ -58,6 +58,13 @@ namespace SatisfactoryProductionator.Services.States
 
         private void NotifyStateChanged() => OnStateChange?.Invoke();
 
+        public void ToggleFilters(bool filters)
+        {
+            FiltersActive = filters;
+
+            NotifyStateChanged();
+        }
+
         public void SetRowDetail(NewPermutation permutation)
         {
             DetailRow = permutation;

@@ -123,9 +123,9 @@
 
     private void ToggleFilters()
     {
-        PermState.FiltersActive = !PermState.FiltersActive;
+        var filters = !PermState.FiltersActive;
 
-        if (PermState.FiltersActive)
+        if (filters)
         {
             FilterButtonCss = "filter-up";
         }
@@ -134,6 +134,8 @@
             FilterButtonCss = "filter-down";
         }
 
-        StateHasChanged();
+        PermState.ToggleFilters(filters);
+
+        // PermState. ();
     }
 }
