@@ -1,16 +1,11 @@
 ﻿@page "/permutator"
 @using SatisfactoryProductionator.Components.Pages.Permutator
 @using SatisfactoryProductionator.DataModels.Enums;
-@using SatisfactoryProductionator.DataModels.Models.Codex;
-@using SatisfactoryProductionator.DataModels.Models.Graph;
-@using SatisfactoryProductionator.Extensions;
-@using SatisfactoryProductionator.Services;
 @using SatisfactoryProductionator.Services.States;
 
 @inject MenuState MenuState
 @inject AppModalState AppModalState
 @inject CodexState CodexState
-@inject PermState PermState
 
 @implements IDisposable
 
@@ -27,51 +22,21 @@
     }
     else
     {
-        <div data-augmented-ui="tl-2-clip-x tr-clip br-2-clip-x bl-clip border" class="pos-abs filters-wrapper @IsFilterOpen()">
-            <div data-augmented-ui="t-clip br-clip bl-clip border" class="aug-btn filter-toggle @FilterButtonCss">
-                <button type="button" class="aug-btn" @onclick=@ToggleFilters></button>
-            </div>
+        <PermFilters />
 
-        </div>
+        <PermDetail />
 
-        <div data-augmented-ui="br-2-clip-y bl-2-clip-x border" class="pos-abs details-wrapper @GetDetailSizing()">
-            <div class="detail-row">
-                @if (PermState.DetailRow != null)
-                {
-                    <PermTable IsDetailRow=true />
-                }
-            </div>
-        </div>
-
-        <div data-augmented-ui="tl-clip tr-clip br-clip bl-2-clip-y border" class="pos-abs perm-wrapper @GetPermSizing()">
-            <div data-augmented-ui-reset></div>
-            @if (!PermState.Permutations.Any())
-            {
-                <div class="pos-abs loading">Add Items To Permutate .....</div>
-            }
-            else
-            {
-                <PermTable IsDetailRow=false />
-
-                <PermutatorFooter />
-            }
-        </div>
-
-
-
+        <PermMain />
     }
 </div>
 
 @code {
-    public string FilterButtonCss = "";
-
     protected override async Task OnInitializedAsync()
     {
         base.OnInitialized();
         MenuState.OnStateChange += StateHasChanged;
         AppModalState.OnStateChange += StateHasChanged;
         CodexState.OnStateChange += StateHasChanged;
-        PermState.OnStateChange += StateHasChanged;
 
         if (CodexState.Codex == null)
         {
@@ -84,58 +49,5 @@
         MenuState.OnStateChange -= StateHasChanged;
         AppModalState.OnStateChange -= StateHasChanged;
         CodexState.OnStateChange -= StateHasChanged;
-        PermState.OnStateChange -= StateHasChanged;
-    }
-
-    private string IsFilterOpen() => PermState.FiltersActive ? "filters-open" : "";
-
-    private string GetDetailSizing()
-    {
-        var permToggle = PermState.GetPermToggles();
-
-        return permToggle switch
-        {
-            PermToggles.Default => string.Empty,
-            PermToggles.Filter => string.Empty,
-            PermToggles.FilterDetail => "filter-details-open",
-            PermToggles.FilterDetailExpanded => "filter-details-expanded",
-            PermToggles.Detail => "details-open",
-            PermToggles.DetailExpanded => "details-expanded",
-            _ => string.Empty
-        };
-    }
-
-    private string GetPermSizing()
-    {
-        var permToggle = PermState.GetPermToggles();
-
-        return permToggle switch
-        {
-            PermToggles.Default => string.Empty,
-            PermToggles.Filter => "perm-filter-on",
-            PermToggles.FilterDetail => "perm-filter-details-on",
-            PermToggles.FilterDetailExpanded => "perm-filter-expanded-on",
-            PermToggles.Detail => "perm-details-on",
-            PermToggles.DetailExpanded => "perm-expanded-on",
-            _ => string.Empty
-        };
-    }
-
-    private void ToggleFilters()
-    {
-        var filters = !PermState.FiltersActive;
-
-        if (filters)
-        {
-            FilterButtonCss = "filter-up";
-        }
-        else
-        {
-            FilterButtonCss = "filter-down";
-        }
-
-        PermState.ToggleFilters(filters);
-
-        // PermState. ();
     }
 }

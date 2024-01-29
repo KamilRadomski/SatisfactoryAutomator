@@ -39,6 +39,14 @@
     height: calc(100vh - 203px);
 }
 
+.detail-page-wrapper-fd {
+    height: calc(100vh - 203px);
+}
+
+.detail-page-wrapper-d {
+    height: calc(100vh - 203px);
+}
+
 .table-wrapper {
     overflow-y: auto;
     /*height: calc(100vh - 210px);*/
@@ -86,6 +94,14 @@
     height: calc(100vh - 203px);
 }
 
+.detail-table-wrapper-fd {
+    height: calc(100vh - 203px);
+}
+
+.detail-table-wrapper-d {
+    height: calc(100vh - 203px);
+}
+
 .perm-table {
     width: 100%;
     margin-top: 5px;
@@ -95,9 +111,8 @@
 
 .detail-table {
     width: 100%;
-    margin-top: 5px;
-    border-collapse: separate;
-    border-spacing: 0 10px;
+    margin-top: 65px;
+    border-collapse: collapse;
 }
 
 thead th {
@@ -107,6 +122,10 @@ thead th {
     z-index: 100;
     background: black;
     border-bottom: 1px solid var(--sfBlue40);
+}
+
+.suppress-headerline th {
+    border-bottom: 0;
 }
 
 thead tr th:first-child {

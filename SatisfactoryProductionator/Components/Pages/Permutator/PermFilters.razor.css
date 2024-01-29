@@ -1,0 +1,47 @@
+﻿.filters-wrapper {
+    width: calc(100vw - 330px);
+    height: 100px;
+    top: 9px;
+    left: 8px;
+    --aug-border-all: 2px;
+    --aug-border-bg: var(--sfBlue);
+    --aug-tl: 14px;
+    --aug-tr: 29px;
+    --aug-bl: 25px;
+    --aug-br: 25px;
+    z-index: 2;
+    background: black;
+    transition: .2s;
+}
+
+.filters-open {
+    transition: .2s;
+    height: 400px;
+}
+
+.aug-btn:hover {
+    --aug-border-all: 1.5px;
+    background: var(--sfBlue20);
+}
+
+.filter-toggle {
+    --aug-border-all: 1px;
+    --aug-border-bg: var(--sfBlue);
+    height: 45px;
+    width: 40px;
+    left: 14px;
+    top: 35px;
+    --aug-t: 20px;
+    --aug-bl: 20px;
+    --aug-br: 20px;
+}
+
+.filter-up {
+    transform: rotate(-180deg);
+    transition: .2s;
+}
+
+.filter-down {
+    transform: rotate(0deg);
+    transition: .2s;
+}

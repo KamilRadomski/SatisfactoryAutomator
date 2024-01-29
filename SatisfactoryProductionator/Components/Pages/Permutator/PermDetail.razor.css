@@ -1,0 +1,36 @@
+﻿.details-wrapper {
+    width: calc(100vw - 347px);
+    top: 33px;
+    left: 17px;
+    --aug-border-all: 2px;
+    --aug-border-bg: var(--sfBlue);
+    --aug-bl: 15px;
+    --aug-br: 15px;
+    z-index: 1;
+    background: black;
+}
+
+.details-def {
+    height: 40px;
+    transition: .2s;
+}
+
+.details {
+    height: 380px;
+    transition: .2s;
+}
+
+.details-expanded {
+    height: 380px;
+    transition: .2s;
+}
+
+.details-filter {
+    height: 300px;
+    transition: .2s;
+}
+
+.details-expanded-filter {
+    height: 300px;
+    transition: .2s;
+}

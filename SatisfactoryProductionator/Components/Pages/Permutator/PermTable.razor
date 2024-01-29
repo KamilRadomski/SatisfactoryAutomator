@@ -9,11 +9,16 @@
 
 @implements IDisposable
 
+@* @{
+    GetPageSizing();
+    GetTableSizing();
+} *@
+
 <div data-augmented-ui="tl-clip tr-clip br-clip bl-clip border" class="page-wrapper @GetPageSizing()">
     <div class="table-wrapper @GetTableSizing()">
         <table class="@GetTableCss()">
             <thead class="divider">
-                <tr>
+                <tr class="@GetHeaderRow()">
                     @if (!IsDetailRow)
                     {
                         <th>Options</th>
@@ -249,9 +254,13 @@
 
     private string GetTableCss() => IsDetailRow ? "detail-table" : "perm-table";
 
+    private string GetHeaderRow() => IsDetailRow ? "suppress-headerline" : string.Empty;
+
     private string GetPageSizing()
     {
         var permToggle = PermState.GetPermToggles();
+
+        string pageSize = string.Empty;
 
         if (!IsDetailRow)
         {
@@ -266,8 +275,15 @@
                 _ => string.Empty
             };
         }
-
-        return string.Empty;
+        else
+        {
+            return permToggle switch
+            {
+                PermToggles.FilterDetail => "detail-page-wrapper-fd",
+                PermToggles.Detail => "detail-page-wrapper-d",
+                _ => string.Empty
+            };
+        }
     }
 
     private string GetTableSizing()
@@ -284,6 +300,15 @@
                 PermToggles.FilterDetailExpanded => "table-wrapper-fde",
                 PermToggles.Detail => "table-wrapper-d",
                 PermToggles.DetailExpanded => "table-wrapper-de",
+                _ => string.Empty
+            };
+        }
+        else
+        {
+            return permToggle switch
+            {
+                PermToggles.FilterDetail => "detail-table-wrapper-fd",
+                PermToggles.Detail => "detail-table-wrapper-d",
                 _ => string.Empty
             };
         }

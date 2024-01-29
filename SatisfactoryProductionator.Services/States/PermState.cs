@@ -2,7 +2,6 @@
 using SatisfactoryProductionator.DataModels.Models.Codex;
 using SatisfactoryProductionator.DataModels.Models.Graph;
 using SatisfactoryProductionator.Services.Data;
-using System.Runtime.CompilerServices;
 
 namespace SatisfactoryProductionator.Services.States
 {
@@ -31,16 +30,9 @@ namespace SatisfactoryProductionator.Services.States
 
         public List<NewPermutation> GetView() => HydrateView();
 
-        public string PageCss { get; set; }
-        public string FilterCss { get; set; }
-        public string DetailCss { get; set; }
-
         public bool FiltersActive { get; set; } = false;
         public bool DetailActive { get; set; } = false;
         public bool DetailsExpanded { get; set; } = false;
-
-
-
 
         public int PageSize { get; set; } = 20;
         public int Index { get; set; } = 0;

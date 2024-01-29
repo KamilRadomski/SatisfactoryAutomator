@@ -1,0 +1,47 @@
+﻿.perm-wrapper {
+    width: calc(100vw - 330px);
+    top: 121px;
+    left: 8px;
+    --aug-border-all: 2px;
+    --aug-border-bg: var(--sfBlue);
+    --aug-tl: 20px;
+    --aug-tr: 18px;
+    --aug-bl: 19px;
+    --aug-br: 29px;
+    transition: .2s;
+}
+
+.perm-def {
+    height: calc(100vh - 157px);
+    transition: .2s;
+}
+
+.perm-filter-on {
+    height: calc(100vh - 457px);
+    top: 421px;
+    transition: .2s;
+}
+
+.perm-filter-details-on {
+    height: calc(100vh - 457px);
+    top: 421px;
+    transition: .2s;
+}
+
+.perm-filter-expanded-on {
+    height: calc(100vh - 457px);
+    top: 421px;
+    transition: .2s;
+}
+
+.perm-details-on {
+    height: calc(100vh - 457px);
+    top: 421px;
+    transition: .2s;
+}
+
+.perm-expanded-on {
+    height: calc(100vh - 457px);
+    top: 421px;
+    transition: .2s;
+}

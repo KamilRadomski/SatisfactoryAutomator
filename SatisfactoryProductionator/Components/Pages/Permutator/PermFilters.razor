@@ -1,0 +1,52 @@
+﻿@using SatisfactoryProductionator.Services.States;
+
+@inject PermState PermState;
+
+@implements IDisposable;
+
+<div data-augmented-ui="tl-2-clip-x tr-clip br-2-clip-x bl-clip border" class="pos-abs filters-wrapper @IsFilterOpen()">
+    <div data-augmented-ui="t-clip br-clip bl-clip border" class="aug-btn filter-toggle @FilterButtonCss">
+        <button type="button" class="aug-btn" @onclick=@ToggleFilters></button>
+    </div>
+</div>
+
+@code {
+    public string FilterButtonCss = "";
+
+    protected override async Task OnInitializedAsync()
+    {
+        base.OnInitialized();
+        // MenuState.OnStateChange += StateHasChanged;
+        // AppModalState.OnStateChange += StateHasChanged;
+        // CodexState.OnStateChange += StateHasChanged;
+        PermState.OnStateChange += StateHasChanged;
+
+
+    }
+
+    public void Dispose()
+    {
+        // MenuState.OnStateChange -= StateHasChanged;
+        // AppModalState.OnStateChange -= StateHasChanged;
+        // CodexState.OnStateChange -= StateHasChanged;
+        PermState.OnStateChange -= StateHasChanged;
+    }
+
+    private string IsFilterOpen() => PermState.FiltersActive ? "filters-open" : "";
+
+    private void ToggleFilters()
+    {
+        var filters = !PermState.FiltersActive;
+
+        if (filters)
+        {
+            FilterButtonCss = "filter-up";
+        }
+        else
+        {
+            FilterButtonCss = "filter-down";
+        }
+
+        PermState.ToggleFilters(filters);
+    }
+}

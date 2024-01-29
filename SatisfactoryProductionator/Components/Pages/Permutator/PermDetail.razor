@@ -1,0 +1,55 @@
+﻿@using SatisfactoryProductionator.DataModels.Enums;
+@using SatisfactoryProductionator.Services.States;
+
+@inject PermState PermState;
+
+@implements IDisposable;
+
+<div data-augmented-ui="br-2-clip-y bl-2-clip-x border" class="pos-abs details-wrapper @GetDetailSizing()">
+    <div class="detail-row">
+        @if (PermState.DetailActive && PermState.DetailsExpanded)
+        {
+            <PermDetailExpanded />
+        }
+        else if (PermState.DetailRow != null)
+        {
+            <PermTable IsDetailRow=true />
+        }
+    </div>
+</div>
+@code {
+
+    protected override async Task OnInitializedAsync()
+    {
+        base.OnInitialized();
+        // MenuState.OnStateChange += StateHasChanged;
+        // AppModalState.OnStateChange += StateHasChanged;
+        // CodexState.OnStateChange += StateHasChanged;
+        PermState.OnStateChange += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        // MenuState.OnStateChange -= StateHasChanged;
+        // AppModalState.OnStateChange -= StateHasChanged;
+        // CodexState.OnStateChange -= StateHasChanged;
+        PermState.OnStateChange -= StateHasChanged;
+    }
+
+    private string GetDetailSizing()
+    {
+        var permToggle = PermState.GetPermToggles();
+
+        return permToggle switch
+        {
+            PermToggles.Default => "details-def",
+            PermToggles.Filter => "details-def",
+            PermToggles.FilterDetail => "details-filter",
+            PermToggles.FilterDetailExpanded => "details-expanded-filter",
+            PermToggles.Detail => "details",
+            PermToggles.DetailExpanded => "details-expanded",
+            _ => string.Empty
+        };
+    }
+
+}
